@@ -1,0 +1,53 @@
+@mixin size($height, $width)
+    height: $height
+    width: $width
+
+@mixin location($left, $top)
+    left: $left
+    top: $top
+
+
+.building
+    position: absolute
+    background-color: rgb(158, 45, 45)
+    @include size(800px,400px)
+    @include location(100px, 10px)
+    border-radius:30px
+    border: 6px solid black
+    background-image: url("fondo.avif")
+
+    &__floor
+        @include size(70px, 100%)
+        border: solid 1px black
+        flex-direction: row
+        display: flex
+        justify-content: space-around
+        align-items: center
+    
+    &__window  
+        background-color: rgb(152, 152, 190)
+        @include size(20px, 20px)
+        justify-content: space-around
+        border-radius: 5px
+        background-image: url("window.jpeg")
+        background-size: cover
+
+    #light
+        background-color: yellow
+
+    #main
+        border-bottom-left-radius: 30px
+        border-bottom-right-radius: 30px
+
+    &__door
+        @include size(70px,50px)
+        background-color: rgb(59, 3, 6)
+
+
+
+        
+        
+
+        
+
+    

@@ -1,0 +1,141 @@
+.pig {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+}
+
+.pig__head {
+  background-color: pink;
+  width: 200px;
+  height: 200px;
+  border-radius: 45%;
+  -webkit-border-radius: 45%;
+  -moz-border-radius: 45%;
+  -ms-border-radius: 45%;
+  -o-border-radius: 45%;
+}
+
+.pig__eye {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.eye--right {
+  left: 40px;
+  top: 40px;
+}
+
+.eye--left {
+  left: 120px;
+  top: 40px;
+}
+
+.pig__pupil {
+  position: absolute;
+  background-color: black;
+  width: 10px;
+  height: 10px;
+  border-radius: 70%;
+  -webkit-border-radius: 70%;
+  -moz-border-radius: 70%;
+  -ms-border-radius: 70%;
+  -o-border-radius: 70%;
+  left: 15px;
+  top: 15px;
+  animation-duration: 4s;
+  animation-name: move;
+}
+
+@keyframes move {
+  0% {
+    left: 0;
+  }
+  25% {
+    top: 10px;
+  }
+  50% {
+    top: 5px;
+  }
+  75% {
+    left: 5px;
+  }
+  100% {
+    left: 5px;
+  }
+}
+.pig__nose {
+  position: absolute;
+  background-color: rgb(212, 39, 68);
+  width: 50px;
+  height: 35px;
+  border-radius: 70%;
+  -webkit-border-radius: 70%;
+  -moz-border-radius: 70%;
+  -ms-border-radius: 70%;
+  -o-border-radius: 70%;
+  top: 80px;
+  left: 75px;
+}
+
+.nose__hole {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background-color: black;
+  border-radius: 70%;
+  -webkit-border-radius: 70%;
+  -moz-border-radius: 70%;
+  -ms-border-radius: 70%;
+  -o-border-radius: 70%;
+  top: 10px;
+}
+
+.hole--left {
+  left: 28px;
+}
+
+.hole--right {
+  left: 15.5px;
+}
+
+.pig__mouth {
+  position: absolute;
+  background-color: rgb(243, 220, 220);
+  width: 60px;
+  height: 10px;
+  top: 140px;
+  left: 65px;
+  border-radius: 20%;
+  -webkit-border-radius: 20%;
+  -moz-border-radius: 20%;
+  -ms-border-radius: 20%;
+  -o-border-radius: 20%;
+  border: 6px solid black;
+}
+
+.ear--left {
+  position: absolute;
+  background-color: rgb(228, 57, 86);
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 100px;
+}
+
+.ear--right {
+  position: absolute;
+  background-color: rgb(228, 57, 86);
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 100px;
+}
+
+/*# sourceMappingURL=style.css.map */
