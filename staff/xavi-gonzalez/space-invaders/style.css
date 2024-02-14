@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+}
+
+#space {
+  background-image: url("images/fondo.jpg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+#ship {
+  height: 8vw;
+  position: absolute;
+  top: calc(100vh - 8vw);
+  left: 46vw;
+}
+
+.aliens {
+  justify-content: center;
+  display: flex;
+}
+
+.alien {
+  width: 5vw;
+  height: 10vh;
+}
+
+#alien {
+  width: 5vw;
+  height: 10vh;
+}
+
+/*# sourceMappingURL=style.css.map */
