@@ -1,0 +1,149 @@
+# BASH
+
+Command-line interface commands typical in BASH.
+
+## pwd (path to working directory)
+
+```bash
+$ pwd
+/users/xavi
+```
+
+en que carpeta estamos
+...
+
+## ls (list files / folders)
+
+```bash
+$ ls
+workspace
+downloads
+documents
+```
+todas las carpetas
+...
+
+## ls -l (list file with details)
+
+```bash
+$ ls -l
+```
+
+todas las carpetas pero mas info
+...
+
+## touch (creates an empty file)
+
+```bash
+$ touch helloworld
+```
+
+se crea un archivo ejemplo touch hola.mundo
+...
+
+## ls -a (list hidden files / folders)
+
+```bash
+$ ls -a
+
+.bash_history
+```
+
+arhcivos ocultos
+...
+
+## mkdir (make directory)
+
+```bash
+$ mkdir workspace
+```
+crear un directorio / carpeta
+...
+
+## cd (change directory)
+
+```bash
+$ cd workspace
+```
+
+meterte en un directorio
+...
+
+## mv (move /rename file or folder)
+
+```bash
+$ mv helloworld holamundo
+```
+```bash
+$ mv helloworld folder-a/folder-b/folder-c
+```
+mover o cambiar el nombre
+...
+
+## drwx
+
+```bash
+$ drwx
+```
+
+directorio "d" read write execute
+...
+
+## lrwx
+
+```bash
+$ lrwx
+```
+
+lo mismo pero link l
+...
+
+## clear (clears the terminal)
+
+```bash
+$ clear
+```
+lo mismo pero link l
+...
+
+## taskmgr (opens task manager for processes)
+
+```bash
+$ taskmgr
+```
+para ver cuanto chupan los programas
+...
+
+## kill -9 (kills a process by id)
+
+```bash
+$ kill -9 50628
+```
+para ver cuanto chupan los programas
+...
+
+## top (shows active processes in system)
+
+```bash
+$ top
+```
+para ver cuanto chupan los programas
+...
+
+## tree <path> (shows files / folders structure in tree mode)
+
+```bash
+$ tree workspace/isdi-bootcamp-202402
+
+```
+para ver cuanto chupan los programas
+...
+
+## rm -rf (removes folder and all its content)
+
+```bash
+$ rm -rf workspace/helloworld
+
+```
+te borra una carpeta y todos sus archivos de dentro
+...
