@@ -1,19 +1,38 @@
-delete Array.prototype.from;
 // El método from() crea una nueva instancia de Array a partir de un objeto iterable.
 
 delete Array.prototype.from;
 
-function from(string, mapForm) {
-  debugger;
-  newArray = [];
-  for (var i = 0; i < string.length; i++) {
-    newArray[newArray.length] = newArray + string[i];
+function from(element, formula) {
+  let newArray = [];
+
+  if (formula === undefined) {
+    for (var i = 0; i < element.length; i++) {
+      newArray[i] = element[i];
+    }
+    return newArray;
+  } else {
+    for (var i = 0; i < element.length; i++) {
+      newArray[i] = formula(element[i]);
+    }
+    return newArray;
   }
-  return newArray;
 }
 
-console.log(from("foo"));
-// Expected output: Array ["f", "o", "o"]
+//CASE 1
 
-console.log(from([1, 2, 3], (x) => x + x));
-// Expected output: Array [2, 4, 6]
+var str = "papaya";
+var result = from(str);
+console.log(result);
+//['p', 'a', 'p', 'a', 'y', 'a']
+
+//CASE 2
+
+var arr = [1, 2, 3];
+var result = from(arr, (x) => x + 1);
+console.log(result);
+//[2, 3, 4]
+
+//CASE 3
+var result = from(arr, (x) => x + x);
+console.log(result);
+//[2, 4, 6]
