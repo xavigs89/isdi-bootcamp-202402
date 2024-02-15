@@ -19,20 +19,25 @@ document.onkeydown = function (event) {
   ship.style.top = y + "vh";
 };
 
-/*NUEVOOOOOOOOOOOOOOOOOOOO
-  var shiprect = ship.getBoundingClientRect();
+//FUNCION PARA DETECTAR SI LA NAVE COLISIONA
+function checkContact() {
+  var shipRect = ship.getBoundingClientRect();
   var alienRect = alien.getBoundingClientRect();
 
-  console.log(shiprect, alienRect);
+  //if (
+  /*PERE shotRect.x + shotRect.width > enemyRect.x &&
+    shotRect.x < enemyRect.x + enemyRect.width &&
+    shotRect.y + shotRect.height > enemyRect.y &&
+    shotRect.y < enemyRect.y + enemyRect.height
+  ) {
+    */
+  //shipRect.x + shipRect.width > alienRect.x) {
+  ship.src = "images/boom.png";
+  alien.src = "images/boom.png";
 
-  if (shiprect.x + shiprect.width > alienRect.x) {
-    ship.src = "images/imagen"
-    alien.src = "images/ship3.pnggit"
-
-    setTimeout(function()) {
-      ship.style.display = "none"
-      alien.style.display = "none"
-    } , 3000
-  }
-    
-};*/
+  setTimeout(function () {
+    ship.style.display = "none";
+    alien.style.display = "none";
+  }, 2000);
+}
+//}
