@@ -9,10 +9,9 @@ $ pwd
 /users/xavi
 ```
 
-en que carpeta estamos
-...
+check in which folder we are currently
 
-## ls (list files / folders)
+## ls (list files or documents inside folders)
 
 ```bash
 $ ls
@@ -21,26 +20,45 @@ downloads
 documents
 ```
 
-todas las carpetas
-...
+all folders
+
+### rm (remove empty folder)
+
+```sh
+$ rm "folder-name"
+```
+
+### rm -rf (remove folder and anything inside)
+
+```sh
+$ rm -rf "folder-name"
+```
+
+### open . (open finder)
+
+```sh
+$ open .
+```
 
 ## ls -l (list file with details)
 
 ```bash
 $ ls -l
+drwxr-xr-x  4 xavigonzalez  staff  128  5 feb 16:42 helloworld
+drwxr-xr-x  4 xavigonzalez  staff  128  5 feb 13:42 isdi-bootcamp-202402
 ```
 
-todas las carpetas pero mas info
-...
-
-## touch (creates an empty file)
+## touch (to create an empty file)
 
 ```bash
 $ touch helloworld
 ```
 
-se crea un archivo ejemplo touch hola.mundo
-...
+## mkdir (to create a folder)
+
+```bash
+$ mkdir workspace
+```
 
 ## ls -a (list hidden files / folders)
 
@@ -50,57 +68,31 @@ $ ls -a
 .bash_history
 ```
 
-arhcivos ocultos
-...
-
-## mkdir (make directory)
-
-```bash
-$ mkdir workspace
-```
-
-crear un directorio / carpeta
-...
-
 ## cd (change directory)
 
 ```bash
 $ cd workspace
 ```
 
-meterte en un directorio
-...
-
 ## mv (move /rename file or folder)
 
 ```bash
-$ mv helloworld holamundo
+$ mv document1.js files1/document1.js
 ```
+
+This moves document1.js to the files1 folder
 
 ```bash
-$ mv helloworld folder-a/folder-b/folder-c
+$ mv document1.js document2.js
 ```
 
-mover o cambiar el nombre
-...
+This renames document1.js as document2.js
 
-## drwx
+## drwx (directory "d" read write execute)
 
 ```bash
 $ drwx
 ```
-
-directorio "d" read write execute
-...
-
-## lrwx
-
-```bash
-$ lrwx
-```
-
-lo mismo pero link l
-...
 
 ## clear (clears the terminal)
 
@@ -108,17 +100,11 @@ lo mismo pero link l
 $ clear
 ```
 
-lo mismo pero link l
-...
-
 ## taskmgr (opens task manager for processes)
 
 ```bash
 $ taskmgr
 ```
-
-para ver cuanto ocupan los programas
-...
 
 ## kill -9 (kills a process by id)
 
@@ -126,17 +112,17 @@ para ver cuanto ocupan los programas
 $ kill -9 50628
 ```
 
-para eliminar un proceso a traves de un id
-...
+### open VS Code from terminal
+
+```sh
+$ code "file-name or folder-name"
+```
 
 ## top (shows active processes in system)
 
 ```bash
 $ top
 ```
-
-para ver cuanto ocupan los programas
-...
 
 ## tree <path> (shows files / folders structure in tree mode)
 
@@ -145,14 +131,9 @@ $ tree workspace/isdi-bootcamp-202402
 
 ```
 
-...
-
 ## rm -rf (removes folder and all its content)
 
 ```bash
 $ rm -rf workspace/helloworld
 
 ```
-
-te borra una carpeta y todos sus archivos de dentro
-...
