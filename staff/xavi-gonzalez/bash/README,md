@@ -20,6 +20,7 @@ workspace
 downloads
 documents
 ```
+
 todas las carpetas
 ...
 
@@ -57,6 +58,7 @@ arhcivos ocultos
 ```bash
 $ mkdir workspace
 ```
+
 crear un directorio / carpeta
 ...
 
@@ -74,9 +76,11 @@ meterte en un directorio
 ```bash
 $ mv helloworld holamundo
 ```
+
 ```bash
 $ mv helloworld folder-a/folder-b/folder-c
 ```
+
 mover o cambiar el nombre
 ...
 
@@ -103,6 +107,7 @@ lo mismo pero link l
 ```bash
 $ clear
 ```
+
 lo mismo pero link l
 ...
 
@@ -111,7 +116,8 @@ lo mismo pero link l
 ```bash
 $ taskmgr
 ```
-para ver cuanto chupan los programas
+
+para ver cuanto ocupan los programas
 ...
 
 ## kill -9 (kills a process by id)
@@ -119,7 +125,8 @@ para ver cuanto chupan los programas
 ```bash
 $ kill -9 50628
 ```
-para ver cuanto chupan los programas
+
+para eliminar un proceso a traves de un id
 ...
 
 ## top (shows active processes in system)
@@ -127,7 +134,8 @@ para ver cuanto chupan los programas
 ```bash
 $ top
 ```
-para ver cuanto chupan los programas
+
+para ver cuanto ocupan los programas
 ...
 
 ## tree <path> (shows files / folders structure in tree mode)
@@ -136,7 +144,7 @@ para ver cuanto chupan los programas
 $ tree workspace/isdi-bootcamp-202402
 
 ```
-para ver cuanto chupan los programas
+
 ...
 
 ## rm -rf (removes folder and all its content)
@@ -145,5 +153,6 @@ para ver cuanto chupan los programas
 $ rm -rf workspace/helloworld
 
 ```
+
 te borra una carpeta y todos sus archivos de dentro
 ...
