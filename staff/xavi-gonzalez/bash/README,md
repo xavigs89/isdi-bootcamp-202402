@@ -4,7 +4,7 @@ Command-line interface commands typical in BASH.
 
 ## pwd (path to working directory)
 
-```bash
+```sh
 $ pwd
 /users/xavi
 ```
@@ -13,7 +13,7 @@ check in which folder we are currently
 
 ## ls (list files or documents inside folders)
 
-```bash
+```sh
 $ ls
 workspace
 downloads
@@ -42,7 +42,7 @@ $ open .
 
 ## ls -l (list file with details)
 
-```bash
+```sh
 $ ls -l
 drwxr-xr-x  4 xavigonzalez  staff  128  5 feb 16:42 helloworld
 drwxr-xr-x  4 xavigonzalez  staff  128  5 feb 13:42 isdi-bootcamp-202402
@@ -50,19 +50,19 @@ drwxr-xr-x  4 xavigonzalez  staff  128  5 feb 13:42 isdi-bootcamp-202402
 
 ## touch (to create an empty file)
 
-```bash
+```sh
 $ touch helloworld
 ```
 
 ## mkdir (to create a folder)
 
-```bash
+```sh
 $ mkdir workspace
 ```
 
 ## ls -a (list hidden files / folders)
 
-```bash
+```sh
 $ ls -a
 
 .bash_history
@@ -70,19 +70,19 @@ $ ls -a
 
 ## cd (change directory)
 
-```bash
+```sh
 $ cd workspace
 ```
 
 ## mv (move /rename file or folder)
 
-```bash
+```sh
 $ mv document1.js files1/document1.js
 ```
 
 This moves document1.js to the files1 folder
 
-```bash
+```sh
 $ mv document1.js document2.js
 ```
 
@@ -90,25 +90,25 @@ This renames document1.js as document2.js
 
 ## drwx (directory "d" read write execute)
 
-```bash
+```sh
 $ drwx
 ```
 
 ## clear (clears the terminal)
 
-```bash
+```sh
 $ clear
 ```
 
 ## taskmgr (opens task manager for processes)
 
-```bash
+```sh
 $ taskmgr
 ```
 
 ## kill -9 (kills a process by id)
 
-```bash
+```sh
 $ kill -9 50628
 ```
 
@@ -120,20 +120,20 @@ $ code "file-name or folder-name"
 
 ## top (shows active processes in system)
 
-```bash
+```sh
 $ top
 ```
 
 ## tree <path> (shows files / folders structure in tree mode)
 
-```bash
+```sh
 $ tree workspace/isdi-bootcamp-202402
 
 ```
 
 ## rm -rf (removes folder and all its content)
 
-```bash
+```sh
 $ rm -rf workspace/helloworld
 
 ```
