@@ -26,10 +26,11 @@ console.log('CASE 2');
 
 var nums = [10,20,30,40,50]
 var sum = 0
-
+/*
 forEach(nums, function, (num,index){
     console.log(sum)
 })
+*/
 
 
 
