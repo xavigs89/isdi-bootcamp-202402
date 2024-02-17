@@ -57,17 +57,3 @@ function at(array, index) {
     return element;
   }
 }
-
-//SOLUCION CON TERNARIO
-function at(array, index) {
-  var targetIndex = index > -1 ? index : array.length + index;
-
-  var element = array[newIndex];
-
-  return element;
-}
-
-//SOLUCION CON SOLO 1 LINEA MINIMA:
-function at(array, index) {
-  
-}

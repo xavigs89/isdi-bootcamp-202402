@@ -117,8 +117,3 @@ var result = concat(nums, animals, fruits, cars);
 console.log(result);
 
 // [1, 5, 63, 89, 90, "cows", "goats", "ships", "oranges", "apples", "lemons", "bananas", "lambo", "ferrari", "mercedes", "seat"]
-
-
-
-
-//SOLUCION ALTERNATIVA CUANDO HAY COSAS QUE NO SON ARRAYS (funciones, undefined, objetos, etc)
