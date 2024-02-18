@@ -4,17 +4,20 @@ delete String.prototype.split;
 
 function split(string, separator) {
   // TODO implement me
-  var newArray = []; //array que guarda las palabras divididas del string
-  var word = ""; //una variable temporal que guarda cada palabra a medida que avanza
-  var count = 0; //contador que llevará el seguimiento del número de palabras encontradas
-
-  for (var i = 0; i < string.length; i++) {
-    if (string[i] === separator) {
-      word = newArray[newArray.length];
-      var word = "";
+    let result = [];
+    let currentValue = "";
+  
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] !== separator) {
+        currentValue = currentValue + string[i];
+      } else {
+        result[result.length] = currentValue;
+        currentValue = "";
+      }
     }
+    result[result.length] = currentValue;
+    return result;
   }
-}
 
 // CASE 1
 
@@ -24,3 +27,4 @@ var words = split(s, " ");
 
 console.log(words);
 // ['hola', 'mundo']
+
