@@ -34,7 +34,6 @@ console.log(array1);
 console.log(firstElement);
 //OUTPUT: 1
 
-
 //CASE 2
 var array2 = [58, 45, 93, 156];
 var firstElement = array2.shift();
@@ -44,7 +43,6 @@ console.log(array2);
 
 console.log(firstElement);
 //OUTPUT: 58
-
 
 //CASE 3
 var array3 = [];
