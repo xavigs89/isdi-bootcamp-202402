@@ -1,5 +1,6 @@
-delete Array.prototype.at;
 //El método at() recibe un valor numérico entero y devuelve el elemento en esa posición, permitiendo valores positivos y negativos. Los valores negativos contarán desde el último elemento del array.
+
+delete Array.prototype.at;
 function at(array, index) {
   //TODO implement me
   //Crear una variable auxiliar "result" para el caracter a extraer

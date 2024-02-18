@@ -1,7 +1,8 @@
-delete Array.prototype.indexOf;
 // El método indexOf() retorna el primer índice en el que se puede encontrar un elemento dado en el array, ó retorna -1 si el elemento no esta presente.
-
 //Funcion que toma dos parámetros: array, que es donde se va a buscar, y searchElement, que es el elemento que se va a buscar dentro del array.
+
+delete Array.prototype.indexOf;
+
 function indexOf(array, searchElement) {
   //Iniciar un bucle for que recorre el array. La variable i se inicia en 0 y se incrementa en cada iteración hasta que i sea menor que la longitud del array (array.length).
   for (var i = 0; i < array.length; i++) {

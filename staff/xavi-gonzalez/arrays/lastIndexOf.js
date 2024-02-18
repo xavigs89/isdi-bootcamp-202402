@@ -1,4 +1,6 @@
 ///El método lastIndexOf() devuelve el último índice en el que un cierto elemento puede encontrarse en el array, ó -1 si el elemento no se encontrara. El array es recorrido en sentido contrario, empezando por el índice fromIndex.
+
+
 debugger
 delete Array.prototype.lastIndexOf
 

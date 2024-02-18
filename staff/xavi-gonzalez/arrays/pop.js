@@ -1,5 +1,7 @@
-//delete Array.prototype.pop;
 //El método pop() elimina el último elemento de un array y lo devuelve. Este método cambia la longitud del array.
+
+//delete Array.prototype.pop;
+
 function pop(array) {
   //TODO implement me
 
@@ -58,15 +60,3 @@ console.log(sports.length);
 //OUTPUT  0
 console.log(sports);
 //OUTPUT []
-
-//ALTERNATIVA
-function pop(array) {
-  if (array.length > 0) {
-    var lastIndex = array.length - 1;
-    var lastElement = array[lastIndex];
-
-    array.length--;
-
-    return lastElement;
-  }
-}

@@ -1,4 +1,6 @@
-//delete String.prototype.concat;
+//El método concat() se usa para unir dos o más arrays. Este método no cambia los arrays existentes, sino que devuelve un nuevo array.
+
+delete Array.prototype.concat;
 //var separator = " ";
 function concat(arr1, arr2) {
   // TODO implement

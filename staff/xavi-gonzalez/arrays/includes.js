@@ -1,6 +1,7 @@
-delete Array.prototype.includes;
 // El método includes() determina si una matriz incluye un determinado elemento, devuelve true o false según corresponda.
 
+
+delete Array.prototype.includes;
 function includes(array, value, fromIndex) {
   if (fromIndex === undefined) {
     for (var i = 0; i < array.length; i++) {

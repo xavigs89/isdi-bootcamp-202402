@@ -1,3 +1,5 @@
+//El método forEach() ejecuta la función indicada una vez por cada elemento del array.
+
 //SOLUCION MANU
 delete Array.prototype.forEach;
 
