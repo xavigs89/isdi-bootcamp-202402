@@ -3,8 +3,10 @@ delete Array.prototype.slice
 
 function slice(array, start, end) {
     //TODO implement me
+var newArray = []
 
-    
+
+
 }
 
 
