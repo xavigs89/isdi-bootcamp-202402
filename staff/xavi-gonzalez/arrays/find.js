@@ -2,20 +2,21 @@
 
 delete Array.prototype.find;
 
-debugger;
-function find(array, element) {
-  var newArray = [];
-  debugger;
+//debugger;
+function find(array, callback) {
+  //TODO implement me
   for (var i = 0; i < array.length; i++) {
-    if (array[i] === element) newArray[newArray.length] = array[i];
-    return newArray
+    if (callback(array[i])) 
+    return array[i]
 }
+return undefined
 }
+
 
 //CASE 1
-const array1 = [5, 12, 8, 130, 44];
+var array1 = [5, 12, 8, 130, 44];
 
-const found = array1.find((element) => element > 20);
+var result = find(array1, (element) => element > 20);
 
-console.log(found);
+console.log(result);
 // Expected output: 130

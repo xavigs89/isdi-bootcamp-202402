@@ -3,7 +3,10 @@
 delete Array.prototype.map
 
 function map(array, callback) {
-    // TODO
+    // TODO implement me
+    var newArray = []
+
+    newArray[i] = callback
 }
 
 console.log('CASE 1')
