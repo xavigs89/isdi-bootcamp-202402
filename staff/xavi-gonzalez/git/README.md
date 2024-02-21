@@ -65,7 +65,7 @@ $ git branch
 ## git branch -D
 delete a branch
 ```sh
-$ git branch feature/branch name to remove
+$ git branch -D feature/branch name to remove
 ```
 
 
@@ -95,6 +95,10 @@ $ git commit -m 'add git #162'
 
 ## git push
 upload new commit
+```sh
+$ git push
+```
+
 
 ## git push -u origin 
 forces upload when push gives an error
