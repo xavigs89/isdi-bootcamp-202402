@@ -7,7 +7,7 @@
  * 
  * @throws {TypeError} When object is not an object, or when index is not a number.
  */
-function insertMany(object, index, value) {
+function insert(object, index, value) {
     // TODO
     if (!(object instanceof Object)) throw new TypeError(object + ' is not an Object')
 }
@@ -21,7 +21,7 @@ var colors = {
     length: 3
 }
 
-var length = insertMany(colors, 1, 'skyblue')
+var length = insert(colors, 1, 'skyblue')
 
 console.log(length)
 // 4
@@ -46,7 +46,7 @@ var colors = {
     length: 3
 }
 
-var length = insertMany(colors, 2, 'skyblue', 'gold', 'plum')
+var length = insert(colors, 2, 'skyblue', 'gold', 'plum')
 
 console.log(length)
 // 6
@@ -67,7 +67,7 @@ console.log(colors)
 console.log('CASE 3: fails on undefind object parameter')
 
 try {
-    insertMany()
+    insert()
 } catch (error) {
     console.log(error)
     // TypeError: undefined is not an Object
@@ -76,7 +76,7 @@ try {
 console.log('CASE 4: fails on 1 as an object parameter')
 
 try {
-    insertMany(1)
+    insert(1)
 } catch (error) {
     console.log(error)
     // TypeError: 1 is not an Object
@@ -92,7 +92,7 @@ var colors = {
 }
 
 try {
-    insertMany(colors)
+    insert(colors)
 } catch (error) {
     console.log(error)
     // TypeError: undefined is not a Number

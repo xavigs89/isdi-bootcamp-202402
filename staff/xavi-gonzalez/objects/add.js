@@ -77,7 +77,7 @@ console.log(colors)
 */
 
 
-console.log('CASE 3: fails on undefined as object parameter')
+console.log('CASE 3: fails on undefined as string parameter')
 
 var string = "pepe"
 try {
@@ -88,7 +88,7 @@ try {
 }
 
 
-console.log('CASE 4: fails on undefined as object parameter')
+console.log('CASE 4: fails on undefined as undefined parameter')
 
 try {
     result = add(undefined, string)
@@ -98,7 +98,7 @@ try {
 }
 
 
-console.log('CASE 5: fails on undefined as object parameter')
+console.log('CASE 5: fails on undefined as number parameter')
 
 try {
     result = add(68, string)

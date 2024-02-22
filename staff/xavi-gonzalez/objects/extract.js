@@ -14,17 +14,22 @@ function extract(object, callback) {
   for (var i = 0; i < object.length; i++) {
     if (callback(object[i]) === true) {
       extractedItem = object[i];
-      /*for (var j = i; j < object.length; j++) {
-     object[j] = object[j + 1];
-        }*/
+
+      for (var j = i; j < object.length; j++) {
+        object[j] = object[j + 1];
+      }
 
       object.length--;
+      
       delete object[object.length];
+  
     }
   }
   return extractedItem;
 }
-//   delete object[object.length - 1];
+
+
+//if (!(object instanceof Object)) throw new TypeError(object + ' is not an Object')
 
 console.log("CASE 1: extract user pepito form users");
 
