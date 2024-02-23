@@ -1,5 +1,13 @@
+/**
+ * The indexOf() method returns the first index at which a given element can be found in the object, or -1 if it is not present.
+ *
+ * @param object - The iterable object to mutate. 
+ * @param value - The value to add.
+ * 
+ * @throws {TypeError} When object is not an object.
+ */
 function indexOf(object, value) {
-    // TODO
+    // TODO implement me
 
     for (var i = 0; i < object.length; i++) {
         var elem = object[i]
