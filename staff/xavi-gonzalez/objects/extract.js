@@ -6,10 +6,12 @@
  *
  * @throws {TypeError} When object is not an object, or when index is not a number.
  */
+debugger;
 function extract(object, callback) {
   //   if (object instanceof Object) {
   // TODO implement me
   var extractedItem = {};
+  debugger;
 
   for (var i = 0; i < object.length; i++) {
     if (callback(object[i]) === true) {
@@ -20,14 +22,11 @@ function extract(object, callback) {
       }
 
       object.length--;
-      
       delete object[object.length];
-  
     }
   }
   return extractedItem;
 }
-
 
 //if (!(object instanceof Object)) throw new TypeError(object + ' is not an Object')
 
