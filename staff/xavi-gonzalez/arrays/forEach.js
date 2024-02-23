@@ -8,8 +8,10 @@ function forEach(array, callback) {
 
   if (callbackType !== "function" && callbackType!== "object" && callbackType !== "undefined")
   throw new TypeError(callbackType + " " +  callback + " is not a function");
+
     else if (callbackType === "object" || callbackType === "undefined") 
     throw new TypeError(callbackType + " is not a function");
+  
   for (var i = 0; i < array.length; i++) {
     var element = array[i];
 
@@ -29,6 +31,7 @@ forEach(nums, function (num) {
 // 30
 // 40
 // 50
+
 
 
 console.log("CASE 2");

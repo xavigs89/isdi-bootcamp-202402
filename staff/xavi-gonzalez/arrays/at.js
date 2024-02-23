@@ -41,7 +41,12 @@ console.assert(nums[4] === 500, '500')
 console.assert(nums.length === 5, '5')
 // [5]
 
+var expectedResult = [100, 200, 300, 400, 500]
 
+for (let i = 0; i < nums.length; i++) {
+  console.assert(nums[i] === expectedResult[i], expectedResult[i])
+}
+console.assert(nums.length === expectedResult.length, expectedResult.length) 
 
 
 
