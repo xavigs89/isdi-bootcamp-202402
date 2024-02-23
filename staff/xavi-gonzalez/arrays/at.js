@@ -23,8 +23,29 @@ function at(array, index) {
 var nums = [100, 200, 300, 400, 500];
 var num = at(nums, 3);
 
+
 console.log(num);
 //OUTPUT 400
+
+
+console.assert(num === 400, '400')
+//400
+
+
+console.assert(nums[0] === 100, '100')
+console.assert(nums[1] === 200, '200')
+console.assert(nums[2] === 300, '300')
+console.assert(nums[3] === 400, '400')
+console.assert(nums[4] === 500, '500')
+// [100, 200, 300, 400, 500]
+console.assert(nums.length === 5, '5')
+// [5]
+
+
+
+
+
+/*
 
 //CASE 2
 var chars = ["h", "o", "l", "a", " ", "m", "u", "n", "d", "o"];
@@ -58,3 +79,4 @@ function at(array, index) {
     return element;
   }
 }
+*/

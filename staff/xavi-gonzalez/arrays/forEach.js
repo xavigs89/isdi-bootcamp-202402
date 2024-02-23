@@ -30,6 +30,7 @@ forEach(nums, function (num) {
 // 40
 // 50
 
+
 console.log("CASE 2");
 
 var nums = [10, 20, 30, 40, 50];
