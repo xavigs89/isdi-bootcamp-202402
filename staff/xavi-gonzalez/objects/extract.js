@@ -8,8 +8,9 @@
  */
 debugger;
 function extract(object, callback) {
-  //   if (object instanceof Object) {
-  // TODO implement me
+
+  if (object instanceof Object) {
+ 
   var extractedItem = {};
   debugger;
 
@@ -26,9 +27,13 @@ function extract(object, callback) {
     }
   }
   return extractedItem;
+
+} else{
+        throw TypeError (object + ' is not an object') // si no error
+    }
+
 }
 
-//if (!(object instanceof Object)) throw new TypeError(object + ' is not an Object')
 
 console.log("CASE 1: extract user pepito form users");
 
@@ -58,3 +63,13 @@ console.log(users);
     length: 4
 }
 */
+
+
+console.log('CASE 2: number is not an object')
+
+try {
+    extract(5)
+} catch (error) {
+    console.log(error)
+    // TypeError: 5 is not an Object
+}

@@ -14,28 +14,24 @@ function remove(object, index) {
 
   if (!(object instanceof Object)) {
     throw new TypeError(object + " is not an Object");
-  }
+  
+  }else if(typeof index !== 'number')  //si index no es número )
+  throw new TypeError (index + ' is not a Number')
+
 
   var removedItem = object[index];
 
-  for (var i = index; i < object.length; i++) {
-    object[i] = object[i + 1];
+  for (var i = index; i < object.length; i++) { //i = index (1) índice donde empieza a recorrer
+    object[i] = object[i + 1]; // i = 1 --> 'blue' // object[i (1) + index (1)] --> 'green' 
   }
-  object.length--;
-  delete object[object.length];
 
-  /*for (var i = object.length -1; i > index; i--) {
-    object [i - index] = object [i]  
-}
-
-
-object.length --
-
-delete object [object.length]
-*/
+  object.length--;  //elimina la última posición del objeto
+  delete object[object.length]; //elimina uno la largada del objeto
 
   return removedItem;
 }
+
+
 
 console.log("CASE 1: remove blue from index 1");
 
@@ -116,3 +112,16 @@ try {
   console.log(error);
   // TypeError: undefined is not a Number
 }
+
+
+
+
+ /*for (var i = object.length -1; i > index; i--) {
+    object [i - index] = object [i]  
+}
+
+
+object.length --
+
+delete object [object.length]
+*/

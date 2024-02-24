@@ -9,8 +9,31 @@
  */
 function insert(object, index, value) {
     // TODO
-    if (!(object instanceof Object)) throw new TypeError(object + ' is not an Object')
+    /*if (!(object instanceof Object)) throw new TypeError(object + ' is not an Object')
 }
+*/
+
+ for (i = index; i < object.length; i++) {
+    var insertedElement = object[i]
+    insertedElement = value
+    object[i] = object [i + index]
+ }
+ object.length++
+
+ return insertedElement
+
+}
+
+/*   for (var i = index; i < object.length; i++) {
+        var element = object[i]
+        element = value 
+        object[i] = object[i + index]
+    }
+    object.length++
+    return element
+
+}
+*/
 
 console.log('CASE 1: insert skyblue in index 1')
 
