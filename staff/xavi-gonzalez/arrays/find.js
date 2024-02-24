@@ -14,6 +14,9 @@ return undefined
 
 { 
 
+
+  
+
 console.log('CASE 1: find first number greater than 20');
 var array1 = [5, 12, 8, 130, 44];
 

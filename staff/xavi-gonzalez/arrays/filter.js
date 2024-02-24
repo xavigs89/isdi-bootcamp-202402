@@ -19,13 +19,63 @@ function filter(array, callback) {
 var words = ['spray', 'elite', 'exuberant', 'destruction', 'present'];
 
 var result = filter(words, function (x) {return x.length > 6 })
-console.log(result);
+//console.log(result);
 // Expected output: ["exuberant", "destruction", "present"]
 
 
-//CASE 2
-var words = [25, 98, 64, 96, 35];
+//ASSERTS
 
-var result = filter(words, function (x) {return x > 30 })
-console.log(result);
+console.assert(result === "exuberant", "destruction", "present")
+//"exuberant", "destruction", "present"
+
+console.assert(words.length === 5, '5')
+// [5]
+
+
+//FUNCIONES PARA ASSERTS
+var expectedResult = ['spray', 'elite', 'exuberant', 'destruction', 'present']
+
+for (let i = 0; i < words.length; i++) {
+  console.assert(words[i] === expectedResult[i], expectedResult[i])
+}
+console.assert(words.length === expectedResult.length, expectedResult.length)
+
+
+
+
+
+
+//CASE 2
+var nums = [25, 98, 65, 96, 35];
+
+var result = filter(nums, function (x) {return x > 30 })
+//console.log(result);
 // Expected output: [98, 65, 96, 35]
+
+
+//ASSERTS
+
+console.assert(result === 98, 65, 96, 35)
+//[98, 65, 96, 35]
+
+
+console.assert(nums[0] === 25, '25')
+console.assert(nums[1] === 98, '98')
+console.assert(nums[2] === 65, '65')
+console.assert(nums[3] === 96, '96')
+console.assert(nums[4] === 35, '35')
+
+//[25, 98, 64, 96, 35];
+
+
+console.assert(nums.length === 5, '5')
+// [5]
+
+
+//FUNCIONES PARA ASSERTS
+var expectedResult = [25, 98, 65, 96, 35];
+
+for (let i = 0; i < nums.length; i++) {
+  console.assert(nums[i] === expectedResult[i], expectedResult[i])
+}
+console.assert(nums.length === expectedResult.length, expectedResult.length)
