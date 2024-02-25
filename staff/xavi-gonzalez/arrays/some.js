@@ -21,14 +21,23 @@ var result = some(array1, function (x) {return x < 100 })
 console.log(result);
 // Expected output: true
 
+console.assert (result === true, 'true')
+
+
 //CASE 2
 var array1 = [25, 98, 64, 96, 35];
 var result = some(array1, function (x) {return x < 20 })
 console.log(result);
 // Expected output: false
 
+console.assert (result === false, 'false')
+
+
+
 //CASE 3
 var array1 = [];
 var result = some(array1, function (x) {return x < 50 })
 console.log(result);
 // Expected output: false
+
+console.assert (result === false, 'false')

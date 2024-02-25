@@ -35,6 +35,15 @@ console.log(array1);
 // Expected output: [4, 5, 1, 2, 3]
 
 
+console.assert(array1.length === 5, '5')
+
+console.assert(newElements[0] !== result[0],'4')
+console.assert(newElements[1] !== result[1],'5')
+console.assert(array1[0] !== result[2], '1')
+console.assert(array1[1] !== result[3], '2')
+console.assert(array1[2] !== result[4], '3')
+
+
 //CASE 2
 var array2 = [1, 2];
 var newElements = [0]

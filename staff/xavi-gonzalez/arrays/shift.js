@@ -35,6 +35,9 @@ console.log(array1);
 //OUTPUT [2, 3]
 
 console.log(firstElement);
+
+
+
 //OUTPUT: 1
 
 //CASE 2

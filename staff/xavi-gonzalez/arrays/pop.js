@@ -28,6 +28,17 @@ console.log(nums.length);
 console.log(nums);
 //OUTPUT [100, 200, 300, 400]
 
+
+console.assert(num === 500, '500')
+
+console.assert(nums.length === 4, '4')
+console.assert(nums[0] === nums [0], '100')
+console.assert(nums[1] === nums [1], '200')
+console.assert(nums[2] === nums [2], '300')
+console.assert(nums[3] === nums [3], '400')
+
+
+
 //CASE 2
 var animals = ["pigs", "goats", "sheep", "cows"];
 var animal = pop(animals);
@@ -38,6 +49,16 @@ console.log(animals.length);
 //OUTPUT 3
 console.log(animals);
 //OUTPUT ["pigs", "goats", "sheep"]
+
+
+console.assert(animal === 'cows', 'cows')
+
+console.assert(animals.length === 3, '3')
+
+console.assert(nums[0] === nums [0], 'pigs')
+console.assert(nums[1] === nums [1], 'goats')
+console.assert(nums[2] === nums [2], 'sheep')
+
 
 //CASE 3
 var sports = ["soccer", "baseball"];
@@ -50,6 +71,14 @@ console.log(sports.length);
 console.log(sports);
 //OUTPUT ["soccer"]
 
+
+console.assert(sport === 'baseball', 'baseball')
+console.assert(sports.length === 1,'1')
+console.assert(sports[0] === sports[0])
+
+
+
+
 // CASE 4
 var sports = [];
 var sport = pop(sports);
@@ -60,3 +89,9 @@ console.log(sports.length);
 //OUTPUT  0
 console.log(sports);
 //OUTPUT []
+
+console.assert(sport === undefined, 'undefined')
+
+console.assert(sports.length == 0, '0')
+
+console.assert(sports[0] === sports [0], '0')
