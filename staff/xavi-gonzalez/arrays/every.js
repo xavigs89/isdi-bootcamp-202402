@@ -20,6 +20,7 @@ return true
 //CASE 1
 var array1 = [30, 98, 64, 95, 35];
 var result = every(array1, function (x) {return x < 100 })
+
 //console.log(result);
 // Expected output: true
 
@@ -34,11 +35,19 @@ console.assert(array1[1] === 98, '98')
 console.assert(array1[2] === 64, '64')
 console.assert(array1[3] === 95, '95')
 console.assert(array1[4] === 35, '35')
-
 // [30, 98, 64, 95, 35]
 console.assert(array1.length === 5, '5')
 // [5]
 
+/*
+var other = []
+console.assert (other[0] === array1[0], '30')
+console.assert (other[1] === array1[1], '98')
+console.assert (other[2] === array1[2], '64')
+console.assert (other[3] === array1[3], '95')
+console.assert (other[4] === array1[4], '35')
+console.assert (other.length === array1. length, '5')
+*/
 
 //FUNCIONES PARA ASSERTS
 var expectedResult = [30, 98, 64, 95, 35]

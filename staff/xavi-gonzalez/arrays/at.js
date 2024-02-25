@@ -28,7 +28,7 @@ var num = at(nums, 3);
 
 //console.log(num);
 //OUTPUT 400
-
+//console.log(nums.length);
 
 
 //ASSERTS
@@ -45,7 +45,16 @@ console.assert(nums[4] === 500, '500')
 console.assert(nums.length === 5, '5')
 // [5]
 
+/*
+var other = []
+console.assert (other[0] === nums[0], '100')
+console.assert (other[1] === nums[1], '200')
+console.assert (other[2] === nums[2], '300')
+console.assert (other[3] === nums[3], '400')
+console.assert (other[4] === nums[4], '500')
+console.assert (other.length === nums. length, '5')
 
+*/
 
 //FUNCIONES PARA ASSERTS
 var expectedResult = [100, 200, 300, 400, 500]

@@ -33,6 +33,16 @@ forEach(nums, function (num) {
 // 50
 
 
+//ASSERT
+var other = []
+
+console.assert (other[0] === nums[0], '10')
+console.assert (other[1] === nums[1], '20')
+console.assert (other[2] === nums[2], '30')
+console.assert (other[3] === nums[3], '40')
+console.assert (other[4] === nums[4], '50')
+console.assert (other.length === nums. length, '5')
+
 
 console.log("CASE 2");
 
