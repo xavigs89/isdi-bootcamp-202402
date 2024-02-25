@@ -19,8 +19,33 @@ return newArray
 var arr = [1, 2, 3, 4, 5];
 var result = withh(arr, 2,6)
 
-console.log(result); 
+//console.log(result); 
 //OUTPUT [1, 2, 6, 4, 5]
  
-console.log(arr);
+//console.log(arr);
 //OUTPUT [1, 2, 3, 4, 5]
+
+
+
+//ASSERTS
+
+//console.assert(result === "1", "2", "6", "4", "5")
+//[1, 2, 6, 4, 5]
+
+console.assert(arr[0] === 1, "1")
+console.assert(arr[1] === 2, "2")
+console.assert(arr[2] === 3, "3")
+console.assert(arr[3] === 4, "4")
+console.assert(arr[4] === 5, "5")
+// [1, 2, 3, 4, 5]
+console.assert(arr.length === 5, '5')
+// [5]
+
+
+var other = []
+console.assert (other[0] === arr[0], "1")
+console.assert (other[1] === arr[1], "2")
+console.assert (other[2] === arr[2], "3")
+console.assert (other[3] === arr[3], "4")
+console.assert (other[3] === arr[4], "5")
+console.assert (other.length === arr. length, "5")

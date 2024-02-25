@@ -34,20 +34,66 @@ console.log("CASE 1");
 
 const animals = ["Dog", "Tiger", "Penguin", "Dog"];
 
-console.log(lastIndexOf(animals, "Dog"));
+//console.log(lastIndexOf(animals, "Dog"));
 // Expected output: 3
 
-console.log(lastIndexOf(animals, "Tiger"));
+//console.log(lastIndexOf(animals, "Tiger"));
 // Expected output: 1
+
+
+//ASSERTS
+
+//console.assert(result === 1, 1)
+//1
+
+console.assert(animals[0] === "Dog", "Dog")
+console.assert(animals[1] === "Tiger", "Tiger")
+console.assert(animals[2] === "Penguin", "Penguin")
+console.assert(animals[3] === "Dog", "Dog")
+// ["Dog", "Tiger", "Penguin", "Dog"];
+console.assert(animals.length === 4, '4')
+// [4]
+
+/*
+var other = []
+console.assert (other[0] === animals[0], "Dog")
+console.assert (other[1] === animals[1], "Tiger")
+console.assert (other[2] === animals[2], "Penguin")
+console.assert (other[3] === animals[3], "Dog")
+console.assert (other.length === animals. length, '4')
+*/
 
 
 // CASE 2
 console.log("CASE 2");
 
 const numbers = [2, 5, 9, 2];
-console.log(lastIndexOf(numbers, 2)); // 3
-console.log(lastIndexOf(numbers, 7)); // -1
-console.log(lastIndexOf(numbers, 2, 3)); // 3
-console.log(lastIndexOf(numbers, 2, 2)); // 0
-console.log(lastIndexOf(numbers, 2, -2)); // 0
-console.log(lastIndexOf(numbers, 2, -1)); // 3
+//console.log(lastIndexOf(numbers, 2)); // 3
+//console.log(lastIndexOf(numbers, 7)); // -1
+//console.log(lastIndexOf(numbers, 2, 3)); // 3
+//console.log(lastIndexOf(numbers, 2, 2)); // 0
+//console.log(lastIndexOf(numbers, 2, -2)); // 0
+//console.log(lastIndexOf(numbers, 2, -1)); // 3
+
+
+//ASSERTS
+
+//console.assert(result === 1, 1)
+//1
+
+console.assert(numbers[0] === 2, "2")
+console.assert(numbers[1] === 5, "5")
+console.assert(numbers[2] === 9, "9")
+console.assert(numbers[3] === 2, "2")
+// [2, 5, 9, 2];
+console.assert(numbers.length === 4, '4')
+// [4]
+
+/*
+var other = []
+console.assert (other[0] === numbers[0], "Dog")
+console.assert (other[1] === numbers[1], "Tiger")
+console.assert (other[2] === numbers[2], "Penguin")
+console.assert (other[3] === numbers[3], "Dog")
+console.assert (other.length === numbers. length, '4')
+*/

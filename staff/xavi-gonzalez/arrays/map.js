@@ -3,10 +3,11 @@
 delete Array.prototype.map
 
 function map(array, callback) {
-    // TODO implement me
-    var newArray = []
-
-    newArray[i] = callback
+    var returnedArray = []
+    for (var i = 0; i < array.length; i++) {
+        returnedArray[returnedArray.length] = callback(array[i], i, array)
+    }
+    return returnedArray
 }
 
 console.log('CASE 1')

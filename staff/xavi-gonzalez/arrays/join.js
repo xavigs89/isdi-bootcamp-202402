@@ -24,21 +24,132 @@ function join(array, separator) {
 //CASE 1
 var elements = ["Fire", "Air", "Water"];
 var result = join(elements);
-console.log(result);
+//console.log(result);
 // Expected output: "Fire,Air,Water"
 
+
+//ASSERTS
+
+console.assert(result === "Fire,Air,Water")
+//"Fire,Air,Water"
+
+console.assert(elements[0] === 'Fire', 'Fire')
+console.assert(elements[1] === 'Air', 'Fire')
+console.assert(elements[2] === 'Water', 'Fire')
+
+// ["Fire", "Air", "Water"];
+console.assert(elements.length === 3, '3')
+// [3]
+
+/*
+var other = []
+console.assert (other[0] === elements[0], 'Fire')
+console.assert (other[1] === elements[1], 'Air')
+console.assert (other[2] === elements[2], 'Water')
+console.assert (other.length === elements. length, '3')
+*/
+
+
 var result = join(elements, "");
-console.log(result);
+//console.log(result);
 // Expected output: "FireAirWater"
 
+//ASSERTS
+
+console.assert(result === "FireAirWater")
+//"FireAirWater"
+
+console.assert(elements[0] === 'Fire', 'Fire')
+console.assert(elements[1] === 'Air', 'Fire')
+console.assert(elements[2] === 'Water', 'Fire')
+
+// ["Fire", "Air", "Water"];
+console.assert(elements.length === 3, '3')
+// [3]
+
+/*
+var other = []
+console.assert (other[0] === elements[0], 'Fire')
+console.assert (other[1] === elements[1], 'Air')
+console.assert (other[2] === elements[2], 'Water')
+console.assert (other.length === elements. length, '3')
+*/
+
+
+
 var result = join(elements, " ");
-console.log(result);
+//console.log(result);
 // Expected output: "Fire Air Water"
 
+//ASSERTS
+
+console.assert(result === "Fire Air Water")
+//"Fire Air Water"
+
+console.assert(elements[0] === 'Fire', 'Fire')
+console.assert(elements[1] === 'Air', 'Fire')
+console.assert(elements[2] === 'Water', 'Fire')
+
+// ["Fire", "Air", "Water"];
+console.assert(elements.length === 3, '3')
+// [3]
+
+/*
+var other = []
+console.assert (other[0] === elements[0], 'Fire')
+console.assert (other[1] === elements[1], 'Air')
+console.assert (other[2] === elements[2], 'Water')
+console.assert (other.length === elements. length, '3')
+*/
+
+
 var result = join(elements, "-");
-console.log(result);
+//console.log(result);
 // Expected output: "Fire-Air-Water"
 
+//ASSERTS
+
+console.assert(result === "Fire-Air-Water")
+//"Fire-Air-Water"
+
+console.assert(elements[0] === 'Fire', 'Fire')
+console.assert(elements[1] === 'Air', 'Fire')
+console.assert(elements[2] === 'Water', 'Fire')
+
+// ["Fire", "Air", "Water"];
+console.assert(elements.length === 3, '3')
+// [3]
+
+/*
+var other = []
+console.assert (other[0] === elements[0], 'Fire')
+console.assert (other[1] === elements[1], 'Air')
+console.assert (other[2] === elements[2], 'Water')
+console.assert (other.length === elements. length, '3')
+*/
+
+
 var result = join(elements, "+");
-console.log(result);
+//console.log(result);
 // Expected output: "Fire+Air+Water"
+
+//ASSERTS
+
+console.assert(result === "Fire+Air+Water")
+//"Fire+Air+Water"
+
+console.assert(elements[0] === 'Fire', 'Fire')
+console.assert(elements[1] === 'Air', 'Fire')
+console.assert(elements[2] === 'Water', 'Fire')
+
+// ["Fire", "Air", "Water"];
+console.assert(elements.length === 3, '3')
+// [3]
+
+/*
+var other = []
+console.assert (other[0] === elements[0], 'Fire')
+console.assert (other[1] === elements[1], 'Air')
+console.assert (other[2] === elements[2], 'Water')
+console.assert (other.length === elements. length, '3')
+*/
