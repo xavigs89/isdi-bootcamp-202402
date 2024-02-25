@@ -37,10 +37,10 @@ var colors = {
 
 var length = add(colors, 'violet')
 
-console.log(length)
+//console.log(length)
 // 4
 
-console.log(colors)
+//console.log(colors)
 /*
 {
     0: 'red',
@@ -50,6 +50,43 @@ console.log(colors)
     length: 4
 }
 */
+
+//ASSERTS
+/*
+console.assert(colors === 'red', 'blue', 'green', 'violet',)
+//400
+*/
+console.assert(colors[0] === 'red', 'red')
+console.assert(colors[1] === 'blue', 'blue')
+console.assert(colors[2] === 'green', 'green')
+console.assert(colors[3] === 'violet', 'violet')
+
+console.assert(colors.length === 4, '4')
+// [4]
+
+/*
+var other = {}
+console.assert (other[0] === colors[0], 'red')
+console.assert (other[1] === colors[1], 'blue')
+console.assert (other[2] === colors[2], 'green')
+console.assert (other[3] === colors[3], 'violet')
+console.assert (other.length === colors.length, '4')
+*/
+
+//FUNCIONES PARA ASSERTS
+var expectedResult = {
+    0: 'red',
+    1: 'blue',
+    2: 'green',
+    3: 'violet',
+    length: 4
+}
+
+for (let i = 0; i < colors.length; i++) {
+  console.assert(colors[i] === expectedResult[i], expectedResult[i])
+}
+console.assert(colors.length === expectedResult.length, expectedResult.length) 
+
 
 
 console.log('CASE 2: what if you do not assign a value');
@@ -86,6 +123,9 @@ try {
     console.log(error)
     // TypeError: pepe is not an object
 }
+
+console.assert(error.name === 'TypeError', 'name')
+console.assert(error.message === 'pepe is not an object', 'message')
 
 
 console.log('CASE 4: fails on undefined as undefined parameter')
