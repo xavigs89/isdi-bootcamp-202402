@@ -9,11 +9,11 @@ function Car(brand, model, year, color, doors, fuelType, transmission, gears) {
   this.fuelType = fuelType;
   this.transmission = transmission;
   this.gears = gears;
-  this.gear = gear;
-  this.speed = speed;
-  this.acceleration = acceleration;
-  this.direction = direction;
-  this.steering = steering;
+  this.gear = 0;
+  this.speed = 0;
+  this.acceleration = 0;
+  this.direction = '';
+  this.steering = 0;
 }
 
 Car.prototype.fuel = function (load) {
@@ -33,13 +33,13 @@ Car.prototype.stop = function () {
 };
 
 Car.prototype.changeGear = function (gear) {
+  
   this.gear = gear;
-
   if (typeof gear !== "number") {
     throw new TypeError(gear + " is not a number");
-  } else if (gear < 0 || gear > gears) {
+  } else if (gear < 0 || gear > this.gears) {
     throw new RangeError(gear + " is not going to work");
- } else if (gear > 0 && gear < gears+1) {
+ } else if (gear > 0 && gear < this.gears+1) {
     this.direction = 'forward'
  } else if (gear === -1){
     this.direction = 'backward'
@@ -57,18 +57,19 @@ Car.prototype.speedUp = function (acceleration) {
 };
 
 Car.prototype.turnSteering = function (steering) {
-  if (typeof steering !== "number") {
-    throw new TypeError(steering + " is not a number");
-  } else if (steering <= 0 || steering > 100) {
-    throw new TypeError(steering + " is not going to work");
-  } else if (steering > 0) {
-    this.steering = "steering is increasing";
-    this.direction = "forward.right" + "direction is forward-right";
-  } else if (steering < 0) {
-    this.steering = "steering is decreasingg";
-    this.direction = "backward.left" + "direction is backwward-left";
-  }
-  this.steering = changeSteering;
-};
+    this.steering = steering
+
+  if (this.steering > 0 && this.gear > 0) 
+    this.direction = 'forward-right'
+
+  if (this.steering < 0 && this.gear > 0)
+      this.direction = 'forward-left'
+
+  if (this.steering > 0 && this.gear === -1)
+      this.direction = 'backward-right'
+
+  if (this.steering < 0 && this.gear === -1)
+      this.direction = 'backward-left'
+}
 
 module.exports = Car;
