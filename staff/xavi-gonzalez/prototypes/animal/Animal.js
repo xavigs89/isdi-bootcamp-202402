@@ -1,4 +1,52 @@
-function Animal(name, species, age, weight, gender) {
+function Animal(name, birthdate, country, weight) {
+  if (typeof name !== "string") throw new TypeError("name is not a string");
+
+  if (!(birthdate instanceof Date))
+    throw new TypeError("birthdate is not a Date");
+
+  if (typeof country !== "string")
+    throw new TypeError("country is not a string");
+
+  if (typeof weight !== "number") throw new TypeError("weight is not a number");
+
+  this.name = name;
+  this.birthdate = birthdate;
+  this.country = country;
+  this.weight = weight;
+  this.sleeping = false;
+  this.eating = " ";
+  this.legsSpeed = Animal.NOT_WALK;
+}
+
+Animal.NOT_WALK = 0;
+Animal.WALK_NORMAL = 1;
+Animal.RUN = 2;
+
+//CREAMOS LAS FUNCIONES QUE SE HAN PLANTEADO EN EL ARCHIVO .TEST
+Animal.prototype.sleep = function () {
+  this.sleeping = true;
+};
+
+Animal.prototype.awake = function () {
+  this.sleeping = false;
+};
+
+Animal.prototype.eat = function (food) {
+  if (this.sleeping) throw new Error("try to eat on sleeping");
+  this.eating = food;
+};
+
+Animal.prototype.moveLegs = function (speed) {
+  this.legsSpeed = speed === undefined ? 4 : speed;
+};
+
+Animal.prototype.toString = function () {
+  return Animal.name + " (" + this.name + ")";
+};
+
+module.exports = Animal;
+
+/*function Animal(name, species, age, weight, gender) {
     this.name = name
     this.species = species
     this.age = age
@@ -32,7 +80,6 @@ Animal.prototype.breathe = function () {
 Animal.prototype.death = function () {
     this.breathing = false
 }
-*/
 
   Animal.prototype.moveLegs = function (speed) {
     this.legsSpeed = speed === undefined ? 4 : speed
@@ -54,8 +101,11 @@ throw new Error('please, put a string')}
     this.eating = food
   }
 
+  Animal.prototype.toString = function () {
+    return Animal.name + ' ('+ this.name + ')'
+  }
 
 
 
   module.exports = Animal
-  
+  */

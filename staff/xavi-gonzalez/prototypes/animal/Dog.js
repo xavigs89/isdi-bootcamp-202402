@@ -1,19 +1,30 @@
-module.exports = Dog
 var Animal = require("./Animal");
-Dog.prototype = new Animal()
 
-function Dog(name, species, age, weight, gender) {
-    this.name = name
-    this.species = species
-    this.age = age
-    this.weight = weight
-    this.gender = gender
-    this.move
-    this.sleeping = false
-    this.breathing = true
-    this.eating = ''
-    //this.legsSpeed = Person.NOT_WALK
-  }
-  
-   
+//Manera rudimentaria de hacer herencia
+//Dog.prototype = new Animal()
+
+
+//Crear un animal sin pasar por el constructor. crear un animal sin propiedades.
+Dog.prototype = Object.create(Animal.prototype)
+
+
+function Dog(owner, name, birthdate, country, weight) {
+  Pet.call(this, owner, name, birthdate, country, weight)
+
+  this.barking = false
+}
+
+Dog.prototype = Object.create(Pet.prototype)
+Dog.prototype.constructor = Dog
+
+Dog.prototype.bark = function () {
+  this.barking = true
+}
+
+Dog.prototype.tsssh = function () {
+  this.barking = false
+}
+
+module.exports = Dog
+
     

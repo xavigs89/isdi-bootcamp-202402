@@ -1,5 +1,5 @@
-var assert = require('./assert')
-
+var assert = require("./assert");
+var Animal = require("./Animal");
 var Pet = require('./Pet')
 
 console.log('TEST Pet')
@@ -20,6 +20,10 @@ assert.equalsValue(pet.weight, 50)
 assert.equalsValue(pet.sleeping, false)
 assert.equalsValue(pet.eating, '')
 assert.equalsValue(pet.legsSpeed, 0)
+
+
+assert.instanceOf(pet, Pet)
+assert.instanceOf(pet, Animal)
 
 console.log('CASE sleep')
 

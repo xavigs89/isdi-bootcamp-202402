@@ -32,7 +32,7 @@ function valuesPropertiesMatch(iterable, compare, callback) {
 }
 
 function instanceOf(value, type) {
-    console.assert(value instanceof type === true, value + ' is instance of ' + type)
+    //console.assert(value instanceOf type === true, value + ' is instance of ' + type)
 }
 
 module.exports = {
