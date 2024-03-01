@@ -10,43 +10,44 @@ console.log('TEST Dog')
 console.log('CASE constructor')
 
 var peter = new Person('Peter', 'Pan', new Date(2000, 0, 31, 16, 45), 'GB', 140, 50)
-var sultan = new Dog(peter, 'Sultan', new Date(2000, 0, 31, 16, 45), 'GB', 50)
+var dog = new Dog(peter, 'Milagritos', new Date(2000, 0, 31, 16, 45), 'GB', 50)
 
-assert.equalsValue(sultan.constructor, Dog)
-assert.instanceOf(sultan, Dog)
-assert.instanceOf(sultan, Pet)
-assert.instanceOf(sultan, Animal)
+assert.equalsValue(dog.constructor, Dog)
+assert.instanceOf(dog, Dog)
+assert.instanceOf(dog, Pet)
+assert.instanceOf(dog, Animal)
 
-assert.equalsValue(sultan.name, 'Sultan')
-assert.instanceOf(sultan.birthdate, Date)
-assert.equalsValue(sultan.birthdate.getFullYear(), 2000)
-assert.equalsValue(sultan.birthdate.getMonth(), 0)
-assert.equalsValue(sultan.birthdate.getDate(), 31)
-assert.equalsValue(sultan.birthdate.getHours(), 16)
-assert.equalsValue(sultan.birthdate.getMinutes(), 45)
-assert.equalsValue(sultan.country, 'GB')
-assert.equalsValue(sultan.weight, 50)
-assert.equalsValue(sultan.sleeping, false)
-assert.equalsValue(sultan.eating, '')
-assert.equalsValue(sultan.legsSpeed, 0)
-assert.equalsValue(sultan.barking, false)
+assert.equalsValue(dog.name, 'Milagritos')
+assert.instanceOf(dog.birthdate, Date)
+assert.equalsValue(dog.birthdate.getFullYear(), 2000)
+assert.equalsValue(dog.birthdate.getMonth(), 0)
+assert.equalsValue(dog.birthdate.getDate(), 31)
+assert.equalsValue(dog.birthdate.getHours(), 16)
+assert.equalsValue(dog.birthdate.getMinutes(), 45)
+assert.equalsValue(dog.country, 'GB')
+assert.equalsValue(dog.weight, 50)
+assert.equalsValue(dog.sleeping, false)
+assert.equalsValue(dog.eating, '')
+assert.equalsValue(dog.legsSpeed, 0)
+assert.equalsValue(dog.barking, false)
 
 console.log('CASE bark')
 
 var peter = new Person('Peter', 'Pan', new Date(2000, 0, 31, 16, 45), 'GB', 140, 50)
-var sultan = new Dog(peter, 'Sultan', new Date(2000, 0, 31, 16, 45), 'GB', 50)
+var dog = new Dog(peter, 'Milagritos', new Date(2000, 0, 31, 16, 45), 'GB', 50)
 
-sultan.bark()
+dog.bark()
 
-assert.equalsValue(sultan.barking, true)
+assert.equalsValue(dog.barking, true)
+
 
 console.log('CASE tsssh')
 
 var peter = new Person('Peter', 'Pan', new Date(2000, 0, 31, 16, 45), 'GB', 140, 50)
-var sultan = new Dog(peter, 'Sultan', new Date(2000, 0, 31, 16, 45), 'GB', 50)
+var dog = new Dog(peter, 'Milagritos', new Date(2000, 0, 31, 16, 45), 'GB', 50)
 
-sultan.barking = true
+dog.barking = true
 
-sultan.tsssh()
+dog.tsssh()
 
-assert.equalsValue(sultan.barking, false)
+assert.equalsValue(dog.barking, false)

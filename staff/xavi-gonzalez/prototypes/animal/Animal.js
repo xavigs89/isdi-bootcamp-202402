@@ -32,7 +32,8 @@ Animal.prototype.awake = function () {
 };
 
 Animal.prototype.eat = function (food) {
-  if (this.sleeping) throw new Error("try to eat on sleeping");
+  if (this.sleeping) 
+  throw new Error("try to eat on sleeping");
   this.eating = food;
 };
 
@@ -65,26 +66,14 @@ Animal.WALK_NORMAL = 1
 Animal.RUN = 2
 
 
-  Animal.prototype.sleep = function () {
-    this.sleeping = true
-  }
-  
-  Animal.prototype.awake = function () {
-    this.sleeping = false
-  }
   
 Animal.prototype.breathe = function () {
     this.breathing = true
 }
 /*
-Animal.prototype.death = function () {
-    this.breathing = false
-}
 
-  Animal.prototype.moveLegs = function (speed) {
-    this.legsSpeed = speed === undefined ? 4 : speed
-  }
-  
+
+
   Animal.prototype.move = function () {
     this.moving = true
   }
@@ -100,12 +89,4 @@ throw new Error('please, put a string')}
   
     this.eating = food
   }
-
-  Animal.prototype.toString = function () {
-    return Animal.name + ' ('+ this.name + ')'
-  }
-
-
-
-  module.exports = Animal
   */

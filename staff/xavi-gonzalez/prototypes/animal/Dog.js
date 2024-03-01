@@ -3,9 +3,8 @@ var Animal = require("./Animal");
 //Manera rudimentaria de hacer herencia
 //Dog.prototype = new Animal()
 
-
 //Crear un animal sin pasar por el constructor. crear un animal sin propiedades.
-Dog.prototype = Object.create(Animal.prototype)
+//Dog.prototype = Object.create(Animal.prototype)
 
 
 function Dog(owner, name, birthdate, country, weight) {
