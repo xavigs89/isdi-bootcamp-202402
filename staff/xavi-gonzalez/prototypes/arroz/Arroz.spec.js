@@ -114,4 +114,11 @@ matcha.describe('Arroz', function () {
     })
 
 
+    matcha.describe('> ', function () {
+        var a = new Arroz(10, 20, 30)
+
+        matcha.expect(a.length).toBe(3)
+    })
+
+
 })
