@@ -8,32 +8,19 @@
  * @throws {TypeError} When object is not an object, or when index is not a number.
  */
 function insert(object, index, value) {
-    // TODO
-    /*if (!(object instanceof Object)) throw new TypeError(object + ' is not an Object')
+    if (object instanceof Object === false)
+        throw new TypeError(object + ' is not an Object')
+    else if (!(typeof index === 'number'))
+        throw new TypeError(index + ' is not a number')
+    else {
+        object.length++
+        for (var i = object.length - 1; i > index; i--){
+            object[i] = object[i - 1]
+        }
+        object[index] = value
+        return object.length
+    }    
 }
-*/
-
- for (i = index; i < object.length; i++) {
-    var insertedElement = object[i]
-    insertedElement = value
-    object[i] = object [i + index]
- }
- object.length++
-
- return insertedElement
-
-}
-
-/*   for (var i = index; i < object.length; i++) {
-        var element = object[i]
-        element = value 
-        object[i] = object[i + index]
-    }
-    object.length++
-    return element
-
-}
-*/
 
 console.log('CASE 1: insert skyblue in index 1')
 
@@ -60,30 +47,25 @@ console.log(colors)
 }
 */
 
-console.log('CASE 2: insert skyblue, gold and plum in index 2')
+console.log('CASE 2')
 
-var colors = {
+colors = {
     0: 'red',
     1: 'blue',
     2: 'green',
     length: 3
 }
-
-var length = insert(colors, 2, 'skyblue', 'gold', 'plum')
-
+length = insert(colors, 3, 'silver')
 console.log(length)
-// 6
-
+//4
 console.log(colors)
 /*
 {
     0: 'red',
     1: 'blue',
-    2: 'skyblue',
-    3: 'gold',
-    4: 'plum',
-    5: 'green',
-    length: 6
+    2: 'green',
+    3: 'silver',
+    length: 4
 }
 */
 
