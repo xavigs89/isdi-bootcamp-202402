@@ -114,11 +114,107 @@ matcha.describe('Arroz', function () {
     })
 
 
-    matcha.describe('> ', function () {
-        var a = new Arroz(10, 20, 30)
+    matcha.describe('> at', function () {
+        matcha.it('should return position of Arroz in positive', function () {
+            var a = new Arroz(10, 20, 30, 40, 50)
 
-        matcha.expect(a.length).toBe(3)
+            matcha.expect(!!a.at).toBe(true)
+
+            var atValuePositive = a.at(3)
+
+            matcha.expect(atValuePositive).toBe(40)
+            matcha.expect(a[0]).toBe(10)
+            matcha.expect(a[1]).toBe(20)
+            matcha.expect(a[2]).toBe(30)
+            matcha.expect(a[3]).toBe(40)
+            matcha.expect(a[4]).toBe(50)
+            matcha.expect(a[5]).toBe(undefined)
+        })
+        
+        matcha.it('should return position of Arroz in negative', function () {
+            var a = new Arroz(10, 20, 30, 40, 50)
+
+            matcha.expect(!!a.at).toBe(true)
+
+            var atValueNegative = a.at(-3)
+
+            matcha.expect(atValueNegative).toBe(30)
+            matcha.expect(a[0]).toBe(10)
+            matcha.expect(a[1]).toBe(20)
+            matcha.expect(a[2]).toBe(30)
+            matcha.expect(a[3]).toBe(40)
+            matcha.expect(a[4]).toBe(50)
+            matcha.expect(a[5]).toBe(undefined)
+        })
+
     })
+
+    matcha.describe('> find', function () {
+        matcha.it('should return first number greater than 30', function () {
+            var a = new Arroz(6, 12, 32, 98, 8)
+
+            matcha.expect(!!a.find).toBe(true)
+
+            var value = a.find(function(element){
+                return element > 30
+            })
+
+            matcha.expect(a.length).toBe(5)
+            matcha.expect(value).toBe(32)
+            matcha.expect(a[0]).toBe(6)
+            matcha.expect(a[1]).toBe(12)
+            matcha.expect(a[2]).toBe(32)
+            matcha.expect(a[3]).toBe(98)
+            matcha.expect(a[4]).toBe(8)
+        })
+    })
+
+
+    matcha.describe('> filter', function () {
+        matcha.it('should return values with more than 6 letters', function () {
+            var a = new Arroz('seat', 'ferrari', 'bmw', 'mercedes', 'lamborghini')
+
+            matcha.expect(!!a.filter).toBe(true)
+
+            var value = a.filter(function(word){
+                return word.length > 6
+            })
+
+            matcha.expect(a.length).toBe(5)
+            matcha.expect(value).toBe('ferrari,mercedes,lamborghini')
+            /*
+            matcha.expect(value[0]).toBe('ferrari')
+            matcha.expect(value[1]).toBe('mercedes')
+            matcha.expect(value[2]).toBe('lamborghini')
+            */
+            matcha.expect(a[0]).toBe('seat')
+            matcha.expect(a[1]).toBe('ferrari')
+            matcha.expect(a[2]).toBe('bmw')
+            matcha.expect(a[3]).toBe('mercedes')
+            matcha.expect(a[4]).toBe('lamborghini')
+        })
+    })
+
+/*
+    matcha.describe('> map', function () {
+        matcha.it('should return nums values * 2', function () {
+            var a = new Arroz(10, 20, 30, 40, 50)
+
+            matcha.expect(!!a.map).toBe(true)
+
+            var value = a.map(function(x){
+                return x * 2
+            })
+
+            matcha.expect(value[0]).toBe(20)
+            matcha.expect(value[1]).toBe(40)
+            matcha.expect(value[2]).toBe(60)
+            matcha.expect(value[3]).toBe(80)
+            matcha.expect(value[4]).toBe(100)
+        })
+    })
+*/
+
 
 
 })

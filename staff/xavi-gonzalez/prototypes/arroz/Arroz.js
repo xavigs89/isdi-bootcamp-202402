@@ -73,5 +73,48 @@ Arroz.prototype.shift = function () {
     return first
 }
 
+Arroz.prototype.at = function (index) {
+    if (index < 0) {
+        index = index + this.length
+    }
+    return this[index]
+}
+
+
+Arroz.prototype.find = function (callback) {
+    for (var i = 0; i < this.length; i++) {
+        if (callback(this[i]) === true) {
+            return this[i]
+        }
+    }
+    return undefined
+}
+
+
+Arroz.prototype.filter = function (callback) {
+    var newArroz = []
+
+    for(var i = 0; i < this.length; i++) {
+        if (callback(this[i]) === true) {
+            newArroz[newArroz.length] = this[i]
+        }
+    }
+    return newArroz
+}
+
+/*
+Arroz.prototype.map = function (callback) {
+    var newArroz = []
+
+    for (var i = 0; i < this.length; i++) {
+        if (callback(this[i]) === true) {
+            newArroz[newArroz.length] = this[i]
+        }
+    }
+    return newArroz
+}
+
+*/
+
 
 module.exports = Arroz
