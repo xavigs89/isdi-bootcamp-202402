@@ -81,12 +81,17 @@ Arroz.prototype.at = function (index) {
 
 Arroz.prototype.find = function (callback) {
   for (var i = 0; i < this.length; i++) {
-    if (callback(this[i]) === true) {
-      return this[i];
+    var element = this[i]
+    var matches = callback(element, i, this)
+    if (matches)
+    return element
+    //if (callback(element) === true) {
+    //if (callback(this[i]) === true) {
+    //return this[i];
     }
   }
-  return undefined;
-};
+  //return undefined;
+//};
 
 Arroz.prototype.filter = function (callback) {
   var newArroz = new Arroz ();
@@ -165,7 +170,10 @@ Arroz.prototype.map = function (callback) {
   var mapArroz = new Arroz();
 
   for (var i = 0; i < this.length; i++) {
-    mapArroz[i] = callback(this[i], i, this);
+    var element = this[i]
+    var mapElement = callback(element, i , this)
+    mapArroz[mapArroz.length++] = mapElement
+    //mapArroz[i] = callback(this[i], i, this);
     // if (callback(this[i]) === true) {
     //mapArroz[mapArroz.length] = this[i]
   }
@@ -223,4 +231,9 @@ Arroz.prototype.with = function (index, value) {
   return newArroz
 }
 
+Arroz.from = function () {
+  var newArroz = new Arroz () 
+  for (var i = 0; i < this.length; i++){
+  }
+}
 module.exports = Arroz;

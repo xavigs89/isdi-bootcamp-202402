@@ -153,7 +153,7 @@ matcha.describe("Arroz", function () {
   });
 
   matcha.describe("> find", function () {
-    matcha.it("should return first number greater than 30", function () {
+    matcha.it("should return first element that matches with callback", function () {
       var a = new Arroz(6, 12, 32, 98, 8);
 
       matcha.expect(!!a.find).toBe(true);
@@ -378,6 +378,12 @@ matcha.describe("> indexOf", function () {
       matcha.expect(result[2]).toBe(60);
       matcha.expect(result[3]).toBe(80);
       matcha.expect(result[4]).toBe(100);
+
+      matcha.expect(a[0]).toBe(10);
+      matcha.expect(a[1]).toBe(20);
+      matcha.expect(a[2]).toBe(30);
+      matcha.expect(a[3]).toBe(40);
+      matcha.expect(a[4]).toBe(50);
     });
   });
 
@@ -495,5 +501,26 @@ matcha.describe("> indexOf", function () {
       }
     );
   });
+
+matcha.describe("> forEach", function () {
+  matcha.it("should iterate on each element", function (){
+    var a = new Arroz (10, 20, 30, 40, 50, 60)
+    var b = new Arroz
+
+    matcha.expect(!!a.forEach).toBe(true);
+  })
+})
+
+
+
+matcha.describe("> from", function () {
+  matcha.it("should create an instance of Arroz from numbers", function (){
+    var a = new Arroz (10, 20, 30, 40, 50, 60)
+    var b = new Arroz
+
+    matcha.expect(!!a.from).toBe(true);
+  })
+})
+
 
 })
