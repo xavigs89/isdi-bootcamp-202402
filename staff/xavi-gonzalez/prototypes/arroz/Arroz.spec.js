@@ -1,6 +1,6 @@
 var matcha = require("./matcha");
 
-var Arroz = require("./arroz");
+var Arroz = require("./Arroz");
 
 matcha.describe("Arroz", function () {
   matcha.describe("> constructor", function () {
@@ -501,26 +501,148 @@ matcha.describe("> indexOf", function () {
       }
     );
   });
-
+/*
 matcha.describe("> forEach", function () {
   matcha.it("should iterate on each element", function (){
+
+    var a = new Arroz(10, 20, 30, 40, 50);
+
+        matcha.expect(!!a.forEach).toBe(true);
+
+        var result = a.forEach(2, 35);
+
+        matcha.expect(a.length).toBe(5);
+        matcha.expect(result[0]).toBe(10);
+        matcha.expect(result[1]).toBe(20);
+        matcha.expect(result[2]).toBe(35);
+        matcha.expect(result[3]).toBe(40);
+        matcha.expect(result[4]).toBe(50);
+      
+    /*
     var a = new Arroz (10, 20, 30, 40, 50, 60)
     var b = new Arroz
 
     matcha.expect(!!a.forEach).toBe(true);
+    
   })
 })
-
-
+*/
 
 matcha.describe("> from", function () {
   matcha.it("should create an instance of Arroz from numbers", function (){
-    var a = new Arroz (10, 20, 30, 40, 50, 60)
-    var b = new Arroz
+    var nums = new Arroz(10, 20, 30)
+    var nums2 = Arroz.from(nums)
 
-    matcha.expect(!!a.from).toBe(true);
-  })
+    matcha.expect(nums.length).toBe(3)
+
+    for (var i = 0; i < nums.length; i++) {
+        matcha.expect(nums[i]).toBe(10 * (i + 1))
+    }
+
+    matcha.expect(nums === nums2).toBe(false)
+    // N2H
+    //matcha.expect(nums).not.toBe(nums2) 
+
+    matcha.expect(nums2.length).toBe(nums.length)
+
+    for (var i = 0; i < nums2.length; i++) {
+        matcha.expect(nums2[i]).toBe(10 * (i + 1))
+    }
+})
+})
+
+matcha.describe("> findIndex", function () {
+  matcha.it("should return the index of the first element in an array that matches with callback.", function () {
+    var a = new Arroz(10, 20, 30, 40, 50);
+
+    matcha.expect(!!a.findIndex).toBe(true)
+
+    var result = a.findIndex(function (x) {
+      return x > 35;
+    });
+
+    matcha.expect(result).toBe(3);
+
+    matcha.expect(a[0]).toBe(10);
+    matcha.expect(a[1]).toBe(20);
+    matcha.expect(a[2]).toBe(30);
+    matcha.expect(a[3]).toBe(40);
+    matcha.expect(a[4]).toBe(50);
+    matcha.expect(a.length).toBe(5);
+  });
+});
+
+
+matcha.describe("> includes", function () {
+  matcha.it("should return true if at least 1 element meets condition", function () {
+    var a = new Arroz(10, 20, 30, 40, 50);
+
+    matcha.expect(!!a.includes).toBe(true)
+
+    var result = a.includes(function (x) {
+      return x < 30;
+    });
+
+    matcha.expect(result).toBe(true);
+
+    matcha.expect(a[0]).toBe(10);
+    matcha.expect(a[1]).toBe(20);
+    matcha.expect(a[2]).toBe(30);
+    matcha.expect(a[3]).toBe(40);
+    matcha.expect(a[4]).toBe(50);
+    matcha.expect(a.length).toBe(5);
+  });
+
+  matcha.it("should return false if no one meets condition", function () {
+    var a = new Arroz(10, 20, 30, 40, 50);
+
+    matcha.expect(!!a.includes).toBe(true)
+
+    var result = a.includes(function (x) {
+      return x < 10;
+    });
+
+    matcha.expect(result).toBe(false);
+
+    matcha.expect(a[0]).toBe(10);
+    matcha.expect(a[1]).toBe(20);
+    matcha.expect(a[2]).toBe(30);
+    matcha.expect(a[3]).toBe(40);
+    matcha.expect(a[4]).toBe(50);
+    matcha.expect(a.length).toBe(5);
+  });
+});
+
+matcha.describe("> join", function () {
+  matcha.it("should return a string of concatenation of all elements in array, separated by separator(if no separator, by default is ,)", function () {
+    var a = new Arroz('Fire', 'Air', 'Water');
+
+    matcha.expect(!!a.join).toBe(true)
+
+    var result = a.join ()
+    matcha.expect(result).toBe('Fire', 'Air', 'Water');
+
+    result = a.join('')
+    matcha.expect(result).toBe('FireAirWater')
+
+    var a = new Arroz('Fire', 'Air', 'Water')
+
+    result = a.join('-')
+    matcha.expect(result).toBe('Fire-Air-Water')
+
+    matcha.expect(a[0]).toBe(10);
+    matcha.expect(a[1]).toBe(20);
+    matcha.expect(a[2]).toBe(30);
+    matcha.expect(a[3]).toBe(40);
+    matcha.expect(a[4]).toBe(50);
+    matcha.expect(a.length).toBe(5);
+  });
+});
+
+
 })
 
 
-})
+
+
+//If no elements satisfy the testing function, -1 is returned.
