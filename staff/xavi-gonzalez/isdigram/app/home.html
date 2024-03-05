@@ -4,16 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
 
+  <body>
     <main>
-      <img src="ISDI LOGO.png" alt="logo" />
-    <h1>Hello, World!</h1>
-      <button id = 'logoutbutton'>Logout</button>
-    
-    
-  </main>
+      <header>
+        <img src="ISDI LOGO.png" />
+        <h1>Isdigram</h1>
+        <form action="">
+          <label for="photo link">Photo Link</label>
+          <input type="text" name="" id="photolink" />
+          
+          <label for="text">Text</label>
+          <input type="text" name="" id="text"/>
+          
+          <button id="createPost" type="submit">Create Post</button>
+        </form>
+
+        <button id="logoutButton">Logout</button>
+
+      </header>
+    </main>
+
     <button><img src="" alt="reel1" /></button>
     <button><img src="" alt="reel2" /></button>
     <button><img src="" alt="reel3" /></button>
@@ -35,11 +48,11 @@
     </div>
     <hr />
     <footer>
-        <button><img src="" alt="home" /></button>
-        <button><img src="" alt="lupa" /></button>
-        <button><img src="" alt="plus" /></button>
-        <button><img src="" alt="reel" /></button>
-        <button><img src="" alt="user" /></button>
+      <button id="home">Home</button>
+      <button id="search user">Search User</button>
+      <button id="postbutton">Create Post</button>
+      <button id="reel">Reel</button>
+      <button id="user">User</button>
     </footer>
 
     <script src="data.js"></script>

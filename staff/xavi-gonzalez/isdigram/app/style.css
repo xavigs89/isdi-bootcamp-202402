@@ -1,8 +1,13 @@
 main {
-    margin: 0 40vw;
-}
+  margin: 0 40vw;
+  text-align: center;
 
-form {
+}form {
     display: flex;
     flex-direction: column;
+    text-align: left;
+}
+
+img {
+  width: 8vh;
 }
