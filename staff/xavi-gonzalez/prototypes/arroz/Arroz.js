@@ -269,11 +269,15 @@ Arroz.prototype.includes = function (callback) {
   }
   return false
 }
-/*
-  var newArroz = new Arroz () 
-  for (var i = 0; i < this.length; i++){
-  }
+
+Arroz.prototype.join = function (separator) {
+var stringArroz = ""
+if (separator = arguments.length < 1){
+//if (separator === undefined) {
+  separator = ","
 }
-*/
+
+}
+
 
 module.exports = Arroz;

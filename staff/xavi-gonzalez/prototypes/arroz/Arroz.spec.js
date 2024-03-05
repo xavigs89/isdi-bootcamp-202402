@@ -620,7 +620,7 @@ matcha.describe("> join", function () {
     matcha.expect(!!a.join).toBe(true)
 
     var result = a.join ()
-    matcha.expect(result).toBe('Fire', 'Air', 'Water');
+    matcha.expect(result).toBe('Fire,Air,Water');
 
     result = a.join('')
     matcha.expect(result).toBe('FireAirWater')
@@ -630,12 +630,10 @@ matcha.describe("> join", function () {
     result = a.join('-')
     matcha.expect(result).toBe('Fire-Air-Water')
 
-    matcha.expect(a[0]).toBe(10);
-    matcha.expect(a[1]).toBe(20);
-    matcha.expect(a[2]).toBe(30);
-    matcha.expect(a[3]).toBe(40);
-    matcha.expect(a[4]).toBe(50);
-    matcha.expect(a.length).toBe(5);
+    matcha.expect(a[0]).toBe('Fire');
+    matcha.expect(a[1]).toBe('Air');
+    matcha.expect(a[2]).toBe('Water');
+    matcha.expect(a.length).toBe(3);
   });
 });
 
