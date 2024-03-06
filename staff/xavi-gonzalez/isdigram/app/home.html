@@ -8,25 +8,42 @@
   </head>
 
   <body>
-    <main>
-      <header>
-        <img src="ISDI LOGO.png" />
-        <h1>Isdigram</h1>
-        <form action="">
-          <label for="photo link">Photo Link</label>
-          <input type="text" name="" id="photolink" />
-          
-          <label for="text">Text</label>
-          <input type="text" name="" id="text"/>
-          
-          <button id="createPost" type="submit">Create Post</button>
-        </form>
+      <main>
+        <header>
+          <img src="images/ISDI LOGO.png" id="logo"/>
+          <h1>Isdigram</h1>
 
-        <button id="logoutButton">Logout</button>
+          <button id="logout-button">Logout</button>
 
+          <section id="post-list-section"></section>
+
+          <section id="create-post-section">
+            <h2>Create Post</h2>
+
+
+            <form action="">
+              <label for="image link">Image Link</label>
+              <input type="text" name="" id="image-link" />
+
+              <label for="text">Text</label>
+              <input type="text" name="" id="text"/>
+
+              <button type="submit">Create Post</button>
+            </form>
+
+            <button id="create-post-cancel-button">Cancel</button>
+
+          </section>
+        
+      </main>
+      
       </header>
-    </main>
 
+      <footer>
+        <button id="create-post-button">+</button>
+      </footer>
+ 
+    <!--
     <button><img src="" alt="reel1" /></button>
     <button><img src="" alt="reel2" /></button>
     <button><img src="" alt="reel3" /></button>
@@ -48,12 +65,13 @@
     </div>
     <hr />
     <footer>
-      <button id="home">Home</button>
-      <button id="search user">Search User</button>
-      <button id="postbutton">Create Post</button>
+      <button id="home"><img src="images/homepage-icon-png-2578.png" alt=""></button>
+      <button id="search user"><img src="images/lupa_trans.png" alt=""></button>
+      <button id="postbutton"><img src="images/plus_transparent.png" alt=""></button>
       <button id="reel">Reel</button>
-      <button id="user">User</button>
+      <button id="user"><img src="images/foto perfil.jpg" alt=""></button>
     </footer>
+  -->
 
     <script src="data.js"></script>
     <script src="logic.js"></script>

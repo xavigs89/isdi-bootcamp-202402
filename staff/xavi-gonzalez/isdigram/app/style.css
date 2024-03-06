@@ -1,13 +1,43 @@
 main {
   margin: 0 40vw;
   text-align: center;
+}
 
-}form {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+body {
+  margin: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 img {
+  max-width: 100%;
+  /*width: 8vh;*/
+  
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+
+}
+
+#create-post-section {
+  display: none;
+  margin-bottom: 50px;
+}
+
+#post-list-section {
+  margin-bottom: 50px;
+}
+
+#logo {
   width: 8vh;
 }

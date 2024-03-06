@@ -19,6 +19,7 @@ var logic = (function () {
     data.insertUser(user);
   }
 
+
   function loginUser(username, password) {
     var user = data.findUser(function (user) {
       return user.username === username && user.password === password;
@@ -45,13 +46,20 @@ var logic = (function () {
 
   function createPost(image, text) {
     var post = {
-      username: sessionStorage.username,
+      author: sessionStorage.username,
       image: image,
       text: text,
       date: new Date().toLocaleDateString("en-CA"),
+      id: Date.now()
     };
 
     data.insertPost(post);
+  }
+
+  function retrievePosts() {
+    var posts = data.getAllPosts()
+
+    return posts
   }
 
   return {
@@ -60,6 +68,7 @@ var logic = (function () {
     retrieveUser: retrieveUser,
     logoutUser: logoutUser,
     createPost: createPost,
+    retrievePosts: retrievePosts
   };
 })
 //llamar a la funcion vacia IIFE
