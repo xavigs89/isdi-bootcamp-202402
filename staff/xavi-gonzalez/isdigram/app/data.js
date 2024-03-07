@@ -1,45 +1,93 @@
-// data
+// data layer
 
-//creacion de funcion IIFE para crear funcion vacia que
 var data = (function () {
+  // helper
+
+  function generateId() {
+      return (+((parseInt(Math.random() * 10 ** 17)).toString())).toString(36)
+  }
+
+  function loadUsers() {
+      return JSON.parse(localStorage.users || '[]')
+  }
+
+  function loadPosts() {
+      return JSON.parse(localStorage.posts || '[]')
+  }
+
+  function saveUsers(users) {
+      localStorage.users = JSON.stringify(users)
+  }
+
+  function savePosts(posts) {
+      localStorage.posts = JSON.stringify(posts)
+  }
+
+  // data
+
   function findUser(callback) {
-    var users = JSON.parse(localStorage.users || "[]");
+      var users = loadUsers()
 
-    var user = users.find(callback);
+      var user = users.find(callback)
 
-    return user;
+      return user
   }
 
   function insertUser(user) {
-    var users = JSON.parse(localStorage.users || "[]");
+      var users = loadUsers()
 
-    users.push(user);
+      user.id = generateId()
 
-    localStorage.users = JSON.stringify(users);
+      users.push(user)
+
+      saveUsers(users)
   }
 
   function insertPost(post) {
-    var posts = JSON.parse(localStorage.posts || "[]");
+      var posts = loadPosts()
 
-    posts.push(post);
+      post.id = generateId()
 
-    localStorage.posts = JSON.stringify(posts);
+      posts.push(post)
+
+      savePosts(posts)
   }
 
   function getAllPosts() {
-    var posts = JSON.parse(localStorage.posts || '[]')
+      var posts = loadPosts()
 
-    return posts
+      return posts
+  }
+
+  function findPost(callback) {
+      var posts = loadPosts()
+
+      var post = posts.find(callback)
+
+      return post
+  }
+
+  function deletePost(callback) {
+      var posts = loadPosts()
+
+      var index = posts.findIndex(callback)
+
+      posts.splice(index, 1)
+
+      savePosts(posts)
   }
 
   return {
-    findUser: findUser,
-    insertUser: insertUser,
-    insertPost: insertPost,
-    getAllPosts: getAllPosts,
-  };
-})();
-//llamar a la funcion vacia IIFE
+      findUser: findUser,
+      insertUser: insertUser,
+      insertPost: insertPost,
+      getAllPosts: getAllPosts,
+      findPost: findPost,
+      deletePost: deletePost
+  }
+})()
+
+
 
 /*solucion anterior
 if (localStorage.users) {
