@@ -12,17 +12,24 @@
         <header>
           <img src="" id="logo"/>
           <h1>Isdigram</h1>
-
-          <button id="logout-button">Logout</button>
+          <nav id="menu-nav">
+              <button id="home-button">🏠</button>
+              <button id="chat-button">💬</button>
+              <button id="logout-button">🚪</button>
+          </nav>
 
           <section id="post-list-section"></section>
+
+          <section id="chat-section">
+            <ul id="user-list"></ul>
+          </section>
 
           <section id="create-post-section">
             <h2>Create Post</h2>
 
 
             <form action="">
-              <label for="image link">Image Link</label>
+              <label for="image url">Image Link</label>
               <input type="text" name="" id="image-link" />
 
               <label for="text">Text</label>
@@ -34,13 +41,12 @@
             <button id="create-post-cancel-button">Cancel</button>
 
           </section>
-        
       </main>
       
       </header>
 
-      <footer>
-        <button id="create-post-button">+</button>
+      <footer id="footer">
+          <button id="create-post-button">+</button>
       </footer>
  
     <!--
