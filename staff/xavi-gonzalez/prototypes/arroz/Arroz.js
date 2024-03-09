@@ -271,13 +271,52 @@ Arroz.prototype.includes = function (callback) {
 }
 
 Arroz.prototype.join = function (separator) {
-var stringArroz = ""
-if (separator = arguments.length < 1){
-//if (separator === undefined) {
-  separator = ","
+var returnedString = ''
+if (arguments.length < 1) {
+    separator = ',';
+} else {
+    separator = separator;
+}
+//en ternario: separator = arguments.length < 1 ? ',' : separator
+for (var i = 0; i < this.length; i++) {
+    if (i === this.length - 1) {
+        returnedString += this[i]
+        return returnedString
+    }
+    returnedString += this[i] + separator
+}
 }
 
+
+Arroz.prototype.forEach = function (callback) {
+  for (var i = 0; i < this.length; i++) {
+      var element = this[i]
+      callback(element, i, this)
+  }
 }
+
+
+Arroz.prototype.reduce = function (callback, initialValue) {
+
+  var accumulator = initialValue;
+  if (initialValue === undefined) {
+      accumulator = 0
+      for (var i = 0; i < this.length; i++) {
+
+          var elem = this[i];
+          accumulator = callback(accumulator, elem);
+
+      }
+  } else {
+      for (var i = 0; i < this.length; i++) {
+
+          var elem = this[i];
+          accumulator = callback(accumulator, elem);
+      }
+  }
+  return accumulator
+}
+
 
 
 module.exports = Arroz;

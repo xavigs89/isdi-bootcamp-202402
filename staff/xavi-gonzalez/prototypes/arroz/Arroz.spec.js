@@ -638,6 +638,50 @@ matcha.describe("> join", function () {
 });
 
 
+matcha.describe('> forEach', function () {
+  matcha.it('should execute callback function in all elements of Arroz', function () {
+      var a = new Arroz(10, 20, 30, 40, 50, 60)
+      var b = new Arroz
+
+      matcha.expect(!!a.forEach).toBe(true)
+
+      a.forEach(function (element, index, arroz) {
+          b[index] = { item: element, iterable: arroz }
+          b.length++
+      })
+
+      matcha.expect(a.length).toBe(6)
+
+      for (var i = 0; i < a.length; i++) {
+          matcha.expect(a[i]).toBe(10 * (i + 1))
+      }
+
+      matcha.expect(b.length).toBe(a.length)
+
+      for (var i = 0; i < b.length; i++) {
+          var element = b[i]
+
+          matcha.expect(element.item).toBe(10 * (i + 1))
+          matcha.expect(element.iterable).toBe(a)
+      }
+  })
+})
+
+
+matcha.describe('> reduce', function () {
+  matcha.it('should return a single value of all values operated across all elements', function () {
+      var a = new Arroz(10, 20, 30, 40)
+
+      matcha.expect(!!a.reduce).toBe(true)
+
+      var result = a.reduce(function (accumulator, currentValue) {
+          return accumulator + currentValue
+      })
+
+      matcha.expect(result).toBe(100)
+  })
+})
+
 })
 
 
