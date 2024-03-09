@@ -1,4 +1,4 @@
-//delete String.prototype.concat;
+delete String.prototype.concat;
 //var separator = " ";
 function concat(str1, str2, separator) {
   // TODO implement me

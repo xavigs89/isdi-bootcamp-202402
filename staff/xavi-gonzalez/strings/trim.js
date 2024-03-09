@@ -54,23 +54,4 @@ var trimed = trim(greeting);
 console.log(">" + trimed + "<");
 // '>hola mundo<'
 
-//PRUEBAS
-function trim(string) {
-  var startIndex = 0;
 
-  for (var i = startIndex; i < string.length; i++) {
-    var char = string[i];
-    if (char !== " ") {
-      startIndex = i;
-      break;
-    }
-  }
-  return string[startIndex];
-}
-
-var greeting = "   Hello, World!   ";
-
-var trimed = trim(greeting);
-
-console.log(trimed);
-// 'Hello, World!'
