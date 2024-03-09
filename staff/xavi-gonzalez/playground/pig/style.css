@@ -1,141 +1,171 @@
-.pig {
-  position: absolute;
-  left: 100px;
-  top: 100px;
-}
-
 .pig__head {
+  background-color: pink;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 50%;
+  z-index: 1;
+  left: 100px;
+  top: 0px;
+  border: 2px solid;
+}
+.pig__ears--left {
+  background-color: brown;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 120px;
+  top: 10px;
+  border-radius: 50%;
+  border: 2px solid;
+}
+.pig__ears--right {
+  background-color: brown;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 205px;
+  top: 5px;
+  border-radius: 50%;
+  border: 2px solid;
+}
+.pig__eye--left {
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  left: 30px;
+  top: 40px;
+  border: 2px solid;
+}
+.pig__eye--right {
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  left: 85px;
+  top: 40px;
+  border: 2px solid;
+}
+.pig__pupil {
+  background-color: black;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border-radius: 50%;
+  left: 15px;
+  top: 15px;
+  transform: translate(-50%, -50%);
+  animation: movePupil 2s infinite alternate;
+}
+.pig__nose {
+  background-color: brown;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  left: 55px;
+  top: 80px;
+  border: 2px solid;
+}
+.pig__gap--nose--left {
+  background-color: black;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border-radius: 50%;
+  left: 65px;
+  top: 95px;
+}
+.pig__gap--nose--right {
+  background-color: black;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border-radius: 50%;
+  left: 80px;
+  top: 95px;
+}
+.pig__leg--left {
+  background-color: brown;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  left: 50px;
+  top: 115px;
+  border: 2px solid;
+}
+.pig__leg--right {
+  background-color: brown;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 50%;
+  left: 110px;
+  top: 115px;
+  border: 2px solid;
+}
+.pig__body {
   background-color: pink;
   width: 200px;
   height: 200px;
-  border-radius: 45%;
-  -webkit-border-radius: 45%;
-  -moz-border-radius: 45%;
-  -ms-border-radius: 45%;
-  -o-border-radius: 45%;
-}
-
-.pig__eye {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background-color: white;
+  position: relative;
   border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  left: 70px;
+  top: -80px;
+  border: 2px solid;
 }
-
-.eye--right {
-  left: 40px;
-  top: 40px;
-}
-
-.eye--left {
-  left: 120px;
-  top: 40px;
-}
-
-.pig__pupil {
-  position: absolute;
+.pig__shade {
   background-color: black;
-  width: 10px;
+  width: 200px;
   height: 10px;
-  border-radius: 70%;
-  -webkit-border-radius: 70%;
-  -moz-border-radius: 70%;
-  -ms-border-radius: 70%;
-  -o-border-radius: 70%;
-  left: 15px;
-  top: 15px;
-  animation-duration: 4s;
-  animation-name: move;
+  position: relative;
+  border-radius: 50%;
+  left: 70px;
+  top: -80px;
+  border: 2px solid;
+}
+.pig__hooves--left {
+  background-color: black;
+  width: 20px;
+  height: 10px;
+  position: absolute;
+  border-radius: 50%;
+  left: 140px;
+  top: 200px;
+  border: 2px solid;
+}
+.pig__hooves--right {
+  background-color: black;
+  width: 20px;
+  height: 10px;
+  position: absolute;
+  border-radius: 50%;
+  left: 200px;
+  top: 200px;
+  border: 2px solid;
+}
+.pig__tail {
+  background-color: pink;
+  width: 20px;
+  height: 8px;
+  border: 2px solid black;
+  border-radius: 50%;
+  border-top-left-radius: 30%;
+  border-bottom-left-radius: 30%;
+  position: absolute;
+  left: 280px;
+  top: 180px;
 }
 
-@keyframes move {
+@keyframes movePupil {
   0% {
-    left: 0;
-  }
-  25% {
-    top: 10px;
-  }
-  50% {
-    top: 5px;
-  }
-  75% {
-    left: 5px;
+    left: 50%;
   }
   100% {
-    left: 5px;
+    left: 70%;
   }
 }
-.pig__nose {
-  position: absolute;
-  background-color: rgb(212, 39, 68);
-  width: 50px;
-  height: 35px;
-  border-radius: 70%;
-  -webkit-border-radius: 70%;
-  -moz-border-radius: 70%;
-  -ms-border-radius: 70%;
-  -o-border-radius: 70%;
-  top: 80px;
-  left: 75px;
-}
-
-.nose__hole {
-  position: absolute;
-  width: 10px;
-  height: 20px;
-  background-color: black;
-  border-radius: 70%;
-  -webkit-border-radius: 70%;
-  -moz-border-radius: 70%;
-  -ms-border-radius: 70%;
-  -o-border-radius: 70%;
-  top: 10px;
-}
-
-.hole--left {
-  left: 28px;
-}
-
-.hole--right {
-  left: 15.5px;
-}
-
-.pig__mouth {
-  position: absolute;
-  background-color: rgb(243, 220, 220);
-  width: 60px;
-  height: 10px;
-  top: 140px;
-  left: 65px;
-  border-radius: 20%;
-  -webkit-border-radius: 20%;
-  -moz-border-radius: 20%;
-  -ms-border-radius: 20%;
-  -o-border-radius: 20%;
-  border: 6px solid black;
-}
-
-.ear--left {
-  position: absolute;
-  background-color: rgb(228, 57, 86);
-  top: 10px;
-  left: 10px;
-  width: 20px;
-  height: 100px;
-}
-
-.ear--right {
-  position: absolute;
-  background-color: rgb(228, 57, 86);
-  top: 10px;
-  right: 10px;
-  width: 20px;
-  height: 100px;
-}
-
-/*# sourceMappingURL=style.css.map */

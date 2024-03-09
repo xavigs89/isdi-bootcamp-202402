@@ -1,0 +1,50 @@
+.background {
+    display: grid;
+    align-items: center;
+  }
+  .background__box {
+    height: 400px;
+    width: 400px;
+    background-color: black;
+    display: grid;
+    gap: 13px;
+    padding: 13px;
+    grid-template-areas: "yellow red red" "white red red" "blue white2 white3";
+  }
+  .background__box--yellow {
+    height: 217px;
+    width: 95px;
+    background-color: yellow;
+    grid-area: yellow;
+  }
+  .background__box--white {
+    height: 95px;
+    width: 95px;
+    background-color: white;
+    background-color: white;
+    grid-area: white;
+  }
+  .background__box--blue {
+    height: 60px;
+    width: 95px;
+    background-color: blue;
+    grid-area: blue;
+  }
+  .background__box--red {
+    height: 326px;
+    width: 293px;
+    background-color: red;
+    grid-area: red;
+  }
+  .background__box--white2 {
+    height: 60px;
+    width: 215px;
+    background-color: white;
+    grid-area: white2;
+  }
+  .background__box--white3 {
+    height: 60px;
+    width: 60px;
+    background-color: white;
+    grid-area: white3;
+  }

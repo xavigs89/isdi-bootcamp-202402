@@ -1,0 +1,51 @@
+.background
+    display: grid
+    align-items: center
+    grid-template-columns: repeat(3, 1fr)
+
+    &__box
+        height: 400px
+        width: 400px
+        @include utils.background-color(black)
+        display: grid
+        gap: 13px
+        padding: 13px
+
+        &--yellow
+            height: 217px
+            width: 95px
+            @include utils.background-color(yellow)
+            grid-row: 1
+
+        &--white
+            height: 95px
+            width: 95px
+            @include utils.background-color(white)
+            grid-row: 2
+
+        &--blue
+            height: 60px
+            width: 95px
+            @include utils.background-color(blue)
+            grid-row: 3
+
+        &--red
+            height: 326px
+            width: 293px
+            @include utils.background-color(red)
+            grid-row: span 2
+            grid-column: span 2
+
+        &--white2
+            height: 60px
+            width: 215px
+            @include utils.background-color(white)
+            grid-row: span 1
+            grid-column: 2
+
+        &--white3
+            height: 60px
+            width: 60px
+            @include utils.background-color(white)
+            grid-row: span 1
+            grid-column: 3

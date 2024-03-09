@@ -1,0 +1,54 @@
+.background {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+}
+.background__box {
+  height: 400px;
+  width: 400px;
+  background-color: black;
+  display: grid;
+  gap: 13px;
+  padding: 13px;
+}
+.background__box--yellow {
+  height: 217px;
+  width: 95px;
+  background-color: yellow;
+  grid-row: 1;
+}
+.background__box--white {
+  height: 95px;
+  width: 95px;
+  background-color: white;
+  grid-row: 2;
+}
+.background__box--blue {
+  height: 60px;
+  width: 95px;
+  background-color: blue;
+  grid-row: 3;
+}
+.background__box--red {
+  height: 326px;
+  width: 293px;
+  background-color: red;
+  grid-row: span 2;
+  grid-column: span 2;
+}
+.background__box--white2 {
+  height: 60px;
+  width: 215px;
+  background-color: white;
+  grid-row: span 1;
+  grid-column: 2;
+}
+.background__box--white3 {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  grid-row: span 1;
+  grid-column: 3;
+}
+
+/*# sourceMappingURL=style.css.map */

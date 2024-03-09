@@ -9,8 +9,7 @@
   border: 6px solid black;
   background-image: url("fondo.avif");
 }
-
-.floor {
+.building__floor {
   height: 70px;
   width: 100%;
   border: solid 1px black;
@@ -19,8 +18,7 @@
   justify-content: space-around;
   align-items: center;
 }
-
-.window {
+.building__window {
   background-color: rgb(152, 152, 190);
   height: 20px;
   width: 20px;
@@ -29,17 +27,14 @@
   background-image: url("window.jpeg");
   background-size: cover;
 }
-
-#light {
+.building #light {
   background-color: yellow;
 }
-
-#main {
+.building #main {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
 }
-
-.door {
+.building__door {
   height: 70px;
   width: 50px;
   background-color: rgb(59, 3, 6);
