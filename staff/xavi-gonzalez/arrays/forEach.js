@@ -155,7 +155,7 @@ try {
 
 
 
-
+/*
 console.log('CASE 6: callback is a plain object')
 
 var nums = [10, 20, 30, 40, 50]

@@ -25,7 +25,9 @@ var result = filter(words, function (x) {return x.length > 6 })
 
 //ASSERTS
 
-console.assert(result === "exuberant", "destruction", "present")
+console.assert(result[0] = "exuberant" )
+console.assert(result[1] ="destruction") 
+console.assert(result[2] ="present")
 //"exuberant", "destruction", "present"
 
 console.assert(words.length === 5, '5')
@@ -55,7 +57,10 @@ var result = filter(nums, function (x) {return x > 30 })
 
 //ASSERTS
 
-console.assert(result === 98, 65, 96, 35)
+console.assert(result[0] = 98 )
+console.assert(result[1] = 65) 
+console.assert(result[2] = 96)
+console.assert(result[3] = 35)
 //[98, 65, 96, 35]
 
 
