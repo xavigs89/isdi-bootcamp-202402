@@ -99,6 +99,18 @@ function getAllUsers() {
       return post
   }
 
+
+  function toChangePost(callback) {
+    var posts = loadPosts()
+
+    var index = posts.findIndex(callback)
+
+    posts[index].text = 'Pepe'
+
+    savePosts(posts)
+}
+
+
   function deletePost(callback) {
       var posts = loadPosts()
 
@@ -120,6 +132,7 @@ function getAllUsers() {
       insertPost: insertPost,
       getAllPosts: getAllPosts,
       findPost: findPost,
+      toChangePost: toChangePost,
       deletePost: deletePost
   }
 })()

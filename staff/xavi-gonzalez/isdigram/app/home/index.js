@@ -22,6 +22,7 @@
   var chatSection = document.querySelector('#chat-section')
   var footer = document.querySelector('#footer')
   var homeButton = document.querySelector('#home-button')
+  var editPostButton = document.querySelector('#edit-post-button')
 
   try {
     var user = logic.retrieveUser();
@@ -107,8 +108,9 @@
             editPostButton.innerText = 'Edit Post'
             deleteButton.innerText = '🗑'
 
+
             editPostButton.onclick = function () {
-              if (confirm('Are you sure you want to edit post?'))
+              if (confirm('Are you sure you want to edit this post?'))
               try {
                 logic.editPost(post.id)
 
@@ -121,7 +123,7 @@
             }
 
             deleteButton.onclick = function () {
-              if (confirm('Are you sure you want to delete post?'))
+              if (confirm('Are you sure you want to delete this post?'))
               try {
                 logic.removePost(post.id)
 

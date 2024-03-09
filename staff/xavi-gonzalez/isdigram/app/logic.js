@@ -173,6 +173,15 @@ var logic = (function () {
   }
 
 
+  function editPost(postId) {
+    var post = data.findPost(function (post) {
+        return post.id === postId
+    })
+    data.toChangePost(function (post) {
+        return post.id === postId
+    })
+}
+
   function removePost(postId) {
     validateText(postId, 'postId', true)
 
@@ -200,6 +209,7 @@ var logic = (function () {
     retrieveUsers: retrieveUsers,
     createPost: createPost,
     retrievePosts: retrievePosts,
+    editPost: editPost,
     removePost: removePost,
   };
 })
