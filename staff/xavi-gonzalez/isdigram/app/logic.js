@@ -1,5 +1,4 @@
-// business (logic)
-
+// business(logic)
 var logic = (function () {
   //constants
 
@@ -10,28 +9,25 @@ var logic = (function () {
   var URL_REGEX = /^(http|https):\/\//;
 
   //helpers
-
   function validateText(text, explain, checkEmptySpaceInside) {
     if (typeof text !== "string")
       throw new Error(explain + " " + text + " is not a string");
     if (!text.trim().length)
       throw new Error(explain + " >" + text + "< is empty or blank");
-
-    if (checkEmptySpaceInside)
+    if (checkEmptySpaceInside) {
       if (text.includes(" "))
         throw new Error(explain + " " + text + " has empty spaces");
+    }
   }
-
   function validateDate(date, explain) {
     if (!DATE_REGEX.test(date))
-      throw new Error(explain + " " + date + " is not a date");
+      throw new Error(explain + " " + email + " is not an email");
   }
 
   function validateEmail(email, explain) {
     if (!EMAIL_REGEX.test(email))
       throw new Error(explain + " " + email + " is not an email");
   }
-
   function validatePassword(password, explain) {
     if (!PASSWORD_REGEX.test(password))
       throw new Error(explain + " " + password + " is not acceptable");
@@ -39,7 +35,7 @@ var logic = (function () {
 
   function validateUrl(url, explain) {
     if (!URL_REGEX.test(url))
-      throw new Error(explain + " " + url + " is not an URL");
+      throw new Error(explain + " " + url + " is not an url");
   }
 
   //logic
@@ -100,17 +96,13 @@ var logic = (function () {
     var user = data.findUser(function (user) {
       return user.id === sessionStorage.userId;
     });
-
     if (!user) throw new Error("wrong credentials");
-
     user.status = "offline";
-
     data.updateUser(user);
-
     delete sessionStorage.userId;
   }
 
-  function getLoggedInUserId() {
+  function getLoggedUserId() {
     return sessionStorage.userId;
   }
 
@@ -122,9 +114,8 @@ var logic = (function () {
     var users = data.getAllUsers();
 
     var index = users.findIndex(function (user) {
-      return user.id === sessionStorage.userId;
+      return user.id == sessionStorage.userid;
     });
-
     users.splice(index, 1);
 
     users.forEach(function (user) {
@@ -133,9 +124,12 @@ var logic = (function () {
       delete user.password;
       delete user.birthdate;
     });
-    users.sort(function (a, b) {
+
+    users
+      .sort(function (a, b) {
         return a.username < b.username ? -1 : 1;
-      }).sort(function (a, b) {
+      })
+      .sort(function (a, b) {
         return a.status > b.status ? -1 : 1;
       });
 
@@ -143,10 +137,8 @@ var logic = (function () {
   }
 
   function createPost(image, text) {
-    validateUrl(image, 'image')
-
-        if (text)
-            validateText(text, 'text')
+    validateUrl(image, "image");
+    if (text) validateText(text, "text");
 
     var post = {
       author: sessionStorage.userId,
@@ -158,6 +150,18 @@ var logic = (function () {
     data.insertPost(post);
   }
 
+  function editPost(postId, text) {
+    validateText(text, "text");
+    validateText(postId, "postId", true);
+
+    var post = data.findPost(function (post) {
+      return post.id === postId;
+    });
+
+    post.text = text;
+    data.updatePost(post);
+  }
+
   function retrievePosts() {
     var posts = data.getAllPosts();
 
@@ -165,32 +169,19 @@ var logic = (function () {
       var user = data.findUser(function (user) {
         return user.id === post.author;
       });
-
       post.author = { id: user.id, username: user.username };
     });
 
     return posts.reverse();
   }
 
-
-  function editPost(postId) {
-    var post = data.findPost(function (post) {
-        return post.id === postId
-    })
-    data.toChangePost(function (post) {
-        return post.id === postId
-    })
-}
-
   function removePost(postId) {
-    validateText(postId, 'postId', true)
+    validateText(postId, "postId", true);
 
     var post = data.findPost(function (post) {
       return post.id === postId;
     });
-
     if (!post) throw new Error("post not found");
-
     if (post.author !== sessionStorage.userId)
       throw new Error("post does not belong to user");
 
@@ -204,43 +195,12 @@ var logic = (function () {
     loginUser: loginUser,
     retrieveUser: retrieveUser,
     logoutUser: logoutUser,
-    getLoggedInUserId: getLoggedInUserId,
+    getLoggedUserId: getLoggedUserId,
     isUserLoggedIn: isUserLoggedIn,
     retrieveUsers: retrieveUsers,
     createPost: createPost,
-    retrievePosts: retrievePosts,
     editPost: editPost,
+    retrievePosts: retrievePosts,
     removePost: removePost,
   };
-})
-//llamar a la funcion vacia IIFE
-();
-
-
-/*validaciones
-    if (typeof name !== 'string') throw new Error('name is not a string')
-    if (!name.length) throw new Error('name is empty')
-
-    //TODO input validation
-    if (typeof birthdate !== 'string') throw new Error ('birthdate is not a string')
-    if (!birthdate.length) throw new Error ('birthdate is empty')
-    //if (!(birthdate instanceOf Date)) throw new Error('name is not a string')
-    if (!email.length) throw new Error ('email is empty')
-    if (!username.length) throw new Error('username is empty')
-    if (!password.length) throw new Error('password is empty')
-
-    function validatePassword() {
-      var newPassword = document.getElementById('changePasswordForm').newPassword.value;
-      var minNumberofChars = 6;
-      var maxNumberofChars = 16;
-      var regularExpression  = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-      alert(newPassword); 
-      if(newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars){
-          return false;
-      }
-      if(!regularExpression.test(newPassword)) {
-          alert("password should contain at least one number and one special character");
-          return false;
-      }
-  }
-*/
+})();

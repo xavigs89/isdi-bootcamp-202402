@@ -1,13 +1,9 @@
-// presentation
-
+//presentation
 (function () {
   if (logic.isUserLoggedIn()) {
-    location.href = '../home'
-
-    return
+    location.href = "../home";
+    return;
   }
-
-
   var form = document.querySelector("form");
 
   form.addEventListener("submit", function (event) {
@@ -15,10 +11,10 @@
 
     event.preventDefault();
 
-    var usernameInput = document.getElementById("username");
+    var usernameInput = document.querySelector("#username");
     var username = usernameInput.value;
 
-    var passwordInput = document.getElementById("password");
+    var passwordInput = document.querySelector("#password");
     var password = passwordInput.value;
 
     try {
@@ -26,13 +22,9 @@
 
       form.reset();
 
-      location.href = '../home';
+      location.href = "../home";
     } catch (error) {
       alert(error.message);
     }
   });
-})
-//llamar a la funcion vacia IIFE
-();
-
-//para limpiar y borrar usuarios, hacer localStorage.clear()
+})();

@@ -3,93 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
     <link rel="stylesheet" href="index.css" />
+    <title>Home</title>
   </head>
-
   <body>
-      <main>
-        <header>
-          <img src="../images/ISDI LOGO.png" id="logo"/>
-          <h1>Isdigram</h1>
-          <nav id="menu-nav">
-              <button id="home-button">🏠</button>
-              <button id="chat-button">💬</button>
-              <button id="logout-button">🚪</button>
-          </nav>
+    <main>
+      <h1>Hello, World</h1>
 
-          <section id="post-list-section"></section>
+      <nav id="menu-nav">
+        <button id="home-button">🏠</button>
+        <button id="chat-button">💬</button>
+        <button id="logout-button">🚪</button>
+      </nav>
 
-          <section id="chat-section">
-            <ul id="user-list"></ul>
-          </section>
+      <section id="post-list-section"></section>
 
-          <section id="create-post-section">
-            <h2>Create Post</h2>
+      <section id="chat-section">
+        <ul id="user-list"></ul>
+      </section>
 
+      <section id="chat-box"></section>
 
-           
-            <form action="">
-              <label for="image url">Image Link</label>
-              <input type="text" name="" id="image-link" />
+      <section id="create-post-section">
+        <h2>Create Post</h2>
 
-              <label for="text">Text</label>
-              <input type="text" name="" id="text"/>
+        <form>
+          <label for="image">Image</label>
+          <input type="text" id="image" />
 
-              <button type="submit">Create Post</button>
-            </form>
+          <label for="text">Text</label>
+          <input type="text" id="text" />
 
-            <button id="create-post-cancel-button">Cancel</button>
+          <button id="submit">Create</button>
+        </form>
 
-          </section>
+        <button id="create-post-cancel-button">Cancel</button>
+      </section>
 
-          <section id="edit-post-section">
-            <h2>Edit Post</h2>
-            <form>
-              <label for="text">New Text</label>
-              <input id="edit-text" type="text">
-              <button id="submit">Done</button>
-            </form>
+      <section id="edit-post-section">
+        <h2>Edit Post</h2>
+        <form>
+          <label for="text">New text</label>
+          <input type="text" id="edit-text" />
 
-            <button id="edit-post-cancel-button">Cancel</button>
-          </section>
-      </main>
-      
-      </header>
+          <button type="submit" id="editSubmit">Done</button>
+        </form>
+        <button id="editExit">Cancel</button>
+      </section>
+    </main>
 
-      <footer id="footer">
-          <button id="create-post-button">+</button>
-      </footer>
- 
-    <!--
-    <button><img src="" alt="reel1" /></button>
-    <button><img src="" alt="reel2" /></button>
-    <button><img src="" alt="reel3" /></button>
-    <hr />
-    <div class="post">
-      <img src="" alt="post" />
-      <p>texto descriptivo</p>
-      <button><img src="" alt="me gusta" /></button>
-      <button><img src="" alt="comment" /></button>
-      <button><img src="" alt="send" /></button>
-    </div>
-    <hr />
-    <div class="post">
-      <img src="" alt="post" />
-      <p>texto descriptivo</p>
-      <button><img src="" alt="me gusta" /></button>
-      <button><img src="" alt="comment" /></button>
-      <button><img src="" alt="send" /></button>
-    </div>
-    <hr />
-    <footer>
-      <button id="home"><img src="images/homepage-icon-png-2578.png" alt=""></button>
-      <button id="search user"><img src="images/lupa_trans.png" alt=""></button>
-      <button id="postbutton"><img src="images/plus_transparent.png" alt=""></button>
-      <button id="reel">Reel</button>
-      <button id="user"><img src="images/foto perfil.jpg" alt=""></button>
+    <footer id="footer">
+      <button id="create-post-button">+</button>
     </footer>
-  -->
 
     <script src="../data.js"></script>
     <script src="../logic.js"></script>
