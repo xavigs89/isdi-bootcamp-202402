@@ -22,7 +22,7 @@
   var chatSection = document.querySelector('#chat-section')
   var footer = document.querySelector('#footer')
   var homeButton = document.querySelector('#home-button')
-  var editPostButton = document.querySelector('#edit-post-button')
+  var editPostButton = document.querySelector('#edit-post-section')
 
   try {
     var user = logic.retrieveUser();
