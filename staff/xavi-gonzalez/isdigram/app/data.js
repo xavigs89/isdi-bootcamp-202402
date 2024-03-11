@@ -1,4 +1,7 @@
 //data layer
+
+
+/*
 var data = (function () {
     //helper
     function generateId() {
@@ -47,8 +50,8 @@ var data = (function () {
   
     function updateUser(user) {
       var users = loadUsers();
-      var index = users.findIndex(function (userDb) {
-        return userDb.id === user.id;
+      var index = users.findIndex(function (userDataBase) {
+        return userDataBase.id === user.id;
       });
       if (index > -1) {
         users.splice(index, 1, user);
@@ -86,8 +89,8 @@ var data = (function () {
   
     function updatePost(post) {
       var posts = loadPosts();
-      var index = posts.findIndex(function (postDb) {
-        return postDb.id === post.id;
+      var index = posts.findIndex(function (postDataBase) {
+        return postDataBase.id === post.id;
       });
       if (index > -1) {
         posts.splice(index, 1, post);
@@ -120,7 +123,7 @@ var data = (function () {
   })();
 
 
-
+*/
 /*solucion anterior
 if (localStorage.users) {
     var users = JSON.parse(localStorage.users)

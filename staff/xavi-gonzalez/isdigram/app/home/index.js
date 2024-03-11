@@ -8,7 +8,6 @@
   var title = document.querySelector("h1");
   var createPostSection = document.querySelector("#create-post-section");
   var createPostForm = createPostSection.querySelector("form");
-
   var createPostCancelButton = createPostSection.querySelector(
     "#create-post-cancel-button"
   );
@@ -43,6 +42,7 @@
     title.innerText = "Hello, " + user.name + "!";
   } catch (error) {
     console.error(error);
+
     alert(error.message);
   }
 
@@ -84,16 +84,13 @@
     createPostSection.style.display = "none";
   };
 
-  cancelEditButton.onclick = function () {
-    editPostSection.style.display = "none";
-  };
-
   function renderPosts() {
     try {
       var posts = logic.retrievePosts();
+
       postListSection.innerHTML = "";
 
-      posts.forEach(function (post, index) {
+      posts.forEach(function (post) {
         var article = document.createElement("article");
 
         var authorHeading = document.createElement("h3");
@@ -110,7 +107,7 @@
 
         article.append(authorHeading, image, paragraph, dateTime);
 
-        if (post.author.id === logic.getLoggedUserId()) {
+        if (post.author.id === logic.getLoggedInUserId()) {
           var deleteButton = document.createElement("button");
 
           deleteButton.innerText = "🗑️";
@@ -119,54 +116,30 @@
             if (confirm("delete post?"))
               try {
                 logic.removePost(post.id);
+
                 renderPosts();
               } catch (error) {
                 console.error(error);
+
                 alert(error.message);
               }
           };
 
-          var editButton = document.createElement("button");
-          editButton.innerText = "Edit";
-
-          editButton.onclick = function () {
-            editPostSection.style.display = "block";
-          };
-
-          //edit text post
-          editPostForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            var textInput = editPostForm.querySelector("#edit-text");
-            var text = textInput.value;
-
-            try {
-              logic.editPost(post.id, text);
-
-              editPostForm.reset();
-
-              editPostSection.style.display = "none";
-
-              renderPosts();
-            } catch (error) {
-              console.error(error);
-              console.log(error.message);
-            }
-          });
-
-          article.append(editButton, deleteButton);
+          article.appendChild(deleteButton);
         }
 
         postListSection.appendChild(article);
       });
     } catch (error) {
+      console.error(error);
+
       alert(error.message);
     }
   }
 
+  
   renderPosts();
 
-  //CHAT SECTION
   chatButton.onclick = function () {
     postListSection.style.display = "none";
     footer.style.display = "none";
@@ -180,26 +153,27 @@
     userList.innerHTML = "";
 
     try {
-      var users = logic.retrieveUsers();
+      var users = logic.retrieveUsersWithStatus();
 
       users.forEach(function (user) {
         var item = document.createElement("li");
-        if (user.status === "online") {
+
+        if (user.status === "online")
           item.classList.add("user-list__item--online");
-        } else if (user.status === "offline") {
+        else if (user.status === "offline")
           item.classList.add("user-list__item--offline");
-        }
 
         item.innerText = user.username;
+
         userList.appendChild(item);
       });
     } catch (error) {
       console.error(error);
+
       alert(error.message);
     }
   };
 
-  //HOME SECTION
   homeButton.onclick = function () {
     homeButton.style.display = "none";
     chatSection.style.display = "none";

@@ -41,166 +41,228 @@ var logic = (function () {
   //logic
 
   function registerUser(name, birthdate, email, username, password) {
-    validateText(name, "name");
-    validateDate(birthdate, "birthdate");
-    validateEmail(email, "email");
-    validateText(username, "username", true);
-    validatePassword(password, "password");
+    validateText(name, 'name')
+    validateDate(birthdate, 'birthdate')
+    validateEmail(email, 'email')
+    validateText(username, 'username', true)
+    validatePassword(password, 'password')
 
-    var user = data.findUser(function (user) {
-      return user.email === email || user.username === username;
-    });
+    // TODO input validation
 
-    if (user) throw new Error("user already exists");
+    var user = data.users.findOne(function (user) {
+        return user.email === email || user.username === username
+    })
+
+    if (user) throw new Error('user already exists')
 
     user = {
-      name: name.trim(),
-      birthdate: birthdate,
-      email: email,
-      username: username,
-      password: password,
-      status: "offline",
-    };
+        name: name.trim(),
+        birthdate: birthdate,
+        email: email,
+        username: username,
+        password: password,
+        status: 'offline',
+    }
 
-    data.insertUser(user);
-  }
+    data.users.insertOne(user)
+}
 
-  function loginUser(username, password) {
-    validateText(username, "username", true);
-    validatePassword(password, "password");
+function loginUser(username, password) {
+    validateText(username, 'username', true)
+    validatePassword(password, 'password')
 
-    var user = data.findUser(function (user) {
-      return user.username === username && user.password === password;
-    });
+    var user = data.users.findOne(function (user) {
+        return user.username === username && user.password === password
+    })
 
-    if (!user) throw new Error("wrong credentials");
+    if (!user) throw new Error('wrong credentials')
 
-    user.status = "online";
+    user.status = 'online'
 
-    data.updateUser(user);
+    data.users.updateOne(user)
 
-    sessionStorage.userId = user.id;
-  }
+    sessionStorage.userId = user.id
+}
 
-  function retrieveUser() {
-    var user = data.findUser(function (user) {
-      return user.id === sessionStorage.userId;
-    });
+function retrieveUser() {
+    var user = data.users.findOne(function (user) {
+        return user.id === sessionStorage.userId
+    })
 
-    if (!user) throw new Error("user not found");
+    if (!user) throw new Error('user not found')
 
-    return user;
-  }
+    return user
+}
 
-  function logoutUser() {
-    var user = data.findUser(function (user) {
-      return user.id === sessionStorage.userId;
-    });
-    if (!user) throw new Error("wrong credentials");
-    user.status = "offline";
-    data.updateUser(user);
-    delete sessionStorage.userId;
-  }
+function logoutUser() {
+    var user = data.users.findOne(function (user) {
+        return user.id === sessionStorage.userId
+    })
 
-  function getLoggedUserId() {
-    return sessionStorage.userId;
-  }
+    if (!user) throw new Error('wrong credentials')
 
-  function isUserLoggedIn() {
-    return !!sessionStorage.userId;
-  }
+    user.status = 'offline'
 
-  function retrieveUsers() {
-    var users = data.getAllUsers();
+    data.users.updateOne(user)
+
+    delete sessionStorage.userId
+}
+
+function getLoggedInUserId() {
+    return sessionStorage.userId
+}
+
+function isUserLoggedIn() {
+    return !!sessionStorage.userId
+}
+
+function retrieveUsersWithStatus() {
+    var users = data.users.getAll()
 
     var index = users.findIndex(function (user) {
-      return user.id == sessionStorage.userid;
-    });
-    users.splice(index, 1);
+        return user.id === sessionStorage.userId
+    })
+
+    users.splice(index, 1)
 
     users.forEach(function (user) {
-      delete user.name;
-      delete user.email;
-      delete user.password;
-      delete user.birthdate;
-    });
+        delete user.name
+        delete user.email
+        delete user.password
+        delete user.birthdate
+    })
 
-    users
-      .sort(function (a, b) {
-        return a.username < b.username ? -1 : 1;
-      })
-      .sort(function (a, b) {
-        return a.status > b.status ? -1 : 1;
-      });
+    users.sort(function (a, b) {
+        return a.username < b.username ? -1 : 1
+    }).sort(function (a, b) {
+        return a.status > b.status ? -1 : 1
+    })
 
-    return users;
-  }
 
-  function createPost(image, text) {
-    validateUrl(image, "image");
-    if (text) validateText(text, "text");
+    return users
+}
+
+function sendMessageToUser(userId, text) {
+    validateText(userId, 'userId', true)
+    validateText(text, 'text')
+
+    // { id, users: [id, id], messages: [{ from: id, text, date }, { from: id, text, date }, ...] }
+
+    // find chat in chats (by user ids)
+    // if no chat yet, then create it
+    // add message in chat
+    // update or insert chat in chats
+    // save chats
+
+    var chat = data.chats.findOne(function (chat) {
+        return chat.users.includes(userId) && chat.users.includes(sessionStorage.userId)
+    })
+
+    if (!chat)
+        chat = { users: [userId, sessionStorage.userId], messages: [] }
+
+    var message = { from: sessionStorage.userId, text: text, date: new Date().toISOString() }
+
+    chat.messages.push(message)
+
+    if (!chat.id)
+        data.insertChat(chat)
+    else
+        data.updateChat(chat)
+}
+
+function retrieveMessagesWithUser(userId) {
+    validateText(userId, 'userId', true)
+
+    var chat = data.chats.findOne(function (chat) {
+        return chat.users.includes(userId) && chat.users.includes(sessionStorage.userId)
+    })
+
+    if (chat)
+        return chat.messages
+
+    return []
+}
+
+function createPost(image, text) {
+    validateUrl(image, 'image')
+
+    if (text)
+        validateText(text, 'text')
 
     var post = {
-      author: sessionStorage.userId,
-      image: image,
-      text: text,
-      date: new Date().toLocaleDateString("en-CA"),
-    };
+        author: sessionStorage.userId,
+        image: image,
+        text: text,
+        date: new Date().toLocaleDateString('en-CA')
+    }
 
-    data.insertPost(post);
-  }
+    data.posts.insertOne(post)
+}
 
-  function editPost(postId, text) {
-    validateText(text, "text");
-    validateText(postId, "postId", true);
-
-    var post = data.findPost(function (post) {
-      return post.id === postId;
-    });
-
-    post.text = text;
-    data.updatePost(post);
-  }
-
-  function retrievePosts() {
-    var posts = data.getAllPosts();
+function retrievePosts() {
+    var posts = data.posts.getAll()
 
     posts.forEach(function (post) {
-      var user = data.findUser(function (user) {
-        return user.id === post.author;
-      });
-      post.author = { id: user.id, username: user.username };
-    });
+        var user = data.users.findOne(function (user) {
+            return user.id === post.author
+        })
 
-    return posts.reverse();
-  }
+        post.author = { id: user.id, username: user.username }
+    })
 
-  function removePost(postId) {
-    validateText(postId, "postId", true);
+    return posts.reverse()
+}
 
-    var post = data.findPost(function (post) {
-      return post.id === postId;
-    });
-    if (!post) throw new Error("post not found");
-    if (post.author !== sessionStorage.userId)
-      throw new Error("post does not belong to user");
+function removePost(postId) {
+    validateText(postId, 'postId', true)
 
-    data.deletePost(function (post) {
-      return post.id === postId;
-    });
-  }
+    var post = data.posts.findOne(function (post) {
+        return post.id === postId
+    })
 
-  return {
+    if (!post) throw new Error('post not found')
+
+    if (post.author !== sessionStorage.userId) throw new Error('post does not belong to user')
+
+    data.posts.deleteOne(function (post) {
+        return post.id === postId
+    })
+}
+
+function modifyPost(postId, text) {
+    validateText(postId, 'postId', true)
+    validateText(text, 'text')
+
+    var post = data.posts.findOne(function (post) {
+        return post.id === postId
+    })
+
+    if (!post) throw new Error('post not found')
+
+    if (post.author !== sessionStorage.userId) throw new Error('post does not belong to user')
+
+    post.text = text
+
+    data.posts.updateOne(post)
+}
+
+return {
     registerUser: registerUser,
     loginUser: loginUser,
     retrieveUser: retrieveUser,
     logoutUser: logoutUser,
-    getLoggedUserId: getLoggedUserId,
+    getLoggedInUserId: getLoggedInUserId,
     isUserLoggedIn: isUserLoggedIn,
-    retrieveUsers: retrieveUsers,
+
+    retrieveUsersWithStatus: retrieveUsersWithStatus,
+    sendMessageToUser: sendMessageToUser,
+    retrieveMessagesWithUser: retrieveMessagesWithUser,
+
     createPost: createPost,
-    editPost: editPost,
     retrievePosts: retrievePosts,
     removePost: removePost,
-  };
+    modifyPost: modifyPost
+}
+
 })();
