@@ -4,6 +4,7 @@
     location.href = "../home";
     return;
   }
+  
   var form = document.querySelector("form");
 
   form.addEventListener("submit", function (event) {

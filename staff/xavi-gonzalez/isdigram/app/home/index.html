@@ -21,9 +21,20 @@
 
       <section id="chat-section">
         <ul id="user-list"></ul>
-      </section>
 
-      <section id="chat-box"></section>
+        <div id="chat-panel">
+            <h3 id="chat-panel__username">username</h3>
+
+            <div class="message-list" id="message-list"></div>
+
+            <form>
+                <label for="text">Text</label>
+                <input type="text" id="text">
+
+                <button type="submit">Send</button>
+            </form>
+        </div>
+      </section>
 
       <section id="create-post-section">
         <h2>Create Post</h2>
@@ -36,7 +47,7 @@
           <label for="text">Text</label>
           <input type="text" id="text" />
 
-          <button id="submit">Create</button>
+          <button type="submit">Create</button>
         </form>
 
         <button id="create-post-cancel-button">Cancel</button>
@@ -48,9 +59,9 @@
           <label for="text">New text</label>
           <input type="text" id="edit-text" />
 
-          <button type="submit" id="editSubmit">Update</button>
+          <button type="submit">Save and Update</button>
         </form>
-        <button id="#editExit">Cancel</button>
+        <button id="#edit-post-cancel-button">Cancel</button>
       </section>
     </main>
 
