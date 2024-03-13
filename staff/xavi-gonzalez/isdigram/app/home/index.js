@@ -11,9 +11,7 @@
   ("#create-post-section");
   var postListSection = document.querySelector("#post-list-section");
   var createPostForm = createPostSection.querySelector("form");
-  var createPostCancelButton = createPostSection.querySelector(
-    "#create-post-cancel-button"
-  );
+  var createPostCancelButton = createPostSection.querySelector("#create-post-cancel-button");
 
   //edit post section
   var editPostSection = document.querySelector("#edit-post-section");
