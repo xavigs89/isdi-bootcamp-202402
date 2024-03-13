@@ -229,25 +229,26 @@ describe("Collection", function () {
       });
 
       describe("updateOne", function () {
-        it("should update a document", function () {
+        it("should upatDate a document", function () {
           localStorage.cars =
             '[{"brand":"porsche","model":"911","id":"1"},{"brand":"fiat","model":"500","id":"2"}]';
-  
+
           var cars = new Collection("cars");
-  
-          cars.deleteOne({ brand: "fiat", model: "500", id: "2" });
-  
+
+          var car = cars.updateOne({ brand: "opel", model: "corsa", id: "2" });
+
           var documents = cars._loadDocuments();
-  
+
           expect(documents).toBeInstanceOf(Array);
           expect(documents.length).toBe(2);
-  
+
           var document = documents[0];
           expect(document).toBeInstanceOf(Object);
           expect(document.brand).toBe("porsche");
           expect(document.model).toBe("911");
-  
+
           var document = documents[1];
+
           expect(document.brand).toBe("opel");
           expect(document.model).toBe("corsa");
         });
@@ -256,25 +257,22 @@ describe("Collection", function () {
       describe("deleteOne", function () {
         it("should delete a document", function () {
           localStorage.cars =
-            '[{"brand":"porsche","model":"911","id":"1"},{"brand":"fiat","model":"500","id":"2"}]';
-  
+            '[{"brand":"porsche","model":"911"},{"brand":"fiat","model":"500"}]';
+
           var cars = new Collection("cars");
-  
-          cars.deleteOne({ brand: "opel", model: "corsa", id: "2" });
-  
+
+          var car = cars.deleteOne(function (car) {
+            return car.brand === "fiat";
+          });
+
           var documents = cars._loadDocuments();
-  
+
           expect(documents).toBeInstanceOf(Array);
-          expect(documents.length).toBe(2);
-  
+          expect(documents.length).toBe(1);
+
           var document = documents[0];
-          expect(document).toBeInstanceOf(Object);
           expect(document.brand).toBe("porsche");
           expect(document.model).toBe("911");
-  
-          var document = documents[1];
-          expect(document.brand).toBe("opel");
-          expect(document.model).toBe("corsa");
         });
       });
 
