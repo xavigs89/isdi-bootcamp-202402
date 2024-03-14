@@ -1,3 +1,5 @@
+//_ = propiedad interna que no debe ser tocada
+
 function Component(tagName) {
     this._container = document.createElement(tagName)
 }
