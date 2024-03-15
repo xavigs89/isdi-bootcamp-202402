@@ -3,7 +3,7 @@ body {
 }
 
 main {
-  margin: 0, 30vw;
+  margin: 0;
   padding: 0 5vw;
 }
 
@@ -12,7 +12,11 @@ form {
   flex-direction: column;
 }
 
-footer {
+.main {
+  margin-bottom: 50px;
+}
+
+.footer {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -29,8 +33,7 @@ img {
   max-width: 100%;
 }
 
-#create-post-section {
-  display: none;
+.create-post {
   margin-bottom: 50px;
   position: fixed;
   bottom: 0;
@@ -96,11 +99,6 @@ img {
 
 #menu-nav {
   display: flex;
-}
-
-#logo {
-  width: 5vw;
-  margin-top: 2vh;
 }
 
 /*# sourceMappingURL=index.css.map */

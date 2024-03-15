@@ -1,3 +1,6 @@
+import db from './data/index.mjs'
+import logic from './logic.mjs'
+
 describe('logic', function () {
     describe('registerUser', function () {
         it('succeeds a new user', function () {
