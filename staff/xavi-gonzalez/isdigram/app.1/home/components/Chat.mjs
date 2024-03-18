@@ -13,7 +13,7 @@ class Chat extends Component {
         super('section')
 
         const userList = new Component('ul')
-
+//userlist
         try {
             const users = logic.retrieveUsersWithStatus()
 
@@ -33,7 +33,7 @@ class Chat extends Component {
 
                 userItem.onClick(() => {
                     if (chat) this.remove(chat)
-
+//messagelist
                     chat = new Component
 
                     const usernameTitle = new Component('h3')
@@ -70,7 +70,7 @@ class Chat extends Component {
                     chat.add(usernameTitle, messageList)
 
                     this.add(chat)
-
+//messageform
                     const sendMessageForm = new Form
 
                     sendMessageForm.onSubmit(event => {
