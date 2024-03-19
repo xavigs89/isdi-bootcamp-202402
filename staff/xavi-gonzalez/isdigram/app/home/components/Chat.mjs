@@ -1,117 +1,52 @@
-import utils from '../../utils.mjs'
+//import utils from '../../utils.mjs'
 
-import logic from '../../logic.mjs'
+//import logic from '../../logic.mjs'
 
 import Component from '../../core/Component.mjs'
-import Form from '../../core/Form.mjs'
-import Label from '../../core/Label.mjs'
-import Input from '../../core/Input.mjs'
-import Button from '../../core/Button.mjs'
+
+import UserList from './UserList.mjs'
+import MessageList from './MessageList.mjs'
+import SendMessageForm from './SendMessageForm.mjs'
+
 
 class Chat extends Component {
     constructor() {
         super('section')
 
-        const userList = new Component('ul')
+        const userList = new UserList
 
-        try {
-            const users = logic.retrieveUsersWithStatus()
+        this.messageList
+        let sendMessageForm
 
-            let chat = null
+        userList.onUserClick(userId => {
+            if (!this._messageList) {
+                this._messageList = new MessageList(userId)
+                sendMessageForm = new SendMessageForm(userId)
 
-            users.forEach(user => {
-                const userItem = new Component('li')
+                sendMessageForm.onSendMessage(() => this._messageList.refresh())
 
-                userItem.setText(user.username)
+                this.add(this._messageList, sendMessageForm)
+            } else {
+                this._messageList.stopAutoRefresh()
 
-                userItem.addClass('user-list__item')
+                const oldMessageList = this._messageList
+                const oldSendMessageForm = sendMessageForm
 
-                if (user.status === 'online')
-                    userItem.addClass('user-list__item--online')
-                else
-                    userItem.addClass('user-list__item--offline')
+                this._messageList = new MessageList(userId)
+                sendMessageForm = new SendMessageForm(userId)
 
-                userItem.onClick(() => {
-                    if (chat) this.remove(chat)
+                sendMessageForm.onSendMessage(() => this._messageList.refresh())
 
-                    chat = new Component
-
-                    const usernameTitle = new Component('h3')
-                    usernameTitle.setText(user.username)
-
-                    const messageList = new Component
-
-                    messageList.addClass('message-list')
-
-                    function renderMessages() {
-                        messageList.removeAll()
-
-                        try {
-                            const messages = logic.retrieveMessagesWithUser(user.id)
-
-                            messages.forEach(message => {
-                                const messageItem = new Component('p')
-                                messageItem.setText(message.text)
-
-                                if (message.from === logic.getLoggedInUserId())
-                                    messageItem.addClass('message-list__item--right')
-                                else
-                                    messageItem.addClass('message-list__item--left')
-
-                                messageList.add(messageItem)
-                            })
-                        } catch (error) {
-                            utils.showFeedback(error)
-                        }
-                    }
-
-                    renderMessages.call(this)
-
-                    chat.add(usernameTitle, messageList)
-
-                    this.add(chat)
-
-                    const sendMessageForm = new Form
-
-                    sendMessageForm.onSubmit(event => {
-                        event.preventDefault()
-
-                        const text = textInput.getValue()
-
-                        try {
-                            logic.sendMessageToUser(user.id, text)
-
-                            sendMessageForm.reset()
-
-                            renderMessages.call(this)
-                        } catch (error) {
-                            utils.showFeedback(error)
-                        }
-                    })
-
-                    const textLabel = new Label
-                    textLabel.setText('Text')
-                    textLabel.setFor('text')
-
-                    const textInput = new Input
-                    textInput.setId('text')
-
-                    const sendButton = new Button
-                    sendButton.setType('submit')
-                    sendButton.setText('Send')
-
-                    sendMessageForm.add(textLabel, textInput, sendButton)
-
-                    chat.add(sendMessageForm)
-                })
-
-                userList.add(userItem)
-            })
-        } catch (error) {
-            utils.showFeedback(error)
-        }
+                this.replace(oldMessageList, this._messageList)
+                this.replace(oldSendMessageForm, sendMessageForm)
+            }
+        })
 
         this.add(userList)
+    }
+
+    stopAutoRefresh() {
+        this._messageList.stopAutoRefresh()
     }
 }
 

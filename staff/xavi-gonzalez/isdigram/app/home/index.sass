@@ -1,4 +1,11 @@
-@use '../index.sass'
+@use '../index'
+
+@use '../library/SubmitButton'
+@use '../library/CancelButton'
+
+@use './components/UserList'
+@use './components/MessageList'
+
 .main
     margin-bottom: 50px
 
@@ -54,25 +61,6 @@ img
 
 #chat-panel
     display: none
-
-.message-list
-    display: flex
-    flex-direction: column
-
-.message-list__item--left
-    align-self: flex-start
-
-.message-list__item--right
-    align-self: flex-end
-
-.user-list__item
-    cursor: pointer
-
-.user-list__item--online::marker
-    color: limegreen
-
-.user-list__item--offline::marker
-    color: tomato
 
 #home-button
     display: none

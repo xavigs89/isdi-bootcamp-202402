@@ -1,10 +1,11 @@
-import logic from "../logic.mjs";
+import logic from '../logic.mjs'
 
-import Home from "./Home.mjs";
+import Home from './Home.mjs'
 
-if (!logic.isUserLoggedIn()) location.href = "../login";
+if (!logic.isUserLoggedIn())
+    location.href = '../login'
 else {
-  const home = new Home();
+    const home = new Home
 
-  home.assembleTo(document.body);
+    home.assembleTo(document.body)
 }

@@ -21,15 +21,17 @@ class UserList extends Component {
                     userItem.addClass('user-list__item--offline');
     
                 userItem.onClick(() => {
-                    this.onUserSelected(user);
+                    //funcion: this.onUserSelected(user);
                 });
     
                 this.add(userItem);
             });
+        } catch (error) {
+            utils.showFeedback(error)
         }
     
         onUserSelected(user) {
-            // Implementar la lógica para manejar la selección de usuario
+            
         }
     }
 

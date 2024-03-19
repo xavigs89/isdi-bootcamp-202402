@@ -2,8 +2,14 @@ import Component from "../../core/Component.mjs";
 
 
 
-class SendMessageList extends Component {
+class SendMessageForm extends Component {
+    constructor () {
+        super ("form")
+
+
+        this.addClass("send-message-form")
+}
 
 }
 
-export default SendMessageList
+export default SendMessageForm
