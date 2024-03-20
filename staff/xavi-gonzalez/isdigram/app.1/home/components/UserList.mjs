@@ -1,41 +1,44 @@
-import Component from "../../core/Component.mjs";
+import utils from '../../utils.mjs'
 
+import logic from '../../logic.mjs'
+
+import Component from '../../core/Component.mjs'
 
 class UserList extends Component {
-    constructor () {
-        super ("ul")
+    constructor() {
+        super('ul')
 
-
-        this.addClass("user-list")
-
-        //funcion
+        try {
+            const users = logic.retrieveUsersWithStatus()
 
             users.forEach(user => {
-                const userItem = new Component('li');
-                userItem.setText(user.username);
-                userItem.addClass('user-list__item');
-    
+                const userItem = new Component('li')
+
+                userItem.setText(user.username)
+
+                userItem.addClass('user-list__item')
+
                 if (user.status === 'online')
-                    userItem.addClass('user-list__item--online');
+                    userItem.addClass('user-list__item--online')
                 else
-                    userItem.addClass('user-list__item--offline');
-    
-                userItem.onClick(() => {
-                    //funcion: this.onUserSelected(user);
-                });
-    
-                this.add(userItem);
-            });
+                    userItem.addClass('user-list__item--offline')
+
+                userItem.onClick(() => this._onUserClickCallback(user.id))
+
+                this.add(userItem)
+            })
         } catch (error) {
             utils.showFeedback(error)
         }
-    
-        onUserSelected(user) {
-            
-        }
+
+        this._onUserClickCallback = null
     }
 
+    onUserClick(callback) {
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-
+        this._onUserClickCallback = callback
+    }
+}
 
 export default UserList

@@ -1,6 +1,5 @@
-//_ = propiedad interna que no debe ser tocada
 class Component {
-    constructor(tagName = "div") {
+    constructor(tagName = 'div') {
         this._container = document.createElement(tagName)
     }
 
@@ -12,9 +11,9 @@ class Component {
         const children = arguments
 
         Array.prototype.forEach.call(children, child => {
-            if (!(child instanceof Component)) throw new TypeError("child is not a Component")
+            if (!(child instanceof Component)) throw new TypeError('child is not a Component')
         })
-        
+
         Array.prototype.forEach.call(children, child => {
             this._container.appendChild(child._container)
         })
@@ -26,23 +25,22 @@ class Component {
 
         this._container.replaceChild(newChild._container, oldChild._container)
     }
-    
+
     remove(child) {
-        if (!(child instanceof Component)) throw new TypeError("child is not a Component")
+        if (!(child instanceof Component)) throw new TypeError('child is not a Component')
 
         this._container.removeChild(child._container)
     }
 
     removeAll() {
-        this._container.innerText = ""
+        this._container.innerHTML = ''
     }
 
     assembleTo(element) {
-        if (!(element instanceof HTMLElement)) throw new TypeError("element is not an HTMLElement")
+        if (!(element instanceof HTMLElement)) throw new TypeError('element is not an HTMLElement')
 
         element.appendChild(this._container)
     }
-
 
     onClick(callback) {
         if (typeof callback !== 'function') throw new TypeError('callback is not a function')
@@ -51,7 +49,7 @@ class Component {
     }
 
     setId(id) {
-        if (typeof id !== "string") throw new TypeError ("id is not a string")
+        if (typeof id !== 'string') throw new TypeError('id is not a string')
 
         this._container.id = id
     }

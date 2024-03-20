@@ -215,7 +215,7 @@ describe("Collection", () => {
           expect(documents).toBeInstanceOf(Array);
           expect(documents.length).toBe(3);
   
-          document = documents[0];
+          let document = documents[0];
           expect(document).toBeInstanceOf(Object);
           expect(document.brand).toBe("porsche");
           expect(document.model).toBe("911");
@@ -224,7 +224,7 @@ describe("Collection", () => {
           expect(document.brand).toBe("fiat");
           expect(document.model).toBe("500");
   
-          const document = documents[2];
+          document = documents[2];
           expect(document.brand).toBe("seat");
           expect(document.model).toBe("ibiza");
         });
@@ -244,12 +244,12 @@ describe("Collection", () => {
           expect(documents).toBeInstanceOf(Array);
           expect(documents.length).toBe(2);
 
-          document = documents[0];
+          let document = documents[0];
           expect(document).toBeInstanceOf(Object);
           expect(document.brand).toBe("porsche");
           expect(document.model).toBe("911");
 
-          const document = documents[1];
+          document = documents[1];
 
           expect(document.brand).toBe("opel");
           expect(document.model).toBe("corsa");

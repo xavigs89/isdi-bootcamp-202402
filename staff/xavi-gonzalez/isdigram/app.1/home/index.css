@@ -12,6 +12,46 @@ form {
   flex-direction: column;
 }
 
+.round-button {
+  border-radius: 5px;
+  border: 1px solid black;
+  margin: 10px 0;
+}
+
+.submit-button {
+  background-color: gold;
+}
+
+.cancel-button {
+  background-color: smoke;
+}
+
+.user-list__item {
+  cursor: pointer;
+}
+
+.user-list__item--online::marker {
+  color: limegreen;
+}
+
+.user-list__item--offline::marker {
+  color: tomato;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.message-list__item--left {
+  align-self: flex-start;
+}
+
+.message-list__item--right {
+  align-self: flex-end;
+}
+
 .main {
   margin-bottom: 50px;
 }
@@ -75,31 +115,6 @@ img {
 
 #chat-panel {
   display: none;
-}
-
-.message-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.message-list__item--left {
-  align-self: flex-start;
-}
-
-.message-list__item--right {
-  align-self: flex-end;
-}
-
-.user-list__item {
-  cursor: pointer;
-}
-
-.user-list__item--online::marker {
-  color: limegreen;
-}
-
-.user-list__item--offline::marker {
-  color: tomato;
 }
 
 #home-button {
