@@ -14,7 +14,25 @@ class MessageList extends Component {
 
     this.refresh();
 
-    this._refreshIntervalId = setInterval(() => this.refresh(), 1000);
+    //version chivato
+    /*
+    setInterval(() =>  {
+      console.count("message-list interval")
+      
+      if (MessageList.active) {
+        console.count("message-list refresh")
+
+        this.refresh()
+      }
+    } , 1000)
+    */
+
+
+    //version guay
+
+   setInterval(() => MessageList.active && this.refresh(), 1000);
+
+   MessageList.active = true
   }
 
   refresh() {
@@ -23,13 +41,14 @@ class MessageList extends Component {
     try {
       const messages = logic.retrieveMessagesWithUser(this._userId);
 
-      messages.forEach((message) => {
+      messages.forEach(message => {
         const messageItem = new Component("li");
         messageItem.setText(message.text);
 
         if (message.from === logic.getLoggedInUserId())
           messageItem.addClass("message-list__item--right");
-        else messageItem.addClass("message-list__item--left");
+        else 
+        messageItem.addClass("message-list__item--left");
 
         this.add(messageItem);
       });
@@ -38,9 +57,7 @@ class MessageList extends Component {
     }
   }
 
-  stopAutoRefresh() {
-    clearInterval(this._refreshIntervalId);
-  }
+  static active = false
 }
 
 export default MessageList;
