@@ -1,4 +1,10 @@
-class Login extends React.Component {
+import logic from "../logic.mjs"
+
+import utils from "../utils.mjs"
+
+import { Component } from 'react'
+
+class Login extends Component {
     constructor() {
         super()
     }
@@ -6,15 +12,40 @@ class Login extends React.Component {
     render() {
         return <main>
             <h1>Login</h1>
-            <form>
-                <label>Username</label>
+            <form onSubmit={event => {
+                event.preventDefault()
+
+                const form = event.target
+
+                const username = form.username.value
+                const password = form.password.value
+
+                try {
+                    logic.loginUser(username, password)
+
+                    form.reset()
+
+                    this.props.onUserLoggedIn()
+                } catch (error) {
+                    utils.showFeedback(error)
+                }
+            }}>
+                <label htmlFor="username">Username</label>
                 <input id="username" />
-                <label>Password</label>
+
+                <label htmlFor="password">Password</label>
                 <input type="password" id="password" />
+
                 <button className="round-button" type="submit">Login</button>
             </form>
 
-            <a href="">Register</a>
+            <a href="" onClick={event => {
+                event.preventDefault()
+
+                this.props.onRegisterClick()
+            }}>Register</a>
         </main>
     }
 }
+
+export default Login

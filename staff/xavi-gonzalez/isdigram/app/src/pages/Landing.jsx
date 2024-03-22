@@ -1,4 +1,7 @@
-class Landing extends React.Component {
+import { Component } from 'react'
+
+
+class Landing extends Component {
     constructor() {
         super()
     }
@@ -6,7 +9,18 @@ class Landing extends React.Component {
     render() {
         return <main>
             <h1>Landing</h1>
-            <a href="">Login</a><span> or </span><a href="">Register</a>
+
+            <a href="" onClick={event => {
+                event.preventDefault()
+
+                this.props.onLoginClick()
+            }}>Login</a> or <a href="" onClick={event => {
+                event.preventDefault()
+
+                this.props.onRegisterClick()
+            }}>Register</a>
         </main>
     }
 }
+
+export default Landing
