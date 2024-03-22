@@ -14,23 +14,19 @@ class MessageList extends Component {
 
     this.refresh();
 
-    //version chivato
-    /*
-    setInterval(() =>  {
-      console.count("message-list interval")
-      
-      if (MessageList.active) {
-        console.count("message-list refresh")
+    this._refreshIntervalId = setInterval(() => {
+      console.count('message-list interval')
 
-        this.refresh()
+      if (MessageList.active) {
+          console.count('message-list refresh')
+
+          this.refresh()
       }
-    } , 1000)
-    */
+  }, 1000)
 
 
     //version guay
-
-   setInterval(() => MessageList.active && this.refresh(), 1000);
+    // this._refreshIntervalId = setInterval(() => MessageList.active && this.refresh(), 1000)
 
    MessageList.active = true
   }
@@ -58,6 +54,10 @@ class MessageList extends Component {
   }
 
   static active = false
+
+  stopAutoRefresh() {
+    clearInterval(this._refreshIntervalId)
+}
 }
 
 export default MessageList;
