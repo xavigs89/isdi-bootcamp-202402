@@ -5,7 +5,48 @@ class Chat extends Component {
     }
 
     render() {
-        return <h3>Hello, Chat!</h3>
+        return <main className='main'>
+            <h3>Hello, rickyf!</h3>
+            <nav>
+                <button>🏡</button>
+                <button>🚪</button>
+            </nav>
+
+            <section>
+
+            <ul>
+                    <li className="user-list__item user-list__item--online">
+                        "xavigs"
+                    </li>
+                    <li className="user-list__item user-list__item--offline">
+                        "pepe"
+                    </li>
+                    <li className="user-list__item user-list__item--offline">
+                        "perico"
+                    </li>
+                    <li className="user-list__item user-list__item--offline">
+                        "snoop"
+                    </li>
+                    <li className="user-list__item user-list__item--offline">
+                        "wellintonq"
+                    </li>
+                </ul>
+                <h3>wellintonq</h3>
+                <ul className="message-list">
+                    <li className="message-list__item--left">payaso</li>
+                    <li className="message-list__item--left">comepipas</li>
+                    <li className="message-list__item--right">personaje</li>
+                </ul>
+                <form action="">
+                    <label htmlFor="">Text</label>
+                    <input type="text" id="text" />
+                    <button className="round-button submit-button" type="submit">Send</button>
+                </form>
+
+            </section>
+
+        </main> 
+        
     }
 
 }
