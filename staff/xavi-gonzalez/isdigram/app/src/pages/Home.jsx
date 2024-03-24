@@ -1,19 +1,42 @@
 import { Component } from "react";
 
+import logic from "../logic.mjs";
 class Home extends Component {
     constructor () {
         super()
+
+        //this.state = { view: 'home' }
     }
 
     render() {
+
+    //if (this.state)    
         return <body>
             <main className="main">
 
                 <h1>Hello, Ricky Fort!</h1>
 
+
                 <nav>
-                    <button>💬</button>
-                    <button>🚪</button>
+                    <button
+                    
+                    onClick={event => {
+                        event.preventDefault()
+
+                        this.props.onChatClick()
+                    }
+                }
+                    >💬</button>
+                    <button
+                    onClick={event => {
+                        event.preventDefault()
+                        
+                    this.props.onLogoutClick()
+
+                    }
+                }
+                    
+                    >🚪</button>
                 </nav>
 
                 <section>
