@@ -1,3 +1,7 @@
+import utils from "./utils";
+
+import logic from "./logic";
+
 import { Component } from "react";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -9,7 +13,7 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = { view: "landing" };
+    this.state = { view: logic.isUserLoggedIn() ? "home" : "landing" };
   }
 
   render() {
@@ -19,7 +23,7 @@ class App extends Component {
           onLoginClick={() => this.setState({ view: "login" })}
           onRegisterClick={() => this.setState({ view: "register" })}
         />
-      );
+      )
     else if (this.state.view === "login")
       return (
         <Login
@@ -35,17 +39,16 @@ class App extends Component {
         />
       );
     else if (this.state.view === "home") return <Home
-    onLogoutClick={() => this.setState({ view: 'landing'})}
     onChatClick={() => this.setState({ view: 'chat' })}
+    onLogoutClick={() => this.setState({ view: 'landing'})}
     />;
 
     else if (this.state.view === 'chat') return <Chat 
+    onHomeClick={() => this.setState({ view: 'home'})}
+    onLogoutClick={() => this.setState({ view: 'landing'})}
     
     />
     
-    //return <Chat /> onChatClick={() => this.setState({view: 'chat' })}
-    //onLogoutClick={() => this.setState}
-    //else
     else return <h1>🤨</h1>;
   }
 }

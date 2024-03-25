@@ -1,15 +1,37 @@
+import utils from '../utils'
+
+import logic from '../logic'
+
 import { Component } from 'react'
 class Chat extends Component {
     constructor() {
         super()
+
+    
     }
 
     render() {
         return <main className='main'>
-            <h3>Hello, rickyf!</h3>
+
+            <h3>Hello, payaso</h3>
             <nav>
-                <button>🏡</button>
-                <button>🚪</button>
+                <button
+                onClick={(event => {
+                    event.preventDefault()
+
+                    this.props.onHomeClick()
+                })}
+                
+                >🏡</button>
+                <button
+                onClick={event => {
+                    event.preventDefault()
+                    
+                this.props.onLogoutClick()
+
+                }
+            }
+                >🚪</button>
             </nav>
 
             <section>

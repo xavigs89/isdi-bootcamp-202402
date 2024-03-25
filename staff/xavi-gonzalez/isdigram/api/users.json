@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Ricky Fort",
+    "birthdate": "1985-05-02",
+    "email": "rickyfort@gmail.com",
+    "username": "rickyf",
+    "password": "Isdicoders1",
+    "status": "online",
+    "id": "ld4oef9tg00"
+  },
+  {
+    "name": "Wellinton Q El Campeón",
+    "birthdate": "1956-05-05",
+    "email": "wellinton@gmail.com",
+    "username": "wellintonq",
+    "password": "Isdicoders1",
+    "status": "online",
+    "id": "a1gobp2m834"
+  },
+  {
+    "name": "Xavi",
+    "birthdate": "1986-05-05",
+    "email": "xavigs1989@gmail.com",
+    "username": "xavigs",
+    "password": "Isdicoders1",
+    "status": "online",
+    "id": "dt34hx1q8a8"
+  },
+  {
+    "name": "Perico de los Palotes",
+    "birthdate": "1985-05-05",
+    "email": "perico@gmail.com",
+    "username": "perico",
+    "password": "Isdicoders1",
+    "status": "offline",
+    "id": "7vkz1udlijk"
+  },
+  {
+    "name": "Snoop Dogg",
+    "birthdate": "1980-04-05",
+    "email": "snoop@gmail.com",
+    "username": "snoopdogg",
+    "password": "Isdicoders1",
+    "status": "offline",
+    "id": "dus51lz9zww"
+  },
+  {
+    "name": "pepe",
+    "birthdate": "1985-05-05",
+    "email": "pepe@gmail.com",
+    "username": "pepe",
+    "password": "Isdicoders1",
+    "status": "offline",
+    "id": "e1ygyh6x7g8"
+  }
+]
