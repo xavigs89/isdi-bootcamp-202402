@@ -32,7 +32,9 @@ class Collection {
         if (typeof callback !== "function") throw new TypeError('callback is not a function')
 
         documents.forEach(document => {
-            if (!(document instanceof Object)) throw new TypeError('a document in documents is not an object')
+            // if (!(document instanceof Object)) throw new TypeError('a document in documents is not an object')
+
+            if (typeof document !== 'object') throw new TypeError('a document in documents is not an object')
         })
 
         const documentsJSON = JSON.stringify(documents)
@@ -43,10 +45,8 @@ class Collection {
 
                 return
             }
-            
 
             callback(null)
-
         })
     }
 
@@ -66,79 +66,125 @@ class Collection {
        
         const document = documents.find(condition)
 
-        callback(null, document)
+        callback(null, document || null)
         })
     }
-/*
-    insertOne(document) {
-        const documents = this._loadDocuments()
-
-        document.id = this._generateId()
-
-        documents.push(document)
-
-        this._saveDocuments(documents)
-    }
-*/
 
     insertOne(document, callback) {
-        if (!(document instanceof Object))
-        throw new TypeError("document is not an object");
+        //if (!(document instanceof Object)) throw new TypeError("document is not an object");
+        if (typeof document !== 'object') throw new TypeError('document is not an object')
+
+        // if (!(callback instanceof Function)) throw new TypeError('callback is not a function')
         if (typeof callback !== "function")
         throw new TypeError("callback is not a function");
 
         this._loadDocuments((error, documents) => {
-        if (error) {
-            callback(error);
-            return;
-        }
-
-        document.id = this._generateId();
-
-        documents.push(document);
-
-        this._saveDocuments(documents, (error) => {
             if (error) {
-            callback(error);
-            return;
+                callback(error);
+
+                return;
             }
 
-            callback(null);
-        });
+            document.id = this._generateId();
+
+            documents.push(document);
+
+            this._saveDocuments(documents, error => {
+                if (error) {
+                callback(error);
+
+                return;
+                }
+
+                callback(null, document.id);
+            });
         });
   }
 
 
-    updateOne(document, callback) {
-        const documents = this._loadDocuments()
+    updateOne(condition, document, callback) {
+        if (typeof condition !== 'function') throw new TypeError('condition callback is not a function')
+        if (typeof document !== 'object') throw new TypeError('document is not an object')
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-        const index = documents.findIndex(document2 => document2.id === document.id)
+        this._loadDocuments((error, documents) => {
+            if (error) {
+                callback(error)
 
-        if (index > - 1) {
-            documents.splice(index, 1, document)
+                return
+            }
 
-            this._saveDocuments(documents)
-        }
+            const index = documents.findIndex(condition)
+
+            if (index > - 1) {
+                documents.splice(index, 1, document)
+
+                this._saveDocuments(documents, error => {
+                    if (error) {
+                        callback(error)
+
+                        return
+                    }
+
+                    callback(null, true)
+                })
+
+                return
+            }
+
+            callback(null, false)
+        })
     }
 
+       
     deleteOne(condition, callback) {
-        const documents = this._loadDocuments()
+        if (typeof condition !== 'function') throw new TypeError('condition callback is not a function')
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-        const index = documents.findIndex(callback)
+        this._loadDocuments((error, documents) => {
+            if (error) {
+                callback(error)
 
-        if (index > - 1) {
-            documents.splice(index, 1)
+                return
+            }
 
-            this._saveDocuments(documents)
-        }
+            const index = documents.findIndex(condition)
+
+            if (index > - 1) {
+                documents.splice(index, 1)
+    
+                this._saveDocuments(documents, error => {
+                    if (error) {
+                        callback(error)
+
+                        return
+                    }
+
+                    callback(null, true)
+                })
+
+                return
+            }
+
+            callback(null, false)
+
+        
+        })
     }
 
-    getAll() {
-        const documents = this._loadDocuments()
+    getAll(callback) {
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-        return documents
+        this._loadDocuments((error, documents) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            callback(null, documents)
+        })
     }
-
 }
 
 export default Collection

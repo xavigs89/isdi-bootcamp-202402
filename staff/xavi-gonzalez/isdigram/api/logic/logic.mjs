@@ -1,4 +1,4 @@
-import db from '../data/index.mjs'
+import db from './data/index.mjs'
 
 // constants
 
@@ -43,8 +43,7 @@ function registerUser(name, birthdate, email, username, password) {
     validateText(username, 'username', true)
     validatePassword(password, 'password')
 
-
-// DEMO
+    // TODO input validation
 
     let user = db.users.findOne(user => user.email === email || user.username === username)
 
@@ -139,6 +138,13 @@ function sendMessageToUser(userId, text) {
     validateText(userId, 'userId', true)
     validateText(text, 'text')
 
+    // { id, users: [id, id], messages: [{ from: id, text, date }, { from: id, text, date }, ...] }
+
+    // find chat in chats (by user ids)
+    // if no chat yet, then create it
+    // add message in chat
+    // update or insert chat in chats
+    // save chats
 
     let chat = db.chats.findOne(chat => chat.users.includes(userId) && chat.users.includes(sessionStorage.userId))
 

@@ -1,51 +1,66 @@
-import logic from "../logic.mjs"
+import { logger, showFeedback } from '../utils'
 
-import utils from "../utils.mjs"
+import logic from '../logic.mjs';
 
-import { Component } from 'react'
+import { Component } from "react";
 
 class Login extends Component {
-    constructor() {
-        super()
-    }
+  constructor() {
+    logger.debug("Login")
 
-    render() {
-        return <main>
-            <h1>Login</h1>
-            <form onSubmit={event => {
-                event.preventDefault()
+    super();
+  }
 
-                const form = event.target
+  
+  handleSubmit = event => {
+      event.preventDefault();
 
-                const username = form.username.value
-                const password = form.password.value
+      const form = event.target;
 
-                try {
-                    logic.loginUser(username, password)
+      const username = form.username.value;
+      const password = form.password.value;
 
-                    form.reset()
+      logger.debug("Login -> handleSubmit", username, password)
 
-                    this.props.onUserLoggedIn()
-                } catch (error) {
-                    utils.showFeedback(error)
-                }
-            }}>
-                <label htmlFor="username">Username</label>
-                <input id="username" />
+      try {
+        logic.loginUser(username, password);
 
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" />
+        form.reset();
 
-                <button className="round-button" type="submit">Login</button>
-            </form>
+        this.props.onUserLoggedIn();
+      } catch (error) {
+        showFeedback(error);
+      }
+  }
 
-            <a href="" onClick={event => {
-                event.preventDefault()
+  handleRegisterClick = event => {
+      event.preventDefault()
 
-                this.props.onRegisterClick()
-            }}>Register</a>
+      this.props.onRegisterClick()
+  }
+
+  render() {
+      logger.debug("Login -> render")
+
+      return (
+        <main>
+          <h1>Login</h1>
+
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="username">Username</label>
+            <input id="username" />
+
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" />
+
+            <button className="round-button" type="submit">Login</button>
+          </form>
+
+          <a href="" onClick={this.handleRegisterClick}
+          >Register</a>
         </main>
+      );
     }
-}
+  }
 
-export default Login
+  export default Login;

@@ -1,64 +1,79 @@
-import utils from '../utils.mjs'
+import { logger, showFeedback } from '../utils'
 
-import logic from '../logic.mjs'
+import logic from '../logic';
 
-import { Component } from 'react'
+import { Component } from 'react';
 
 class Register extends Component {
-    constructor() {
-        super()
+  constructor() {
+    logger.debug('Register')
+
+    super();
+  }
+
+  handleSubmit = event => {
+      event.preventDefault();
+
+      const form = event.target;
+
+      const name = form.name.value;
+      const birthdate = form.birthdate.value;
+      const email = form.email.value;
+      const username = form.username.value;
+      const password = form.password.value;
+
+      try {
+        logic.registerUser(name, birthdate, email, username, password);
+
+        form.reset();
+
+        this.props.onUserRegistered();
+      } catch (error) {
+        showFeedback(error);
+      }
     }
+  
+  handleLoginClick = event => {
+        event.preventDefault();
 
-    render() {
-        return <main>
-            <h1>Register</h1>
+        this.props.onLoginClick();
+  }
+  
+  render() {
+    logger.debug('Register -> render')
 
-            <form onSubmit={event => {
-                event.preventDefault()
+    return (
+      <main>
+        <h1>Register</h1>
 
-                const form = event.target
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" />
 
-                const name = form.name.value
-                const birthdate = form.birthdate.value
-                const email = form.email.value
-                const username = form.username.value
-                const password = form.password.value
+          <label htmlFor="birthdate">Age</label>
+          <input type="date" id="birthdate" />
 
-                try {
-                    logic.registerUser(name, birthdate, email, username, password)
+          <label htmlFor="email">E-mail</label>
+          <input type="text" id="email" />
 
-                    form.reset()
+          <label htmlFor="username">Username</label>
+          <input type="text" id="username" />
 
-                    this.props.onUserRegistered()
-                } catch (error) {
-                    utils.showFeedback(error)
-                }
-            }}>
-                <label htmlFor="name">Name</label>
-                <input type="text" id="name" />
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" />
 
-                <label htmlFor="birthdate">Age</label>
-                <input type="date" id="birthdate" />
+          <button className="round-button" type="submit">
+            Register
+          </button>
+        </form>
 
-                <label htmlFor="email">E-mail</label>
-                <input type="text" id="email" />
-
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" />
-
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" />
-
-                <button className="round-button" type="submit">Register</button>
-            </form>
-
-            <a href="" onClick={event => {
-                event.preventDefault()
-
-                this.props.onLoginClick()
-            }}>Login</a>
-        </main>
-    }
+        <a
+          href=""
+          onClick={this.handleLoginClick}
+        >Login</a>
+      </main>
+    );
+  }
 }
 
-export default Register
+export default Register;

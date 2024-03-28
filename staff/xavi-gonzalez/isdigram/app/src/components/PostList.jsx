@@ -1,96 +1,55 @@
-import utils from "../utils";
+import { logger, showFeedback } from '../utils'
 
-import logic from "../logic";
+import logic from '../logic'
 
-import { Component } from "react";
+import { Component } from 'react'
+import Post from './Post'
 
 class PostList extends Component {
-  constructor() {
-    super();
+    constructor() {
+        logger.debug('PostList')
 
-    try {
-      const posts = logic.retrievePosts();
+        super()
 
-      //
-
-      this.state = { posts };
-    } catch (error) {
-      utils.showFeedback(error);
+        this.state = { posts: [] }
     }
-  }
 
-  componentWillReceiveProps(newProps) {
-    console.log(this.props, newProps);
+    loadPosts() {
+        logger.debug('PostList -> loadPosts')
 
-    if (newProps.refreshStamp !== this.props.stamp) {
-      try {
-        const posts = logic.retrievePosts();
+        try {
+            const posts = logic.retrievePosts()
 
-        this.setState({ posts });
-      } catch (error) {
-        utils.showFeedback();
-      }
+            this.setState({ posts })
+        } catch (error) {
+            showFeedback(error)
+        }
     }
-  }
 
-  render() {
-    return (
-      <section>
-        
-        {this.state.posts.map((post) => (
-          
-          <article key={post.id}>
-            <h3>{post.author.username}</h3>
+    componentWillReceiveProps(newProps) {
+        logger.debug('PostList -> componentWillReceiveProps', JSON.stringify(this.props), JSON.stringify(newProps))
 
-            <img src={post.image} />
+        //if (newProps.stamp !== this.props.stamp) this.loadPosts()
+        newProps.stamp !== this.props.stamp && this.loadPosts()
+    }
 
-            <p>{post.text}</p>
+    componentDidMount() {
+        logger.debug('PostList -> componentDidMount')
 
-            <time>{post.date}</time>
-            
-            {post.author.id === logic.getLoggedInUserId() &&
-            
-            <div>
-            <button
-               onClick={( ) => {
-                
-                this.props.onEditPostClick();
-              }}
-            >
-              📝
-            </button>
-            
-            <button
-              onClick={() => {
+        this.loadPosts()
+    }
 
-                confirm ('delete post?')
+    handlePostDeleted = () => this.loadPosts()
 
+    handleEditClick = post => this.props.onEditPostClick(post)
 
-                try {
-                  logic.removePost(post.id);
+    render() {
+        logger.debug('PostList -> render')
 
-                  const posts = logic.retrievePosts()
-
-                  this.setState({ posts });
-      
-                } catch (error) {
-                utils.showFeedback(error);
-              
-                
-              }}
-            }
-            >
-              🗑️
-            </button>
-            </div>
-            }
-           
-            
-          </article>
-        ))}
-      </section>
-    );
-  }
+        return <section>
+            {this.state.posts.map(post => <Post key={post.id} item={post} onEditClick={this.handleEditClick} onDeleted={this.handlePostDeleted} />)}
+        </section>
+    }
 }
 
-export default PostList;
+export default PostList

@@ -1,10 +1,14 @@
-import utils from '../utils'
+import { logger } from '../utils'
 
 import logic from '../logic'
 
 import { Component } from 'react'
+
+
 class Chat extends Component {
     constructor() {
+        logger.debug('Chat')
+
         super()
 
     

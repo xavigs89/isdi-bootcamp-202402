@@ -1,56 +1,76 @@
-import utils from "./utils";
+import { logger } from './utils'
 
-import logic from "./logic";
+import logic from './logic'
 
-import { Component } from "react";
-import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import Chat from "./pages/Chat";
+import { Component } from 'react'
+import Landing from './pages/Landing'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Home from './pages/Home'
+import Chat from './components/Chat'
 
 class App extends Component {
   constructor() {
-    super();
+    logger.debug('App')
 
-    this.state = { view: logic.isUserLoggedIn() ? "home" : "landing" };
+    super()
+
+    this.state = { view: logic.isUserLoggedIn() ? 'home' : 'landing' }
   }
 
-  render() {
-    if (this.state.view === "landing")
-      return (
-        <Landing
-          onLoginClick={() => this.setState({ view: "login" })}
-          onRegisterClick={() => this.setState({ view: "register" })}
-        />
-      )
-    else if (this.state.view === "login")
-      return (
-        <Login
-          onRegisterClick={() => this.setState({ view: "register" })}
-          onUserLoggedIn={() => this.setState({ view: "home" })}
-        />
-      );
-    else if (this.state.view === "register")
-      return (
-        <Register
-          onLoginClick={() => this.setState({ view: "login" })}
-          onUserRegistered={() => this.setState({ view: "login" })}
-        />
-      );
-    else if (this.state.view === "home") return <Home
-    onChatClick={() => this.setState({ view: 'chat' })}
-    onLogoutClick={() => this.setState({ view: 'landing'})}
-    />;
+  setState(state) {
+    logger.debug('App -> setState', JSON.stringify(state))
 
-    else if (this.state.view === 'chat') return <Chat 
-    onHomeClick={() => this.setState({ view: 'home'})}
-    onLogoutClick={() => this.setState({ view: 'landing'})}
-    
-    />
-    
-    else return <h1>🤨</h1>;
+    super.setState(state)
+  }
+
+  componentDidMount() {
+    logger.debug('App -> componentDidMount')
+  }
+
+  goToLogin = () => this.setState({ view: 'login' })
+
+  handleLoginClick = () => this.goToLogin()
+
+  handleRegisterClick = () => this.setState({ view: 'register' })
+
+  handleUserLoggedIn = () => this.setState({ view: 'home' })
+
+  handleUserLoggedOut = () => this.goToLogin()
+
+  handleChatClick = () => this.goToChat()
+
+  goToChat = () => this.setState({ view: 'chat' })
+
+  handleHomeClick = () => this.goToHome()
+
+  goToHome = () => this.setState({ view: 'home' })
+
+
+  render() {
+    logger.debug('App -> render')
+
+    if (this.state.view === 'landing')
+      return <Landing onLoginClick={this.handleLoginClick} onRegisterClick={this.handleRegisterClick} />
+    else if (this.state.view === 'login')
+      return <Login onRegisterClick={this.handleRegisterClick} onUserLoggedIn={this.handleUserLoggedIn} />
+    else if (this.state.view === 'register')
+      return <Register 
+      onLoginClick={this.handleLoginClick} 
+      onUserRegistered={this.handleLoginClick} />
+    else if (this.state.view === 'home')
+      return <Home 
+      onChatClick={this.handleChatClick}
+      onUserLoggedOut={this.handleUserLoggedOut}
+      /> 
+    else if (this.state.view === 'chat')
+      return <Chat 
+      onHomeClick={this.handleHomeClick}
+      onUserLoggedOut={this.handleUserLoggedOut}
+      /> 
+    else
+      return <h1>🤨</h1>
   }
 }
 
-export default App;
+export default App
