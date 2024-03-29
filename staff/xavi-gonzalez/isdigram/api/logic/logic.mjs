@@ -1,4 +1,4 @@
-import db from './data/index.mjs'
+import db from '../data/index.mjs'
 
 // constants
 
@@ -23,79 +23,155 @@ function validateDate(date, explain) {
 }
 
 function validateEmail(email, explain) {
-    if (!EMAIL_REGEX.test(email)) throw new Error(explain + ' ' + email + ' is not an email')
+    if (!EMAIL_REGEX.test(email)) throw new Error(`${explain} ${email} is not an email`)
 }
 
 function validatePassword(password, explain) {
-    if (!PASSWORD_REGEX.test(password)) throw new Error(explain + ' ' + password + ' is not acceptable')
+    if (!PASSWORD_REGEX.test(password)) throw new Error(`${explain} password is not acceptable`)
 }
 
 function validateUrl(url, explain) {
     if (!URL_REGEX.test(url)) throw new Error(explain + ' ' + url + ' is not an url')
 }
 
+function validateCallback(callback, explain = 'callback') {
+    if (typeof callback !== 'function') throw new TypeError(`${explain} is not a function`)
+}
+
 // logic
 
-function registerUser(name, birthdate, email, username, password) {
+function registerUser(name, birthdate, email, username, password, callback) {
     validateText(name, 'name')
     validateDate(birthdate, 'birthdate')
-    validateEmail(email, 'email')
+    validateEmail(email)
     validateText(username, 'username', true)
-    validatePassword(password, 'password')
+    validatePassword(password)
+    validateCallback(callback)
 
-    // TODO input validation
+    db.users.findOne(user => user.email === email || user.username === username, (error, user) => {
+        if (error) {
+            callback(error)
 
-    let user = db.users.findOne(user => user.email === email || user.username === username)
+            return
+        }
 
-    if (user) throw new Error('user already exists')
+        if (user) {
+            callback(new Error('user already exists'))
 
-    user = {
-        name: name.trim(),
-        birthdate: birthdate,
-        email: email,
-        username: username,
-        password: password,
-        status: 'offline',
-    }
+            return
+        }
 
-    db.users.insertOne(user)
+        user = {
+            name: name.trim(),
+            birthdate: birthdate,
+            email: email,
+            username: username,
+            password: password,
+            status: 'offline',
+        }
+
+        db.users.insertOne(user, error => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            callback(null)
+        })
+    })
 }
 
-function loginUser(username, password) {
+function loginUser(username, password, callback) {
     validateText(username, 'username', true)
-    validatePassword(password, 'password')
+    validatePassword(password)
+    validateCallback(callback)
 
-    const user = db.users.findOne(user => user.username === username)
+    db.users.findOne(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(error)
 
-    if (!user) throw new Error('user not found')
+            return
+        }
 
-    if (user.password !== password) throw new Error('wrong password')
+        if (!user) {
+            callback(new Error('user not found'))
 
-    user.status = 'online'
+            return
+        }
 
-    db.users.updateOne(user)
+        if (user.password !== password) {
+            callback(new Error('wrong password'))
 
-    sessionStorage.userId = user.id
+            return
+        }
+
+        user.status = 'online'
+
+        db.users.updateOne(user2 => user2.id === user.id, user, error => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            callback(null, user.id)
+        })
+    })
 }
 
-function retrieveUser() {
-    const user = db.users.findOne(user => user.id === sessionStorage.userId)
+function retrieveUser(userId, callback) {
+    validateText(userId, 'userId', true)
+    validateCallback(callback)
 
-    if (!user) throw new Error('user not found')
+    db.users.findOne(user => user.id === userId, (error, user) => {
+        if (error) {
+            callback(error)
 
-    return user
+            return
+        }
+
+        if (!user) {
+            callback(new Error('user not found'))
+
+            return
+        }
+
+        delete user.id
+        delete user.password
+        delete user.status
+
+        callback(null, user)
+    })
 }
 
-function logoutUser() {
-    const user = db.users.findOne(user => user.id === sessionStorage.userId)
+//DEBERES
 
-    if (!user) throw new Error('user not found')
+function logoutUser(userId, callback) {
+    db.users.findOne(user => user.id === userId, (error, user) => {
+        if (error) {
+            callback(error);
+            return;
+        }
 
-    user.status = 'offline'
+        if (!user) {
+            callback(new Error('user not found'));
+            return;
+        }
 
-    db.users.updateOne(user)
+        user.status = 'offline';
 
-    delete sessionStorage.userId
+        db.users.updateOne({ id: user.id }, user, error => {
+            if (error) {
+                callback(error);
+                return;
+            }
+            
+            delete this.userId
+
+            callback(null, user.id);
+        });
+    });
 }
 
 function getLoggedInUserId() {
@@ -111,9 +187,9 @@ function cleanUpLoggedInUserId() {
 }
 
 function retrieveUsersWithStatus() {
-    const users = db.users.getAll()
+    db.users.getAll()
 
-    const index = users.findIndex(user => user.id === sessionStorage.userId)
+    users.findIndex(user => user.id === sessionStorage.userId)
 
     users.splice(index, 1)
 
