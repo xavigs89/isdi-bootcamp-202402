@@ -62,7 +62,16 @@ class Home extends Component {
             <h1>Hello, {this.user.name}!</h1>
 
             <nav>
-                <button>💬</button>
+                <button
+                onClick={(event) => {
+                event.preventDefault()
+                
+                this.props.onChatClick()
+                }}
+                >
+                💬
+                </button>
+
                 <button onClick={this.handleLogoutClick}>🚪</button>
             </nav>
 

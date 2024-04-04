@@ -1,4 +1,7 @@
-import db from '../data/index.mjs'
+//PARA IGNORAR TODO EN TYPESCRIPT, HACER
+//@ts-nocheck
+
+import db from '../data/index.ts'
 
 // constants
 
@@ -148,31 +151,35 @@ function retrieveUser(userId, callback) {
 //DEBERES
 
 function logoutUser(userId, callback) {
-    db.users.findOne(user => user.id === userId, (error, user) => {
+    db.users.findOne(
+      (user) => user.id === userId,
+      (error, user) => {
         if (error) {
-            callback(error);
-            return;
+          callback(error);
+          return;
         }
-
+  
         if (!user) {
-            callback(new Error('user not found'));
-            return;
+          callback(new Error("user not found"));
+  
+          return;
         }
-
-        user.status = 'offline';
-
-        db.users.updateOne({ id: user.id }, user, error => {
+  
+        user.status = "offline";
+  
+        db.users.updateOne(
+          (user2) => user2.id === userId,
+          user,
+          (error) => {
             if (error) {
-                callback(error);
-                return;
+              callback(error);
+              return;
             }
-            
-            delete this.userId
-
-            callback(null, user.id);
-        });
-    });
-}
+  
+            callback(null, user);
+            })
+        })
+}   
 
 function getLoggedInUserId() {
     return sessionStorage.userId

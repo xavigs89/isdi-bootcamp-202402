@@ -1,6 +1,5 @@
 import db from "../data/index.mjs";
-import logic from "./logic.mjs";
-import fs from "fs";
+import logic from "./index.mjs";
 
 import { expect } from "chai";
 
@@ -439,7 +438,6 @@ describe("logic", () => {
   describe("logoutUser", () => {
     it("does logout properly", (done) => {
       db.users.deleteOne(
-       
         (user) => user.username === "peperoni",
         (error) => {
           if (error) {
@@ -455,7 +453,6 @@ describe("logic", () => {
               email: "pepe@roni.com",
               username: "peperoni",
               password: "123qwe123",
-              status: "online",
             },
             (error, insertedUserId) => {
               if (error) {
@@ -464,15 +461,38 @@ describe("logic", () => {
                 return;
               }
 
-              logic.logoutUser()
+              logic.logoutUser(insertedUserId, (error, userId) => {
+                if (error) {
+                  done(error);
 
-              
+                  return;
+                }
 
+                expect(userId).to.equal(insertedUserId);
 
+                db.users.findOne(
+                  (user) => user.id === userId,
+                  (error, user) => {
+                    if (error) {
+                      done(error);
+
+                      return;
+                    }
+
+                    expect(user.status).to.equal("offline");
+
+                    done();
+                  }
+                );
               });
+              // cuando insertas un usuario te devuelven normalmente el id del mismo,
+              // si fuera un documento o lo que sea haría lo mismo (posts, users, etc)
+              // digamos que te permite ver que usuario es y con que id (insertedId)
+              // no sabemos cual es pero podemos comprobar que es un string
             }
           );
         }
       );
     });
   });
+});
