@@ -1,55 +1,71 @@
-import { logger, showFeedback } from '../utils'
+import { logger, showFeedback } from "../utils";
 
-import logic from '../logic'
+import logic from "../logic";
 
-import { Component } from 'react'
-import Post from './Post'
+import { Component } from "react";
+import Post from "./Post";
 
 class PostList extends Component {
-    constructor() {
-        logger.debug('PostList')
+  constructor() {
+    logger.debug("PostList -> constructor'");
 
-        super()
+    super();
 
-        this.state = { posts: [] }
-    }
+    this.state = { posts: [] };
+  }
 
-    loadPosts() {
-        logger.debug('PostList -> loadPosts')
+  loadPosts() {
+    logger.debug("PostList -> loadPosts");
 
-        try {
-            const posts = logic.retrievePosts()
+    try {
+      logic.retrievePosts((error, posts) => {
+          if (error) {
+              showFeedback(error)
 
-            this.setState({ posts })
-        } catch (error) {
-            showFeedback(error)
-        }
-    }
+              return
+          }
 
-    componentWillReceiveProps(newProps) {
-        logger.debug('PostList -> componentWillReceiveProps', JSON.stringify(this.props), JSON.stringify(newProps))
-
-        //if (newProps.stamp !== this.props.stamp) this.loadPosts()
-        newProps.stamp !== this.props.stamp && this.loadPosts()
-    }
-
-    componentDidMount() {
-        logger.debug('PostList -> componentDidMount')
-
-        this.loadPosts()
-    }
-
-    handlePostDeleted = () => this.loadPosts()
-
-    handleEditClick = post => this.props.onEditPostClick(post)
-
-    render() {
-        logger.debug('PostList -> render')
-
-        return <section>
-            {this.state.posts.map(post => <Post key={post.id} item={post} onEditClick={this.handleEditClick} onDeleted={this.handlePostDeleted} />)}
-        </section>
-    }
+          this.setState({ posts })
+      })
+  } catch (error) {
+      showFeedback(error)
+  }
 }
 
-export default PostList
+  componentWillReceiveProps(newProps) {
+    logger.debug(
+      "PostList -> componentWillReceiveProps",
+      JSON.stringify(this.props),
+      JSON.stringify(newProps)
+    );
+
+    //if (newProps.stamp !== this.props.stamp) this.loadPosts()
+    newProps.stamp !== this.props.stamp && this.loadPosts();
+  }
+
+  componentDidMount() {
+    logger.debug("PostList -> componentDidMount");
+
+    this.loadPosts();
+  }
+
+  handlePostDeleted = () => this.loadPosts();
+
+  handleEditClick = (post) => this.props.onEditPostClick(post);
+
+  render() {
+    logger.debug("PostList -> render");
+
+    return <section>
+        {this.state.posts.map(post => 
+          <Post
+            //key={post.id}
+            item={post}
+            onEditClick={this.handleEditClick}
+            onDeleted={this.handlePostDeleted}
+          />)}
+      </section>
+  }
+}
+
+export default PostList;

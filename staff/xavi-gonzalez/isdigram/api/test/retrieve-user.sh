@@ -1,0 +1,1 @@
+curl http://localhost:8080/users/7rdbf0ou1ww -v

@@ -1,61 +1,53 @@
-import { logger, showFeedback } from '../utils'
+import { logger, showFeedback } from "../utils";
+
+import CancelButton from './library/CancelButton'
 
 import logic from "../logic.mjs";
+import SubmitButton from './library/SubmitButton'
 
-import { Component } from "react";
+import './EditPost.sass'
 
-class EditPost extends Component {
-  constructor(post) {
-    logger.debug('EditPost')
+function EditPost (props) {
 
-    super();
-  }
-
-  componentDidMount() {
-    logger.debug('EditPost -> componentDidMount')
-  }
-
-  componentWillUnmount() {
-    logger.debug('EditPost -> componentWillUnmount')
-  }
-
-  handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const form = event.target;
 
     const text = form.text.value;
 
-    logger.debug('EditPost -> handleSubmit', text)
+    logger.debug("EditPost -> handleSubmit", text);
 
     try {
-      logic.modifyPost(this.props.post.id, text)
+      logic.modifyPost(props.post.id, text);
 
-      form.reset()
+      form.reset();
 
-      this.props.onPostEdited();
+      props.onPostEdited();
     } catch (error) {
-      utils.showFeedback(error);
+      showFeedback(error);
     }
- 
+  };
+
+  const handleCancelClick = () => props.onCancelClick();
+
+    logger.debug("EditPost -> render");
+
+    return (
+      <section className="edit-post">
+        <form onSubmit={handleSubmit}>
+          <label>Text</label>
+          <input id="text" type="text" defaultValue={props.post.text} />
+
+          <SubmitButton>
+            Edit
+          </SubmitButton>
+        </form>
+
+        <CancelButton onClick={handleCancelClick}
+        />
+      </section>
+    );
   }
-  
-  handleCancelClick = () => this.props.onCancelClick()
 
-  render() {
-    logger.debug('EditPost -> render')
-
-    return <section className="edit-post">
-            <form onSubmit={this.handleSubmit}>
-                <label>Text</label>
-                <input id="text" type="text" defaultValue={this.props.post.text} />
-
-                <button className="round-button submit-button" type="submit">Edit</button>
-            </form>
-
-            <button className="round-button cancel-button" onClick={this.handleCancelClick}>Cancel</button>
-        </section>
-    }
-}
-
-export default EditPost
+export default EditPost;

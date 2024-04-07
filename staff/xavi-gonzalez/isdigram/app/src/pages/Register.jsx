@@ -1,79 +1,68 @@
 import { logger, showFeedback } from '../utils'
 
-import logic from '../logic';
+import logic from '../logic'
 
-import { Component } from 'react';
+function Register(props) {
+    const handleSubmit = event => {
+        event.preventDefault()
 
-class Register extends Component {
-  constructor() {
-    logger.debug('Register')
+        const form = event.target
 
-    super();
-  }
+        const name = form.name.value
+        const birthdate = form.birthdate.value
+        const email = form.email.value
+        const username = form.username.value
+        const password = form.password.value
 
-  handleSubmit = event => {
-      event.preventDefault();
+        try {
+            logic.registerUser(name, birthdate, email, username, password, error => {
+                if (error) {
+                    showFeedback(error)
 
-      const form = event.target;
+                    return
+                }
 
-      const name = form.name.value;
-      const birthdate = form.birthdate.value;
-      const email = form.email.value;
-      const username = form.username.value;
-      const password = form.password.value;
+                form.reset()
 
-      try {
-        logic.registerUser(name, birthdate, email, username, password);
-
-        form.reset();
-
-        this.props.onUserRegistered();
-      } catch (error) {
-        showFeedback(error);
-      }
+                props.onUserRegistered()
+            })
+        } catch (error) {
+            showFeedback(error)
+        }
     }
-  
-  handleLoginClick = event => {
-        event.preventDefault();
 
-        this.props.onLoginClick();
-  }
-  
-  render() {
+    const handleLoginClick = event => {
+        event.preventDefault()
+
+        props.onLoginClick()
+    }
+
     logger.debug('Register -> render')
 
-    return (
-      <main>
+    return <main>
         <h1>Register</h1>
 
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" />
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" />
 
-          <label htmlFor="birthdate">Age</label>
-          <input type="date" id="birthdate" />
+            <label htmlFor="birthdate">Age</label>
+            <input type="date" id="birthdate" />
 
-          <label htmlFor="email">E-mail</label>
-          <input type="text" id="email" />
+            <label htmlFor="email">E-mail</label>
+            <input type="email" id="email" />
 
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" />
+            <label htmlFor="username">Username</label>
+            <input id="username" />
 
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" />
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" />
 
-          <button className="round-button" type="submit">
-            Register
-          </button>
+            <button className="round-button" type="submit">Register</button>
         </form>
 
-        <a
-          href=""
-          onClick={this.handleLoginClick}
-        >Login</a>
-      </main>
-    );
-  }
+        <a href="" onClick={handleLoginClick}>Login</a>
+    </main>
 }
 
-export default Register;
+export default Register

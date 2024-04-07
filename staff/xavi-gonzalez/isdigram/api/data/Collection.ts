@@ -188,6 +188,22 @@ class Collection {
             callback(null, documents)
         })
     }
+
+    deleteAll(callback) {
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
+
+        this._saveDocuments([], error => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            callback(null)
+        })
+    }
 }
+
+
 
 export default Collection

@@ -1,52 +1,47 @@
 import { logger, showFeedback } from '../utils'
 
-import logic from '../logic.mjs';
+import logic from '../logic'
 
-import { Component } from "react";
+function Login(props) {
+    const handleSubmit = event => {
+        event.preventDefault()
 
-class Login extends Component {
-  constructor() {
-    logger.debug("Login")
+        const form = event.target
 
-    super();
-  }
+        const username = form.username.value
+        const password = form.password.value
 
-  
-  handleSubmit = event => {
-      event.preventDefault();
+        logger.debug('Login -> handleSubmit', username, password)
 
-      const form = event.target;
+        try {
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    showFeedback(error)
 
-      const username = form.username.value;
-      const password = form.password.value;
+                    return
+                }
 
-      logger.debug("Login -> handleSubmit", username, password)
+                form.reset()
 
-      try {
-        logic.loginUser(username, password);
+                props.onUserLoggedIn()
+            })
+        } catch (error) {
+            showFeedback(error)
+        }
+    }
 
-        form.reset();
+    const handleRegisterClick = event => {
+        event.preventDefault()
 
-        this.props.onUserLoggedIn();
-      } catch (error) {
-        showFeedback(error);
-      }
-  }
+        props.onRegisterClick()
+    }
 
-  handleRegisterClick = event => {
-      event.preventDefault()
+    logger.debug('Login -> render')
 
-      this.props.onRegisterClick()
-  }
+    return <main>
+        <h1>Login</h1>
 
-  render() {
-      logger.debug("Login -> render")
-
-      return (
-        <main>
-          <h1>Login</h1>
-
-          <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username</label>
             <input id="username" />
 
@@ -54,13 +49,10 @@ class Login extends Component {
             <input type="password" id="password" />
 
             <button className="round-button" type="submit">Login</button>
-          </form>
+        </form>
 
-          <a href="" onClick={this.handleRegisterClick}
-          >Register</a>
-        </main>
-      );
-    }
-  }
+        <a href="" onClick={handleRegisterClick}>Register</a>
+    </main>
+}
 
-  export default Login;
+export default Login
