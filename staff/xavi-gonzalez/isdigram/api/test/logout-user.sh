@@ -1,1 +1,1 @@
-curl -X PATCH -H "Content-Type: application/json" -d '{"status":"offline"}' http://localhost:8080/users/7rdbf0ou1ww -v
+curl -X PATCH -H "Content-Type: application/json" -d '{"status":"offline"}' http://localhost:8080/users/75aohnkkqa -v

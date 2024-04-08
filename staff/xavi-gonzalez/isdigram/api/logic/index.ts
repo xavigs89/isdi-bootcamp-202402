@@ -13,7 +13,7 @@ const URL_REGEX = /^(http|https):\/\//;
 
 // helpers
 
-function validateText(text, explain, checkEmptySpaceInside) {
+function validateText(text, explain, checkEmptySpaceInside?) {
   if (typeof text !== "string")
     throw new TypeError(explain + " " + text + " is not a string");
   if (!text.trim().length)
@@ -31,12 +31,12 @@ function validateDate(date, explain) {
     throw new Error(explain + " " + date + " does not have a valid format");
 }
 
-function validateEmail(email, explain) {
+function validateEmail(email, explain = "email") {
   if (!EMAIL_REGEX.test(email))
     throw new Error(`${explain} ${email} is not an email`);
 }
 
-function validatePassword(password, explain) {
+function validatePassword(password, explain = "password") {
   if (!PASSWORD_REGEX.test(password))
     throw new Error(`${explain} password is not acceptable`);
 }
@@ -214,14 +214,14 @@ function logoutUser(userId, callback) {
 //   return !!sessionStorage.userId;
 // }
 
-// function cleanUpLoggedInUserId() {
-//   delete sessionStorage.userId;
-// }
+function cleanUpLoggedInUserId() {
+delete sessionStorage.userId;
+}
 
 function retrieveUsersWithStatus() {
-  db.users.getAll();
+  const users = db.users.getAll();
 
-  users.findIndex((user) => user.id === sessionStorage.userId);
+  const index = users.findIndex((user) => user.id === sessionStorage.userId);
 
   users.splice(index, 1);
 
@@ -305,7 +305,7 @@ function createPost(image, text) {
 function retrievePosts(userId, callback) {
   validateText(userId, "userId", true);
   validateCallback(callback);
-
+ 
   db.users.findOne(
     (user) => user.id === userId,
     (error, user) => {
@@ -314,7 +314,7 @@ function retrievePosts(userId, callback) {
 
         return;
       }
-
+     
       if (!user) {
         callback(new Error("user not found"));
 
@@ -329,16 +329,27 @@ function retrievePosts(userId, callback) {
         }
 
         let count = 0;
+        let errorDetected = false
 
         posts.forEach((post) => {
           db.users.findOne(
             (user) => user.id === post.author,
             (error, user) => {
+             
               if (error) {
                 callback(error);
 
                 return;
               }
+
+              if (!user) {
+                callback(new Error('post owner not found'))
+
+                errorDetected = true
+
+                return
+            }
+             
 
               post.author = {
                 id: user.id,
@@ -347,7 +358,7 @@ function retrievePosts(userId, callback) {
 
               count++;
 
-              if (count === posts.length) callback(null, posts.reverse());
+              if (!errorDetected && count === posts.length) callback(null, posts.reverse());
             }
           );
         });
@@ -390,9 +401,10 @@ const logic = {
   loginUser,
   retrieveUser,
   logoutUser,
+
   //getLoggedInUserId,
   //isUserLoggedIn,
-  //cleanUpLoggedInUserId,
+  cleanUpLoggedInUserId,
 
   retrieveUsersWithStatus,
   sendMessageToUser,

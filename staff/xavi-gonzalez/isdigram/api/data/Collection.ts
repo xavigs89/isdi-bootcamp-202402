@@ -1,13 +1,13 @@
-import { readFile, writeFile } from "fs"
+import { readFile, writeFile } from 'fs'
 
 class Collection {
     name: string
 
-    constructor (name) {
+    constructor(name) {
         this.name = name
     }
 
-// helpers
+    // helpers
 
     _generateId() {
         // @ts-ignore
@@ -15,10 +15,10 @@ class Collection {
     }
 
     _loadDocuments(callback) {
-        if (typeof callback !== "function") throw new TypeError("callback is not a function")
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-        readFile(`./data/${this.name}.json`, 'utf-8', (error, documentsJSON) => {
-            if(error) {
+        readFile(`./data/${this.name}.json`, 'utf8', (error, documentsJSON) => {
+            if (error) {
                 callback(error)
 
                 return
@@ -32,7 +32,7 @@ class Collection {
 
     _saveDocuments(documents, callback) {
         if (!(documents instanceof Array)) throw new TypeError('documents is not an array')
-        if (typeof callback !== "function") throw new TypeError('callback is not a function')
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
         documents.forEach(document => {
             // if (!(document instanceof Object)) throw new TypeError('a document in documents is not an object')
@@ -43,7 +43,7 @@ class Collection {
         const documentsJSON = JSON.stringify(documents)
 
         writeFile(`./data/${this.name}.json`, documentsJSON, error => {
-            if(error) {
+            if (error) {
                 callback(error)
 
                 return
@@ -53,12 +53,11 @@ class Collection {
         })
     }
 
-
     // CRUD
 
     findOne(condition, callback) {
         if (typeof condition !== 'function') throw new TypeError('condition callback is not a function')
-        if (typeof callback !== 'function') throw new TypeError('callback callback is not a function')
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
         this._loadDocuments((error, documents) => {
             if (error) {
@@ -66,44 +65,41 @@ class Collection {
 
                 return
             }
-       
-        const document = documents.find(condition)
 
-        callback(null, document || null)
+            const document = documents.find(condition)
+
+            callback(null, document || null)
         })
     }
 
     insertOne(document, callback) {
-        //if (!(document instanceof Object)) throw new TypeError("document is not an object");
+        // if (!(document instanceof Object)) throw new TypeError('document is not an object')
         if (typeof document !== 'object') throw new TypeError('document is not an object')
-
         // if (!(callback instanceof Function)) throw new TypeError('callback is not a function')
-        if (typeof callback !== "function")
-        throw new TypeError("callback is not a function");
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
         this._loadDocuments((error, documents) => {
             if (error) {
-                callback(error);
+                callback(error)
 
-                return;
+                return
             }
 
-            document.id = this._generateId();
+            document.id = this._generateId()
 
-            documents.push(document);
+            documents.push(document)
 
             this._saveDocuments(documents, error => {
                 if (error) {
-                callback(error);
+                    callback(error)
 
-                return;
+                    return
                 }
 
-                callback(null, document.id);
-            });
-        });
-  }
-
+                callback(null, document.id)
+            })
+        })
+    }
 
     updateOne(condition, document, callback) {
         if (typeof condition !== 'function') throw new TypeError('condition callback is not a function')
@@ -139,7 +135,6 @@ class Collection {
         })
     }
 
-       
     deleteOne(condition, callback) {
         if (typeof condition !== 'function') throw new TypeError('condition callback is not a function')
         if (typeof callback !== 'function') throw new TypeError('callback is not a function')
@@ -155,7 +150,7 @@ class Collection {
 
             if (index > - 1) {
                 documents.splice(index, 1)
-    
+
                 this._saveDocuments(documents, error => {
                     if (error) {
                         callback(error)
@@ -170,9 +165,8 @@ class Collection {
             }
 
             callback(null, false)
-
-        
         })
+
     }
 
     getAll(callback) {
@@ -203,7 +197,5 @@ class Collection {
         })
     }
 }
-
-
 
 export default Collection

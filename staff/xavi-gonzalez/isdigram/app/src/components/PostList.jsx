@@ -2,70 +2,60 @@ import { logger, showFeedback } from "../utils";
 
 import logic from "../logic";
 
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import Post from "./Post";
 
-class PostList extends Component {
-  constructor() {
-    logger.debug("PostList -> constructor'");
+function PostList(props) {
+  const [posts, setPosts] = useState([])
 
-    super();
+  const loadPosts = () => {
+      logger.debug('PostList -> loadPosts')
 
-    this.state = { posts: [] };
+      try {
+          logic.retrievePosts((error, posts) => {
+              if (error) {
+                  showFeedback(error)
+
+                  return
+              }
+
+              setPosts(posts)
+          })
+      } catch (error) {
+          showFeedback(error)
+      }
   }
 
-  loadPosts() {
-    logger.debug("PostList -> loadPosts");
+  // componentWillReceiveProps(newProps) {
+  //   logger.debug(
+  //     "PostList -> componentWillReceiveProps",
+  //     JSON.stringify(props),
+  //     JSON.stringify(newProps)
+  //   );
 
-    try {
-      logic.retrievePosts((error, posts) => {
-          if (error) {
-              showFeedback(error)
+  //   //if (newProps.stamp !== props.stamp) loadPosts()
+  //   newProps.stamp !== props.stamp && loadPosts();
+  // }
 
-              return
-          }
+  // componentDidMount() {
+  //   logger.debug("PostList -> componentDidMount");
 
-          this.setState({ posts })
-      })
-  } catch (error) {
-      showFeedback(error)
-  }
-}
+  //   loadPosts();
+  // }
 
-  componentWillReceiveProps(newProps) {
-    logger.debug(
-      "PostList -> componentWillReceiveProps",
-      JSON.stringify(this.props),
-      JSON.stringify(newProps)
-    );
+  useEffect(() => {
+    loadPosts()
+  }, [props.stamp])
 
-    //if (newProps.stamp !== this.props.stamp) this.loadPosts()
-    newProps.stamp !== this.props.stamp && this.loadPosts();
-  }
+  const handlePostDeleted = () => loadPosts();
 
-  componentDidMount() {
-    logger.debug("PostList -> componentDidMount");
+  const handleEditClick = post => props.onEditPostClick(post);
 
-    this.loadPosts();
-  }
-
-  handlePostDeleted = () => this.loadPosts();
-
-  handleEditClick = (post) => this.props.onEditPostClick(post);
-
-  render() {
-    logger.debug("PostList -> render");
+    logger.debug('PostList -> render')
 
     return <section>
-        {this.state.posts.map(post => 
-          <Post
-            //key={post.id}
-            item={post}
-            onEditClick={this.handleEditClick}
-            onDeleted={this.handlePostDeleted}
-          />)}
-      </section>
-  }
+        {posts.map(post => <Post key={post.id}item={post} onEditClick={handleEditClick} onDeleted={handlePostDeleted} />)}
+    </section>
 }
 
 export default PostList;
