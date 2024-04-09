@@ -1,6 +1,8 @@
 //PARA IGNORAR TODO EN TYPESCRIPT, HACER
 //@ts-nocheck
-import { ObjectId } from 'mongodb'
+
+import db from "../data/index.ts";
+
 // constants
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
@@ -52,45 +54,64 @@ function validateCallback(callback, explain = "callback") {
 // logic
 
 function registerUser(name, birthdate, email, username, password, callback) {
-  validateText(name, 'name')
-  validateDate(birthdate, 'birthdate')
-  validateEmail(email)
-  validateText(username, 'username', true)
-  validatePassword(password)
-  validateCallback(callback)
+  validateText(name, "name");
+  validateDate(birthdate, "birthdate");
+  validateEmail(email);
+  validateText(username, "username", true);
+  validatePassword(password);
+  validateCallback(callback);
 
-  this.users.findOne({ $or: [{ email }, { username }] })
-      .then(user => {
-          if (user) {
-              callback(new Error('user already exists'))
+  db.users.findOne(
+    (user) => user.email === email || user.username === username,
+    (error, user) => {
+      if (error) {
+        callback(error);
 
-              return
-          }
+        return;
+      }
 
-          user = {
-              name: name.trim(),
-              birthdate: birthdate,
-              email: email,
-              username: username,
-              password: password,
-              status: 'offline',
-          }
+      if (user) {
+        callback(new Error("user already exists"));
 
-          this.users.insertOne(user)
-              .then(() => callback(null))
-              .catch(error => callback(error))
-      })
-      .catch(error => callback(error))
+        return;
+      }
+
+      user = {
+        name: name.trim(),
+        birthdate: birthdate,
+        email: email,
+        username: username,
+        password: password,
+        status: "offline",
+      };
+
+      db.users.insertOne(user, (error) => {
+        if (error) {
+          callback(error);
+
+          return;
+        }
+
+        callback(null);
+      });
+    }
+  );
 }
-
 
 function loginUser(username, password, callback) {
   validateText(username, "username", true);
   validatePassword(password);
   validateCallback(callback);
 
-  this.users.findOne({ username })
-    .then(user => {
+  db.users.findOne(
+    (user) => user.username === username,
+    (error, user) => {
+      if (error) {
+        callback(error);
+
+        return;
+      }
+
       if (!user) {
         callback(new Error("user not found"));
 
@@ -103,24 +124,30 @@ function loginUser(username, password, callback) {
         return;
       }
 
-      const userId = user._id
+      user.status = "online";
 
+      db.users.updateOne(
+        (user2) => user2.id === user.id,
+        user,
+        (error) => {
+          if (error) {
+            callback(error);
 
-      this.users.updateOne({ _id: new ObjectId(userId) }, { $set: { status: 'online'} })
-        .then(() => callback(null, userId))
-        .catch(error => callback(error))
+            return;
+          }
 
-      })
-      .catch(error => callback(error))
-
+          callback(null, user.id);
+        }
+      );
+    }
+  );
 }
-
 
 function retrieveUser(userId, callback) {
   validateText(userId, "userId", true);
   validateCallback(callback);
 
-  this.users.findOne(
+  db.users.findOne(
     (user) => user.id === userId,
     (error, user) => {
       if (error) {
@@ -147,33 +174,36 @@ function retrieveUser(userId, callback) {
 //DEBERES
 
 function logoutUser(userId, callback) {
-  //validateText(username, "username", true);
-  validateCallback(callback);
+  db.users.findOne(
+    (user) => user.id === userId,
+    (error, user) => {
+      if (error) {
+        callback(error);
+        return;
+      }
 
-  this.users.findOne({ _id : userId })
-    .then(user => {
-      // if (!user) {
-      //   callback(new Error("user not found"));
+      if (!user) {
+        callback(new Error("user not found"));
 
-      //   return;
-      // }
+        return;
+      }
 
-      // if (user.password !== password) {
-      //   callback(new Error("wrong password"));
+      user.status = "offline";
 
-      //   return;
-      // }
+      db.users.updateOne(
+        (user2) => user2.id === userId,
+        user,
+        (error) => {
+          if (error) {
+            callback(error);
+            return;
+          }
 
-      // const userId = user._id
-
-
-      this.users.updateOne({ _id:userId }, { $set: { status: 'offline'} })
-        .then(() => callback(null))
-        .catch(error => callback(error))
-
-      })
-      .catch(error => callback(error))
-
+          callback(null, user);
+        }
+      );
+    }
+  );
 }
 
 // function getLoggedInUserId() {
@@ -189,7 +219,7 @@ delete sessionStorage.userId;
 }
 
 function retrieveUsersWithStatus() {
-  const users = this.users.getAll();
+  const users = db.users.getAll();
 
   const index = users.findIndex((user) => user.id === sessionStorage.userId);
 
@@ -225,7 +255,7 @@ function sendMessageToUser(userId, text) {
   // update or insert chat in chats
   // save chats
 
-  let chat = this.chats.findOne(
+  let chat = db.chats.findOne(
     (chat) =>
       chat.users.includes(userId) && chat.users.includes(sessionStorage.userId)
   );
@@ -240,14 +270,14 @@ function sendMessageToUser(userId, text) {
 
   chat.messages.push(message);
 
-  if (!chat.id) this.chats.insertOne(chat);
-  else this.chats.updateOne(chat);
+  if (!chat.id) db.chats.insertOne(chat);
+  else db.chats.updateOne(chat);
 }
 
 function retrieveMessagesWithUser(userId) {
   validateText(userId, "userId", true);
 
-  const chat = this.chats.findOne(
+  const chat = db.chats.findOne(
     (chat) =>
       chat.users.includes(userId) && chat.users.includes(sessionStorage.userId)
   );
@@ -271,7 +301,7 @@ function createPost(userId, image, text, callback) {
         date: new Date().toLocaleDateString('en-CA')
     }
 
-    this.posts.insertOne(post, error => {
+    db.posts.insertOne(post, error => {
         if (error) {
             callback(error)
 
@@ -287,7 +317,7 @@ function retrievePosts(userId, callback) {
   validateText(userId, "userId", true);
   validateCallback(callback);
  
-  this.users.findOne(
+  db.users.findOne(
     (user) => user.id === userId,
     (error, user) => {
       if (error) {
@@ -302,7 +332,7 @@ function retrievePosts(userId, callback) {
         return;
       }
 
-      this.posts.getAll((error, posts) => {
+      db.posts.getAll((error, posts) => {
         if (error) {
           callback(error);
 
@@ -313,7 +343,7 @@ function retrievePosts(userId, callback) {
         let errorDetected = false
 
         posts.forEach((post) => {
-          this.users.findOne(
+          db.users.findOne(
             (user) => user.id === post.author,
             (error, user) => {
              
@@ -351,21 +381,21 @@ function retrievePosts(userId, callback) {
 function removePost(postId) {
   validateText(postId, "postId", true);
 
-  const post = this.posts.findOne((post) => post.id === postId);
+  const post = db.posts.findOne((post) => post.id === postId);
 
   if (!post) throw new Error("post not found");
 
   if (post.author !== sessionStorage.userId)
     throw new Error("post does not belong to user");
 
-  this.posts.deleteOne((post) => post.id === postId);
+  db.posts.deleteOne((post) => post.id === postId);
 }
 
 function modifyPost(postId, text) {
   validateText(postId, "postId", true);
   validateText(text, "text");
 
-  const post = this.posts.findOne((post) => post.id === postId);
+  const post = db.posts.findOne((post) => post.id === postId);
 
   if (!post) throw new Error("post not found");
 
@@ -374,12 +404,10 @@ function modifyPost(postId, text) {
 
   post.text = text;
 
-  this.posts.updateOne(post);
+  db.posts.updateOne(post);
 }
 
 const logic = {
-  users: null,
-
   registerUser,
   loginUser,
   retrieveUser,
