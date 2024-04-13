@@ -63,10 +63,10 @@ return <>
       //onChatClick={handleChatClick}
       onUserLoggedOut={handleUserLoggedOut}
       /> }
-    {view === 'chat' && <Chat 
+    {/* {view === 'chat' && <Chat 
       onHomeClick={handleHomeClick}
       onUserLoggedOut={handleUserLoggedOut}
-      /> }
+      /> } */}
 </>
 }
 export default App

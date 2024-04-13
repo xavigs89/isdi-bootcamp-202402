@@ -54,7 +54,9 @@ function PostList(props) {
     logger.debug('PostList -> render')
 
     return <section>
-        {posts.map(post => <Post key={post.id}item={post} onEditClick={handleEditClick} onDeleted={handlePostDeleted} />)}
+        {posts.map(post => <Post key={post.id}item={post} 
+        onEditClick={handleEditClick} 
+        onDeleted={handlePostDeleted} />)}
     </section>
 }
 

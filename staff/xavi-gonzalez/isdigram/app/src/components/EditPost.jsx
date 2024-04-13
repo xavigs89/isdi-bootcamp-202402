@@ -2,7 +2,7 @@ import { logger, showFeedback } from "../utils";
 
 import CancelButton from './library/CancelButton'
 
-import logic from "../logic.mjs";
+import logic from "../logic";
 import SubmitButton from './library/SubmitButton'
 
 import './EditPost.sass'

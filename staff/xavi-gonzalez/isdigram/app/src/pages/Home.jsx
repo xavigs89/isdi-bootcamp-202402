@@ -28,7 +28,7 @@ function Home (props) {
     } catch (error) {
         showFeedback(error)
     }
-}, [])//aarray vacio para que la funcion se ejecute 1 vez
+}, [])//array vacio para que la funcion se ejecute 1 vez
 
   const clearView = () => setView(null);
 
@@ -45,7 +45,7 @@ function Home (props) {
     try {
       logic.logoutUser();
     } catch (error) {
-      logic.cleanUpLoggedInUser();
+      logic.cleanUpLoggedInUserId();
     } finally {
       props.onUserLoggedOut();
     }
@@ -66,47 +66,46 @@ function Home (props) {
 
     logger.debug("Home -> render");
 
-    return <main className="main">
+    return <>
+        <header className="px-[5vw] fixed top-0 bg-white w-full">
         {user && <h1>Hello, {user.name}!</h1>}
 
-        <nav>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
+            <nav>
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
 
-              props.onChatClick();
-            }}
-          >
-            💬
-          </button>
+                  props.onChatClick();
+                }}
+              >
+                💬
+              </button>
 
-          <button onClick={handleLogoutClick}>🚪</button>
-        </nav>
+              <button onClick={handleLogoutClick}>🚪</button>
+            </nav>
+          </header>
+        
 
-        <PostList
-          stamp={stamp}
-          onEditPostClick={handleEditPostClick}
-        />
+        <main className="my-[50px] px-[5vw]">
+            <PostList stamp={stamp}
+            onEditPostClick={handleEditPostClick}/>
 
-        {view === "create-post" && (
-          <CreatePost
-            onCancelClick={handleCreatePostCancelClick}
-            onPostCreated={handlePostCreated}
-          />
-        )}
+            {view === "create-post" && 
+              <CreatePost
+                onCancelClick={handleCreatePostCancelClick}
+                onPostCreated={handlePostCreated}
+              />}
+            {view === "edit-post" && 
+              <EditPost
+                post={post}
+                onCancelClick={handleEditPostCancelClick}
+                onPostEdited={handlePostEdited} /> }
+        </main>
 
-        {view === "edit-post" && (
-          <EditPost
-            post={post}
-            onCancelClick={handleEditPostCancelClick}
-            onPostEdited={handlePostEdited}
-          />
-        )}
-
-        <footer className="footer">
+        <footer className="fixed bottom-0 w-full h-[50px] flex justify-center items-center p-[10px] box-border bg-white">
           <button onClick={handleCreatePostClick}>➕</button>
         </footer>
-      </main>;
+      </>;
   }
 
 export default Home;
