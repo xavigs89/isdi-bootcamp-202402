@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 
 const { SystemError, NotFoundError } = errors
 
-function retrievePosts(userId, callback) {
+function retrievePosts(userId: string, callback: Function) {
   validate.text(userId, 'userId', true)
   validate.callback(callback)
 

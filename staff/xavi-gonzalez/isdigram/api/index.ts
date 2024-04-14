@@ -221,7 +221,7 @@ api.patch("/users/:userId", jsonBodyParser, (req, res) => {
   }
 });
 
-api.listen(8080, () => logger.log("API listening on port 8080"));
+api.listen(8080, () => logger.info("API listening on port 8080"));
 
   })
   .catch (error => logger.error(error))

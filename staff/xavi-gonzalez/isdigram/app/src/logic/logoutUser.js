@@ -7,7 +7,7 @@ function logoutUser() {
 
     user.status = 'offline'
 
-    db.users.updateOne(user)
+    users.updateOne(user)
 
     delete sessionStorage.userId
 }

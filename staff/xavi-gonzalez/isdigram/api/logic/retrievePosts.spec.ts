@@ -60,7 +60,6 @@ describe('retrievePosts', () => {
                                                     .then(() => {
                                                         insertedPosts.push(insertedPost3)
 
-                                                        debugger
                                                         logic.retrievePosts(result.insertedId.toString(), (error, posts) => {
                                                             if (error) {
                                                                 done(error)

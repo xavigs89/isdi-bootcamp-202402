@@ -22,9 +22,7 @@ describe("logic", () => {
       .catch(done);
   });
 
-  
-    // TODO add other unhappy test cases
-  });
+});
 
   
 
