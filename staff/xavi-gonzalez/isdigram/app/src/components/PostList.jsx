@@ -6,25 +6,19 @@ import { useState, useEffect } from "react";
 import Post from "./Post";
 
 function PostList(props) {
-  const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([])
 
-  const loadPosts = () => {
+    const loadPosts = () => {
       logger.debug('PostList -> loadPosts')
 
-      try {
-          logic.retrievePosts((error, posts) => {
-              if (error) {
-                  showFeedback(error)
-
-                  return
-              }
-
-              setPosts(posts)
-          })
-      } catch (error) {
-          showFeedback(error)
-      }
-  }
+        try {
+          logic.retrievePosts()
+                .then(setPosts)
+                .catch(showFeedback)
+        } catch (error) {
+            showFeedback(error)
+        }
+    }
 
   // componentWillReceiveProps(newProps) {
   //   logger.debug(

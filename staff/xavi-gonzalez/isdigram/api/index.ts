@@ -1,28 +1,27 @@
 //FUNCIONES HECHAS CON EXPRESS JS
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import express from "express";
 import logic from "./logic/index.ts";
 import { errors } from 'com'
 import tracer from 'tracer'
 import colors from 'colors'
+import jwt from 'jsonwebtoken'
 
 
 const logger = tracer.colorConsole({
   filters: {
-      debug: colors.green,
-      info: colors.blue,
-      warn: colors.yellow,
-      error: colors.red
+    debug: colors.green,
+    info: colors.blue,
+    warn: colors.yellow,
+    error: colors.red
   }
 })
 
 const { ContentError, SystemError, DuplicityError, NotFoundError, CredentialsError } = errors
 
-const client = new MongoClient('mongodb://localhost:27017')
-
-client.connect()
-  .then(connection => {
-    const db = connection.db('isdigram')
+mongoose.connect('mongodb://localhost:27017/isdigram')
+  .then(() => {
+    const db = mongoose.connection.db
 
     const users = db.collection('users')
     const posts = db.collection('posts')
@@ -43,185 +42,183 @@ client.connect()
       next();
     });
 
-    //REGISTER USER CON EXPRESS JS
 
+    //REGISTER USER CON EXPRESS JS
     api.post('/users', jsonBodyParser, (req, res) => {
       try {
-          const { name, birthdate, email, username, password } = req.body
+        const { name, birthdate, email, username, password } = req.body
 
-          logic.registerUser(name, birthdate, email, username, password, error => {
-              if (error) {
-                  if (error instanceof SystemError) {
-                      logger.error(error.message)
-
-                      res.status(500).json({ error: error.constructor.name, message: error.message })
-                  } else if (error instanceof DuplicityError) {
-                      logger.warn(error.message)
-
-                      res.status(409).json({ error: error.constructor.name, message: error.message })
-                  }
-
-                  return
-              }
-
-              res.status(201).send()
-          })
-      } catch (error) {
-          if (error instanceof TypeError || error instanceof ContentError) {
-              logger.warn(error.message)
-
-              res.status(406).json({ error: error.constructor.name, message: error.message })
-          } else {
-              logger.warn(error.message)
+        logic.registerUser(name, birthdate, email, username, password)
+          .then(() => res.status(201).send())
+          .catch(error => {
+            if (error instanceof SystemError) {
+              logger.error(error.message)
 
               res.status(500).json({ error: error.constructor.name, message: error.message })
-          }
-      }
-  })
-//LOGIN USER CON EXPRESS JS
-api.post('/users/auth', jsonBodyParser, (req, res) => {
-  try {
-      const { username, password } = req.body
 
-      logic.loginUser(username, password, (error, userId) => {
-          if (error) {
-              if (error instanceof SystemError) {
-                  logger.error(error.message)
+            } else if (error instanceof DuplicityError) {
+              logger.warn(error.message)
 
-                  res.status(500).json({ error: error.constructor.name, message: error.message })
-              } else if (error instanceof CredentialsError) {
-                  logger.warn(error.message)
+              res.status(409).json({ error: error.constructor.name, message: error.message })
+            }
 
-                  res.status(401).json({ error: error.constructor.name, message: error.message })
-              } else if (error instanceof NotFoundError) {
-                  logger.warn(error.message)
-
-                  res.status(404).json({ error: error.constructor.name, message: error.message })
-              }
-
-              return
-          }
-
-          res.json(userId)
-      })
-  } catch (error) {
-      if (error instanceof TypeError || error instanceof ContentError) {
+          })
+      } catch (error) {
+        if (error instanceof TypeError || error instanceof ContentError) {
           logger.warn(error.message)
 
           res.status(406).json({ error: error.constructor.name, message: error.message })
-      } else {
+        } else {
           logger.warn(error.message)
 
           res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
       }
-  }
-})
+    })
 
-//RETRIEVE USER CON EXPRESS JS
-api.get('/users/:targetUserId', (req, res) => {
-  try {
-      const { authorization: userId } = req.headers
+    //LOGIN USER CON EXPRESS JS
+    api.post('/users/auth', jsonBodyParser, (req, res) => {
+      try {
+        const { username, password } = req.body
 
-      const { targetUserId } = req.params
+        logic.authenticateUser(username, password)
+          .then(userId => {
+            const token = jwt.sign({ sub: userId }, 'Es un secreto, de tu mirada y la mía')
 
-      logic.retrieveUser(userId, targetUserId, (error, user) => {
-          if (error) {
-              if (error instanceof SystemError) {
-                  logger.error(error.message)
+            res.json(token)
+          })
+          .catch(error => {
+            if (error instanceof SystemError) {
+              logger.error(error.message)
 
-                  res.status(500).json({ error: error.constructor.name, message: error.message })
-              } else if (error instanceof NotFoundError) {
-                  logger.warn(error.message)
+              res.status(500).json({ error: error.constructor.name, message: error.message })
+            } else if (error instanceof CredentialsError) {
+              logger.warn(error.message)
 
-                  res.status(404).json({ error: error.constructor.name, message: error.message })
-              }
+              res.status(401).json({ error: error.constructor.name, message: error.message })
+            } else if (error instanceof NotFoundError) {
+              logger.warn(error.message)
 
-              return
-          }
-
-          res.json(user)
-      })
-  } catch (error) {
-      if (error instanceof TypeError || error instanceof ContentError) {
+              res.status(404).json({ error: error.constructor.name, message: error.message })
+            }
+          })
+      } catch (error) {
+        if (error instanceof TypeError || error instanceof ContentError) {
           logger.warn(error.message)
 
           res.status(406).json({ error: error.constructor.name, message: error.message })
-      } else {
+        } else {
           logger.warn(error.message)
 
           res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
       }
-  }
-})
-
-//RETRIEVE POSTS CON EXPRESS JS
-api.get('/posts', (req, res) => {
-  try {
-    const { authorization: userId } = req.headers
-
-    logic.retrievePosts(userId, (error, posts) => {
-      if (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-
-        return
-      }
-
-      res.json(posts)
     })
 
-  } catch (error) {
-    res.status(400).json({ error: error.constructor.name, message: error.message})
-  }
-})
+    //RETRIEVE USER CON EXPRESS JS
+    api.get('/users/:targetUserId', (req, res) => {
+      try {
+        const { authorization } = req.headers
 
-//CREATE POST CON EXPRESS JS
-api.post('/posts', jsonBodyParser, (req, res) => {
-  try {
-    const { authorization: userId } = req.headers
+        const token = authorization.slice(7)
 
-    const { image, text } = req.body
+        const { sub: userId } = jwt.verify(token, 'Es un secreto, de tu mirada y la mía')
 
-    logic.createPost(userId, image, text, error => {
-      if (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        const { targetUserId } = req.params
 
-        return
+        logic.retrieveUser(userId as string, targetUserId)
+          .then(user => res.json(user))
+          .catch(error => {
+            if (error instanceof SystemError) {
+              logger.error(error.message)
+
+              res.status(500).json({ error: error.constructor.name, message: error.message })
+
+            } else if (error instanceof NotFoundError) {
+              logger.warn(error.message)
+
+              res.status(404).json({ error: error.constructor.name, message: error.message })
+            }
+          })
+      } catch (error) {
+        if (error instanceof TypeError || error instanceof ContentError) {
+          logger.warn(error.message)
+
+          res.status(406).json({ error: error.constructor.name, message: error.message })
+        } else {
+          logger.warn(error.message)
+
+          res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
       }
-
-      res.status(201).send()
     })
 
-  } catch (error) {
-    res.status(400).json({ error: error.constructor.name, message: error.message })
-  }
-})
+    //RETRIEVE POSTS CON EXPRESS JS
+    api.get('/posts', (req, res) => {
+      try {
+        const { authorization } = req.headers
 
+        const token = authorization.slice(7)
 
-// LOGOUT USER CON EXPRESS JS
-api.patch("/users/:userId", jsonBodyParser, (req, res) => {
-  try {
-    logic.logoutUser(req.params.userId, (error, user) => {
-      if (error) {
-        res
-          .status(500)
-          .json({ error: error.constructor.name, message: error.message });
-        //error.constructor.name sirve para que nos refleje que tipo de error saldria
+        const { sub: userId } = jwt.verify(token, 'Es un secreto, de tu mirada y la mía')
 
-        return;
+        logic.retrievePosts(userId as string, (error, posts) => {
+          if (error) {
+            res.status(400).json({ error: error.constructor.name, message: error.message })
+
+            return
+          }
+
+          res.json(posts)
+        })
+
+      } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
       }
+    })
 
-      if (user) {
-        res.status(202).json(user);
-      } else {
-        res.status(404).json(null);
+    //CREATE POST CON EXPRESS JS
+    api.post('/posts', jsonBodyParser, (req, res) => {
+      try {
+        const { authorization } = req.headers
+
+        const token = authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, 'Es un secreto, de tu mirada y la mía')
+
+        const { image, text } = req.body
+
+        logic.createPost(userId as string, image, text)
+          .then(() => res.status(201).send())
+          .catch(error => {
+            if (error instanceof SystemError) {
+              logger.error(error.message)
+
+              res.status(500).json({ error: error.constructor.name, message: error.message })
+            } else if (error instanceof NotFoundError) {
+              logger.warn(error.message)
+
+              res.status(404).json({ error: error.constructor.name, message: error.message })
+            }
+          })
+      } catch (error) {
+        if (error instanceof TypeError || error instanceof ContentError) {
+          logger.warn(error.message)
+
+          res.status(406).json({ error: error.constructor.name, message: error.message })
+        } else {
+          logger.warn(error.message)
+
+          res.status(500).json({ error: error.constructor.name, message: error.message })
+
+        }
+
       }
-    });
-  } catch (error) {
-    res.status(500).json(null);
-  }
-});
+    })
 
-api.listen(8080, () => logger.info("API listening on port 8080"));
+
+
+    api.listen(8080, () => logger.info("API listening on port 8080"));
 
   })
-  .catch (error => logger.error(error))
+  .catch(error => logger.error(error))

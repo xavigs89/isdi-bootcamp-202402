@@ -1,39 +1,66 @@
 import { validate, errors } from 'com'
 
-function createPost(image, text, callback) {
+function createPost(image, text) {
     validate.url(image, 'image')
     if (text)
         validate.text(text, 'text')
-        validate.callback(callback)
 
-        var xhr = new XMLHttpRequest
+// FETCH NUEVO
+    const post = { image, text }
 
-        xhr.onload = () => {
-            const { status, responseText: json } = xhr
+    const json = JSON.stringify(post)
 
-            if (status >= 201) {
-                callback(null)
+    return fetch('http://localhost:8080/posts', {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: json
+    })
+        .then(res => {
+            if(res.status === 201) return
 
-                return
-            } 
-            
-            const { error, message } = JSON.parse(json)
-    
-            const constructor = errors[error]
-    
-            callback(new constructor(message))
-        } 
+            return res.json()
+                .then(body => {
+                    const { error, message } = body
 
-        xhr.open('POST', 'http://localhost:8080/posts')
+                    const constructor = errors [error]
 
-        xhr.setRequestHeader('Authorization', sessionStorage.userId)
-        xhr.setRequestHeader('Content-Type', 'application/json')
-    
-        const post = { image, text }
-    
-        const json = JSON.stringify(post)
-    
-        xhr.send(json)
+                    throw new constructor (message)
+                })
+        })      
 }
 
 export default createPost
+
+
+//XML HTTP REQUEST ANTIGUO
+// var xhr = new XMLHttpRequest
+
+        // xhr.onload = () => {
+        //     const { status, responseText: json } = xhr
+
+        //     if (status >= 201) {
+        //         callback(null)
+
+        //         return
+        //     } 
+            
+        //     const { error, message } = JSON.parse(json)
+    
+        //     const constructor = errors[error]
+    
+        //     callback(new constructor(message))
+        // } 
+
+        // xhr.open('POST', 'http://localhost:8080/posts')
+
+        // xhr.setRequestHeader('Authorization', sessionStorage.userId)
+        // xhr.setRequestHeader('Content-Type', 'application/json')
+    
+        // const post = { image, text }
+    
+        // const json = JSON.stringify(post)
+    
+        // xhr.send(json)

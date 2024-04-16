@@ -16,15 +16,10 @@ function Home (props) {
 
   useEffect(() => {
     try {
-        logic.retrieveUser((error, user) => {
-            if (error) {
-                showFeedback(error)
-
-                return
-            }
-
-            setUser(user)
-        })
+        logic.retrieveUser()
+        //.then(user => setUser(user))
+        .then(setUser)
+        .catch(showFeedback)
     } catch (error) {
         showFeedback(error)
     }
@@ -105,7 +100,7 @@ function Home (props) {
         <footer className="fixed bottom-0 w-full h-[50px] flex justify-center items-center p-[10px] box-border bg-white">
           <button onClick={handleCreatePostClick}>➕</button>
         </footer>
-      </>;
+      </>
   }
 
 export default Home;

@@ -14,22 +14,18 @@ function Login(props) {
         logger.debug('Login -> handleSubmit', username, password)
 
         try {
-            logic.loginUser(username, password, error => {
-                if (error) {
-                    showFeedback(error)
+            logic.loginUser(username, password)
+                .then(() => {
+                    form.reset()
 
-                    return
-                }
-
-                form.reset()
-
-                props.onUserLoggedIn()
-            })
-        } catch (error) {
-            showFeedback(error)
-        }
+                    props.onUserLoggedIn()
+                })
+                .catch(showFeedback)
+            } catch (error) {
+                showFeedback(error)
+            }
     }
-
+      
     const handleRegisterClick = event => {
         event.preventDefault()
 
@@ -38,10 +34,10 @@ function Login(props) {
 
     logger.debug('Login -> render')
 
-    return <main>
-        <h1>Login</h1>
+    return <main className="my-[50px] px-[5vw]">
+        <h1 className="flex justify-center">Login</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form className='flex flex-col' onSubmit={handleSubmit}>
             <label htmlFor="username">Username</label>
             <input id="username" />
 

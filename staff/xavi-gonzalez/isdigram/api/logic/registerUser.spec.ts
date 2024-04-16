@@ -1,4 +1,7 @@
-import { MongoClient, ObjectId } from "mongodb";
+import mongoose from 'mongoose';
+
+import { User } from '../data/index.ts'
+
 import logic from './index.ts'
 import { expect } from "chai";
 import { errors } from 'com'
@@ -6,89 +9,53 @@ import { errors } from 'com'
 const { DuplicityError }  = errors
 
 describe("registerUser", () => {
-    let client, users
 
-    before(done => {
-        client = new MongoClient('mongodb://localhost:27017')
+    before(() => mongoose.connect('mongodb://localhost:27017/test'))
 
-        client.connect()
-        .then(connection => {
-            const db = connection.db('test')
-
-            users = db.collection('users')
-
-            logic.users = users
-
-            done()
-        })
-        .catch(done)
-    })
-
-    it("succeeds a new user", (done) => {
-      users.deleteMany()
-        .then(() => {
+    it("succeeds a new user", () => 
+      User.deleteMany()
+        .then(() => 
           logic.registerUser(
             "Pepe Roni",
             "2000-01-01",
             "pepe@roni.com",
             "peperoni",
-            "123qwe123",
-            (error) => {
-              if (error) {
-                done(error);
+            "123qwe123"))
 
-                return;
-              }
-
-              users
-                .findOne({ username: "peperoni" })
-                .then((user) => {
-                  expect(!!user).to.be.true;
-                  expect(user.name).to.equal("Pepe Roni");
-                  expect(user.birthdate).to.equal("2000-01-01");
-                  expect(user.email).to.equal("pepe@roni.com");
-                  expect(user.username).to.equal("peperoni");
-                  expect(user.password).to.equal("123qwe123");
-
-                  done();
-                })
-                .catch(done);
-            }
-          );
+        .then(() => User.findOne({ username: "peperoni" }))
+        .then((user) => {
+            expect(!!user).to.be.true;
+            expect(user.name).to.equal("Pepe Roni");
+            expect(user.birthdate).to.be.instanceOf(Date);
+            expect(user.email).to.equal("pepe@roni.com");
+            expect(user.username).to.equal("peperoni");
+            expect(user.password).to.equal("123qwe123"); 
         })
-        .catch(done);
-    });
+    )
 
-    it("fails on existing users", (done) => {
-      users
-        .deleteMany()
-        .then(() => {
-          users.insertOne({
+    it("fails on existing User", () => 
+      User.deleteMany()
+        .then(() => User.create({
             name: "Pepe Roni",
             birthdate: "2000-01-01",
             email: "pepe@roni.com",
             username: "peperoni",
             password: "123qwe123",
-          })
-            .then(() => {
+          }))
+          .then(() => 
               logic.registerUser(
                 "Pepe Roni",
                 "2000-01-01",
                 "pepe@roni.com",
                 "peperoni",
-                "123qwe123",
-                (error) => {
+                "123qwe123",)
+                .catch(error => {
                   expect(error).to.be.instanceOf(DuplicityError);
                   expect(error.message).to.equal("user already exists");
-
-                  done();
-                }
-              );
-            })
-            .catch(done);
-        })
-        .catch(done);
-    });
+                })
+          )
+    )
+            
 
     it("fails on non string name", () => {
       let errorThrown;
@@ -100,7 +67,6 @@ describe("registerUser", () => {
           "pepe@roni.com",
           "peperoni",
           "123qwe123",
-          () => { }
         );
       } catch (error) {
         errorThrown = error;
@@ -120,7 +86,6 @@ describe("registerUser", () => {
           "pepe@roni.com",
           "peperoni",
           "123qwe123",
-          () => { }
         );
       } catch (error) {
         errorThrown = error;
@@ -141,7 +106,6 @@ describe("registerUser", () => {
           "pepe@roni.com",
           "peperoni",
           "123qwe123",
-          () => { }
         );
       } catch (error) {
         errorThrown = error;
@@ -161,7 +125,6 @@ describe("registerUser", () => {
           "pepe@roni.com",
           "peperoni",
           "123qwe123",
-          () => { }
         );
       } catch (error) {
         errorThrown = error;
@@ -169,15 +132,10 @@ describe("registerUser", () => {
 
       expect(errorThrown).to.be.instanceOf(Error);
       expect(errorThrown.message).to.equal(
-        "birthdate 2000/01/01 does not have a valid format"
-      );
+        "birthdate 2000/01/01 does not have a valid format");
     });
 
     // TODO add other unhappy test cases
 
-    after(done => {
-        client.close()
-            .then(() => done())
-            .catch(done)
-    })
+    after(() => mongoose.disconnect())
 })
