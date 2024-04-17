@@ -4,35 +4,28 @@ import { ObjectId } from 'mongodb'
 
 const { SystemError, NotFoundError } = errors
 
-function removePost(postId, callback) {
-    validate.text(postId, "postId", true);
-    validate.callback(callback)
+function removePost(postId) {
+//     validate.text(postId, "postId", true);
   
-    this.posts.findOne({author: new ObjectId (postId)})
-    .then(post =>{
-      if (!post) {
-        callback(new NotFoundError("post not found"));
+//     this.posts.findOne({author: new ObjectId (postId)})
+//     .then(post =>{
+//       if (!post) 
+//         throw new NotFoundError("post not found")
 
-        return
-      }
+//       if (post.author !== sessionStorage.userId) 
+//         throw new Error("post does not belong to user")
 
-      if (post.author !== sessionStorage.userId) {
-        callback(new Error("post does not belong to user"))
-
-        return
-      }
-
-      this.posts.deleteOne({ author: postId })
-      .then(() => { callback(null)
-      })
-      .catch(error => callback(new SystemError(error.message)))
-    })
-    .catch(error => callback(new SystemError(error.message)))
+//       this.posts.deleteOne({ author: postId })
+//       .then(() => {(null)
+//       })
+//       .catch(error => throw new SystemError(error.message))
+//     })
+//     .catch(error => throw new SystemError(error.message))
   
   
 }
 
-  export default removePost
+export default removePost
 
 
 

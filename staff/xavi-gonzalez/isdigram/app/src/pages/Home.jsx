@@ -7,6 +7,9 @@ import PostList from "../components/PostList";
 import CreatePost from "../components/CreatePost";
 import EditPost from "../components/EditPost";
 
+import { Routes, Route } from 'react-router-dom'
+import Profile from '../components/Profile'
+
 function Home (props) {
   const [user, setUser] = useState(null)
   const [view, setView] = useState(null)
@@ -81,20 +84,15 @@ function Home (props) {
           </header>
         
 
-        <main className="my-[50px] px-[5vw]">
-            <PostList stamp={stamp}
-            onEditPostClick={handleEditPostClick}/>
+        <main className= "y-[50px] px-[5vw]">
+        <Routes>
+                <Route path="/" element={<PostList stamp={stamp} onEditPostClick={handleEditPostClick} />} />
+                <Route path="/profile/:username" element={<Profile />} />
+            </Routes>
 
-            {view === "create-post" && 
-              <CreatePost
-                onCancelClick={handleCreatePostCancelClick}
-                onPostCreated={handlePostCreated}
-              />}
-            {view === "edit-post" && 
-              <EditPost
-                post={post}
-                onCancelClick={handleEditPostCancelClick}
-                onPostEdited={handlePostEdited} /> }
+            {view === 'create-post' && <CreatePost onCancelClick={handleCreatePostCancelClick} onPostCreated={handlePostCreated} />}
+
+            {view === 'edit-post' && <EditPost post={post} onCancelClick={handleEditPostCancelClick} onPostEdited={handlePostEdited} />}
         </main>
 
         <footer className="fixed bottom-0 w-full h-[50px] flex justify-center items-center p-[10px] box-border bg-white">

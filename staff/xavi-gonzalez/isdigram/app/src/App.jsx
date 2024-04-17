@@ -1,13 +1,11 @@
 import { logger } from './utils'
 
 import logic from './logic'
-
-import { useState } from 'react'
-import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 //import Chat from './pages/Chat'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 function App() {
   //ALTERNATIVA
@@ -15,15 +13,15 @@ function App() {
   // const view = viewState[0]
   // const setView = viewState[1]
 
-    const [view, setView] = useState(logic.isUserLoggedIn() ? 'home' : 'landing')
+    const navigate = useNavigate()
 
-    const goToLogin = () => setView('login')
+    const goToLogin = () => navigate('/login')
 
     const handleLoginClick = () => goToLogin()
   
-    const handleRegisterClick = () => setView('register')
+    const handleRegisterClick = () => navigate('/register')
   
-    const handleUserLoggedIn = () => setView( 'home')
+    const handleUserLoggedIn = () => navigate( '/')
   
     const handleUserLoggedOut = () => goToLogin()
 
@@ -51,22 +49,18 @@ function App() {
   //   return <h1>🤨</h1>
 
 return <>
-    {view === 'landing' && <Landing 
-    onLoginClick={handleLoginClick} 
-    onRegisterClick={handleRegisterClick} />}
-    {view === 'login' && <Login 
-    onRegisterClick={handleRegisterClick} onUserLoggedIn={handleUserLoggedIn} />}
-    {view === 'register' && <Register 
-      onLoginClick={handleLoginClick} 
-      onUserRegistered={handleLoginClick} />}
-    {view === 'home' && <Home 
-      //onChatClick={handleChatClick}
-      onUserLoggedOut={handleUserLoggedOut}
-      /> }
+<Routes>
+  <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterClick} onUserLoggedIn={handleUserLoggedIn} />} />
+
+  <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onUserRegistered={handleLoginClick} />} />
+  
+  <Route path="/*" element={logic.isUserLoggedIn() ? <Home onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+ 
     {/* {view === 'chat' && <Chat 
       onHomeClick={handleHomeClick}
       onUserLoggedOut={handleUserLoggedOut}
       /> } */}
+      </Routes>
 </>
 }
 export default App

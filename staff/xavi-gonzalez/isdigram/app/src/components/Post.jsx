@@ -1,9 +1,10 @@
 import { logger, showFeedback } from '../utils'
 
+import { Link } from 'react-router-dom'
+
 import logic from '../logic'
 
 function Post (props) {
-
     const handleDeleteClick = postId => {
         if (confirm('delete post?'))
             try {
@@ -22,7 +23,7 @@ function Post (props) {
         const { item: post } = props
 
         return <article>
-            <h3>{post.author.username}</h3>
+            <h3><Link to={`/profile/${post.author.username}`}>{post.author.username}</Link></h3>
 
             <img src={post.image} />
 

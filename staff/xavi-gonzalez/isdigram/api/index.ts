@@ -21,14 +21,6 @@ const { ContentError, SystemError, DuplicityError, NotFoundError, CredentialsErr
 
 mongoose.connect('mongodb://localhost:27017/isdigram')
   .then(() => {
-    const db = mongoose.connection.db
-
-    const users = db.collection('users')
-    const posts = db.collection('posts')
-
-    logic.users = users
-    logic.posts = posts
-
     const api = express();
 
     const jsonBodyParser = express.json();
@@ -162,21 +154,33 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
 
         const { sub: userId } = jwt.verify(token, 'Es un secreto, de tu mirada y la mía')
 
-        logic.retrievePosts(userId as string, (error, posts) => {
-          if (error) {
-            res.status(400).json({ error: error.constructor.name, message: error.message })
+        logic.retrievePosts(userId as string)
+          .then(posts => res.json(posts))
+          .catch(error => {
+            if (error instanceof SystemError) {
+              logger.error(error.message)
 
-            return
-          }
+              res.status(500).json({ error: error.constructor.name, message: error.message })
+            } else if (error instanceof NotFoundError) {
+              logger.warn(error.message)
 
-          res.json(posts)
-        })
-
+              res.status(404).json({ error: error.constructor.name, message: error.message })
+            }
+          })
       } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        if (error instanceof TypeError || error instanceof ContentError) {
+          logger.warn(error.message)
+
+          res.status(406).json({ error: error.constructor.name, message: error.message })
+        } else {
+          logger.warn(error.message)
+
+          res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
       }
     })
 
+    
     //CREATE POST CON EXPRESS JS
     api.post('/posts', jsonBodyParser, (req, res) => {
       try {
