@@ -1,57 +1,42 @@
-import { logger, showFeedback } from "../utils";
+import { logger } from '../utils'
 
-import logic from "../logic";
+import logic from '../logic'
 
-import { useState, useEffect } from "react";
-import Post from "./Post";
+import { useState, useEffect } from 'react'
+import Post from './Post'
 
-function PostList(props) {
+import { useContext } from '../context'
+
+function PostList({ stamp, onEditPostClick }) {
     const [posts, setPosts] = useState([])
 
+    const { showFeedback } = useContext()
+
     const loadPosts = () => {
-      logger.debug('PostList -> loadPosts')
+        logger.debug('PostList -> loadPosts')
 
         try {
-          logic.retrievePosts()
+            logic.retrievePosts()
                 .then(setPosts)
-                .catch(showFeedback)
+                .catch(error => showFeedback(error.message, 'error'))
         } catch (error) {
-            showFeedback(error)
+            showFeedback(error.message)
         }
     }
 
-  // componentWillReceiveProps(newProps) {
-  //   logger.debug(
-  //     "PostList -> componentWillReceiveProps",
-  //     JSON.stringify(props),
-  //     JSON.stringify(newProps)
-  //   );
+    useEffect(() => {
+        loadPosts()
+    }, [stamp])
 
-  //   //if (newProps.stamp !== props.stamp) loadPosts()
-  //   newProps.stamp !== props.stamp && loadPosts();
-  // }
+    const handlePostDeleted = () => loadPosts()
 
-  // componentDidMount() {
-  //   logger.debug("PostList -> componentDidMount");
-
-  //   loadPosts();
-  // }
-
-  useEffect(() => {
-    loadPosts()
-  }, [props.stamp])
-
-  const handlePostDeleted = () => loadPosts();
-
-  const handleEditClick = post => props.onEditPostClick(post);
+    const handleEditClick = post => onEditPostClick(post)
 
     logger.debug('PostList -> render')
 
     return <section>
-        {posts.map(post => <Post key={post.id}item={post} 
-        onEditClick={handleEditClick} 
-        onDeleted={handlePostDeleted} />)}
+        {posts.map(post => <Post key={post.id} item={post} onEditClick={handleEditClick} onDeleted={handlePostDeleted} />)}
     </section>
 }
 
-export default PostList;
+export default PostList

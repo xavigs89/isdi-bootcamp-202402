@@ -1,53 +1,53 @@
-import { logger, showFeedback } from "../utils";
+import { logger } from '../utils'
 
 import CancelButton from './library/CancelButton'
 
-import logic from "../logic";
+import logic from '../logic'
 import SubmitButton from './library/SubmitButton'
 
 import './EditPost.sass'
 
-function EditPost (props) {
+import { useContext } from '../context'
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+function EditPost(props) {
+    const { showFeedback } = useContext()
 
-    const form = event.target;
+    const handleSubmit = event => {
+        event.preventDefault()
 
-    const text = form.text.value;
+        const form = event.target
 
-    logger.debug("EditPost -> handleSubmit", text);
+        const text = form.text.value
 
-    try {
-      logic.modifyPost(props.post.id, text);
+        logger.debug('EditPost -> handleSubmit', text)
 
-      form.reset();
+        try {
+            logic.modifyPost(props.post.id, text)
+                .then(() => {
+                    form.reset()
 
-      props.onPostEdited();
-    } catch (error) {
-      showFeedback(error);
+                    props.onPostEdited()
+                })
+                .catch(error => showFeedback(error.message), 'error')
+        } catch (error) {
+            showFeedback(error.message)
+        }
     }
-  };
 
-  const handleCancelClick = () => props.onCancelClick();
+    const handleCancelClick = () => props.onCancelClick()
 
-    logger.debug("EditPost -> render");
+    logger.debug('EditPost -> render')
 
-    return (
-      <section className="edit-post">
+    return <section className="edit-post">
         <form onSubmit={handleSubmit}>
-          <label>Text</label>
-          <input id="text" type="text" defaultValue={props.post.text} />
+            <label>Text</label>
+            <input id="text" type="text" defaultValue={props.post.text} />
 
-          <SubmitButton>
-            Edit
-          </SubmitButton>
+            <SubmitButton>Save</SubmitButton>
         </form>
 
-        <CancelButton onClick={handleCancelClick}
-        />
-      </section>
-    );
-  }
+        <CancelButton onClick={handleCancelClick} />
+    </section>
+}
 
-export default EditPost;
+export default EditPost

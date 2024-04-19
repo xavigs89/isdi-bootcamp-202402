@@ -1,1 +1,1 @@
-curl -H "Authorization: 661a57cc8ff6ed46bc958e02" http://localhost:8080/users/661a57cc8ff6ed46bc958e02 -v
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjFlOTc4NTZhODE5MWEyYjEzOWQ1YWUiLCJpYXQiOjE3MTM0NTMwOTR9.SXYtNMVAB71tFNuordp8HbamJoAQQZ6_OE0mmM9JWh4" http://localhost:8080/users/661e97856a8191a2b139d5ae -v

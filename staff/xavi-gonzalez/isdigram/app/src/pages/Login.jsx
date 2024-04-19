@@ -1,8 +1,12 @@
-import { logger, showFeedback } from '../utils'
+import { logger } from '../utils'
 
 import logic from '../logic'
 
-function Login(props) {
+import { useContext } from '../context'
+
+function Login({ onUserLoggedIn, onRegisterClick }) {
+    const { showFeedback } = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -18,26 +22,26 @@ function Login(props) {
                 .then(() => {
                     form.reset()
 
-                    props.onUserLoggedIn()
+                    onUserLoggedIn()
                 })
-                .catch(showFeedback)
-            } catch (error) {
-                showFeedback(error)
-            }
+                .catch(error => showFeedback(error.message, 'error'))
+        } catch (error) {
+            showFeedback(error.message)
+        }
     }
-      
+
     const handleRegisterClick = event => {
         event.preventDefault()
 
-        props.onRegisterClick()
+        onRegisterClick()
     }
 
     logger.debug('Login -> render')
 
-    return <main className="my-[50px] px-[5vw]">
-        <h1 className="flex justify-center">Login</h1>
+    return <main>
+        <h1>Login</h1>
 
-        <form className='flex flex-col' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username</label>
             <input id="username" />
 
