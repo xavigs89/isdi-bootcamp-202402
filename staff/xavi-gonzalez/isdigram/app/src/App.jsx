@@ -9,6 +9,9 @@ import Feedback from './components/Feedback'
 import { useState } from 'react'
 import { Context } from './context'
 import Confirm from './components/Confirm'
+import { errors } from 'com'
+
+const { UnauthorizedError } = errors
 
 function App() {
   const [feedback, setFeedback] = useState(null)
@@ -28,7 +31,16 @@ function App() {
 
   const handleFeedbackAcceptClick = () => setFeedback(null)
 
-  const handleFeedback = (message, level = 'warn') => setFeedback({ message, level })
+  const handleFeedback = (error, level = 'warn') => {
+    if (error instanceof UnauthorizedError) {
+      logic.logoutUser()
+
+      level = 'error'
+
+      goToLogin()
+    }
+    setFeedback({ message: error.message, level })
+  }
 
   const handleConfirm = (message, callback) => setConfirm({ message, callback })
 

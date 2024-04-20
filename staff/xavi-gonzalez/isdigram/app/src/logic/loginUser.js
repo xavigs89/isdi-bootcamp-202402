@@ -1,6 +1,6 @@
 import { validate, errors } from 'com'
 
-function loginUser(username, password, callback) {
+function loginUser(username, password) {
     validate.text(username, 'username', true)
     validate.password(password)
 
@@ -10,7 +10,7 @@ function loginUser(username, password, callback) {
 
     const json = JSON.stringify(user)
 
-    return fetch('http://localhost:8080/users/auth', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

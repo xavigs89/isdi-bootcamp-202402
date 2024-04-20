@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+
 import mongoose from 'mongoose';
 
 import { User } from '../data/index.ts'
@@ -8,9 +10,11 @@ import { errors } from 'com'
 
 const { DuplicityError }  = errors
 
+dotenv.config()
+
 describe("registerUser", () => {
 
-    before(() => mongoose.connect('mongodb://localhost:27017/test'))
+    before(() => mongoose.connect(process.env.MONGODB_TEST_URL))
 
     it("succeeds a new user", () => 
       User.deleteMany()

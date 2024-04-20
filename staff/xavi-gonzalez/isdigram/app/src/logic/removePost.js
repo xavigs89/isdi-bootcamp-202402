@@ -1,9 +1,10 @@
 import { validate, errors } from 'com'
 
-function removePost(postId, callback) {
+function removePost(postId) {
 
     validate.text(postId, 'postId', true)
-    validate.callback(callback)
+
+    //TODO
 
         var xhr = new XMLHttpRequest
 

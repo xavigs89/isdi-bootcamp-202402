@@ -1,6 +1,6 @@
 import { validate, errors } from 'com'
 
-function registerUser(name, birthdate, email, username, password, callback) {
+function registerUser(name, birthdate, email, username, password) {
     validate.text(name, 'name')
     validate.date(birthdate, 'birthdate')
     validate.email(email)
@@ -13,7 +13,7 @@ const user = { name, birthdate, email, username, password }
 
 const json = JSON.stringify(user)
 
-return fetch('http://localhost:8080/users', {
+return fetch(`${import.meta.env.VITE_API_URL}/users`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

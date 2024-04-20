@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+
 import mongoose from 'mongoose'
 import logic from './index.ts'
 import { expect } from 'chai'
@@ -7,8 +9,11 @@ import { User, Post, PostType } from '../data/index.ts'
 
 const { CredentialsError, NotFoundError } = errors
 
+dotenv.config()
+
+
 describe('retrievePosts', () => {
-    before(() => mongoose.connect('mongodb://localhost:27017/test'))
+    before(() => mongoose.connect(process.env.MONGODB_TEST_URL))
 
     it('retrieves all posts for existing user', () =>
         Promise.all([

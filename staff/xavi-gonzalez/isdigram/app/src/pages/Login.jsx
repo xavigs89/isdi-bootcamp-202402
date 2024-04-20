@@ -24,9 +24,9 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
 
                     onUserLoggedIn()
                 })
-                .catch(error => showFeedback(error.message, 'error'))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
-            showFeedback(error.message)
+            showFeedback(error)
         }
     }
 

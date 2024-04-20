@@ -20,7 +20,7 @@ function PostList({ stamp, onEditPostClick }) {
                 .then(setPosts)
                 .catch(error => showFeedback(error.message, 'error'))
         } catch (error) {
-            showFeedback(error.message)
+            showFeedback(error)
         }
     }
 

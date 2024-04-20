@@ -4,13 +4,14 @@ function createPost(image, text) {
     validate.url(image, 'image')
     if (text)
         validate.text(text, 'text')
+        validate.token(sessionStorage.token)
 
 // FETCH NUEVO
     const post = { image, text }
 
     const json = JSON.stringify(post)
 
-    return fetch('http://localhost:8080/posts', {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
@@ -18,6 +19,9 @@ function createPost(image, text) {
         },
         body: json
     })
+
+    //Se utiliza la función fetch para realizar una solicitud HTTP POST a una URL construida dinámicamente utilizando el valor de la variable de entorno VITE_API_URL, que parece estar disponible en el entorno de navegador a través de import.meta.env. La parte /posts de la URL sugiere que se está accediendo a un endpoint para crear nuevos posts en una API.
+    
         .then(res => {
             if(res.status === 201) return
 

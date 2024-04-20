@@ -27,7 +27,7 @@ function CreatePost(props) {
                 })
                 .catch(error => showFeedback(error.message, 'error'))
         } catch (error) {
-            showFeedback(error.message)
+            showFeedback(error)
         }
     }
 

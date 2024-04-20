@@ -1,4 +1,5 @@
 //FUNCIONES HECHAS CON EXPRESS JS
+import dotenv from 'dotenv'
 import mongoose from "mongoose";
 import express from "express";
 import logic from "./logic/index.ts";
@@ -6,7 +7,15 @@ import { errors } from 'com'
 import tracer from 'tracer'
 import colors from 'colors'
 import jwt from 'jsonwebtoken'
+import cors from 'cors'
 
+dotenv.config()
+// Método utilizado en aplicaciones de Node.js para cargar variables de entorno desde un archivo .env en el proyecto. Este método pertenece a la librería dotenv, que es comúnmente utilizada para manejar configuraciones sensibles, como claves de API o credenciales de bases de datos, de una manera más segura y organizada.
+//Cuando llamas a dotenv.config(), la librería buscará un archivo llamado .env en el directorio de tu proyecto y leerá las variables definidas en él, cargándolas en el entorno de ejecución de Node.js.
+
+const { TokenExpiredError } = jwt
+
+const { MONGODB_URL, PORT, JWT_SECRET, JWT_EXP } = process.env
 
 const logger = tracer.colorConsole({
   filters: {
@@ -17,23 +26,15 @@ const logger = tracer.colorConsole({
   }
 })
 
-const { ContentError, SystemError, DuplicityError, NotFoundError, CredentialsError } = errors
+const { ContentError, SystemError, DuplicityError, NotFoundError, CredentialsError, UnauthorizedError } = errors
 
-mongoose.connect('mongodb://localhost:27017/isdigram')
+mongoose.connect(MONGODB_URL)
   .then(() => {
     const api = express();
 
     const jsonBodyParser = express.json();
 
-    api.use((req, res, next) => {
-      res.setHeader("Access-Control-Allow-Origin", "*"); //Permite el acceso cruzado a recursos de un dominio diferente en el navegador del cliente.
-      res.setHeader("Access-Control-Allow-Methods", "*"); //indica qué métodos HTTP son permitidos desde el origen solicitante. Este encabezado especifica una lista separada por comas de los métodos HTTP permitidos.
-      res.setHeader("Access-Control-Allow-Headers", "*");
-      //permite a un servidor especificar qué encabezados HTTP personalizados pueden ser enviados en una solicitud desde un origen cruzado.
-
-      next();
-    });
-
+    api.use(cors())
 
     //REGISTER USER CON EXPRESS JS
     api.post('/users', jsonBodyParser, (req, res) => {
@@ -68,6 +69,7 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
       }
     })
 
+
     //LOGIN USER CON EXPRESS JS
     api.post('/users/auth', jsonBodyParser, (req, res) => {
       try {
@@ -75,7 +77,7 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
 
         logic.authenticateUser(username, password)
           .then(userId => {
-            const token = jwt.sign({ sub: userId }, 'Es un secreto, de tu mirada y la mía')
+            const token = jwt.sign({ sub: userId }, JWT_SECRET, { expiresIn: JWT_EXP })
 
             res.json(token)
           })
@@ -114,7 +116,7 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
 
         const token = authorization.slice(7)
 
-        const { sub: userId } = jwt.verify(token, 'Es un secreto, de tu mirada y la mía')
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { targetUserId } = req.params
 
@@ -137,6 +139,10 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
           logger.warn(error.message)
 
           res.status(406).json({ error: error.constructor.name, message: error.message })
+        } else if (error instanceof TokenExpiredError) {
+          logger.warn(error.message)
+
+          res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
         } else {
           logger.warn(error.message)
 
@@ -152,7 +158,7 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
 
         const token = authorization.slice(7)
 
-        const { sub: userId } = jwt.verify(token, 'Es un secreto, de tu mirada y la mía')
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         logic.retrievePosts(userId as string)
           .then(posts => res.json(posts))
@@ -172,15 +178,19 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
           logger.warn(error.message)
 
           res.status(406).json({ error: error.constructor.name, message: error.message })
+        } else if (error instanceof TokenExpiredError) {
+          logger.warn(error.message)
+
+          res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
         } else {
           logger.warn(error.message)
 
-          res.status(500).json({ error: error.constructor.name, message: error.message })
+          res.status(500).json({ error: SystemError.name, message: error.message })
         }
       }
     })
 
-    
+
     //CREATE POST CON EXPRESS JS
     api.post('/posts', jsonBodyParser, (req, res) => {
       try {
@@ -188,7 +198,7 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
 
         const token = authorization.slice(7)
 
-        const { sub: userId } = jwt.verify(token, 'Es un secreto, de tu mirada y la mía')
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { image, text } = req.body
 
@@ -210,19 +220,22 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
           logger.warn(error.message)
 
           res.status(406).json({ error: error.constructor.name, message: error.message })
+        } else if (error instanceof TokenExpiredError) {
+          logger.warn(error.message)
+
+          res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
         } else {
           logger.warn(error.message)
 
-          res.status(500).json({ error: error.constructor.name, message: error.message })
-
+          res.status(500).json({ error: SystemError.name, message: error.message })
         }
 
       }
     })
 
 
+    api.listen(8080, () => logger.info(`API listening on port ${PORT}`));
 
-    api.listen(8080, () => logger.info("API listening on port 8080"));
 
   })
   .catch(error => logger.error(error))

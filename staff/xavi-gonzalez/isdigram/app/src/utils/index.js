@@ -4,5 +4,5 @@ const logger = new Logger
 
 export {
     logger,
-    Logger,
+    Logger
 }

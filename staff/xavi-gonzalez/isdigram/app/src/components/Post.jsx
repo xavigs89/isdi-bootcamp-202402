@@ -15,9 +15,9 @@ function Post({ item: post, onEditClick, onDeleted }) {
                 try {
                     logic.removePost(postId)
                         .then(() => onDeleted())
-                        .catch(error => showFeedback(error.message, 'error'))
+                        .catch(error => showFeedback(error, 'error'))
                 } catch (error) {
-                    showFeedback(error.message)
+                    showFeedback(error)
                 }
         })
 
@@ -35,8 +35,8 @@ function Post({ item: post, onEditClick, onDeleted }) {
         <time>{new Date(post.date).toLocaleString('en-CA')}</time>
 
         {logic.getLoggedInUserId() === post.author.id && <>
-            <button onClick={() => handleDeleteClick(post.id)}>🗑️</button>
             <button onClick={() => handleEditClick(post)}>📝</button>
+            <button onClick={() => handleDeleteClick(post.id)}>🗑️</button>
         </>}
     </article>
 }

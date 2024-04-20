@@ -27,9 +27,9 @@ function Register({ onUserRegistered, onLoginClick }) {
                 })
                 //manera antigua 
                 //.catch(error => showFeedback)
-                .catch(error => showFeedback(error.message, 'error'))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
-            showFeedback(error.message)
+            showFeedback(error)
         }
     }
 
