@@ -2,9 +2,9 @@
 
 ## Intro
 
-The Meetup App is a platform that connects people with common interests and enables them to create, join, and participate in local events. From tech talks to outdoor activities, our application helps you discover events you're interested in and connect with like-minded individuals in your community.
+The app is a platform that connects people with common interests and enables them to create, join, and participate in local events.
 
-![](https://giphy.com/gifs/party-friends-dobby-woody-1kTKRsMWY44MAlV2QW)
+![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnlucHU2ZDJweDZpM2RnN21jMmE4YWgxbGp1OGt0cnJqYW9uc25qdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5L57f5fI3f2716NaJ3/giphy.gif)
 
 ## Functional Description
 
@@ -16,13 +16,13 @@ The Meetup App is a platform that connects people with common interests and enab
 - search for events (by location, date and category)
 - choose a place (in map)
 - by clicking on the user, see its events and reviews of those events created.
-- user profile (profile picture, info, contact)
+- user profile (edit profile picture, about me, contact)
 - rating of events once the event is over (from 1 to 5 stars). Possibility of comments.
 
 v0.1
 - chat with event owner
 - rating users (stars from 1 to 5)
-- share events on social networks????
+- share events on other social networks
 
 ### UI Design
 
