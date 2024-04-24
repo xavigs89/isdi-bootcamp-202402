@@ -1,10 +1,10 @@
 import { validate, errors } from 'com'
 
-function loginUser(username, password) {
-    validate.text(username, 'username', true)
+function loginUser(email, password) {
+    validate.email(email)
     validate.password(password)
 
-    const user = { username, password }
+    const user = { email, password }
 
     const json = JSON.stringify(user)
 

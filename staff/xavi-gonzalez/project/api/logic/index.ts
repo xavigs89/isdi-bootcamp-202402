@@ -2,7 +2,7 @@ import registerUser from './registerUser.ts'
 import authenticateUser from './authenticateUser.ts'
 import retrieveUser from './retrieveUser.ts'
 
-//import createEvent from './createEvent.ts'
+import createEvent from './createEvent.ts'
 //import retrieveEvents from './retrieveEvents.ts'
 //import modifyEvent from './modifyEvent.ts'
 //import removeEvent from './removeEvent.ts'
@@ -15,7 +15,7 @@ const logic = {
     authenticateUser,
     retrieveUser,
 
-    // createEvent,
+    createEvent,
     // retrieveEvents,
     // modifyEvent,
     // removeEvent,

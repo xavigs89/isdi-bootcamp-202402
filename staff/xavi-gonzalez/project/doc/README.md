@@ -10,23 +10,25 @@ The app is a platform that connects people with common interests and enables the
 
 ### Use Cases
 
-- event creation (form with title, location, date, time, description, and picture)
-- edit and remove event
-- allow users to join events, view attendee list
+- create event
+- edit event
+- remove event
+- join event 
+- view attendee list
 - search for events (by location, date and category)
-- choose a place (in map)
-- by clicking on the user, see its events and reviews of those events created.
-- user profile (edit profile picture, about me, contact)
-- rating of events once the event is over (from 1 to 5 stars). Possibility of comments.
+- see user profile (see its events and reviews of those events created.)
+- edit profile (profile picture, about me, contact, see created events, see joined events)
+- rate event (once it's over, from 1 to 5 stars, optional comment)
+
 
 v0.1
-- chat with event owner
-- rating users (stars from 1 to 5)
-- share events on other social networks
+- chat with event owner and people that joined that event
+- change password, email
+
 
 ### UI Design
 
-[Figma](https://www.figma.com/file/cw8K38zpv36iQkjQA5fVXC/App?type=design&node-id=0-1&mode=design&t=RHFOp1rBhBeRDwEs-0)
+[Figma](https://www.figma.com/file/XTR8uUQ17vydGpiclzZRFf/Clase?type=design&node-id=83-106&mode=design&t=VdjzqsMXVZJ0SaqV-0)
 
 ## Technical Description
 
@@ -51,24 +53,25 @@ v0.1
 User
 - id (required)
 - name (string, required)
-- birthdate (date, required)
 - email (string, required)
-- username (string, required)
 - password (string, required)
 - avatar (string, optional)
+- about (string, optional)
 
-Events
+Event
 - id (required)
 - title (string, required)
-- location (required)
+- address (string, required)
+- location ([numbers], required)
 - date (date, required)
-- time (date, required)
+- duration (number, required)
 - description (string, required)
 - picture (string, required)
+- attendees ([User.id])
 
-Event Reviews
+Review
 - id (required)
 - user (User.id, required)
-- rate (number, required, num: 1|2|3|4|5)
+- rate (number, required, enum: 1|2|3|4|5)
 - comment (string, optional)
 - date (date, required)

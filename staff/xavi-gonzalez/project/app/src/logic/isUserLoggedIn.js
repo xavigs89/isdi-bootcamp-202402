@@ -3,10 +3,11 @@ import { validate } from 'com'
 function isUserLoggedIn() {
     try {
         validate.token(sessionStorage.token)
-
-        return !!sessionStorage.token
+        return true
+        // return !!sessionStorage.token
     } catch (error) {
         return false
+        // console.error(error)
     }
 
 }

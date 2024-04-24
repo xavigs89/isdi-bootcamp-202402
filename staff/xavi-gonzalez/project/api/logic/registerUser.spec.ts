@@ -17,23 +17,23 @@ describe('registerUser', () => {
 
     it('succeeds a new user', () =>
         User.deleteMany()
-            .then(() => logic.registerUser('Paquito Chocolatero', '1989-04-25', 'paquito@gmail.com', 'paquito', 'Isdicoders1', 'Isdicoders1'))
-            .then(() => User.findOne({ username: 'paquito' }))
+            .then(() => logic.registerUser('Paquito Chocolatero', 'paquito@gmail.com', 'Isdicoders1', 'Isdicoders1'))
+            .then(() => User.findOne({ email: 'paquito@gmail.com' }))
             .then(user => {
                 expect(!!user).to.be.true
                 expect(user.name).to.equal('Paquito Chocolatero')
-                expect(user.birthdate).to.be.instanceOf(Date)
                 expect(user.email).to.equal('paquito@gmail.com')
-                expect(user.username).to.equal('paquito')
                 expect(user.password).to.equal('Isdicoders1')
+                expect(user.avatar).to.equal(null)
+                expect(user.about).to.equal(null)
             })
     )
 
     it('fails on existing users', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1' }))
             .then(() =>
-                logic.registerUser('Paquito Chocolatero', '1989-04-25', 'paquito@gmail.com', 'paquito', 'Isdicoders1', 'Isdicoders1')
+                logic.registerUser('Paquito Chocolatero', 'paquito@gmail.com', 'Isdicoders1', 'Isdicoders1')
                     .catch(error => {
                         expect(error).to.be.instanceOf(DuplicityError)
                         expect(error.message).to.equal('user already exists')
@@ -46,7 +46,7 @@ describe('registerUser', () => {
 
         try {
             // @ts-ignore
-            logic.registerUser(123, '1989-04-25', 'paquito@gmail.com', 'paquito', 'Isdicoders1')
+            logic.registerUser(123, 'paquito@gmail.com', 'Isdicoders1')
         } catch (error) {
             errorThrown = error
         }
@@ -59,7 +59,7 @@ describe('registerUser', () => {
         let errorThrown
 
         try {
-            logic.registerUser('', '1989-04-25', 'paquito@gmail.com', 'paquito', 'Isdicoders1', 'Isdicoders1')
+            logic.registerUser('', 'paquito@gmail.com', 'Isdicoders1', 'Isdicoders1')
         } catch (error) {
             errorThrown = error
         }
@@ -68,32 +68,32 @@ describe('registerUser', () => {
         expect(errorThrown.message).to.equal('name >< is empty or blank')
     })
 
-    it('fails on non string birthdate', () => {
-        let errorThrown
+    // it('fails on non string birthdate', () => {
+    //     let errorThrown
 
-        try {
-            // @ts-ignore
-            logic.registerUser('Paquito Chocolatero', 123, 'paquito@gmail.com', 'paquito', 'Isdicoders1')
-        } catch (error) {
-            errorThrown = error
-        }
+    //     try {
+    //         // @ts-ignore
+    //         logic.registerUser('Paquito Chocolatero', 123, 'paquito@gmail.com', 'paquito', 'Isdicoders1')
+    //     } catch (error) {
+    //         errorThrown = error
+    //     }
 
-        expect(errorThrown).to.be.instanceOf(TypeError)
-        expect(errorThrown.message).to.equal('birthdate 123 is not a string')
-    })
+    //     expect(errorThrown).to.be.instanceOf(TypeError)
+    //     expect(errorThrown.message).to.equal('birthdate 123 is not a string')
+    // })
 
-    it('fails on incorrect birthdate format', () => {
-        let errorThrown
+    // it('fails on incorrect birthdate format', () => {
+    //     let errorThrown
 
-        try {
-            logic.registerUser('Paquito Chocolatero', '1989/04/25', 'paquito@gmail.com', 'paquito', 'Isdicoders1', 'Isdicoders1')
-        } catch (error) {
-            errorThrown = error
-        }
+    //     try {
+    //         logic.registerUser('Paquito Chocolatero', '1989/04/25', 'paquito@gmail.com', 'paquito', 'Isdicoders1', 'Isdicoders1')
+    //     } catch (error) {
+    //         errorThrown = error
+    //     }
 
-        expect(errorThrown).to.be.instanceOf(Error)
-        expect(errorThrown.message).to.equal('birthdate 1989/04/25 does not have a valid format')
-    })
+    //     expect(errorThrown).to.be.instanceOf(Error)
+    //     expect(errorThrown.message).to.equal('birthdate 1989/04/25 does not have a valid format')
+    // })
 
 
 
@@ -103,7 +103,7 @@ describe('registerUser', () => {
         let errorThrown
 
         try {
-            logic.registerUser('Paquito Chocolatero', '1989-04-25', 'I am not an email', 'paquito', 'Isdicoders1', 'Isdicoders1')
+            logic.registerUser('Paquito Chocolatero', 'I am not an email', 'Isdicoders1', 'Isdicoders1')
         } catch (error) {
             errorThrown = error
         }
@@ -116,7 +116,7 @@ describe('registerUser', () => {
         let errorThrown
 
         try {
-            logic.registerUser('Paquito Chocolatero', '1989-04-25', 'paquito@gmail.com', 'paquito', 'I am not a valid password', 'I am not a valid password')
+            logic.registerUser('Paquito Chocolatero', 'paquito@gmail.com', 'I am not a valid password', 'I am not a valid password')
         } catch (error) {
             errorThrown = error
         }
@@ -128,12 +128,12 @@ describe('registerUser', () => {
 
     it('fails on non-matching passwords', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1' }))
             .then(() => {
                 let errorThrown
 
                 try {
-                    logic.registerUser('Paquito Chocolatero', '1989-04-25', 'paquito@gmail.com', 'paquito', 'Isdicoders1', 'Isdicoders2')
+                    logic.registerUser('Paquito Chocolatero', 'paquito@gmail.com', 'Isdicoders1', 'Isdicoders2')
                 } catch (error) {
                     errorThrown = error
                 }
@@ -142,10 +142,6 @@ describe('registerUser', () => {
                 expect(errorThrown.message).to.equal('passwords do not match')
             })
     )
-
-
-
-
 
     after(() => mongoose.disconnect())
 

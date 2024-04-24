@@ -6,10 +6,10 @@ const { Types: { ObjectId } } = Schema
 
 type UserType = {
     name: string
-    birthdate: Date
     email: string
-    username: string
     password: string
+    avatar: string
+    about: string
 }
 
 const user = new Schema({
@@ -17,16 +17,7 @@ const user = new Schema({
         type: String,
         required: true
     },
-    birthdate: {
-        type: Date,
-        required: true
-    },
     email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    username: {
         type: String,
         required: true,
         unique: true
@@ -34,61 +25,145 @@ const user = new Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar: {
+        type: String,
+    },
+    about: {
+        type: String,
     }
+})
+
+type PointType = {
+    type: string,
+    coordinates: [number, number]
+}
+
+const point = new Schema({
+    type: {
+        type: String,
+        enum: [`Point`],
+        required: true
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+})
+
+type EventType = {
+    author: ObjectId
+    title: string
+    address: string
+    location: [Number, Number]
+    date: Date
+    time: string
+    //duration: number
+    description: string
+    image: string
+    attendees: [ObjectId]
+}
+
+const event = new Schema({
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String, 
+        required: true
+    },
+    location: {
+         type: [Number, Number],
+         required: true    
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    time: {
+        type: String,
+        required: true
+    },
+    // duration: {
+    //     type: Number,
+    //     required: true
+    // },
+    description: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    attendees: {
+        type: [ObjectId],
+        required: true
+    },
+})
+
+
+type ReviewType = {
+    author: ObjectId
+    rate: 1 | 2 | 3 | 4 | 5
+    comment: string
+    date:Date
+}
+
+const review = new Schema ({
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    rate: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5,
+// Hacer una función en frontend que tome el valor numérico de rate y muestre la cantidad correspondiente de iconos de estrellas. Si rate es 1, mostrarías una sola estrella; si es 2, mostrarías dos estrellas, y así sucesivamente hasta 5 estrellas para rate igual a 5.
+    },
+    comment: {
+        type: String,
+    },
+    date: {
+        type: Date,
+        required: true,
+    },
+
+
 })
 
 
 
-const User = model<UserType>('User', user)
 
+const User = model<UserType>('User', user)
+const Event = model<EventType>('Event', event)
+const Review = model<EventType>('Review', review)
+const Point = model<PointType>('Point', point)
 
 export {
     UserType,
     User,
+    EventType,
+    Event,
+    ReviewType,
+    Review,
+    PointType,
+    Point,
 }
 
 
-//EVENTOS
-
-// type EventType = {
-//     author: ObjectId
-//     title: string
-//     date: Date
-//     location: string,
-//     description: string
-//     image: string
-// }
-
-// const event = new Schema({
-//     author: {
-//         type: ObjectId,
-//         ref: 'User',
-//         required: true
-//     },
-//     title: {
-//         rype: String,
-//         required: true
-//     },
-//     date: {
-//         type: Date,
-//         required: true
-//     },
-//     location: {
-//         type: String,
-//         required: true
-//     },
-//     description: {
-//         type: String,
-//         required: true
-//     },
-//     image: {
-//         type: String,
-//         required: true
-//     },
-// })
 
 
-// const Event = model<EventType>('Post', event)
 
-// EventType,
-// Event
+
+
+
+

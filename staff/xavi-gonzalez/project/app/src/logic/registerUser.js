@@ -1,14 +1,14 @@
 import { validate, errors } from 'com'
 
-function registerUser(name, birthdate, email, username, password) {
+function registerUser(name, email, password, confirmedPassword) {
     validate.text(name, 'name')
-    validate.date(birthdate, 'birthdate')
     validate.email(email)
-    validate.text(username, 'username', true)
     validate.password(password)
-    validate.password(confirmedPassword, 'confirmedPassword')
+    validate.password(confirmedPassword)
 
-    const user = { name, birthdate, email, username, password }
+    if (password !== confirmedPassword) throw new CredentialsError('passwords do not match')
+
+    const user = { name, email, password, confirmedPassword }
 
     const json = JSON.stringify(user)
 

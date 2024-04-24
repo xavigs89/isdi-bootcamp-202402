@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { logger } from '../utils'
 
 import logic from '../logic'
@@ -12,13 +14,13 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
 
         const form = event.target
 
-        const username = form.username.value
+        const email = form.email.value
         const password = form.password.value
 
-        logger.debug('Login -> handleSubmit', username, password)
+        logger.debug('Login -> handleSubmit', email, password)
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(email, password)
                 .then(() => {
                     form.reset()
 
@@ -42,8 +44,8 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
         <h1>Login</h1>
 
         <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input id="username" />
+            <label htmlFor="email">Email</label>
+            <input id="email" />
 
             <label htmlFor="password">Password</label>
             <input type="password" id="password" />

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { logger } from '../utils'
 
 import logic from '../logic'
@@ -42,18 +44,23 @@ function Home({ onUserLoggedOut }) {
 
 
     return <>
-        <header className="px-[5vw] fixed top-0 bg-white w-full">
-            {user && <h1>Hello, {user.name}!</h1>}
 
-            <nav>
-                <button onClick={handleLogoutClick}>🚪</button>
-            </nav>
-        </header>
+
+        <div>
+            <header className="px-[5vw] fixed top-0 bg-white w-full text-center">
+                {user && <h1>Welcome, {user.name}!</h1>}
+
+                <nav className='text-right'>
+                    <button onClick={handleLogoutClick}><img src="../../public/icons/HumbleiconsLogout.png" className="w-20 h-20" alt="" /></button>
+                </nav>
+            </header>
+        </div>
 
         <main className="my-[50px] px-[5vw]">
-
-
         </main>
+
+        <footer>{user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="flex flex-col w-20 h-20 rounded-full mr-2"  src="../../public/icons/CarbonUserAvatarFilledAlt.png" alt="profile pic"></img>}
+        </footer>
 
     </>
 

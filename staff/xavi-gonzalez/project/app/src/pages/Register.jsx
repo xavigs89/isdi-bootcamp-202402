@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { logger } from '../utils'
 
 import logic from '../logic'
@@ -13,14 +15,14 @@ function Register({ onUserRegistered, onLoginClick }) {
         const form = event.target
 
         const name = form.name.value
-        const birthdate = form.birthdate.value
+        // const birthdate = form.birthdate.value
         const email = form.email.value
-        const username = form.username.value
+        // const username = form.username.value
         const password = form.password.value
         const confirmedPassword = form.confirm.value
 
         try {
-            logic.registerUser(name, birthdate, email, username, password, confirmedPassword)
+            logic.registerUser(name, email, password, confirmedPassword)
                 .then(() => {
                     form.reset()
 
@@ -40,21 +42,23 @@ function Register({ onUserRegistered, onLoginClick }) {
 
     logger.debug('Register -> render')
 
-    return <main>
-        <h1>Register</h1>
+    return (
+    <main className="display-flex">
+        <h1 className='font-bold text-center'>Register</h1>
 
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Name</label>
+        <form className='flex flex-col items-center mt-10' onSubmit={handleSubmit}>
+            <div className=''>
+            <label htmlFor="name">Full name</label>
             <input type="text" id="name" />
 
-            <label htmlFor="birthdate">Age</label>
-            <input type="date" id="birthdate" />
+            {/* <label htmlFor="birthdate">Age</label>
+            <input type="date" id="birthdate" /> */}
 
             <label htmlFor="email">E-mail</label>
             <input type="email" id="email" />
 
-            <label htmlFor="username">Username</label>
-            <input id="username" />
+            {/* <label htmlFor="username">Username</label>
+            <input id="username" /> */}
 
             <label htmlFor="password">Password</label>
             <input type="password" id="password" />
@@ -63,11 +67,14 @@ function Register({ onUserRegistered, onLoginClick }) {
             <input type="password" id="confirm" />
 
             <button className="round-button" type="submit">Register</button>
+
+            </div>
         </form>
 
-        <a href="" onClick={handleLoginClick}>Login</a>
+        <a href="" className='font-bold text-center' onClick={handleLoginClick}>Login</a>
 
     </main>
+    )
 }
 
 

@@ -6,7 +6,7 @@ import getLoggedInUserId from './getLoggedInUserId'
 import isUserLoggedIn from './isUserLoggedIn'
 import cleanUpLoggedInUserId from './cleanUpLoggedInUserId'
 
-// import createEvent from './createEvent'
+import createEvent from './createEvent'
 // import retrieveEvents from './retrieveEvents'
 // import removeEvent from './removeEvent'
 // import modifyEvent from './modifyEvent'
@@ -24,7 +24,7 @@ const logic = {
     isUserLoggedIn,
     cleanUpLoggedInUserId,
 
-    // createEvent,
+    createEvent,
     // retrieveEvents,
     // removeEvent,
     // modifyEvent

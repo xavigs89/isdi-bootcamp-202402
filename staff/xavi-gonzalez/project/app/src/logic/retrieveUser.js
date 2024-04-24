@@ -15,7 +15,6 @@ function retrieveUser() {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
-
     })
         .then(res => {
             if (res.status === 200)
@@ -29,7 +28,6 @@ function retrieveUser() {
 
                     throw new constructor(message)
                 })
-
         })
 }
 

@@ -1,5 +1,6 @@
 import { ContentError, UnauthorizedError } from './errors.js';
-import util from 'util';
+import util from './util.js';
+//const DATE_REGEX = /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/\d{4} (?:[01]\d|2[0-3]):[0-5]\d$/;
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]+$/;
@@ -7,7 +8,7 @@ const URL_REGEX = /^(http|https):\/\//;
 const validate = {
     text(text, explain, checkEmptySpaceInside) {
         if (typeof text !== 'string')
-            throw new TypeError(explain + ' ' + text + 'is not a string');
+            throw new TypeError(explain + ' ' + text + ' is not a string');
         if (!text.trim().length)
             throw new ContentError(explain + ' >' + text + '< is empty or blank');
         if (checkEmptySpaceInside)
@@ -15,8 +16,7 @@ const validate = {
                 throw new ContentError(explain + ' ' + text + ' has empty spaces');
     },
     date(date, explain) {
-        if (typeof date !== 'string')
-            throw new TypeError(explain + ' ' + date + ' is not a string');
+        //if (typeof date !== 'string') throw new TypeError(explain + ' ' + date + ' is not a string')
         if (!DATE_REGEX.test(date))
             throw new ContentError(explain + ' ' + date + ' does not have a valid format');
     },
@@ -42,6 +42,17 @@ const validate = {
         const { exp } = util.extractJwtPayload(token);
         if (exp * 1000 < Date.now())
             throw new UnauthorizedError('session expired');
+    },
+    coords(coords, explain = 'coords') {
+        if (!Array.isArray(coords) || coords.length !== 2 || !coords.every(coord => typeof coord === 'number')) {
+            throw new ContentError(`${explain} must be an array of two numbers`);
+        }
+    },
+    number(value, explain = 'number') {
+        if (typeof value !== 'number')
+            throw new TypeError(explain + ' ' + value + ' is not a number');
+        if (typeof value !== 'number' && !Array.isArray(value))
+            throw new TypeError(explain + ' ' + value + ' is not a number or array of numbers');
     }
 };
 export default validate;

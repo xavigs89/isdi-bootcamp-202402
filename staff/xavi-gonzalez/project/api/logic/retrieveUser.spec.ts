@@ -18,13 +18,13 @@ describe('retrieveUser', () => {
 
     it('retrieves existing user', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
             .then(user =>
-                User.create({ name: 'Pepe Phone', birthdate: '2000-01-01', email: 'pepe@phone.com', username: 'pepephone', password: '123qwe123' })
+                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null, about: null })
                     .then(user2 => logic.retrieveUser(user.id, user2.id))
                     .then(user => {
                         expect(user.name).to.equal('Pepe Phone')
-                        expect(user.username).to.equal('pepephone')
+                        expect(user.email).to.equal('pepe@phone.com')
                     })
             )
 
@@ -32,9 +32,9 @@ describe('retrieveUser', () => {
 
     it('does no retrieve by non-existing user', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
             .then(user =>
-                User.create({ name: 'Pepe Phone', birthdate: '2000-01-01', email: 'pepe@phone.com', username: 'pepephone', password: '123qwe123' })
+                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null })
                     .then(user2 => logic.retrieveUser(new ObjectId().toString(), user2.id))
                     .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)
@@ -45,9 +45,9 @@ describe('retrieveUser', () => {
 
     it('does no retrieve a non-existing target user', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
             .then(user =>
-                User.create({ name: 'Pepe Phone', birthdate: '2000-01-01', email: 'pepe@phone.com', username: 'pepephone', password: '123qwe123' })
+                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null, about: null })
                     .then(user2 => logic.retrieveUser(user.id, new ObjectId().toString()))
                     .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)
@@ -63,9 +63,9 @@ describe('retrieveUser', () => {
 
     it('fails on non-string userId', () => 
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
             .then(user => 
-                User.create({ name: 'Pepe Phone', birthdate: '2000-01-01', email: 'pepe@phone.com', username: 'pepephone', password: '123qwe123' })
+                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null, about: null })
                     .then(user2 => {
                         const userId = 26
                         let errorThrown
@@ -85,9 +85,9 @@ describe('retrieveUser', () => {
 
     it('fails on empty userId', () => 
         User.deleteMany()
-        .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+        .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
         .then(user => 
-            User.create({ name: 'Pepe Phone', birthdate: '2000-01-01', email: 'pepe@phone.com', username: 'pepephone', password: '123qwe123' })
+            User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null, about: null })
                 .then(user2 => {
                     const userId = ''
                     let errorThrown
@@ -107,9 +107,9 @@ describe('retrieveUser', () => {
 
     it('fails on non-string targetUserId', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
             .then(user => 
-                User.create({ name: 'Pepe Phone', birthdate: '2000-01-01', email: 'pepe@phone.com', username: 'pepephone', password: '123qwe123' })
+                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null, about: null })
                     .then(user2 => {
                         const userId = 26
                         let errorThrown
@@ -129,9 +129,9 @@ describe('retrieveUser', () => {
 
     it('fails on empty targetUserId', () => 
         User.deleteMany()
-            .then(() => User.create({ name: 'Paquito Chocolatero', birthdate: '1989-04-25', email: 'paquito@gmail.com', username: 'paquito', password: 'Isdicoders1' }))
+            .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
             .then(user => 
-                User.create({ name: 'Pepe Phone', birthdate: '2000-01-01', email: 'pepe@phone.com', username: 'pepephone', password: '123qwe123' })
+                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null, about: null })
                     .then(user2 => {
                         const userId = ''
                         let errorThrown
@@ -148,8 +148,6 @@ describe('retrieveUser', () => {
                     })
             )
     )
-
-
 
 
     after(() => mongoose.disconnect())

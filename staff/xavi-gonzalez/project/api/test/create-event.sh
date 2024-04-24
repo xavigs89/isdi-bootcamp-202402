@@ -1,0 +1,2 @@
+curl -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjI3YjA5MDIzNzA4ZjEwMDA3ODczZWQiLCJpYXQiOjE3MTM5Nzk0NzksImV4cCI6MTcxNDAxNTQ3OX0.t8rtE2lEnmMHp5sr3IK91Nca7MD8nm6XP8KMe5jQjw8" -H "Content-Type: application/json" -d '{"title":"My Event", "address":"Calle falsa 1,2,3", "location": [41.93584282753891, 1.7719600329709349], "date":"2024/05/15", "time":"21:30", "description": "We are gonna have some fun", "image":"http://images.com"}' http://localhost:8585/events -v
+

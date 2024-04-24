@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { logger } from './utils'
 
 import logic from './logic'
@@ -13,6 +14,7 @@ import { errors } from 'com'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 //import './App.css'
+
 
 const { UnauthorizedError } = errors
 
@@ -30,7 +32,12 @@ function App() {
 
   const handleRegisterClick = () => navigate('/register')
 
-  const handleUserLoggedIn = () => navigate('/')
+  const handleUserLoggedIn = () => {
+try {
+  navigate('/')
+} catch (error) {
+  console.error(error)  
+}}
 
   const handleUserLoggedOut = () => goToLogin()
 
