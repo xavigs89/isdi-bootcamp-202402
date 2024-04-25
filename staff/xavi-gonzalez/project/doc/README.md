@@ -1,4 +1,4 @@
-# Meet App
+# JiveHub
 
 ## Intro
 
@@ -65,13 +65,14 @@ Event
 - location ([numbers], required)
 - date (date, required)
 - duration (number, required)
+- time (string, required)
 - description (string, required)
 - picture (string, required)
 - attendees ([User.id])
 
 Review
 - id (required)
-- user (User.id, required)
+- author (User.id, required)
 - rate (number, required, enum: 1|2|3|4|5)
 - comment (string, optional)
-- date (date, required)
+- date (Date, required)

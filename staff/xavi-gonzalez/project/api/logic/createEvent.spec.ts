@@ -16,7 +16,7 @@ import { User, Event } from '../data/index.ts'
 describe('createEvent', () => {
     before(() => mongoose.connect(process.env.MONGODB_TEST_URL))
 
-    it('creates an event with title, address, location, date, duration, description, image from existing user', () =>
+    it('creates an event with title, address, location, date, time, description and image from existing user', () =>
         User.deleteMany()
             .then(() =>
                 Event.deleteMany()

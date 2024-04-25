@@ -9,8 +9,9 @@ function createEvent(userId: string, title: string, address: string, location: [
     validate.text(userId, 'userId', true)
     validate.text(title, 'title')
     validate.text(address, 'address')
-    validate.number(location[0], 'coord1')
-    validate.number(location[1], 'coord2')
+    validate.coords(location, 'coords')
+    // validate.number(location[0], 'coord1')
+    // validate.number(location[1], 'coord2')
     validate.text(date, 'date')
     validate.text(time, 'time')
     validate.text(description, 'description')
@@ -24,7 +25,7 @@ function createEvent(userId: string, title: string, address: string, location: [
             const formattedDate = new Date(date)
 
             return Event.create({
-                author: user.id,
+                author: user._id,
                 title,
                 address,
                 location,
