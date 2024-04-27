@@ -1,0 +1,2 @@
+curl -X POST -H "Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjI3YjA5MDIzNzA4ZjEwMDA3ODczZWQiLCJpYXQiOjE3MTQxNDkwMjEsImV4cCI6MTcxNDE4NTAyMX0.M7EuF5Hi4pAZq0NMYdhiDST4bTm6sOk6WdDhXqHAySE" -H "Content-Type: application/json" -d '{"title":"Asadito", "address":"ca Heber", "location": [41.93584282753891, 1.7719600329709349], "date":"2024/07/15 21:30", "description": "Vamos a gosarlo", "image":"http://images.com"}' http://localhost:8080/meetings -v
+
