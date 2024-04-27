@@ -165,7 +165,7 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                const { title, address, location, date, time, description, image } = req.body
+                const { title, address, location, date, description, image } = req.body
 
                 logic.createMeeting(userId as string, title, address, location, date, description, image)
                     .then(() => res.status(201).send())
