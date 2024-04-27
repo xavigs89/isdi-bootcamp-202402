@@ -19,4 +19,8 @@ isdigram/app/node_modules
 isdigram/com/node_modules
 
 
+project/api/.env
+.vscode/settings.json
+
+
 
