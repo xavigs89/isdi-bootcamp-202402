@@ -2,7 +2,7 @@
 
 ## Intro
 
-The app is a platform that connects people with common interests and enables them to create, join, and participate in local events.
+JiveHub is a platform that connects people with common interests and enables them to create, join, and participate in local events.
 
 ![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnlucHU2ZDJweDZpM2RnN21jMmE4YWgxbGp1OGt0cnJqYW9uc25qdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5L57f5fI3f2716NaJ3/giphy.gif)
 
@@ -58,13 +58,12 @@ User
 - avatar (string, optional)
 - about (string, optional)
 
-Event
+Meeting
 - id (required)
 - title (string, required)
 - address (string, required)
 - location ([numbers], required)
 - date (date, required)
-- duration (number, required)
 - time (string, required)
 - description (string, required)
 - picture (string, required)
