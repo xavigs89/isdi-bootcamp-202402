@@ -1,2 +1,0 @@
-curl -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjI3YjA5MDIzNzA4ZjEwMDA3ODczZWQiLCJpYXQiOjE3MTQwMzA0NzgsImV4cCI6MTcxNDA2NjQ3OH0.A0AewlCKB4iZqgDXYcm1Oa5xuTVIfuIFoX5x5uq_7UU" -H "Content-Type: application/json" -d '{"title":"Birretes i vermut", "address":"La vermuteria", "location": [41.93584282753891, 1.7719600329709349], "date":"2024/06/23", "time":"12:30", "description": "Nem a fer un vermutet, titu", "image":"http://images.com"}' http://localhost:8585/events -v
-
