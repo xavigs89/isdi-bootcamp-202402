@@ -7,7 +7,7 @@ import { User, Meeting } from '../data/index.ts'
 
 const { SystemError, NotFoundError } = errors
 
-function retrieveMeetings(userId): Promise<[{ id: string, author: { id: string, name: string }, title: string, address: string, location: [Number, Number], date: string, description: string, image: string, attendees: [string] }] | { id: string; author: { id: string, name: string; }; title: string; address: string; location: [Number, Number]; date: string; description: string; image: string; attendees: [string]; }[]> {
+function retrieveMeetings(userId): Promise<[{ id: string, author: { id: string, name: string }, title: string, address: string, location: [Number, Number], date: Date, description: string, image: string, attendees: [string] }] | { id: string; author: { id: string, name: string; }; title: string; address: string; location: [Number, Number]; date: Date; description: string; image: string; attendees: [string]; }[]> {
     validate.text(userId, 'userId', true)
 
 
@@ -17,10 +17,10 @@ function retrieveMeetings(userId): Promise<[{ id: string, author: { id: string, 
             if (!user)
                 throw new NotFoundError('user not found')
 
-            return Meeting.find()<{ author: { _id: ObjectId, name: string } }>('author', 'name').lean()
+            return Meeting.find().populate<{ author: { _id: ObjectId, name: string } }>('author', 'name').lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(meetings =>
-                    meetings.map<{ id: string, author: { id: string, name: string }, title: string, address: string, location: [Number, Number], date: string, description: string, image: string, attendees: [string] }>(({ _id, author, title, address, location, date, description, image, attendees }) => ({
+                    meetings.map<{ id: string, author: { id: string, name: string }, title: string, address: string, location: [Number, Number], date: Date, description: string, image: string, attendees: [string] }>(({ _id, author, title, address, location, date, description, image, attendees }) => ({
                         id: _id.toString(),
                         author: {
                             id: author._id.toString(), 
@@ -29,7 +29,7 @@ function retrieveMeetings(userId): Promise<[{ id: string, author: { id: string, 
                         title,
                         address,
                         location,
-                        date: date.toString(),
+                        date,
                         description,
                         image,
                         attendees,
