@@ -2,10 +2,10 @@ import registerUser from './registerUser.ts'
 import authenticateUser from './authenticateUser.ts'
 import retrieveUser from './retrieveUser.ts'
 
-import createEvent from './createEvent.ts'
-//import retrieveEvents from './retrieveEvents.ts'
-//import modifyEvent from './modifyEvent.ts'
-//import removeEvent from './removeEvent.ts'
+import createMeeting from './createMeeting.ts'
+import retrieveMeetings from './retrieveMeetings.ts'
+//import modifyMeeting from './modifyMeeting.ts'
+import removeMeeting from './removeMeeting.ts'
 
 //import modifyProfile from './modifyProfile.ts'
 
@@ -15,10 +15,10 @@ const logic = {
     authenticateUser,
     retrieveUser,
 
-    createEvent,
-    // retrieveEvents,
-    // modifyEvent,
-    // removeEvent,
+    createMeeting,
+    retrieveMeetings,
+    // modifyMeeting,
+    removeMeeting,
 
     //modifyProfile
 }

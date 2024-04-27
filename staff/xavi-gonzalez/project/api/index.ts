@@ -156,8 +156,8 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        // CREATE EVENT CON EXPRESS
-        api.post('/events', jsonBodyParser, (req, res) => {
+        // CREATE MEETING CON EXPRESS
+        api.post('/meetings', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -167,7 +167,7 @@ mongoose.connect(MONGODB_URL)
 
                 const { title, address, location, date, time, description, image } = req.body
 
-                logic.createEvent(userId as string, title, address, location, date, time, description, image)
+                logic.createMeeting(userId as string, title, address, location, date, description, image)
                     .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
@@ -200,8 +200,8 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        //RETRIEVE EVENTS CON EXPRESS
-        api.get('/events', (req, res) => {
+        //RETRIEVE MEETINGS CON EXPRESS
+        api.get('/meetings', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -209,8 +209,8 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                logic.retrieveEvents(userId as string)
-                    .then(events => res.json(events))
+                logic.retrieveMeetings(userId as string)
+                    .then(meetings => res.json(meetings))
                     .catch(error => {
                         if (error instanceof SystemError) {
                             logger.error(error.message)
@@ -226,10 +226,20 @@ mongoose.connect(MONGODB_URL)
                     })
 
             } catch (error) {
-                if ((error instanceof TypeError || error instanceof ContentError) {
-                    logger.warn
-                })
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
 
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
             }
         })
 
@@ -237,87 +247,3 @@ mongoose.connect(MONGODB_URL)
     })
     .catch(error => logger.error(error))
 
-
-
-
-
-//RETRIEVE EVENTS CON EXPRESS
-// api.get('/posts', (req, res) => {
-//     try {
-//         const { authorization } = req.headers
-
-//         const token = authorization.slice(7)
-
-//         const { sub: userId } = jwt.verify(token, JWT_SECRET)
-
-//         logic.retrievePosts(userId as string)
-//             .then(posts => res.json(posts))
-//             .catch(error => {
-//                 if (error instanceof SystemError) {
-//                     logger.error(error.message)
-
-//                     res.status(500).json({ error: error.constructor.name, message: error.message })
-//                 } else if (error instanceof NotFoundError) {
-//                     logger.warn(error.message)
-
-//                     res.status(404).json({ error: error.constructor.name, message: error.message })
-//                 }
-//             })
-//     } catch (error) {
-//         if (error instanceof TypeError || error instanceof ContentError) {
-//             logger.warn(error.message)
-
-//             res.status(406).json({ error: error.constructor.name, message: error.message })
-//         } else if (error instanceof TokenExpiredError) {
-//             logger.warn(error.message)
-
-//             res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
-//         } else {
-//             logger.warn(error.message)
-
-//             res.status(500).json({ error: SystemError.name, message: error.message })
-//         }
-//     }
-// })
-
-
-//CREATE EVENT CON EXPRESS
-// api.post('/posts', jsonBodyParser, (req, res) => {
-//     try {
-//         const { authorization } = req.headers
-
-//         const token = authorization.slice(7)
-
-//         const { sub: userId } = jwt.verify(token, JWT_SECRET)
-
-//         const { image, text } = req.body
-
-//         logic.createPost(userId as string, image, text)
-//             .then(() => res.status(201).send())
-//             .catch(error => {
-//                 if (error instanceof SystemError) {
-//                     logger.error(error.message)
-
-//                     res.status(500).json({ error: error.constructor.name, message: error.message })
-//                 } else if (error instanceof NotFoundError) {
-//                     logger.warn(error.message)
-
-//                     res.status(404).json({ error: error.constructor.name, message: error.message })
-//                 }
-//             })
-//     } catch (error) {
-//         if (error instanceof TypeError || error instanceof ContentError) {
-//             logger.warn(error.message)
-
-//             res.status(406).json({ error: error.constructor.name, message: error.message })
-//         } else if (error instanceof TokenExpiredError) {
-//             logger.warn(error.message)
-
-//             res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
-//         } else {
-//             logger.warn(error.message)
-
-//             res.status(500).json({ error: SystemError.name, message: error.message })
-//         }
-//     }
-// })

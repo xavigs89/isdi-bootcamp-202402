@@ -8,8 +8,8 @@ type UserType = {
     name: string
     email: string
     password: string
-    avatar: string
-    about: string
+    avatar?: string
+    about?: string
 }
 
 const user = new Schema({
@@ -51,20 +51,19 @@ const point = new Schema({
     }
 })
 
-type EventType = {
+type MeetingType = {
     author: ObjectId
     title: string
     address: string
     location: [Number, Number]
     date: Date
-    time: string
     //duration: number
     description: string
     image: string
-    attendees: [ObjectId]
+    attendees: [string]
 }
 
-const event = new Schema({
+const meeting = new Schema({
     author: {
         type: ObjectId,
         ref: 'User',
@@ -75,25 +74,17 @@ const event = new Schema({
         required: true
     },
     address: {
-        type: String, 
+        type: String,
         required: true
     },
     location: {
-         type: [Number, Number],
-         required: true    
+        type: [Number, Number],
+        required: true
     },
     date: {
         type: Date,
         required: true
     },
-    time: {
-        type: String,
-        required: true
-    },
-    // duration: {
-    //     type: Number,
-    //     required: true
-    // },
     description: {
         type: String,
         required: true
@@ -103,7 +94,7 @@ const event = new Schema({
         required: true
     },
     attendees: {
-        type: [ObjectId],
+        type: [String],
         required: true
     },
 })
@@ -112,11 +103,11 @@ const event = new Schema({
 type ReviewType = {
     author: ObjectId
     rate: 1 | 2 | 3 | 4 | 5
-    comment: string
-    date:Date
+    comment?: string
+    date: Date
 }
 
-const review = new Schema ({
+const review = new Schema({
     author: {
         type: ObjectId,
         ref: 'User',
@@ -127,7 +118,7 @@ const review = new Schema ({
         required: true,
         min: 1,
         max: 5,
-// Hacer una función en frontend que tome el valor numérico de rate y muestre la cantidad correspondiente de iconos de estrellas. Si rate es 1, mostrarías una sola estrella; si es 2, mostrarías dos estrellas, y así sucesivamente hasta 5 estrellas para rate igual a 5.
+        // Hacer una función en frontend que tome el valor numérico de rate y muestre la cantidad correspondiente de iconos de estrellas. Si rate es 1, mostrarías una sola estrella; si es 2, mostrarías dos estrellas, y así sucesivamente hasta 5 estrellas para rate igual a 5.
     },
     comment: {
         type: String,
@@ -144,15 +135,15 @@ const review = new Schema ({
 
 
 const User = model<UserType>('User', user)
-const Event = model<EventType>('Event', event)
-const Review = model<EventType>('Review', review)
+const Meeting = model<MeetingType>('Meeting', meeting)
+const Review = model<MeetingType>('Review', review)
 const Point = model<PointType>('Point', point)
 
 export {
     UserType,
     User,
-    EventType,
-    Event,
+    MeetingType,
+    Meeting,
     ReviewType,
     Review,
     PointType,
