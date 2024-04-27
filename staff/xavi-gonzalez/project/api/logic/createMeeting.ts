@@ -1,0 +1,50 @@
+import { validate, errors } from 'com'
+import { User, Meeting } from '../data/index.ts'
+
+import { ObjectId } from 'mongoose'
+
+const { SystemError, NotFoundError } = errors
+
+function createMeeting(userId: string, title: string, address: string, location: [number, number], date: string, description: string, image: string): Promise<void> {
+    validate.text(userId, 'userId', true)
+    validate.text(title, 'title')
+    validate.text(address.trim(), 'address')
+    validate.coords(location, 'coords')
+    // validate.number(location[0], 'coord1')
+    // validate.number(location[1], 'coord2')
+    validate.text(date, 'date')
+    validate.text(description, 'description')
+    validate.url(image, 'image')
+
+    return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user)
+                throw new NotFoundError('user not found')
+            const formattedDate = new Date(date)
+
+            //const [hour, minutes] = time.split(":");
+            // const formattedTime = new Date(time);
+            // formattedTime.setHours(parseInt(hour, 10));
+            // formattedTime.setMinutes(parseInt(minutes, 10));
+
+            const meeting = {
+                author: user.id,
+                title: title.trim(),
+                address: address.trim(),
+                location,
+                date: formattedDate,
+                description: description.trim(),
+                image,
+                attendees: [this.author]
+            }
+            return Meeting.create(meeting)
+                .catch((error) => { throw new Error(error.message) })
+
+                .then(meeting => { })
+        })
+}
+
+
+
+export default createMeeting
