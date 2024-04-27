@@ -6,10 +6,10 @@ import getLoggedInUserId from './getLoggedInUserId'
 import isUserLoggedIn from './isUserLoggedIn'
 import cleanUpLoggedInUserId from './cleanUpLoggedInUserId'
 
-import createEvent from './createEvent'
-// import retrieveEvents from './retrieveEvents'
-// import removeEvent from './removeEvent'
-// import modifyEvent from './modifyEvent'
+import createMeeting from './createMeeting'
+// import retrieveMeetings from './retrieveMeetings'
+// import removeMeeting from './removeMeeting'
+// import modifyMeeting from './modifyMeeting'
 
 // import retrieveProfile from 'retrieveProfile'
 // import editProfile from 'editProfile'
@@ -24,10 +24,10 @@ const logic = {
     isUserLoggedIn,
     cleanUpLoggedInUserId,
 
-    createEvent,
-    // retrieveEvents,
-    // removeEvent,
-    // modifyEvent
+    createMeeting,
+    // retrieveMeetings,
+    // removeMeeting,
+    // modifyMeeting
 
     //retrieveProfile
     //editProfile
