@@ -40,7 +40,7 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
 
     logger.debug('Login -> render')
 
-    return <main className="flex justify-center items-center h-screen bg-[#1B1F47]">
+    return <main className="flex justify-center items-center h-screen bg-[#bcda53]">
         {/* <h1>Login</h1> */}
 
         <div>
@@ -65,7 +65,7 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
 
         </div>
         <div class="fixed bottom-8 items-center">
-            <p class="font-bold text-white">Don't have an account?<a href="" onClick={handleRegisterClick} class="text-[#F7C815] mt-2"> Register</a></p>
+            <p class="font-bold text-white">Don't have an account?<a href="" onClick={handleRegisterClick} class="text-[#4C5D8B] mt-2"> Register</a></p>
         </div>
 
     </main>

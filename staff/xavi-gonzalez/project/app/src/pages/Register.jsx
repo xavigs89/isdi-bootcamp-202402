@@ -43,37 +43,45 @@ function Register({ onUserRegistered, onLoginClick }) {
     logger.debug('Register -> render')
 
     return (
-    <main className="display-flex">
-        <h1 className='font-bold text-center'>Register</h1>
+        <main className="flex justify-center items-center h-screen bg-[#bcda53] ">
+            <div>
 
-        <form className='flex flex-col items-center mt-10' onSubmit={handleSubmit}>
-            <div className=''>
-            <label htmlFor="name">Full name</label>
-            <input type="text" id="name" />
+                <div className="flex justify-center items-center">Register
+                </div>
 
-            {/* <label htmlFor="birthdate">Age</label>
+                {/* <h1 className="w-[200px] absolute top-20">Register</h1> */}
+
+                <form onSubmit={handleSubmit} className="flex flex-col items-center mt-10">
+                    <div className="flex flex-col mb-4">
+                        <label htmlFor="name" className="text-white mb-1">Full Name</label>
+                        <input type="text" id="name" className="rounded-lg px-2 py-1" />
+
+                        {/* <label htmlFor="birthdate">Age</label>
             <input type="date" id="birthdate" /> */}
 
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" />
+                        <label htmlFor="email" className="text-white mb-1 mt-2">E-mail</label>
+                        <input type="email" id="email" className="rounded-lg px-2 py-1" />
 
-            {/* <label htmlFor="username">Username</label>
+                        {/* <label htmlFor="username">Username</label>
             <input id="username" /> */}
 
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+                        <label htmlFor="password" className="text-white mb-1 mt-2">Password</label>
+                        <input type="password" id="password" className="rounded-lg px-2 py-1" />
 
-            <label htmlFor="confirm">Confirm Password</label>
-            <input type="password" id="confirm" />
+                        <label htmlFor="confirm" className="text-white mb-1 mt-2">Confirm Password</label>
+                        <input type="password" id="confirm" className="rounded-lg px-2 py-1" />
+                    </div>
+                    <button className="bg-[#4C5D8B] hover:bg-[#6B99C3] text-white font-bold py-2 px-4 rounded mt-2"  type="submit">Register</button>
 
-            <button className="round-button" type="submit">Register</button>
+                </form>
 
             </div>
-        </form>
 
-        <a href="" className='font-bold text-center' onClick={handleLoginClick}>Login</a>
+            <div className="fixed bottom-8 items-center">
+                <a href="" onClick={handleLoginClick} className="text-[#4C5D8B] mt-2 font-bold">Login</a>
+            </div>
 
-    </main>
+        </main>
     )
 }
 
