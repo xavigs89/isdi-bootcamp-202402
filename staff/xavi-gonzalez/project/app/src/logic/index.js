@@ -7,8 +7,8 @@ import isUserLoggedIn from './isUserLoggedIn'
 import cleanUpLoggedInUserId from './cleanUpLoggedInUserId'
 
 import createMeeting from './createMeeting'
-// import retrieveMeetings from './retrieveMeetings'
-// import removeMeeting from './removeMeeting'
+import retrieveMeetings from './retrieveMeetings'
+import removeMeeting from './removeMeeting'
 // import modifyMeeting from './modifyMeeting'
 
 // import retrieveProfile from 'retrieveProfile'
@@ -25,8 +25,8 @@ const logic = {
     cleanUpLoggedInUserId,
 
     createMeeting,
-    // retrieveMeetings,
-    // removeMeeting,
+    retrieveMeetings,
+    removeMeeting,
     // modifyMeeting
 
     //retrieveProfile
