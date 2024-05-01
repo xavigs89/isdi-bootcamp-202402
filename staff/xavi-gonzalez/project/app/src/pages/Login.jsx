@@ -64,8 +64,8 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
             </form>
 
         </div>
-        <div class="fixed bottom-8 items-center">
-            <p class="font-bold text-white">Don't have an account?<a href="" onClick={handleRegisterClick} class="text-[#4C5D8B] mt-2"> Register</a></p>
+        <div className="fixed bottom-8 items-center">
+            <p className="font-bold text-white">Don't have an account?<a href="" onClick={handleRegisterClick} class="text-[#4C5D8B] mt-2"> Register</a></p>
         </div>
 
     </main>

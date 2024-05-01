@@ -4,11 +4,17 @@ import { logger } from '../utils'
 import logic from '../logic'
 
 import { useState, useEffect } from 'react'
+import MeetingList from '../components/MeetingList'
 import CreateMeeting from '../components/CreateMeeting'
-import MeetingList from '../components/Meeting'
+
+import UserProfile from '../components/UserProfile'
+
+import Meeting from '../components/Meeting'
+//import EditMeeting from '../components/EditMeeting'
 
 import Header from '../components/Header'
 
+import { Link } from 'react-router-dom'
 
 import { Routes, Route } from 'react-router-dom'
 
@@ -51,16 +57,16 @@ function Home({ onUserLoggedOut }) {
     const handleCreateMeetingClick = () => setView('create-meeting')
 
 
-    // LOGOUT
-    const handleLogoutClick = () => {
-        try {
-            logic.logoutUser()
-        } catch (error) {
-            logic.cleanUpLoggedInUserId()
-        } finally {
-            onUserLoggedOut()
-        }
-    }
+    // // LOGOUT
+    // const handleLogoutClick = () => {
+    //     try {
+    //         logic.logoutUser()
+    //     } catch (error) {
+    //         logic.cleanUpLoggedInUserId()
+    //     } finally {
+    //         onUserLoggedOut()
+    //     }
+    // }
 
     // EDITAR MEETING
     const handleEditMeetingClick = meeting => {
@@ -71,7 +77,7 @@ function Home({ onUserLoggedOut }) {
     const handleMeetingEdited = () => {
         clearView()
         setStamp(Date.now())
-        setAdd(null)
+        setMeeting(null)
     }
 
     const handleEditMeetingCancelClick = () =>
@@ -85,16 +91,29 @@ function Home({ onUserLoggedOut }) {
         <main className='h-screen bg-[#f2f4f7]'>
             <Header onUserLoggedOut={onLogout} />
 
-            {/* <Footer /> */}
+
+            <main className="my-[50px] px-[5vw]">
+                {/* 
+                <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
+                <Routes>
+                    <Route path="/" element={<MeetingList stamp={stamp} onEditMeetingClick={handleEditMeetingClick} />} />
+                    { <Route path="/profile/:id" element={<UserProfile />} /> }
+                </Routes>
+
+
+                {view === 'create-meeting' && <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} />}
+
+                {view === 'edit-meeting' && <EditMeeting meeting={meeting} onCancelClick={handleEditMeetingCancelClick} onMeetingEdited={handleMeetingEdited} />}
+            </main>
 
 
             <footer className="fixed bottom-0 w-full h-[50px] flex justify-between space-x-4 items-center box-border bg-[#bcda53] p-1">
-                
-                    <button className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/OcticonSearch.png" alt="search" /></button>
-                    <button className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/BiPlusSquare.png" alt="search" /></button>
-                    <button>{user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="w-10 h-10 rounded-full mr-2" src="../../public/icons/CarbonUserAvatarFilledAlt.png" alt="profile pic"></img>}</button>
 
-    
+                <button className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/OcticonSearch.png" alt="search" /></button>
+                <button onClick={handleCreateMeetingClick} className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/BiPlusSquare.png" alt="search" /></button>
+                <button>{user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="w-10 h-10 rounded-full mr-2" src="../../public/icons/CarbonUserAvatarFilledAlt.png" alt="profile pic"></img>}</button>
+
+
             </footer>
 
         </main>

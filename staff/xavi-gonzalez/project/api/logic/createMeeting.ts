@@ -1,17 +1,20 @@
+import mongoose from 'mongoose'
 import { validate, errors } from 'com'
 import { User, Meeting } from '../data/index.ts'
 
 import { ObjectId } from 'mongoose'
 
+const { Types: { ObjectId }} = mongoose
+
+
 const { SystemError, NotFoundError } = errors
 
 function createMeeting(userId: string, title: string, address: string, location: [number, number], date: string, description: string, image: string): Promise<void> {
+    
     validate.text(userId, 'userId', true)
     validate.text(title, 'title')
     validate.text(address.trim(), 'address')
     validate.coords(location, 'coords')
-    // validate.number(location[0], 'coord1')
-    // validate.number(location[1], 'coord2')
     validate.text(date, 'date')
     validate.text(description, 'description')
     validate.url(image, 'image')
@@ -29,15 +32,16 @@ function createMeeting(userId: string, title: string, address: string, location:
             // formattedTime.setMinutes(parseInt(minutes, 10));
 
             const meeting = {
-                author: user.id,
+                author: user._id,
                 title: title.trim(),
                 address: address.trim(),
                 location,
                 date: formattedDate,
                 description: description.trim(),
                 image,
-                attendees: [this.author]
+                attendees: new ObjectId(userId)
             }
+           
             return Meeting.create(meeting)
                 .catch((error) => { throw new Error(error.message) })
 

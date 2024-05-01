@@ -5,6 +5,7 @@ import logic from './logic'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import Profile from './components/Profile'
 import CreateMeeting from './components/CreateMeeting'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 //import Feedback from './components/Feedback'
@@ -33,14 +34,9 @@ function App() {
 
   const handleRegisterClick = () => navigate('/register')
 
-  const handleUserLoggedIn = () => {
-try {
-  navigate('/')
-} catch (error) {
-  console.error(error)  
-}}
-
   const handleUserLoggedOut = () => goToLogin()
+
+  const handleFeedbackAcceptClick = () => setFeedback(null)
 
   const handleFeedback = (error, level = 'warn') => {
     if (error instanceof UnauthorizedError) {
@@ -53,6 +49,16 @@ try {
 
     setFeedback({ message: error.message, level })
   }
+
+  const handleUserLoggedIn = () => {
+    try {
+      navigate('/')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+
 
   const handleConfirm = (message, callback) => setConfirm({ message, callback })
 
@@ -71,11 +77,17 @@ try {
 
         <Route path="/*" element={logic.isUserLoggedIn() ? <Home
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+
+
+        <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
+          onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+
+        {/* <Route path="/createMeeting" element={<CreateMeeting />} /> */}
       </Routes>
     </Context.Provider>
 
 
-    
+
   </>
 
 }

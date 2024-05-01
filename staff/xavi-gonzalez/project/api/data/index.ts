@@ -51,6 +51,12 @@ const point = new Schema({
     }
 })
 
+// type AttendeeType = {
+//     id: string
+//     name: string
+//     email: string
+// }
+
 type MeetingType = {
     author: ObjectId
     title: string
@@ -60,7 +66,7 @@ type MeetingType = {
     //duration: number
     description: string
     image: string
-    attendees: [string]
+    attendees: ObjectId[]
 }
 
 const meeting = new Schema({
@@ -93,10 +99,10 @@ const meeting = new Schema({
         type: String,
         required: true
     },
-    attendees: {
-        type: [String],
-        required: true
-    },
+    attendees: [{
+        type: ObjectId,
+        ref: 'User'
+    }],
 })
 
 

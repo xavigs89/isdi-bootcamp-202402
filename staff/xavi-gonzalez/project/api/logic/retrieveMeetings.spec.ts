@@ -5,7 +5,7 @@ import logic from './index.ts'
 import { expect } from 'chai'
 import { errors } from 'com'
 
-import { User, Meeting, MeetingType } from '../data/index.ts'
+import { User, Meeting } from '../data/index.ts'
 
 dotenv.config()
 

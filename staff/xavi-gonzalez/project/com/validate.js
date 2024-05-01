@@ -1,7 +1,9 @@
 import { ContentError, UnauthorizedError } from './errors.js';
 import util from './util.js';
-//const DATE_REGEX = /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/\d{4} (?:[01]\d|2[0-3]):[0-5]\d$/;
-const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+// const DATE_REGEX = /^\d{2}-\d{2}-\d{4}$/;
+// const DATE_REGEX = /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/\d{4} (?:[01]\d|2[0-3]):[0-5]\d$/;
+// const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+const DATE_REGEX = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]+$/;
 const URL_REGEX = /^(http|https):\/\//;
@@ -16,7 +18,8 @@ const validate = {
                 throw new ContentError(explain + ' ' + text + ' has empty spaces');
     },
     date(date, explain) {
-        //if (typeof date !== 'string') throw new TypeError(explain + ' ' + date + ' is not a string')
+        if (typeof date !== 'string')
+            throw new TypeError(explain + ' ' + date + ' is not a string');
         if (!DATE_REGEX.test(date))
             throw new ContentError(explain + ' ' + date + ' does not have a valid format');
     },

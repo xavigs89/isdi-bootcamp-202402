@@ -4,6 +4,7 @@ import { ObjectId } from 'mongoose'
 import { validate, errors } from 'com'
 
 import { User, Meeting } from '../data/index.ts'
+import convertAttendeeToName from './convertAttendeeToName.ts';
 
 const { SystemError, NotFoundError } = errors
 
@@ -33,7 +34,7 @@ function retrieveMeetings(userId): Promise<[{ id: string, author: { id: string, 
                         description,
                         image,
                         attendees,
-                    }))
+                    })).reverse()
                 )
         })
 }

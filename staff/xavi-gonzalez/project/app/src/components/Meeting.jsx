@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { logger } from '../utils'
 
 import { Link } from 'react-router-dom'
@@ -6,8 +7,43 @@ import logic from '../logic'
 
 import { useContext } from '../context'
 
-function Meeting ({ item: meeting, onEditClick, onDeleted }) {
-    
+function Meeting({ item: meeting, onEditClick, onDeleted }) {
+
+    const { showFeedback, showConfirm } = useContext()
+
+    const [attendees, setAttendees] = useState([])
+
+    // const attendeesNames = meeting.attendees.map((attendee) => attendee.name)
+
+    // setAttendees(attendeesNames)
+
+    // console.log(attendees)
+
+    useEffect(() => {
+        const retrieveAttendeesNames = () => {
+            let retrievedAttendees = []
+            try {
+                meeting.attendees.forEach(attendee => {
+                    logic.retrieveUser(attendee)
+                        .then(user => {
+                            retrievedAttendees.push(user.name)
+                        })
+                        .then(() => setAttendees(retrievedAttendees))
+                        .then(() => console.log(attendees))
+                        .catch(error)
+
+                })
+
+            } catch (error) {
+
+            }
+        }
+        retrieveAttendeesNames()
+    }, [])
+
+
+    const handleEditClick = meeting => onEditClick(meeting)
+
     const handleDeleteClick = meetingId => 
         showConfirm('Do you want to delete meeting?', confirmed => {
             if (confirmed)
@@ -19,33 +55,41 @@ function Meeting ({ item: meeting, onEditClick, onDeleted }) {
                     showFeedback(error)
                 }
         })
+
+
+
     
-    const handleEditClick = meeting => onEditClick(meeting)
 
     logger.debug('Meeting -> render')
+    console.log(meeting)
 
-    return <article>
-      
+    return <article className="p-4 border rounded-xl shadow-md bg-white mb-4">
 
-        <p>{meeting.title}</p>
+        <h2 className="text-left font-semibold mb-2">{meeting.author.name}</h2>
 
-        <p>{meeting.address}</p>
+        <h2 className="text-center font-semibold mb-2">{meeting.title}</h2>
 
-        <p>{meeting.location}</p>
+        <div className="grid grid-cols-2 gap-4 mb-2">
+            <p>Address: {meeting.address}</p>
+            <p>Date: {meeting.date}</p>
 
-        <p>{meeting.date}</p>
 
-        <p>{meeting.time}</p>
+            <p>Location: {meeting.location}</p>
+        </div>
+
 
         <p>{meeting.description}</p>
 
-        {<img src={meeting.image} />}
+        {<img className="center" src={meeting.image} style={{ width: '70vw', height: '30vh' }}/>}
 
-       
+        <p className=" text-xs text-right font-semibold mb-2">Attendees: {attendees.toString()} </p>
 
-        { logic.getLoggedInUserId() === meeting.author.id && <>
-            <button onClick={() => handleEditClick(surgery)}>📝</button>
-            <button onClick={() => handleDeleteClick(surgery.id)}>🗑️</button>
+
+
+
+        {logic.getLoggedInUserId() === meeting.author.id && <>
+            <button onClick={() => handleEditClick(meeting)}>📝</button>
+            <button onClick={() => handleDeleteClick(meeting.id)}>🗑️</button>
         </>}
 
 

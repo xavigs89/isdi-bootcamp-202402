@@ -3,35 +3,42 @@ import { logger } from '../utils'
 
 import logic from '../logic'
 import SubmitButton from './library/SubmitButton'
+import CancelButton from './library/CancelButton'
 
 import { useContext } from '../context'
 
 function CreateMeeting(props) {
+    const { showFeedback } = useContext()
 
     const handleSubmit = event => {
+        
         event.preventDefault()
-        const userId = logic.retrieveUser(userId)
+
+        // const userId = logic.retrieveUser(userId)
 
         const form = event.target
 
+        // const author = form.author.value
         const title = form.title.value
         const address = form.address.value
-        const location = form.location.value
+        const locationStr = form.location.value.split(",")
+        const location = locationStr.map(str => {
+            return Number(str)
+        })
         const date = form.date.value
-        const time = form.time.value
         const description = form.description.value
         const image = form.image.value
 
         try {
-            logic.createMeeting(userId,title, address, location, date, time, description, image)
+            logic.createMeeting(title, address, location, date, description, image)
                 .then(() => {
                     form.reset()
 
                     props.onMeetingCreated()
                 })
-                .catch(error => showFeedback(error, 'error'))
+                .catch(error => alert(error, 'error'))
         } catch (error) {
-            showFeedback(error)
+            alert(error)
         }
     }
 
@@ -39,31 +46,28 @@ function CreateMeeting(props) {
 
     logger.debug('CreateMeeting -> render')
 
-    return <section
+    return <section className="bg-[#bcda53] py-8 px-4"
     >
-        <form onSubmit={handleSubmit} className="flex flex-col" >
-            <label>Title</label>
-            <input id="title" type="text" />
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4" >
+            <label className="text-lg font-semibold"  >Title</label>
+            <input id="title" name="title" type="text" />
 
-            <label>Address</label>
-            <input id="address" type="text" />
+            <label className="text-lg font-semibold" >Address</label>
+            <input id="address" name="address" type="text" />
 
-            <label>Location</label>
-            <input id="location" type="number" />
+            <label className="text-lg font-semibold" >Location</label>
+            <input id="location" name="location" type="text" />
 
-            <label>Date</label>
-            <input id="date" type="date" />
+            <label className="text-lg font-semibold" >Date</label>
+            <input id="date" name="date" type="datetime-local" min={Date.now()} />
 
-            <label>Time</label>
-            <input id="time" type="text" />
+            <label className="text-lg font-semibold" >Description</label>
+            <input id="description" name="description" type="text" />
 
-            <label>Description</label>
-            <input id="description" type="text" />
+            <label className="text-lg font-semibold" >Image</label>
+            <input id="image" name="image" type="url" />
 
-            <label>Image</label>
-            <input id="image" type="image" />
-
-            <SubmitButton>Create Meeting</SubmitButton>
+            <SubmitButton type="submit" className="text-lg font-semibold" >Create Meeting</SubmitButton>
         </form>
 
         <CancelButton onClick={handleCancelClick} />

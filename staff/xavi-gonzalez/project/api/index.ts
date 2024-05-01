@@ -203,6 +203,7 @@ mongoose.connect(MONGODB_URL)
         //RETRIEVE MEETINGS CON EXPRESS
         api.get('/meetings', (req, res) => {
             try {
+                
                 const { authorization } = req.headers
 
                 const token = authorization.slice(7)

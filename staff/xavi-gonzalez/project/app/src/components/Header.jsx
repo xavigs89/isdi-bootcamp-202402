@@ -34,7 +34,7 @@ function Header ({ onUserLoggedOut }) {
             </button>  
             
             <div className=" ml-auto mr-1 flex flex-col text-center">
-            {user && <h1 className="text-center">Welcome, {user.name}!</h1>}
+            {user && <h1 className="text-center">{user.name}</h1>}
             {/* {user && <p className="text-white text-lg font-light">{user.email}</p>} */}
             </div>
     

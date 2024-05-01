@@ -1,7 +1,7 @@
 import { validate, errors } from 'com'
 
-function createMeeting(userId,title,address,location,date,description,image) {
-    validate.text(userId, 'userId', true)
+function createMeeting(title,address,location,date,description,image) {
+    
     validate.text(title, 'title')
     validate.text(address, 'address')
     validate.coords(location, 'coords')
@@ -13,9 +13,9 @@ function createMeeting(userId,title,address,location,date,description,image) {
 
     validate.token(sessionStorage.token)
 
-    const meeting = { title,address,location,date,description,image, }
+    const meeting = { title,address,location,date,description,image }
 
-    const json = JSON.stringify(user)
+    const json = JSON.stringify(meeting)
 
     return fetch(`${import.meta.env.VITE_API_URL}/meetings`, {
         method: 'POST',
