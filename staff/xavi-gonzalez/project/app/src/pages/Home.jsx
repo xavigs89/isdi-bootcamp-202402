@@ -92,7 +92,10 @@ function Home({ onUserLoggedOut }) {
             <Header onUserLoggedOut={onLogout} />
 
 
-            <main className="my-[50px] px-[5vw]">
+            <main className="">
+            {/* my-[50px] px-[5vw] */}
+            <h1 className='text-black text-center  font-bold'>Upcoming Meetings</h1>
+
                 {/* 
                 <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
                 <Routes>

@@ -5,7 +5,7 @@ import logic from './logic'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
-import Profile from './components/Profile'
+import UserProfile from './components/UserProfile'
 import CreateMeeting from './components/CreateMeeting'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 //import Feedback from './components/Feedback'
@@ -79,7 +79,7 @@ function App() {
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
 
-        <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
+        <Route path="/profile" element={logic.isUserLoggedIn() ? <UserProfile
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
         {/* <Route path="/createMeeting" element={<CreateMeeting />} /> */}

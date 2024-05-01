@@ -33,8 +33,10 @@ function Header ({ onUserLoggedOut }) {
             {/* {user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="w-10 h-10 rounded-full mr-2"  src="../../public/icons/CarbonUserAvatarFilledAlt.png" alt="profile pic"></img>} */}
             </button>  
             
-            <div className=" ml-auto mr-1 flex flex-col text-center">
-            {user && <h1 className="text-center">{user.name}</h1>}
+            <div className="  flex-col text-left">
+                {/* ml-auto mr-1 flex */}
+
+            {user && <h1 className="text-left font-bold text-xs">{user.name}</h1>}
             {/* {user && <p className="text-white text-lg font-light">{user.email}</p>} */}
             </div>
     
