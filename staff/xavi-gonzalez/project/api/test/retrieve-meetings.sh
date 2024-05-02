@@ -1,1 +1,1 @@
-curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMyNzY0ZGZhMDBhMDk1ODEyMzQzYjEiLCJpYXQiOjE3MTQ2NDA2MDksImV4cCI6MTcxNDY3NjYwOX0.0O5DhIoF4Sv5xxNA_bRq0CJMsragmrne5n0vHfUZGTQ" http://localhost:8080/meetings/6633560b584ca412090449d4 -v
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjMzNjk2OGIyNDRhMzg1Yjc5ZmQ0ZTkiLCJpYXQiOjE3MTQ2NTM0OTcsImV4cCI6MTcxNDY4OTQ5N30.w5bxxt5sb-6M0xWeo8vLYCuOoyekljuyCZLEaHscvHU" http://localhost:8080/meetings -v

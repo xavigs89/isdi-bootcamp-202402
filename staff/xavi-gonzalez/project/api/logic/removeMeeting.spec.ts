@@ -24,21 +24,24 @@ describe('removeMeeting', () => {
             .then(() =>
                 Meeting.deleteMany()
                     .then(() =>
-                        User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123' })
+                        User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
                             .then(user =>
-                                Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', time: '21:30', description: 'We are gonna have some fun', image: 'http://images.com' })
+                                Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user.id] })
                                     .then(meeting => {
-                                        meetingId = meeting.id;
-                                        return logic.removeMeeting(meeting.id, user.id);
+                                        return logic.removeMeeting(user.id, meeting.id);
                                     })
-                                    .then(() => Meeting.find({})) // Mueve Meeting.find() dentro de la cadena de promesas
-                                    .then(meeting => { // Añade una función de flecha para el argumento de then
+                                    .then(() => Meeting.find({})) 
+                                    .then(meeting => { 
+                                        console.log(meeting)
                                         expect(meeting).to.deep.equal([]);
                                     })
                             )
                     )
             )
     );
+
+    //TODO ERROR CASES
+
 });
 
 

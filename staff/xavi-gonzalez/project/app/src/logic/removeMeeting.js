@@ -4,28 +4,18 @@ function removeMeeting(meetingId) {
     validate.text(meetingId, 'meetingId', true)
     validate.token(sessionStorage.token)
 
-    const json = JSON.stringify(meeting)
-
-    const [,payloadB64] = sessionStorage.token.split('.')
-
-    const payloadJSON = atob(payloadB64)
-
-    const payload = JSON.parse(payloadJSON)
-
-    const { sub: userId } = payload
+    // const json = JSON.stringify(meeting)
 
     return fetch(`${import.meta.env.VITE_API_URL}/meetings/${meetingId}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
-            'Content-Type': 'application/json'
-        },
-        body: json
+        }
     })
     .then(res => {
-        if (res.status === 204)
+        if (res.status === 200)
+            return res.json()
 
-        return res.json()
             .then(body => {
                 const { error, message } = body
 

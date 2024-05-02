@@ -6,39 +6,23 @@ import { useEffect, useState } from 'react'
 
 import Meeting from './Meeting'
 
+import { useContext } from '../context'
+
 function MeetingList({ stamp }) {
     const [meetings, setMeetings] = useState([])
 
-    
+    const { showFeedback } = useContext()
 
-    useEffect(() => {
-        const loadMeetings = () => {
-            try {
-                logic.retrieveMeetings()
-                    .then (retrievedMeetings => setMeetings(retrievedMeetings))
-                    .catch(error => showFeedback(error, 'error'))
-            } catch (error) {
-                showFeedback(error)
-            }
-        }
-
-
-        loadMeetings()
-    }, [stamp])
-    /*const [meetings, setMeetings] = useState([])
 
     const loadMeetings = () => {
-        const [meetings, setMeetings] = useState([])
+        logger.debug('MeetingList -> loadMeetings')
 
-            logger.debug('MeetingList -> loadMeetings')
-
-            try {
-                logic.retrieveMeetings()
-                    .then(setMeetings)
-                    .catch(error => showFeedback(error, 'error'))
-            } catch (error) {
-                showFeedback(error)
-            }
+        try {
+            logic.retrieveMeetings()
+                .then(retrievedMeetings => setMeetings(retrievedMeetings))
+                .catch(error => showFeedback(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
         }
     }
 
@@ -46,16 +30,33 @@ function MeetingList({ stamp }) {
         loadMeetings()
     }, [stamp])
 
-    // const handleMeetingDeleted = () => loadMeetings()
 
-    // const handleEditClick = meeting => onEditMeeting(meeting)
+    // const loadMeetings = () => {
+
+    //     logger.debug('MeetingList -> loadMeetings')
+
+    //     try {
+    //         logic.retrieveMeetings()
+    //             .then(setMeetings)
+    //             .catch(error => showFeedback(error, 'error'))
+    //     } catch (error) {
+    //         showFeedback(error)
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     loadMeetings()
+    // }, [stamp])
+
+    const handleMeetingDeleted = () => loadMeetings()
+
+    const handleEditClick = meeting => onEditMeeting(meeting)
 
     logger.debug('MeetingList -> render')
 
-    console.log(meetings)*/
-
     return <section className="">
-       {meetings.map(meeting => <Meeting key={meeting.id} item={meeting}/>)}
+        {meetings.map(meeting =>
+            <Meeting key={meeting.id} item={meeting} onEditClick={handleEditClick} onDeleted={handleMeetingDeleted} onClick={() => handleSelectedMeeting(meeting)} />)}
     </section>
 }
 

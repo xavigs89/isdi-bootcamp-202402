@@ -203,7 +203,7 @@ mongoose.connect(MONGODB_URL)
         //RETRIEVE MEETINGS CON EXPRESS
         api.get('/meetings', (req, res) => {
             try {
-                
+
                 const { authorization } = req.headers
 
                 const token = authorization.slice(7)
@@ -213,16 +213,16 @@ mongoose.connect(MONGODB_URL)
                 logic.retrieveMeetings(userId as string)
                     .then(meetings => res.json(meetings))
 
-                //filtrar meetings para que no salgan los que el usuario logueado ha creado 
+                    //filtrar meetings para que no salgan los que el usuario logueado ha creado 
 
-                //const filteredMeetings = meetings.filter(meeting => meeting.creator !== userId);
-                // res.json(filteredMeetings);
+                    //const filteredMeetings = meetings.filter(meeting => meeting.creator !== userId);
+                    // res.json(filteredMeetings);
 
 
-                //filtrar meetings por orden de fecha mas cercana
+                    //filtrar meetings por orden de fecha mas cercana
 
-                // const sortedMeetings = meetings.sort((a, b) => new Date(a.date) - new Date(b.date));
-                // res.json(sortedMeetings);
+                    // const sortedMeetings = meetings.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    // res.json(sortedMeetings);
 
 
                     .catch(error => {
@@ -260,7 +260,7 @@ mongoose.connect(MONGODB_URL)
 
 
         //REMOVE MEETING CON EXPRESS
-        api.delete('meetings/:meetingId', (req, res) => {
+        api.delete('/meetings/:id', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -268,10 +268,10 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                const { meetingId } = req.params
+                const meetingId = req.params.id
 
                 logic.removeMeeting(userId as string, meetingId as string)
-                    .then(() => res.status(204).send())
+                    .then(() => res.json())
                     .catch(error => {
                         if (error instanceof SystemError) {
                             logger.error(error.message)
@@ -295,6 +295,41 @@ mongoose.connect(MONGODB_URL)
                 }
             }
         });
+
+        //EDIT MEETING CON EXPRESS
+        api.put('/meetings/:id', jsonBodyParser, (req, res) => {
+            try {
+                const { authorization } = req.headers
+                const token = authorization.slice(7)
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+        
+                const meetingId = req.params.id
+                const { title, address, location, date, description, image } = req.body
+        
+                logic.modifyMeeting(meetingId, userId as string, title, address, location, date, description, image)
+                    .then(() => res.status(200).send())
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError || error instanceof UnauthorizedError) {
+                            logger.warn(error.message)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        }
+                    })
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+        })
 
 
 

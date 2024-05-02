@@ -10,8 +10,8 @@ import { useContext } from '../context'
 function Meeting({ item: meeting, onEditClick, onDeleted }) {
 
     //hacer que foro de meeting desaparezca cuando das a show details
-    const [detailsView, setDetailsView] = useState(false)
-    const [showImage, setShowImage] = useState(true)
+    // const [detailsView, setDetailsView] = useState(false)
+    // const [showImage, setShowImage] = useState(true)
 
 
     const [view, setView] = useState('close')
@@ -69,7 +69,9 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     //
     const handleEditClick = meeting => onEditClick(meeting)
 
-    const handleDeleteClick = meetingId =>
+    const handleDeleteClick = meetingId => {
+  
+    console.log("click before confirm")
         showConfirm('Do you want to delete meeting?', confirmed => {
             if (confirmed)
                 try {
@@ -80,6 +82,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
                     showFeedback(error)
                 }
         })
+    }
 
 
 

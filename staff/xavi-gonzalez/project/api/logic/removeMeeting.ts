@@ -5,28 +5,30 @@ import { Meeting, User } from '../data/index.ts'
 
 const { SystemError, NotFoundError } = errors
 
-function removeMeeting(meetingId: string, userId: string): Promise<void> {
-    validate.text(meetingId, 'meetingId', true)
+function removeMeeting(userId: string, meetingId: string): Promise<void> {
+
     validate.text(userId, 'userId', true)
+    validate.text(meetingId, 'meetingId', true)
 
-    return Meeting.findOne({ _id: meetingId })
+    return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
-        .then(meeting => {
-            if (!meeting)
-                throw new NotFoundError('meeting not found')            
+        .then(user => {
+            if (!user)
+                throw new NotFoundError('user does not exist')
 
-            User.findById(userId)
+            return Meeting.findById(meetingId)
                 .catch(error => { throw new SystemError(error.message) })
-                .then(user => {
-                    if (!user)
-                        throw new NotFoundError('user does not exist')
+                .then(meeting => {
+                    if (!meeting)
+                        throw new NotFoundError('meeting not found')
 
-                    if (meeting.author !== user._id)
+                    if (meeting.author.toString() !== user._id.toString())
                         throw new NotFoundError('meeting does not belong to user')
+
+                    return Meeting.findByIdAndDelete(meetingId)
                 })
-            
-            return Meeting.deleteOne({ _id: meetingId, author: userId })
-                .catch(error => { throw new SystemError(error.message) })
+
+
         })
 }
 export default removeMeeting

@@ -8,10 +8,10 @@ import Home from './pages/Home'
 import UserProfile from './components/UserProfile'
 import CreateMeeting from './components/CreateMeeting'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-//import Feedback from './components/Feedback'
+import Feedback from './components/Feedback'
 import { useState } from 'react'
 import { Context } from './context'
-//import Confirm from './components/Confirm'
+import Confirm from './components/Confirm'
 import { errors } from 'com'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
@@ -59,6 +59,17 @@ function App() {
   }
 
 
+  const handleConfirmCancelClick = () => {
+    confirm.callback(false)
+
+    setConfirm(null)
+  }
+
+  const handleConfirmAcceptClick = () => {
+    confirm.callback(true)
+
+    setConfirm(null)
+  }
 
   const handleConfirm = (message, callback) => setConfirm({ message, callback })
 
@@ -88,7 +99,9 @@ function App() {
       </Routes>
     </Context.Provider>
 
+    {feedback && <Feedback message={feedback.message} level={feedback.level} onAcceptClick={handleFeedbackAcceptClick} />}
 
+    {confirm && <Confirm message="hola confirm" onCancelClick={handleConfirmCancelClick} onAcceptClick={handleConfirmAcceptClick} />}
 
   </>
 

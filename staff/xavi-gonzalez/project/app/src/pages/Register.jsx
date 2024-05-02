@@ -46,7 +46,7 @@ function Register({ onUserRegistered, onLoginClick }) {
         <main className="flex justify-center items-center h-screen bg-[#F4C84B] ">
             <div>
 
-                <div className="flex justify-center items-center">Register
+                <div className="flex justify-center items-center mx-auto">
                 </div>
 
                 {/* <h1 className="w-[200px] absolute top-20">Register</h1> */}
