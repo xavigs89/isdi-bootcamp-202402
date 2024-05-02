@@ -9,11 +9,16 @@ import { useContext } from '../context'
 
 function Meeting({ item: meeting, onEditClick, onDeleted }) {
 
+    //hacer que foro de meeting desaparezca cuando das a show details
+    const [detailsView, setDetailsView] = useState(false)
+    const [showImage, setShowImage] = useState(true)
+
+
     const [view, setView] = useState('close')
 
     const { showFeedback, showConfirm } = useContext()
 
-    const [attendees, setAttendees] = useState([])
+    // const [attendees, setAttendees] = useState([])
 
     // const attendeesNames = meeting.attendees.map((attendee) => attendee.name)
 
@@ -21,27 +26,29 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
 
     // console.log(attendees)
 
-    useEffect(() => {
-        const retrieveAttendeesNames = () => {
-            let retrievedAttendees = []
-            try {
-                meeting.attendees.forEach(attendee => {
-                    logic.retrieveUser(attendee)
-                        .then(user => {
-                            retrievedAttendees.push(user.name)
-                        })
-                        .then(() => setAttendees(retrievedAttendees))
-                        .then(() => console.log(attendees))
-                        .catch(error)
 
-                })
 
-            } catch (error) {
+    // useEffect(() => {
+    //     const retrieveAttendeesNames = () => {
+    //         let retrievedAttendees = []
+    //         try {
+    //             meeting.attendees.forEach(attendee => {
+    //                 logic.retrieveUser(attendee)
+    //                     .then(user => {
+    //                         retrievedAttendees.push(user.name)
+    //                     })
+    //                     .then(() => setAttendees(retrievedAttendees))
+    //                     .then(() => console.log(attendees))
+    //                     .catch(error)
 
-            }
-        }
-        retrieveAttendeesNames()
-    }, [])
+    //             })
+
+    //         } catch (error) {
+
+    //         }
+    //     }
+    //     retrieveAttendeesNames()
+    // }, [])
 
 
     //BOTON JOIN MEETING 
@@ -110,9 +117,9 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
                     </div>
                     <div>
                         <p><strong>Attendees: </strong></p>
-                        <ul>{attendees.toString()}</ul>
+                        <ul className='flex flex-col'>{meeting.attendees.map(attendee => <li>{attendee.name}</li>)}</ul>
                     </div>
-                    
+
                     <button onClick={() => setView('close')}>X</button>
                 </div>
             )}
@@ -120,25 +127,25 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
         </div>
         <div className="flex justify-end">
             <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />
+            <div>
+                {logic.getLoggedInUserId() === meeting.author.id && (
+                    <div className="flex justify-end">
+
+                        <button onClick={() => handleEditClick(meeting)} className="w-5 h-5  "><img src="../../public/icons/VsEditPage.png" alt="edit" /></button>
+                        <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5  "><img src="../../public/icons/TopcoatDelete.png" alt="delete" /></button>
+                    </div>
+                )}
+
+                {logic.getLoggedInUserId() !== meeting.author.id && (
+                    <button onClick={handleJoinMeeting} className="w-5 h-5  ">Join</button>
+                )}
+            </div>
+
         </div>
 
 
 
 
-        {logic.getLoggedInUserId() === meeting.author.id && (
-            <div className="flex justify-end">
-                <button onClick={() => handleEditClick(meeting)} className="w-5 h-5  "><img src="../../public/icons/VsEditPage.png" alt="edit" /></button>
-                <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5  "><img src="../../public/icons/TopcoatDelete.png" alt="delete" /></button>
-            </div>
-        )}
-
-
-
-
-
-        {logic.getLoggedInUserId() !== meeting.author.id && (
-            <button onClick={handleJoinMeeting} className="w-5 h-5  ">Join</button>
-        )}
 
 
 

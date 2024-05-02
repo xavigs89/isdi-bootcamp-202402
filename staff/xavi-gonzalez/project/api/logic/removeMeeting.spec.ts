@@ -5,11 +5,11 @@ import mongoose from 'mongoose'
 import logic from './index.ts'
 import { expect, use } from 'chai'
 import { errors } from 'com'
-import chaiAsPromised from 'chai-as-promised'
+// import chaiAsPromised from 'chai-as-promised'
 
 dotenv.config()
 
-use(chaiAsPromised)
+// use(chaiAsPromised)
 
 
 import { User, Meeting } from '../data/index.ts'
@@ -29,7 +29,7 @@ describe('removeMeeting', () => {
                                 Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', time: '21:30', description: 'We are gonna have some fun', image: 'http://images.com' })
                                     .then(meeting => {
                                         meetingId = meeting.id;
-                                        return logic.removeMeeting(meeting.id);
+                                        return logic.removeMeeting(meeting.id, user.id);
                                     })
                                     .then(() => Meeting.find({})) // Mueve Meeting.find() dentro de la cadena de promesas
                                     .then(meeting => { // Añade una función de flecha para el argumento de then

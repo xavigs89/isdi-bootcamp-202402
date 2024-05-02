@@ -7,6 +7,7 @@ const { SystemError, NotFoundError } = errors
 
 function removeMeeting(meetingId: string, userId: string): Promise<void> {
     validate.text(meetingId, 'meetingId', true)
+    validate.text(userId, 'userId', true)
 
     return Meeting.findOne({ _id: meetingId })
         .catch(error => { throw new SystemError(error.message) })
@@ -24,7 +25,7 @@ function removeMeeting(meetingId: string, userId: string): Promise<void> {
                         throw new NotFoundError('meeting does not belong to user')
                 })
             
-            return Meeting.deleteOne({ _id: meetingId })
+            return Meeting.deleteOne({ _id: meetingId, author: userId })
                 .catch(error => { throw new SystemError(error.message) })
         })
 }

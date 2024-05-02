@@ -260,7 +260,7 @@ mongoose.connect(MONGODB_URL)
 
 
         //REMOVE MEETING CON EXPRESS
-        api.delete('meetings/:meetingId', jsonBodyParser, (req, res) => {
+        api.delete('meetings/:meetingId', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -270,7 +270,7 @@ mongoose.connect(MONGODB_URL)
 
                 const { meetingId } = req.params
 
-                logic.removeMeeting(userId as string, meetingId)
+                logic.removeMeeting(userId as string, meetingId as string)
                     .then(() => res.status(204).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
