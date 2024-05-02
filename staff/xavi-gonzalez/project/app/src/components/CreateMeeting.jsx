@@ -46,7 +46,7 @@ function CreateMeeting(props) {
 
     logger.debug('CreateMeeting -> render')
 
-    return <section className="bg-[#bcda53] py-8 px-4"
+    return <section className="bg-[#F4C84B] py-8 px-4"
     >
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4" >
             <label className="text-lg font-semibold"  >Title</label>

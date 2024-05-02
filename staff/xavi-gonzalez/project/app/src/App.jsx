@@ -79,8 +79,10 @@ function App() {
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
 
-        <Route path="/profile" element={logic.isUserLoggedIn() ? <UserProfile
+        <Route path="/userprofile" element={logic.isUserLoggedIn() ? <UserProfile
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+
+
 
         {/* <Route path="/createMeeting" element={<CreateMeeting />} /> */}
       </Routes>

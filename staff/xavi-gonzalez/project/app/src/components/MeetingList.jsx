@@ -54,7 +54,7 @@ function MeetingList({ stamp }) {
 
     console.log(meetings)*/
 
-    return <section>
+    return <section className="">
        {meetings.map(meeting => <Meeting key={meeting.id} item={meeting}/>)}
     </section>
 }

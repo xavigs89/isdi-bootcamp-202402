@@ -34,7 +34,7 @@ function retrieveMeetings(userId): Promise<[{ id: string, author: { id: string, 
                         description,
                         image,
                         attendees,
-                    })).reverse()
+                    }))
                 )
         })
 }

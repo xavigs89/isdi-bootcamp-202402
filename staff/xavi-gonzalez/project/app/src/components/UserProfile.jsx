@@ -4,7 +4,7 @@ import Header from './Header'
 
 import { useState } from 'react'
 
-function Profile({onUserLoggedOut}) {
+function UserProfile({onUserLoggedOut}) {
 
     const onLogout = () => onUserLoggedOut()
 
@@ -25,4 +25,4 @@ function Profile({onUserLoggedOut}) {
     // return <h1>hello {name}</h1>
 }
 
-export default Profile
+export default UserProfile

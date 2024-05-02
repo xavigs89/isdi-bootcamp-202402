@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom'
 
 import { Routes, Route } from 'react-router-dom'
 
-
 import { useContext } from '../context'
 
 function Home({ onUserLoggedOut }) {
@@ -88,13 +87,13 @@ function Home({ onUserLoggedOut }) {
 
 
     return <>
-        <main className='h-screen bg-[#f2f4f7]'>
+
             <Header onUserLoggedOut={onLogout} />
 
 
-            <main className="">
+            <main className="mt-[40px] pt-1 h-full bg-[#97B1A6]">
             {/* my-[50px] px-[5vw] */}
-            <h1 className='text-black text-center  font-bold'>Upcoming Meetings</h1>
+            <h1 className='text-black text-center font-semibold mt-4'>Upcoming Meetings</h1>
 
                 {/* 
                 <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
@@ -110,16 +109,20 @@ function Home({ onUserLoggedOut }) {
             </main>
 
 
-            <footer className="fixed bottom-0 w-full h-[50px] flex justify-between space-x-4 items-center box-border bg-[#bcda53] p-1">
+            <footer className="fixed bottom-0 w-full h-[50px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-1">
 
-                <button className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/OcticonSearch.png" alt="search" /></button>
+                <button className="w-8 h-8 rounded-full ml-2"><img src="../../public/icons/OcticonSearch.png" alt="search" /></button>
+
                 <button onClick={handleCreateMeetingClick} className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/BiPlusSquare.png" alt="search" /></button>
+
+                <Link to="/userprofile">
                 <button>{user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="w-10 h-10 rounded-full mr-2" src="../../public/icons/CarbonUserAvatarFilledAlt.png" alt="profile pic"></img>}</button>
+                </Link>
 
 
             </footer>
 
-        </main>
+        
         {/* <div>
             <main className="px-[5vw] fixed top-0 bg-white w-full text-center">
                 {user && <h1>Welcome, {user.name}!</h1>}

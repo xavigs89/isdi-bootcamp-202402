@@ -27,11 +27,13 @@ function Header ({ onUserLoggedOut }) {
 
     return (
     
-        <header className="flex items-center bg-[#bcda53] p-1">
+        <header className="fixed top-0 w-full h-[50px] flex items-center bg-[#F4C84B] p-1">
+           
             <button
-            className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/MaterialSymbolsHome.png" alt="search" />
+            className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/MaterialSymbolsHome.png" alt="home" />
             {/* {user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="w-10 h-10 rounded-full mr-2"  src="../../public/icons/CarbonUserAvatarFilledAlt.png" alt="profile pic"></img>} */}
             </button>  
+    
             
             <div className="  flex-col text-left">
                 {/* ml-auto mr-1 flex */}

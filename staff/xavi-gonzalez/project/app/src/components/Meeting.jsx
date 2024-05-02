@@ -44,6 +44,22 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     }, [])
 
 
+    //BOTON JOIN MEETING 
+    const handleJoinMeeting = () => {
+        const loggedInUserId = logic.getLoggedInUserId();
+        if (!meeting.attendees.includes(loggedInUserId)) {
+            logic.addAttendeeToMeeting(meeting.id, loggedInUserId)
+                .then(() => {
+                    retrieveAttendees();
+                })
+                .catch(error => {
+                    console.error('Error joining meeting:', error);
+                });
+        }
+    };
+
+
+    //
     const handleEditClick = meeting => onEditClick(meeting)
 
     const handleDeleteClick = meetingId =>
@@ -65,50 +81,66 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     logger.debug('Meeting -> render')
     console.log(meeting)
 
-    return <article className="p-4 border rounded-xl shadow-md bg-white mb-4">
 
-        <h2 className="text-left font-semibold mb-2 text-xs">{meeting.author.name}</h2>
+    return <article className="flex p-1 pl-4 mx-4 border rounded-xl shadow-md bg-white mt-4">
 
-        <h2 className="text-center font-semibold mb-2">{meeting.title}</h2>
+        <div className="flex-col gap-4 mb-2">
+            <p className="text-left font-semibold mbp text-xs">{meeting.author.name}</p>
+            <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
+            <p><strong>Address: </strong>{meeting.address}</p>
+            <p><strong>Date: </strong>{new Date(meeting.date).toLocaleString(navigator.language, {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
+            }).replace(',', '')}h</p>
 
-        <div className="grid grid-cols-2 gap-4 mb-2">
-            <p>Address: {meeting.address}</p>
-            <p>Date: {meeting.date}</p>
+            {/* <p><strong>Date: </strong>{meeting.date}</p> */}
 
+            {view === 'close' && (
+                <button className="items-center" onClick={() => setView('open')}>show details</button>
+            )}
 
-            <p>Location: {meeting.location}</p>
+            {view === 'open' && (
+                <div>
+                    <div>
+                        <p><strong>Description: </strong>{meeting.description}</p>
+                        <p><strong>Location: </strong>{meeting.location}</p>
+                    </div>
+                    <div>
+                        <p><strong>Attendees: </strong></p>
+                        <ul>{attendees.toString()}</ul>
+                    </div>
+                    
+                    <button onClick={() => setView('close')}>X</button>
+                </div>
+            )}
+
+        </div>
+        <div className="flex justify-end">
+            <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />
         </div>
 
 
-        {/* <p>{meeting.description}</p> */}
 
-        {<img className="center" src={meeting.image} style={{ width: '70vw', height: '30vh' }} />}
 
-        <p className=" text-xs text-right font-semibold mb-2">Attendees: {attendees.toString()} </p>
-
-        {view === 'close' && <button onClick={() => setView('open')}>show details</button>
-        }
-
-        {view === 'open' && <div>
-            <div>
-                <h3>Location</h3>
-                <ul>{meeting.attendees.map(attendees => attendees.name)}</ul>
+        {logic.getLoggedInUserId() === meeting.author.id && (
+            <div className="flex justify-end">
+                <button onClick={() => handleEditClick(meeting)} className="w-5 h-5  "><img src="../../public/icons/VsEditPage.png" alt="edit" /></button>
+                <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5  "><img src="../../public/icons/TopcoatDelete.png" alt="delete" /></button>
             </div>
-
-            <div>
-                <p>Description: {meeting.description}</p>
-            </div>
-            <button onClick={() => setView('close')}>X</button>
-        </div>}
+        )}
 
 
 
 
-        {logic.getLoggedInUserId() === meeting.author.id && <>
 
-            <button onClick={() => handleEditClick(meeting)} className="w-5 h-5 rounded-full mr-4"><img src="../../public/icons/MaterialSymbolsEditSquareOutlineSharp.png" alt="edit" /></button>
-            <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5 rounded-full mr-4"><img src="../../public/icons/TopcoatDelete.png" alt="delete" /></button>
-        </>}
+        {logic.getLoggedInUserId() !== meeting.author.id && (
+            <button onClick={handleJoinMeeting} className="w-5 h-5  ">Join</button>
+        )}
+
+
 
 
     </article>
