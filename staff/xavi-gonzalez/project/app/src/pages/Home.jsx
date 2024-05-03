@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import MeetingList from '../components/MeetingList'
 import CreateMeeting from '../components/CreateMeeting'
 
-import UserProfile from '../components/UserProfile'
+import Profile from '../components/Profile'
 
 import Meeting from '../components/Meeting'
 import EditMeeting from '../components/EditMeeting'
@@ -82,7 +82,7 @@ function Home({ onUserLoggedOut }) {
             <Header onUserLoggedOut={onLogout} />
 
 
-            <main className="mt-[40px] pt-1 h-full bg-[#97B1A6]">
+            <main className="mt-[40px] pt-1 h-screen bg-[#97B1A6]">
             {/* my-[50px] px-[5vw] */}
             <h1 className='text-black text-center font-semibold mt-4'>Upcoming Meetings</h1>
 
@@ -90,7 +90,7 @@ function Home({ onUserLoggedOut }) {
                 <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
                 <Routes>
                     <Route path="/" element={<MeetingList stamp={stamp} onEditMeetingClick={handleEditMeetingClick} />} />
-                    { <Route path="/profile/:id" element={<UserProfile />} /> }
+                    { <Route path="/profile/:name" element={<Profile />} /> }
                 </Routes>
 
 
