@@ -306,7 +306,7 @@ mongoose.connect(MONGODB_URL)
                 const meetingId = req.params.id
                 const { title, address, location, date, description, image } = req.body
 
-                logic.editMeeting(meetingId as string, userId as string, title, address, location, date, description, image)
+                logic.editMeeting(meetingId, userId as string, title, address, location, date, description, image)
                     .then(() => res.status(200).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
