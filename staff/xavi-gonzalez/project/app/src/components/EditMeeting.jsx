@@ -6,7 +6,7 @@ import SubmitButton from './library/SubmitButton'
 
 import { useContext } from '../context'
 
-function EditMeeting({onMeetingEdited, onCancelClick}) {
+function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
 
     const { showFeedback } = useContext()
 
@@ -29,7 +29,7 @@ function EditMeeting({onMeetingEdited, onCancelClick}) {
         logger.debug('EditMeeting -> handleSubmit')
 
         try {
-            logic.editMeeting(props.meeting.id, title, address, location, date, description, image)
+            logic.editMeeting(meeting.id, title, address, location, date, description, image)
                 .then(() => {
                     form.reset()
 
@@ -45,7 +45,7 @@ function EditMeeting({onMeetingEdited, onCancelClick}) {
 
     logger.debug('EditMeeting -> render')
 
-    return <section className="bg-[#F4C84B] py-8 px-4"
+    return <section className="edit-meeting bg-[#F4C84B] py-8 px-4"
     >
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4" >
             <label className="text-lg font-semibold"  >Title</label>
