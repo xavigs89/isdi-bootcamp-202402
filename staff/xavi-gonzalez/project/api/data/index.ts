@@ -66,7 +66,7 @@ type MeetingType = {
     //duration: number
     description: string
     image: string
-    attendees: ObjectId[]
+    attendees: [ObjectId]
 }
 
 const meeting = new Schema({

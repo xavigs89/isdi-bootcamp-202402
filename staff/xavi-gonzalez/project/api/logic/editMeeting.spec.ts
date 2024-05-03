@@ -1,8 +1,7 @@
 //@ts-nocheck
-
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import { expect } from 'chai'
+import { expect, use } from 'chai'
 import { errors } from 'com'
 
 import logic from './index.ts'
@@ -33,7 +32,7 @@ describe('editMeeting', () => {
         })
     })
 
-    it('modifies a meeting with valid data', () => {
+    it('succeeds when you edit a meeting', () => {
         const updatedTitle = 'Updated Event Title'
         const updatedAddress = 'Updated Address'
         const updatedLocation = [42.0, 2.0]

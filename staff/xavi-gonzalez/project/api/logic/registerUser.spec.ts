@@ -17,12 +17,12 @@ describe('registerUser', () => {
 
     it('succeeds a new user', () =>
         User.deleteMany()
-            .then(() => logic.registerUser('Paquito Chocolatero', 'paquito@gmail.com', 'Isdicoders1', 'Isdicoders1'))
-            .then(() => User.findOne({ email: 'paquito@gmail.com' }))
+            .then(() => logic.registerUser('Xavi Gonzalez', 'xavigs1989@gmail.com', 'Isdicoders1', 'Isdicoders1'))
+            .then(() => User.findOne({ email: 'xavigs1989@gmail.com' }))
             .then(user => {
                 expect(!!user).to.be.true
-                expect(user.name).to.equal('Paquito Chocolatero')
-                expect(user.email).to.equal('paquito@gmail.com')
+                expect(user.name).to.equal('Xavi Gonzalez')
+                expect(user.email).to.equal('xavigs1989@gmail.com')
                 expect(user.password).to.equal('Isdicoders1')
                 expect(user.avatar).to.equal(null)
                 expect(user.about).to.equal(null)
