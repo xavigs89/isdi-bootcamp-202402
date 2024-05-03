@@ -26,15 +26,15 @@ describe('retrieveMeetings', () => {
 
             .then(() =>
                 Promise.all([
-                    User.create({ name: 'Xavi Gonzalez', email: 'xavi@gmail.com', password: '123qwe123' }),
-                    User.create({ name: 'Perico de los Palotes', email: 'perico@gmail.com', password: 'Isdicoders1' }),
-                    User.create({ name: 'Armando Guerra', email: 'armando@gmail.com', password: 'Isdicoders1' }),
+                    User.create({ name: 'Xavi Gonzalez', email: 'xavi@gmail.com', password: '123qwe123', avatar: null, about: null }),
+                    User.create({ name: 'Perico de los Palotes', email: 'perico@gmail.com', password: 'Isdicoders1', avatar: null, about: null }),
+                    User.create({ name: 'Armando Guerra', email: 'armando@gmail.com', password: 'Isdicoders1', avatar: null, about: null }),
                 ])
 
                     .then(user =>
                         Promise.all([
 
-                            User.create({ name: 'Mari Juana', email: 'mari@gmail.com', password: '123qwe123' })
+                            User.create({ name: 'Mari Juana', email: 'mari@gmail.com', password: '123qwe123', avatar: null, about: null })
                                 .then(user =>
                                     Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user.id] })),
 
