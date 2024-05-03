@@ -46,7 +46,7 @@ function Header({ onUserLoggedOut }) {
 
             <div className=''>
 
-                <img className="w-[50px] flex " src="../../public/icons/Xavi-Logo.png" alt="LOGO" />
+                <img className="w-[50px] flex " src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
 
             </div>
 

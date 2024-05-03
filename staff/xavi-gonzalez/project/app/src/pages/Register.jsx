@@ -47,7 +47,7 @@ function Register({ onUserRegistered, onLoginClick }) {
             <div>
 
                 <div className="flex justify-center items-center mx-auto">
-                    <img className="w-[150px] absolute top-20" src="../../public/icons/Xavi-Logo.png" alt="LOGO" />
+                    <img className="w-[150px] absolute top-20" src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
                 </div>
 
                 {/* <h1 className="w-[200px] absolute top-20">Register</h1> */}

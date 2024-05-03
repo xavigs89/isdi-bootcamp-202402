@@ -46,7 +46,7 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
         <div>
 
             <div className="flex justify-center items-center">
-                <img className="w-[150px] absolute top-20" src="../../public/icons/Xavi-Logo.png" alt="LOGO" />
+                <img className="w-[150px] absolute top-20" src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col items-center mt-8">
