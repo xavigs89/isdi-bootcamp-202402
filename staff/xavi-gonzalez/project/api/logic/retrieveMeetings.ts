@@ -38,7 +38,7 @@ function retrieveMeetings(userId): Promise<any> {
                         image,
                         attendees,
                         //ordenar por fecha mas cercana
-                    })).sort({ date: 1 })
+                    }))
                 )
         })
 }

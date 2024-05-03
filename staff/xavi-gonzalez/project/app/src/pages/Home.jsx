@@ -11,7 +11,7 @@ import CreateMeeting from '../components/CreateMeeting'
 import UserProfile from '../components/UserProfile'
 
 import Meeting from '../components/Meeting'
-// import EditMeeting from '../components/EditMeeting'
+import EditMeeting from '../components/EditMeeting'
 
 import Header from '../components/Header'
 
@@ -71,7 +71,7 @@ function Home({ onUserLoggedOut }) {
     // EDITAR MEETING
     const handleEditMeetingClick = meeting => {
         setView('edit-meeting')
-        setPost(meeting)
+        setMeeting(meeting)
     }
 
     const handleMeetingEdited = () => {

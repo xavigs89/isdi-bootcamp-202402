@@ -7,7 +7,8 @@ import CancelButton from './library/CancelButton'
 
 import { useContext } from '../context'
 
-function CreateMeeting(props) {
+function CreateMeeting({onMeetingCreated}) {
+    
     const { showFeedback } = useContext()
 
     const handleSubmit = event => {
@@ -34,7 +35,7 @@ function CreateMeeting(props) {
                 .then(() => {
                     form.reset()
 
-                    props.onMeetingCreated()
+                    onMeetingCreated()
                 })
                 .catch(error => alert(error, 'error'))
         } catch (error) {

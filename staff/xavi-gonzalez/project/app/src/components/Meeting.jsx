@@ -106,7 +106,6 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
                 minute: 'numeric'
             }).replace(',', '')}h</p>
 
-            {/* <p><strong>Date: </strong>{meeting.date}</p> */}
 
             {view === 'close' && (
                 <button className="items-center" onClick={() => setView('open')}>show details</button>

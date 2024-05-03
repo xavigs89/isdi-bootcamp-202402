@@ -8,7 +8,7 @@ import Meeting from './Meeting'
 
 import { useContext } from '../context'
 
-function MeetingList({ stamp }) {
+function MeetingList({ stamp, onEditMeetingClick }) {
     const [meetings, setMeetings] = useState([])
 
     const { showFeedback } = useContext()
@@ -50,7 +50,7 @@ function MeetingList({ stamp }) {
 
     const handleMeetingDeleted = () => loadMeetings()
 
-    const handleEditClick = meeting => onEditMeeting(meeting)
+    const handleEditClick = meeting => onEditMeetingClick(meeting)
 
     logger.debug('MeetingList -> render')
 
