@@ -7,7 +7,7 @@ import CancelButton from './library/CancelButton'
 
 import { useContext } from '../context'
 
-function CreateMeeting({onMeetingCreated}) {
+function CreateMeeting({onMeetingCreated, onCancelClick}) {
     
     const { showFeedback } = useContext()
 
@@ -43,7 +43,7 @@ function CreateMeeting({onMeetingCreated}) {
         }
     }
 
-    const handleCancelClick = () => props.onCancelClick()
+    const handleCancelClick = () => onCancelClick()
 
     logger.debug('CreateMeeting -> render')
 

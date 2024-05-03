@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import logic from '../logic'
 
+import { Link } from 'react-router-dom'
+
 function Header({ onUserLoggedOut }) {
     const [user, setUser] = useState(null)
 
@@ -30,9 +32,9 @@ function Header({ onUserLoggedOut }) {
         <header className="fixed top-0 w-full h-[50px] flex items-center justify-center bg-[#F4C84B] p-2">
 
 
-            <button
+            <Link to="/"
                 className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/MaterialSymbolsHome.png" alt="home" />
-            </button>
+            </Link>
 
             <div className="  flex-col text-left">
                 {/* ml-auto mr-1 flex */}
