@@ -12,7 +12,7 @@ dotenv.config()
 
 const { SystemError, NotFoundError } = errors
 
-describe('modifyMeeting', () => {
+describe('editMeeting', () => {
     before(() => mongoose.connect(process.env.MONGODB_TEST_URL))
 
     let userId
@@ -41,9 +41,10 @@ describe('modifyMeeting', () => {
         const updatedDescription = 'Updated description'
         const updatedImage = 'http://updated-image.com'
 
-        return logic.modifyMeeting(meetingId, userId, updatedTitle, updatedAddress, updatedLocation, updatedDate, updatedDescription, updatedImage)
+        return logic.editMeeting(meetingId, userId, updatedTitle, updatedAddress, updatedLocation, updatedDate, updatedDescription, updatedImage)
             .then(() => Meeting.findById(meetingId))
             .then(updatedMeeting => {
+                console.log(updatedMeeting)
                 expect(updatedMeeting).to.exist
                 expect(updatedMeeting.title).to.equal(updatedTitle)
                 expect(updatedMeeting.address).to.equal(updatedAddress)

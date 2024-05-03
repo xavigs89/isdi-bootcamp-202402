@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 const { SystemError, NotFoundError } = errors
 
-function modifyMeeting(meetingId: string, userId: string, title: string, address: string, location: [number, number], date: string, description: string, image: string):Promise<any> {
+function editMeeting(meetingId: string, userId: string, title: string, address: string, location: [number, number], date: string, description: string, image: string):Promise<any> {
 
     validate.text(userId, 'userId', true)
     validate.text(title, 'title')
@@ -29,4 +29,4 @@ function modifyMeeting(meetingId: string, userId: string, title: string, address
 
 }
 
-export default modifyMeeting
+export default editMeeting

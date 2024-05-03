@@ -6,7 +6,7 @@ import SubmitButton from './library/SubmitButton'
 
 import { useContext } from '../context'
 
-function EditMeeting({onMeetingCreated}) {
+function EditMeeting({onMeetingEdited, onCancelClick}) {
 
     const { showFeedback } = useContext()
 
@@ -29,7 +29,7 @@ function EditMeeting({onMeetingCreated}) {
         logger.debug('EditMeeting -> handleSubmit')
 
         try {
-            logic.modifyMeeting(meeting.id, title, address, location, date, description, image)
+            logic.editMeeting(props.meeting.id, title, address, location, date, description, image)
                 .then(() => {
                     form.reset()
 
@@ -41,7 +41,7 @@ function EditMeeting({onMeetingCreated}) {
         }
     }
 
-    const handleCancelClick = () => props.onCancelClick()
+    const handleCancelClick = () => onCancelClick()
 
     logger.debug('EditMeeting -> render')
 

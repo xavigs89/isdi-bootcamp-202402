@@ -271,7 +271,7 @@ mongoose.connect(MONGODB_URL)
                 const meetingId = req.params.id
 
                 logic.removeMeeting(userId as string, meetingId as string)
-                    .then(() => res.json())
+                    .then(() => res.status(204).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
                             logger.error(error.message)
@@ -302,11 +302,11 @@ mongoose.connect(MONGODB_URL)
                 const { authorization } = req.headers
                 const token = authorization.slice(7)
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
-        
+
                 const meetingId = req.params.id
                 const { title, address, location, date, description, image } = req.body
-        
-                logic.modifyMeeting(meetingId, userId as string, title, address, location, date, description, image)
+
+                logic.editMeeting(meetingId as string, userId as string, title, address, location, date, description, image)
                     .then(() => res.status(200).send())
                     .catch(error => {
                         if (error instanceof SystemError) {

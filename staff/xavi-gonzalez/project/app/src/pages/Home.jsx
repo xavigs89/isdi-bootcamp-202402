@@ -57,16 +57,6 @@ function Home({ onUserLoggedOut }) {
     const handleCreateMeetingClick = () => setView('create-meeting')
 
 
-    // // LOGOUT
-    // const handleLogoutClick = () => {
-    //     try {
-    //         logic.logoutUser()
-    //     } catch (error) {
-    //         logic.cleanUpLoggedInUserId()
-    //     } finally {
-    //         onUserLoggedOut()
-    //     }
-    // }
 
     // EDITAR MEETING
     const handleEditMeetingClick = meeting => {
@@ -147,7 +137,16 @@ function Home({ onUserLoggedOut }) {
 
 }
 
-
-
-
 export default Home
+
+
+  // LOGOUT
+    // const handleLogoutClick = () => {
+    //     try {
+    //         logic.logoutUser()
+    //     } catch (error) {
+    //         logic.cleanUpLoggedInUserId()
+    //     } finally {
+    //         onUserLoggedOut()
+    //     }
+    // }

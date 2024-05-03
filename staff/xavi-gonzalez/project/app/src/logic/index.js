@@ -9,7 +9,7 @@ import cleanUpLoggedInUserId from './cleanUpLoggedInUserId'
 import createMeeting from './createMeeting'
 import retrieveMeetings from './retrieveMeetings'
 import removeMeeting from './removeMeeting'
-// import modifyMeeting from './modifyMeeting'
+import editMeeting from './editMeeting'
 
 // import retrieveProfile from 'retrieveProfile'
 // import editProfile from 'editProfile'
@@ -27,7 +27,7 @@ const logic = {
     createMeeting,
     retrieveMeetings,
     removeMeeting,
-    // modifyMeeting
+    editMeeting,
 
     //retrieveProfile
     //editProfile
