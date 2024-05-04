@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { errors } from 'com'
+// import { errors } from 'com'
 import mongoose from 'mongoose'
 import { expect, use } from 'chai'
 

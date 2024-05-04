@@ -10,6 +10,7 @@ import createMeeting from './createMeeting'
 import retrieveMeetings from './retrieveMeetings'
 import removeMeeting from './removeMeeting'
 import editMeeting from './editMeeting'
+import joinMeeting from './joinMeeting'
 
 // import retrieveProfile from 'retrieveProfile'
 // import editProfile from 'editProfile'
@@ -28,6 +29,7 @@ const logic = {
     retrieveMeetings,
     removeMeeting,
     editMeeting,
+    joinMeeting,
 
     //retrieveProfile
     //editProfile

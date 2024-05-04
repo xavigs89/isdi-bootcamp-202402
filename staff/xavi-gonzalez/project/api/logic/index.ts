@@ -9,6 +9,9 @@ import editMeeting from './editMeeting.ts'
 import removeMeeting from './removeMeeting.ts'
 import joinMeeting from './joinMeeting.ts'
 
+// import retrieveJoinedMeetings from './retrieveJoinedMeetings.ts'
+// import retrieveCreatedMeetings from './retrieveCreatedMeetings.ts'
+
 //import modifyProfile from './modifyProfile.ts'
 
 
@@ -20,10 +23,13 @@ const logic = {
     createMeeting,
     retrieveMeetings,
     retrieveCreatedMeetings,
-
     editMeeting,
     removeMeeting,
+
+
     joinMeeting,
+    // retrieveJoinedMeetings,
+    // retrieveCreatedMeetings
 
     //modifyProfile
 }

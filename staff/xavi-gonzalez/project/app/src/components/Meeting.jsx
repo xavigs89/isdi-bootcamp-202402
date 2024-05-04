@@ -92,7 +92,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     console.log(meeting)
 
 
-    return <article className="flex p-1 pl-4 mx-4 border rounded-xl shadow-md bg-white mt-4">
+    return <article className="max-w-sm mx-4 overflow-auto flex p-1 pl-4 border rounded-xl shadow-md bg-white mt-4">
 
         <div className="flex-col gap-4 mb-2">
             <p className="text-left font-semibold mbp text-xs">{meeting.author.name}</p>

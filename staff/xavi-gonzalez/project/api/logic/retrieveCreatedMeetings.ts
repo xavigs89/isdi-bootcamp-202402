@@ -8,7 +8,7 @@ import convertAttendeeToName from './convertAttendeeToName.ts';
 
 const { SystemError, NotFoundError } = errors
 
-function retrieveCreatedMeetings(userId): Promise<any> {
+function retrieveCreatedMeetings(userId: string): Promise<any> {
     validate.text(userId, 'userId', true)
 
     return User.findById(userId)

@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
 import { validate, errors } from "com"
 import { User, Meeting } from "../data/index.ts"
@@ -6,7 +6,7 @@ import { DuplicityError } from "com/errors"
 
 const { NotFoundError, SystemError } = errors
 
-function joinMeeting(meetingId, userId) {
+function joinMeeting(meetingId: string, userId: string) {
     validate.text(userId, 'userId', true)
     validate.text(meetingId, 'meetingId', true)
 
@@ -19,7 +19,7 @@ function joinMeeting(meetingId, userId) {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(meeting => {
                     if (!meeting) throw new NotFoundError('meeting not found')
-                    if (meeting.attendees.includes(userId)) throw new DuplicityError('user already exists')
+                    // if (meeting.attendees.includes(userId)) throw new DuplicityError('user already exists')
 
                     return Meeting.updateOne({ _id: meetingId }, { $push: { attendees: userId } })
                 })

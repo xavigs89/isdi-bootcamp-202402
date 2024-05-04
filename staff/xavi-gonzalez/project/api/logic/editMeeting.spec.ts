@@ -53,6 +53,7 @@ describe('editMeeting', () => {
                 expect(updatedMeeting.image).to.equal(updatedImage)
             })
     })
+    
 
     // TODO ERROR CASES
 
