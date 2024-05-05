@@ -1,8 +1,11 @@
 import { validate, errors } from 'com'
 
-function retrieveMeetings() {
+function retrieveCreatedMeetings() {
     validate.token(sessionStorage.token)
-    return fetch(`${import.meta.env.VITE_API_URL}/meetings`, {
+
+    const userId = sessionStorage.userId
+
+    return fetch(`${import.meta.env.VITE_API_URL}/meetings?userId=${userId}`, {
         headers: {
             'Authorization': `Bearer ${sessionStorage.token}`
         }
@@ -26,15 +29,4 @@ function retrieveMeetings() {
       
 }
 
-export default retrieveMeetings
-
-
-
-  //para filtrar meetings por fecha mas cercana y que no se muestren los meetings creados por el usuario logueado
-        // .then(meetings => {
-        //     const filteredMeetings = meetings.filter(meeting => meeting.creator !== sessionStorage.userId)
-
-        //     filteredMeetings.sort((a, b) => new Date(a.date) - new Date(b.date))
-
-        //     return filteredMeetings
-        // })
+export default retrieveCreatedMeetings

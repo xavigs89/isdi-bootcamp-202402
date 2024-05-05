@@ -86,8 +86,10 @@ function Home({ onUserLoggedOut }) {
 
 
 
-            <main className="flex flex-col h-screen items-center my-[45px] px-[1vw] bg-[#249D8C]">
-                <h1 className='text-black text-center font-bold mt-4'>Upcoming Meetings</h1>
+            <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
+                <div>
+                <h1 className='text-black text-center font-bold mt-16'>Upcoming Meetings</h1>
+                </div>
 
                 {/* 
                 <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
@@ -108,7 +110,7 @@ function Home({ onUserLoggedOut }) {
 
                     <button className="w-8 h-8 rounded-full ml-2"><img src="../../public/icons/OcticonSearch.png" alt="search" /></button>
 
-                    <button onClick={handleCreateMeetingClick} className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/BiPlusSquare.png" alt="search" /></button>
+                    <button onClick={handleCreateMeetingClick} className="w-8 h-8 rounded-full mr-4"><img src="../../public/icons/BiPlusSquare.png" alt="search" /></button>
 
                     <Link to="/profile">
                         <button>{user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="w-10 h-10 rounded-full mr-2" src="../../public/icons/CarbonUserAvatarFilledAlt.png" alt="profile pic"></img>}</button>

@@ -26,7 +26,6 @@ describe('joinMeeting', () => {
             .then(user => 
                 Promise.all([
                     User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
-                        .then
 
                 ])
             )

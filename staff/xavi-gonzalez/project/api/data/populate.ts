@@ -25,13 +25,19 @@ mongoose.connect('mongodb://localhost:27017/project')
             .then(([user2, user3, user4, user5, user6, user7, user8, user9, user10]) => {
                 return Meeting.create({ author: user1._id, title: 'My Event', address: 'Sesame Street',
                 location: [41.3752827972332, 2.1480333604674424],
-                date: new Date(),
+                date: new Date().toISOString(),
                 description: 'We are going to make asadito',
                 image: 'https://media.tenor.com/4vEak67C7BoAAAAe/fort-ricardo-fort.png',
                 attendees: [user1.id, user2.id, user3.id, user4.id, user5.id, user6.id, user7.id, user8.id, user9.id, user10.id] })
             })
+    })
+    .then(() => mongoose.disconnect())
+    .then(() => console.log('populated'))
+    .catch(console.error);
 
-        // return Meeting.create([
+
+
+          // return Meeting.create([
         //     {
         //         author: user._id,
         //         title: 'My Event',
@@ -44,8 +50,3 @@ mongoose.connect('mongodb://localhost:27017/project')
         //     }
 
         // ])
-
-    })
-    .then(() => mongoose.disconnect())
-    .then(() => console.log('populated'))
-    .catch(console.error);

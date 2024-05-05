@@ -18,6 +18,7 @@ function retrieveCreatedMeetings(userId: string): Promise<any> {
                 throw new NotFoundError('user not found')
 
             return Meeting.find({ author: userId }) // Filtrar reuniones por ID de autor
+                .sort({ date: 1 })
                 .populate<{ author: { _id: ObjectId, name: string } }>('author', 'name').lean()
                 .populate<{ attendees: [{ id: ObjectId, name: string }] }>('attendees', '_id name').lean()
                 .catch(error => { throw new SystemError(error.message) })

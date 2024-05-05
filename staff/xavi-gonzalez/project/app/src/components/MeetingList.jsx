@@ -8,7 +8,7 @@ import Meeting from './Meeting'
 
 import { useContext } from '../context'
 
-function MeetingList({ stamp, onEditMeetingClick }) {
+function MeetingList({ stamp, onEditMeetingClick, onJoinMeetingClick }) {
     const [meetings, setMeetings] = useState([])
 
     const { showFeedback } = useContext()
@@ -35,12 +35,18 @@ function MeetingList({ stamp, onEditMeetingClick }) {
 
     const handleEditClick = meeting => onEditMeetingClick(meeting)
 
+    const handleJoinClick = meeting => onJoinMeetingClick(meeting)
+
     logger.debug('MeetingList -> render')
 
-    return <section className="">
+    return <ul>
         {meetings.map(meeting =>
-            <Meeting key={meeting.id} item={meeting} onEditClick={handleEditClick} onDeleted={handleMeetingDeleted} onClick={() => handleSelectedMeeting(meeting)} />)}
-    </section>
+            <Meeting key={meeting.id} item={meeting} 
+            onJoinClick={handleJoinClick}
+            onEditClick={handleEditClick} 
+            onDeleted={handleMeetingDeleted} 
+            onClick={() => handleSelectedMeeting(meeting)} />)}
+    </ul>
 }
 
 

@@ -17,8 +17,8 @@ function retrieveMeetings(userId: string): Promise<any> {
             if (!user)
                 throw new NotFoundError('user not found')
 
-            return Meeting.find()
-                .populate<{ author: { _id: ObjectId, name: string } }>('author', 'name').lean()
+            return Meeting.find().sort({ date: 1 })
+            .populate<{ author: { _id: ObjectId, name: string } }>('author', 'name').lean()
                 .populate<{ attendees: [{ id: ObjectId, name: string }] }>('attendees', '_id name').lean()
                 
                 .catch(error => { throw new SystemError(error.message) })
@@ -32,11 +32,10 @@ function retrieveMeetings(userId: string): Promise<any> {
                         title,
                         address,
                         location,
-                        date,
+                        date: date.toLocaleString('es-ES').slice(0, -3),
                         description,
                         image,
                         attendees
-                        //ordenar por fecha mas cercana
                     }))
                 )
         })

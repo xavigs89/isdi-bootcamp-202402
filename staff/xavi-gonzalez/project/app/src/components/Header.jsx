@@ -33,7 +33,7 @@ function Header({ onUserLoggedOut }) {
 
             <div className="flex items-center">
                 <Link to="/"
-                    className="w-10 h-10 rounded-full mb-2"><img src="../../public/icons/MaterialSymbolsHome.png" alt="home" />
+                    className="w-10 h-10 rounded-full mb-2"><img src="../../public/icons/Home.png" alt="home" />
                 </Link>
 
                 {user && <h1 className="text-left font-bold text-xs">{user.name}</h1>}

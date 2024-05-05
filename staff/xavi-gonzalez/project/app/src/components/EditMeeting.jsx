@@ -49,22 +49,22 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
     >
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2" >
             <label className="text-lg font-semibold"  >Title</label>
-            <input id="title" name="title" type="text" />
+            <input id="title" defaultValue={meeting.title} name="title" type="text" />
 
             <label className="text-lg font-semibold" >Address</label>
-            <input id="address" name="address" type="text" />
+            <input id="address" defaultValue={meeting.address}  name="address" type="text" />
 
             <label className="text-lg font-semibold" >Location</label>
-            <input id="location" name="location" type="text" />
+            <input id="location" defaultValue={meeting.location} name="location" type="text" />
 
             <label className="text-lg font-semibold" >Date</label>
-            <input id="date" name="date" type="datetime-local" min={Date.now()} />
+            <input id="date" defaultValue={meeting.date ? new Date(meeting.date).toISOString().slice(0, 16) : ''} name="date" type="datetime-local" min={Date.now()} />
 
             <label className="text-lg font-semibold" >Description</label>
-            <input id="description" name="description" type="text" />
+            <input id="description" defaultValue={meeting.description} name="description" type="text" />
 
             <label className="text-lg font-semibold" >Image</label>
-            <input id="image" name="image" type="url" />
+            <input id="image" defaultValue={meeting.image} name="image" type="url" />
 
             <SubmitButton type="submit" className="text-lg font-semibold" >Save Changes</SubmitButton>
         </form>
