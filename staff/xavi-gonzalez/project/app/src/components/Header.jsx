@@ -29,22 +29,24 @@ function Header({ onUserLoggedOut }) {
 
     return (
 
-        <header className="fixed top-0 w-full h-[55px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-2">
+        <header className="fixed top-0 w-full h-[62px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-2">
 
-            <div className="flex items-center">
+            <div className="flex items-center space-x-1">
                 <Link to="/"
-                    className="w-10 h-10 rounded-full mb-2"><img src="../../public/icons/Home.png" alt="home" />
+                    className="w-11 h-11 rounded-full mb-2"><img src="../../public/icons/Home.png" alt="home" />
+                    
+                {user && <h1 className="text-center font-bold text-xs absolute">{user.name}</h1>}
+
                 </Link>
 
-                {user && <h1 className="text-left font-bold text-xs">{user.name}</h1>}
             </div>
 
 
-            <div className="flex items-center">
+            <div className="absoluteflex items-center">
                 <img className="w-[50px] flex " src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
             </div>
 
-            <button className="space-between mr-1 h-10 w-10" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
+            <button className="h-11 w-11" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
 
         </header>
 

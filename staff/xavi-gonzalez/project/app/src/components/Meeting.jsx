@@ -82,7 +82,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
                 <button onClick={() => { setView('open'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowDownCircle.png" alt="" /></button>}
 
             {view === 'open' &&
-                <div className='flex flex-col'>
+                <div className='flex flex-col overflow-auto max-h-[200px]'>
                     <div>
                         <p><strong>Description: </strong>{meeting.description}</p>
                         <p><strong>Location: </strong>{meeting.location}</p>
@@ -97,6 +97,8 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
             }
 
         </div>
+
+        
         <div className="flex justify-end">
             {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
 
