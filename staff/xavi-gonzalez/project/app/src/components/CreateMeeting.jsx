@@ -47,13 +47,12 @@ function CreateMeeting({onMeetingCreated, onCancelClick}) {
 
     logger.debug('CreateMeeting -> render')
 
-    return <section className="bg-[#F4C84B] py-8 px-4"
-    >
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4" >
+    return <section className="bg-[#F4C84B] py-8 px-4 border-rounded xl">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center" >
             <label className="text-lg font-semibold"  >Title</label>
             <input id="title" name="title" type="text" />
 
-            <label className="text-lg font-semibold" >Address</label>
+            <label className="text-lg font-semibold " >Address</label>
             <input id="address" name="address" type="text" />
 
             <label className="text-lg font-semibold" >Location</label>
@@ -68,10 +67,11 @@ function CreateMeeting({onMeetingCreated, onCancelClick}) {
             <label className="text-lg font-semibold" >Image</label>
             <input id="image" name="image" type="url" />
 
-            <SubmitButton type="submit" className="text-lg font-semibold" >Create Meeting</SubmitButton>
-        </form>
+            <SubmitButton type="submit" className="font-semibold py-2 px-4 rounded w-full mt-4" >Create Meeting</SubmitButton>
 
-        <CancelButton onClick={handleCancelClick} />
+            <CancelButton className="font-semibold py-2 px-4 rounded w-full mt-4"onClick={handleCancelClick} />
+
+        </form>
 
     </section>
 

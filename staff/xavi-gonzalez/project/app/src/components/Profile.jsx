@@ -10,12 +10,34 @@ function Profile({onUserLoggedOut}) {
 
     const { name } = useParams()
 
+    // const loadMeetings = () => {
+
+    //     try {
+    //         logic.retrieveJoinedMeetings()
+    //             .then(setMeetings)
+    //             .catch(error => alert(error))
+    //     } catch (error) {
+    //         alert(error)
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     loadMeetings()
+    // }, [])
+
     // TODO call api to get posts by username
 
 
     return <>
-    <main className="h-screen bg-white">
+    <main className="flex justify-between items-start h-screen bg-[#249D8C]">
         <Header onUserLoggedOut={onLogout}/>
+
+        {/* <section>
+            <div>
+                <h1>Your matches:</h1>
+            </div>
+            <MatchesList matches={matches} />
+        </section> */}
 
 
 

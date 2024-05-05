@@ -90,8 +90,8 @@ function App() {
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
 
-        {/* <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
-          onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} /> */}
+        <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
+          onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
 
 
@@ -101,7 +101,7 @@ function App() {
 
     {feedback && <Feedback message={feedback.message} level={feedback.level} onAcceptClick={handleFeedbackAcceptClick} />}
 
-    {confirm && <Confirm message="hola confirm" onCancelClick={handleConfirmCancelClick} onAcceptClick={handleConfirmAcceptClick} />}
+    {confirm && <Confirm message="Do you want to delete meeting?" onCancelClick={handleConfirmCancelClick} onAcceptClick={handleConfirmAcceptClick} />}
 
   </>
 

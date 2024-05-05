@@ -31,23 +31,6 @@ function MeetingList({ stamp, onEditMeetingClick }) {
     }, [stamp])
 
 
-    // const loadMeetings = () => {
-
-    //     logger.debug('MeetingList -> loadMeetings')
-
-    //     try {
-    //         logic.retrieveMeetings()
-    //             .then(setMeetings)
-    //             .catch(error => showFeedback(error, 'error'))
-    //     } catch (error) {
-    //         showFeedback(error)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     loadMeetings()
-    // }, [stamp])
-
     const handleMeetingDeleted = () => loadMeetings()
 
     const handleEditClick = meeting => onEditMeetingClick(meeting)

@@ -1,0 +1,54 @@
+//@ts-nocheck
+import dotenv from 'dotenv'
+import mongoose from 'mongoose'
+import { User, Meeting } from '../data/index.ts'
+import logic from './index.ts'
+import { expect, use } from 'chai'
+import { errors } from 'com'
+
+
+import chaiAsPromised from 'chai-as-promised'
+
+dotenv.config()
+
+use(chaiAsPromised)
+
+const { Types: { ObjectId } } = mongoose
+const { NotFoundError, SystemError } = errors
+
+describe('retrieveJoinedMeetings', () => {
+    before(() => mongoose.connect(process.env.MONGODB_TEST_URL));
+
+    it('retrieves only meetings that an existing user has joined', () =>
+        Promise.all([
+            User.deleteMany({}),
+            Meeting.deleteMany({})
+        ])
+        .then(() =>
+            Promise.all([
+                User.create({ name: 'Xavi Gonzalez', email: 'xavi@gmail.com', password: '123qwe123', avatar: null, about: null }),
+                User.create({ name: 'Perico de los Palotes', email: 'perico@gmail.com', password: 'Isdicoders1', avatar: null, about: null }),
+                User.create({ name: 'Armando Guerra', email: 'armando@gmail.com', password: 'Isdicoders1', avatar: null, about: null })
+            ])
+        )
+        .then(([user1, user2]) => {
+            return Promise.all([
+                Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id] }),
+                Meeting.create({ author: user1.id, title: 'My Event 2', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id, user2.id] }),
+                Meeting.create({ author: user1.id, title: 'My Event 3', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user2.id] })
+            ])
+            .then(([meeting1, meeting2, meeting3]) => {
+                console.log('created meetings', meeting1, meeting2, meeting3)
+                return logic.retrieveJoinedMeetings(user1.id)
+                    .then(meetings => {
+                        console.log('retrieved meetings', meetings)
+                        expect(meetings).to.have.lengthOf(2)
+                        expect(meetings).to.deep.include.members([meeting1, meeting2])
+                        expect(meetings).to.not.deep.include.members([meeting3])
+                    })
+            })
+        })
+    )
+
+    after(() => mongoose.disconnect());
+})

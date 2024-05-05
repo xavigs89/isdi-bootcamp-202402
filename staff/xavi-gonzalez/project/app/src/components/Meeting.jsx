@@ -9,9 +9,13 @@ import { useContext } from '../context'
 
 function Meeting({ item: meeting, onEditClick, onDeleted }) {
 
-    //hacer que foro de meeting desaparezca cuando das a show details
-    // const [detailsView, setDetailsView] = useState(false)
-    // const [showImage, setShowImage] = useState(true)
+    //hacer que foto de meeting desaparezca cuando das a show details
+    const [detailsView, setDetailsView] = useState(false)
+    const [showImage, setShowImage] = useState(true)
+
+    const toggleImageVisibility = () => {
+        setShowImage(!showImage);
+    }
 
 
     const [view, setView] = useState('close')
@@ -55,9 +59,9 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     const handleJoinMeeting = () => {
         const loggedInUserId = logic.getLoggedInUserId();
         if (!meeting.attendees.includes(loggedInUserId)) {
-            logic.addAttendeeToMeeting(meeting.id, loggedInUserId)
+            logic.joinMeeting(meeting.id, loggedInUserId)
                 .then(() => {
-                    retrieveAttendees();
+                    meeting.attendees.push(loggedInUserId)
                 })
                 .catch(error => {
                     console.error('Error joining meeting:', error);
@@ -70,8 +74,6 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     const handleEditClick = meeting => onEditClick(meeting)
 
     const handleDeleteClick = meetingId => {
-  
-    console.log("click before confirm")
         showConfirm('Do you want to delete meeting?', confirmed => {
             if (confirmed)
                 try {
@@ -92,9 +94,9 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     console.log(meeting)
 
 
-    return <article className="max-w-sm mx-4 overflow-auto flex p-1 pl-4 border rounded-xl shadow-md bg-white mt-4">
+    return <article className="max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
 
-        <div className="flex-col gap-4 mb-2">
+        <div className="flex flex-col text-black font-semibold p-2">
             <p className="text-left font-semibold mbp text-xs">{meeting.author.name}</p>
             <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
             <p><strong>Address: </strong>{meeting.address}</p>
@@ -107,29 +109,30 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
             }).replace(',', '')}h</p>
 
 
-            {view === 'close' && (
-                <button className="items-center" onClick={() => setView('open')}>show details</button>
-            )}
+            {view === 'close' &&
+                <button onClick={() => { setView('open'); toggleImageVisibility(); }} className="flex">show details</button>}
 
-            {view === 'open' && (
+            {view === 'open' && <div className='flex flex-col'>
                 <div>
-                    <div>
-                        <p><strong>Description: </strong>{meeting.description}</p>
-                        <p><strong>Location: </strong>{meeting.location}</p>
-                    </div>
-                    <div>
-                        <p><strong>Attendees: </strong></p>
-                        <ul className='flex flex-col'>{meeting.attendees.map(attendee => <li>{attendee.name}</li>)}</ul>
-                    </div>
-
-                    <button onClick={() => setView('close')}>X</button>
+                    <p><strong>Description: </strong>{meeting.description}</p>
+                    <p><strong>Location: </strong>{meeting.location}</p>
                 </div>
-            )}
+                <div>
+                    <p><strong>Attendees: </strong></p>
+                    <ul className='flex flex-col'>{meeting.attendees.map(attendee => <li>{attendee.name}</li>)}</ul>
+                </div>
+
+                <button onClick={() => { setView('close'); toggleImageVisibility(); }}>X</button>
+            </div>
+            }
 
         </div>
         <div className="flex justify-end">
-            <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />
-            <div>
+            {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
+
+            {logic.getLoggedInUserId() !== meeting.author.id && (
+                    <button onClick={handleJoinMeeting} className="w-5 h-5  ">Join</button>
+                )}
                 {logic.getLoggedInUserId() === meeting.author.id && (
                     <div className="flex justify-end">
 
@@ -137,10 +140,10 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
                         <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5  "><img src="../../public/icons/TopcoatDelete.png" alt="delete" /></button>
                     </div>
                 )}
+            <div>
+          
 
-                {logic.getLoggedInUserId() !== meeting.author.id && (
-                    <button onClick={handleJoinMeeting} className="w-5 h-5  ">Join</button>
-                )}
+
             </div>
 
         </div>

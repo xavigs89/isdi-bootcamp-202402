@@ -29,28 +29,22 @@ function Header({ onUserLoggedOut }) {
 
     return (
 
-        <header className="fixed top-0 w-full h-[50px] flex items-center justify-center bg-[#F4C84B] p-2">
+        <header className="fixed top-0 w-full h-[55px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-2">
 
-
-            <Link to="/"
-                className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/MaterialSymbolsHome.png" alt="home" />
-            </Link>
-
-            <div className="  flex-col text-left">
-                {/* ml-auto mr-1 flex */}
+            <div className="flex items-center">
+                <Link to="/"
+                    className="w-10 h-10 rounded-full mb-2"><img src="../../public/icons/MaterialSymbolsHome.png" alt="home" />
+                </Link>
 
                 {user && <h1 className="text-left font-bold text-xs">{user.name}</h1>}
-                {/* {user && <p className="text-white text-lg font-light">{user.email}</p>} */}
             </div>
 
 
-            <div className=''>
-
+            <div className="flex items-center">
                 <img className="w-[50px] flex " src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
-
             </div>
 
-            <button className="ml-auto mr-1 h-10 w-10" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
+            <button className="space-between mr-1 h-10 w-10" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
 
         </header>
 

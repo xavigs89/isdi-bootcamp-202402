@@ -47,7 +47,7 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
 
     return <section className="edit-meeting bg-[#F4C84B] py-8 px-4"
     >
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4" >
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-2" >
             <label className="text-lg font-semibold"  >Title</label>
             <input id="title" name="title" type="text" />
 
@@ -66,7 +66,7 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
             <label className="text-lg font-semibold" >Image</label>
             <input id="image" name="image" type="url" />
 
-            <SubmitButton type="submit" className="text-lg font-semibold" >Save Meeting</SubmitButton>
+            <SubmitButton type="submit" className="text-lg font-semibold" >Save Changes</SubmitButton>
         </form>
 
         <CancelButton onClick={handleCancelClick} />

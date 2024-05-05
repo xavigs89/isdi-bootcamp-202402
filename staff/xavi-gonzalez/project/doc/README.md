@@ -15,7 +15,7 @@ JiveHub is a platform that connects people with common interests and enables the
 - remove event
 - join event 
 - view attendee list
-- search for events (by location, date and category)
+- search for events (by location, date)
 - see user profile (see its events and reviews of those events created.)
 - edit profile (profile picture, about me, contact, see created events, see joined events)
 - rate event (once it's over, from 1 to 5 stars, optional comment)
