@@ -32,7 +32,7 @@ describe('removeMeeting', () => {
                                     })
                                     .then(() => Meeting.find({})) 
                                     .then(meeting => { 
-                                        console.log(meeting)
+                      
                                         expect(meeting).to.deep.equal([]);
                                     })
                             )

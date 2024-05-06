@@ -46,7 +46,7 @@ describe('retrieveMeetings', () => {
                                 User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123' })
                                     .then(user => logic.retrieveMeetings(user.id))
                                     .then(meetings => {
-                                        console.log(meetings)
+                                    
                                         expect(meetings).to.have.lengthOf(1)
                                         expect(meeting1.title).to.equal('My Event')
                                         expect(meeting1.address).to.equal('Calle falsa 1,2,3')

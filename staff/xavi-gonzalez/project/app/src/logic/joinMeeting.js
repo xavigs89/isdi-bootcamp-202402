@@ -11,12 +11,10 @@ function joinMeeting(meetingId) {
 
     const { sub: userId } = payload
 
-
-
     return fetch(`${import.meta.env.VITE_API_URL}/meetings/join/${meetingId}`, {
         method: 'PUT',
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`,
+            Authorization: `Bearer ${sessionStorage.token}`,
         }
     })
 

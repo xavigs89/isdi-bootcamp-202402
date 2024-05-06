@@ -43,7 +43,7 @@ describe('editMeeting', () => {
         return logic.editMeeting(meetingId, userId, updatedTitle, updatedAddress, updatedLocation, updatedDate, updatedDescription, updatedImage)
             .then(() => Meeting.findById(meetingId))
             .then(updatedMeeting => {
-                console.log(updatedMeeting)
+
                 expect(updatedMeeting).to.exist
                 expect(updatedMeeting.title).to.equal(updatedTitle)
                 expect(updatedMeeting.address).to.equal(updatedAddress)

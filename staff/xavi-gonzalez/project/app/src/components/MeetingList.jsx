@@ -12,18 +12,36 @@ function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }
     const [meetings, setMeetings] = useState([])
     const { showFeedback } = useContext()
 
+    //ALL MEETINGS, PASADOS Y FUTUROS
+    // const loadMeetings = () => {
+    //     logger.debug('MeetingList -> loadMeetings')
 
+    //     try {
+    //         logic.retrieveMeetings()
+    //             .then(retrievedMeetings => setMeetings(retrievedMeetings))
+    //             .catch(error => showFeedback(error, 'error'))
+    //     } catch (error) {
+    //         showFeedback(error)
+    //     }
+    // }
+
+
+    //UPCOMING MEETINGS, NO SE MUESTRAN MEETINGS PASADOS
     const loadMeetings = () => {
         logger.debug('MeetingList -> loadMeetings')
 
         try {
             logic.retrieveMeetings()
-                .then(retrievedMeetings => setMeetings(retrievedMeetings))
-                .catch(error => showFeedback(error, 'error'))
+                .then(retrievedMeetings => {
+                    const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
+                    setMeetings(upcomingMeetings)
+                })
+                .catch(error => showFeedback(error, 'error'));
         } catch (error) {
             showFeedback(error)
         }
     }
+
 
     useEffect(() => {
         loadMeetings()
@@ -43,6 +61,8 @@ function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }
             <Meeting key={meeting.id} item={meeting} setStamp={setStamp}
                 onJoinClick={handleJoinClick}
                 onEditClick={handleEditClick}
+                // onCreateCick={handleCreatedClick}
+                // onJoinedClick={handleJoinedClick}
                 onDeleted={handleMeetingDeleted}
                 onClick={() => handleSelectedMeeting(meeting)} />)}
     </ul>

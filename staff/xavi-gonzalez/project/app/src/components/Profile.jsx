@@ -12,7 +12,7 @@ import MeetingList from '../components/MeetingList'
 
 import { useState, useEffect } from 'react'
 
-function Profile({ stamp, onUserLoggedOut }) {
+function Profile({ item: meeting, stamp, onUserLoggedOut, onJoinedClick, onCreateClick }) {
 
     const onLogout = () => onUserLoggedOut()
     const { showFeedback } = useContext()
@@ -23,7 +23,7 @@ function Profile({ stamp, onUserLoggedOut }) {
     const [meetings, setMeetings] = useState([false])
 
   
-    const { name } = useParams()
+    // const { name } = useParams()
 
     const loadMeetings = () => {
 
@@ -40,7 +40,9 @@ function Profile({ stamp, onUserLoggedOut }) {
         loadMeetings()
     }, [stamp])
 
+    // const handleCreatedClick = meeting => onCreateClick(meeting)
 
+    // const handleJoinedClick = meeting => onJoinedClick(meeting)
 
     // const loadMeetings = () => {
 
@@ -72,13 +74,15 @@ function Profile({ stamp, onUserLoggedOut }) {
 
                 <div className="space-between flex items-center grid-cols-4 gap-4 mt-16">
                     <button id="goback-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Go Back</button>
-                    <button id="createdmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
-                    <button id="joinedmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
+
+                    <button onClick={() => handleCreatedClick(meeting)}  id="createdmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
+
+                    <button onClick={() => handleJoinedClick(meeting)} id="joinedmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
                     <button id="about-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
 
                 </div>
 
-                <MeetingList meetings={meetings} />
+                {/* <MeetingList meetings={meetings} /> */}
 
 
             </section>

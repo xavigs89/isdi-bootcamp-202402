@@ -4,11 +4,14 @@ import retrieveUser from './retrieveUser.ts'
 
 import createMeeting from './createMeeting.ts'
 import retrieveMeetings from './retrieveMeetings.ts'
+
 import retrieveCreatedMeetings from './retrieveCreatedMeetings.ts'
 import retrieveJoinedMeetings from './retrieveJoinedMeetings.ts'
 import editMeeting from './editMeeting.ts'
 import removeMeeting from './removeMeeting.ts'
+
 import joinMeeting from './joinMeeting.ts'
+import unjoinMeeting from './unjoinMeeting.ts'
 
 import retrieveAbout from './retrieveAbout.ts'
 
@@ -25,6 +28,7 @@ const logic = {
 
     createMeeting,
     retrieveMeetings,
+
     retrieveCreatedMeetings,
     retrieveJoinedMeetings,
     editMeeting,
@@ -32,6 +36,7 @@ const logic = {
 
 
     joinMeeting,
+    unjoinMeeting,
 
     retrieveAbout,
 
