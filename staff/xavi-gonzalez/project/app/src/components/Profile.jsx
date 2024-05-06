@@ -78,7 +78,7 @@ function Profile({ stamp, onUserLoggedOut }) {
 
                 </div>
 
-                {/* <MeetingList meetings={meetings} /> */}
+                <MeetingList meetings={meetings} />
 
 
             </section>

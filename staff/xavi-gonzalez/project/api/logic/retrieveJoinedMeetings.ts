@@ -18,7 +18,7 @@ function retrieveJoinedMeetings(userId: string): Promise<any> {
                 .sort({ date: 1 })
                 .populate<{ author: { _id: ObjectId, name: string } }>('author', 'name').lean()
                 .populate<{ attendees: [{ id: ObjectId, name: string }] }>
-                ('attendees', '_id name').lean()
+                ('attendees', '_id name').lean().exec()
 
                 .catch(error => { throw new SystemError(error.message) })
                 .then(meetings =>

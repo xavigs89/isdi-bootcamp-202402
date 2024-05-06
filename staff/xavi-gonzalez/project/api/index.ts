@@ -469,6 +469,13 @@ mongoose.connect(MONGODB_URL)
         })
 
 
+        //RETRIEVE ABOUT CON EXPRESS
+        api.get('/users/:userId/about', (req, res) => {
+
+        }
+    )
+    
+
 
         api.listen(PORT, () => logger.info(`API listening on port ${PORT}`))
     })

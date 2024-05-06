@@ -94,7 +94,7 @@ function Home({ onUserLoggedOut }) {
                 {/* 
                 <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
                 <Routes>
-                    <Route path="/" element={<MeetingList stamp={stamp} onEditMeetingClick={handleEditMeetingClick} />} />
+                    <Route path="/" element={<MeetingList stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} />} />
 
                     {<Route path="/profile/:name" element={<Profile />} />}
                 </Routes>

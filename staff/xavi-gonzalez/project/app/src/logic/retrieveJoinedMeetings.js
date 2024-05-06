@@ -13,7 +13,7 @@ function retrieveJoinedMeetings() {
 
     return fetch(`${import.meta.env.VITE_API_URL}/meetings/joined`, {
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`
+            'Authorization': `Bearer ${sessionStorage.token}`
         }
     })
 

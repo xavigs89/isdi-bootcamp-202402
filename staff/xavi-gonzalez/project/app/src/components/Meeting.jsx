@@ -7,7 +7,7 @@ import logic from '../logic'
 
 import { useContext } from '../context'
 
-function Meeting({ item: meeting, onEditClick, onDeleted }) {
+function Meeting({ item: meeting, onEditClick, onDeleted, setStamp }) {
 
     //hacer que foto de meeting desaparezca cuando das a show details
     const [detailsView, setDetailsView] = useState(false)
@@ -17,14 +17,13 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
         setShowImage(!showImage)
     }
 
-
     const [view, setView] = useState('close')
 
     const { showFeedback, showConfirm } = useContext()
 
     const [joined, setJoined] = useState(false)
 
-  
+
 
     //BOTON JOIN MEETING 
     const handleJoinClick = () => {
@@ -32,14 +31,34 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
         if (!meeting.attendees.includes(loggedInUserId)) {
             logic.joinMeeting(meeting.id, loggedInUserId)
                 .then(() => {
-                    meeting.attendees.push(loggedInUserId)
                     setJoined(true)
+                    setStamp(Date.now())
                 })
                 .catch(error => {
-                    console.error('Error joining meeting:', error)
+                    showFeedback(error)
                 })
         }
     }
+
+
+
+    // const loadMeetings = () => {
+    //     logger.debug('MeetingList -> loadMeetings')
+
+    //     try {
+    //         logic.retrieveMeetings()
+    //             .then(retrievedMeetings => setMeetings(retrievedMeetings))
+    //             .catch(error => showFeedback(error, 'error'))
+    //     } catch (error) {
+    //         showFeedback(error)
+    //     }
+    // }
+
+
+
+
+    //loadmeetings
+    // stamp
 
     // BOTON UNJOINED CLICK
     // const handleUnjoinClick = () => {
@@ -50,7 +69,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     //                 const index = meeting.attendees.indexOf(loggedInUserId)
     //                 if (index > -1) {
     //                     meeting.attendees.splice(index, 1);
-    //                     setJoined(false); // Cambiar el estado a false cuando el usuario deje la reunión
+    //                     setJoined(false); // Cambiar el estado a false cuando el usuario deje el meeting
     //                 }
     //             })
     //             .catch(error => {
@@ -104,7 +123,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
                     </div>
                     <div>
                         <p><strong>Attendees: </strong></p>
-                        <ul className='flex flex-col'>{meeting.attendees}</ul>
+                        <ul className='flex flex-col'>{meeting.attendees.join(', ')}</ul>
                     </div>
 
                     <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
@@ -113,7 +132,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
 
         </div>
 
-        
+
         <div className="flex justify-end">
             {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
 
@@ -144,45 +163,45 @@ export default Meeting
 
 
 
-  // const [attendees, setAttendees] = useState([])
+// const [attendees, setAttendees] = useState([])
 
-    // const attendeesNames = meeting.attendees.map((attendee) => attendee.name)
+// const attendeesNames = meeting.attendees.map((attendee) => attendee.name)
 
-    // setAttendees(attendeesNames)
+// setAttendees(attendeesNames)
 
-    // console.log(attendees)
-
-
-
-    // useEffect(() => {
-    //     const retrieveAttendeesNames = () => {
-    //         let retrievedAttendees = []
-    //         try {
-    //             meeting.attendees.forEach(attendee => {
-    //                 logic.retrieveUser(attendee)
-    //                     .then(user => {
-    //                         retrievedAttendees.push(user.name)
-    //                     })
-    //                     .then(() => setAttendees(retrievedAttendees))
-    //                     .then(() => console.log(attendees))
-    //                     .catch(error)
-
-    //             })
-
-    //         } catch (error) {
-
-    //         }
-    //     }
-    //     retrieveAttendeesNames()
-    // }, [])
+// console.log(attendees)
 
 
 
+// useEffect(() => {
+//     const retrieveAttendeesNames = () => {
+//         let retrievedAttendees = []
+//         try {
+//             meeting.attendees.forEach(attendee => {
+//                 logic.retrieveUser(attendee)
+//                     .then(user => {
+//                         retrievedAttendees.push(user.name)
+//                     })
+//                     .then(() => setAttendees(retrievedAttendees))
+//                     .then(() => console.log(attendees))
+//                     .catch(error)
 
-    // {new Date(meeting.date).toLocaleString('es-ES', {
-    //     year: 'numeric',
-    //     month: 'numeric',
-    //     day: 'numeric',
-    //     hour: 'numeric',
-    //     minute: 'numeric'
-    // })}h
+//             })
+
+//         } catch (error) {
+
+//         }
+//     }
+//     retrieveAttendeesNames()
+// }, [])
+
+
+
+
+// {new Date(meeting.date).toLocaleString('es-ES', {
+//     year: 'numeric',
+//     month: 'numeric',
+//     day: 'numeric',
+//     hour: 'numeric',
+//     minute: 'numeric'
+// })}h

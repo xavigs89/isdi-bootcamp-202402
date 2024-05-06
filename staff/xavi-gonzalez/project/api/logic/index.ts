@@ -10,6 +10,8 @@ import editMeeting from './editMeeting.ts'
 import removeMeeting from './removeMeeting.ts'
 import joinMeeting from './joinMeeting.ts'
 
+import retrieveAbout from './retrieveAbout.ts'
+
 
 
 
@@ -31,7 +33,7 @@ const logic = {
 
     joinMeeting,
 
-
+    retrieveAbout,
 
     //modifyProfile
 }
