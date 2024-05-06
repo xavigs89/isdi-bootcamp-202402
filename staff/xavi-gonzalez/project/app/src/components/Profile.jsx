@@ -1,5 +1,7 @@
 import logic from '../logic'
 
+import RoundButton from './library/RoundButton'
+
 import { useParams } from 'react-router-dom'
 
 import Header from './Header'
@@ -69,14 +71,14 @@ function Profile({ stamp, onUserLoggedOut }) {
 
 
                 <div className="space-between flex items-center grid-cols-4 gap-4 mt-16">
-                    <button id="benchmarks-button" onClick={() => selectCategory('BenchMarks')} className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Go Back</button>
-                    <button id="benchmarks-button" onClick={() => selectCategory('BenchMarks')} className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
-                    <button id="normal-wod-button" onClick={() => selectCategory('Normal Wod')} className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
-                    <button id="strength-button" onClick={() => selectCategory('Strength')} className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
+                    <button id="goback-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Go Back</button>
+                    <button id="createdmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
+                    <button id="joinedmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
+                    <button id="about-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
 
                 </div>
 
-                <MeetingList meetings={meetings} />
+                {/* <MeetingList meetings={meetings} /> */}
 
 
             </section>

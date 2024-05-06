@@ -15,6 +15,7 @@ function retrieveJoinedMeetings(userId: string): Promise<any> {
             if (!user) throw new NotFoundError('user not found')
 
             return Meeting.find({ attendees: userId })
+                .sort({ date: 1 })
                 .populate<{ author: { _id: ObjectId, name: string } }>('author', 'name').lean()
                 .populate<{ attendees: [{ id: ObjectId, name: string }] }>
                 ('attendees', '_id name').lean()
@@ -33,7 +34,7 @@ function retrieveJoinedMeetings(userId: string): Promise<any> {
                         date,
                         description,
                         image,
-                        attendees,
+                        attendees: attendees.map(attendee => attendee.name)
                     }))
                 )
         })

@@ -13,7 +13,7 @@ JiveHub is a platform that connects people with common interests and enables the
 - create event
 - edit event
 - remove event
-- join event 
+- join event
 - view attendee list
 - search for events (by location, date)
 - see user profile (see its events and reviews of those events created.)

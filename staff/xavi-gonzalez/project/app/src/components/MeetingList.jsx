@@ -39,7 +39,7 @@ function MeetingList({ stamp, onEditMeetingClick, onJoinMeetingClick }) {
 
     logger.debug('MeetingList -> render')
 
-    return <ul>
+    return <ul className="mb-100px">
         {meetings.map(meeting =>
             <Meeting key={meeting.id} item={meeting} 
             onJoinClick={handleJoinClick}

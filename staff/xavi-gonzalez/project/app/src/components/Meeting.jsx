@@ -14,7 +14,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     const [showImage, setShowImage] = useState(true)
 
     const toggleImageVisibility = () => {
-        setShowImage(!showImage);
+        setShowImage(!showImage)
     }
 
 
@@ -22,24 +22,45 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
 
     const { showFeedback, showConfirm } = useContext()
 
+    const [joined, setJoined] = useState(false)
+
   
 
     //BOTON JOIN MEETING 
     const handleJoinClick = () => {
-        const loggedInUserId = logic.getLoggedInUserId();
+        const loggedInUserId = logic.getLoggedInUserId()
         if (!meeting.attendees.includes(loggedInUserId)) {
             logic.joinMeeting(meeting.id, loggedInUserId)
                 .then(() => {
                     meeting.attendees.push(loggedInUserId)
+                    setJoined(true)
                 })
                 .catch(error => {
-                    console.error('Error joining meeting:', error);
-                });
+                    console.error('Error joining meeting:', error)
+                })
         }
-    };
+    }
+
+    // BOTON UNJOINED CLICK
+    // const handleUnjoinClick = () => {
+    //     const loggedInUserId = logic.getLoggedInUserId()
+    //     if (meeting.attendees.includes(loggedInUserId)) {
+    //         logic.unjoinMeeting(meeting.id, loggedInUserId)
+    //             .then(() => {
+    //                 const index = meeting.attendees.indexOf(loggedInUserId)
+    //                 if (index > -1) {
+    //                     meeting.attendees.splice(index, 1);
+    //                     setJoined(false); // Cambiar el estado a false cuando el usuario deje la reunión
+    //                 }
+    //             })
+    //             .catch(error => {
+    //                 console.error('Error unjoining meeting:', error)
+    //             });
+    //     }
+    // }
 
 
-    //
+
     const handleEditClick = meeting => onEditClick(meeting)
 
     const handleDeleteClick = meetingId => {
@@ -63,19 +84,13 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
     console.log(meeting)
 
 
-    return <article className="max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
+    return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
 
         <div className="col-span-1 pr-4 text-black font-semibold">
             <p className="text-left font-semibold mbp text-xs">{meeting.author.name}</p>
             <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
             <p><strong>Address: </strong>{meeting.address}</p>
-            <p><strong>Date: </strong>{new Date(meeting.date).toLocaleString('es-ES', {
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric'
-            })}h</p>
+            <p><strong>Date: </strong>{meeting.date}h </p>
 
 
             {view === 'close' &&
@@ -89,7 +104,7 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
                     </div>
                     <div>
                         <p><strong>Attendees: </strong></p>
-                        <ul className='flex flex-col'>{meeting.attendees.map(attendee => <li>{attendee.name}</li>)}</ul>
+                        <ul className='flex flex-col'>{meeting.attendees}</ul>
                     </div>
 
                     <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
@@ -104,6 +119,8 @@ function Meeting({ item: meeting, onEditClick, onDeleted }) {
 
             {logic.getLoggedInUserId() !== meeting.author.id && (
                 <button onClick={handleJoinClick} className="w-5 h-5  ">Join</button>
+
+                // <button onClick={joined ? handleUnjoinClick : handleJoinClick} className="w-5 h-5">{joined ? "Unjoin" : "Join"}</button>
             )}
             {logic.getLoggedInUserId() === meeting.author.id && (
                 <div className="flex justify-end">
@@ -158,3 +175,14 @@ export default Meeting
     //     }
     //     retrieveAttendeesNames()
     // }, [])
+
+
+
+
+    // {new Date(meeting.date).toLocaleString('es-ES', {
+    //     year: 'numeric',
+    //     month: 'numeric',
+    //     day: 'numeric',
+    //     hour: 'numeric',
+    //     minute: 'numeric'
+    // })}h

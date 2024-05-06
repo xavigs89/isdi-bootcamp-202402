@@ -40,11 +40,11 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
 
     logger.debug('Login -> render')
 
-    return <main className="flex justify-center items-center h-screen bg-[#F4C84B]">
+    return <main className="flex flex-col justify-center items-center h-screen bg-[#F4C84B]">
 
         <div>
             <div className="flex justify-center items-center">
-                <img className="w-[190px] absolute top-20" src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
+                <img className="w-[190px] mt-2" src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col items-center mt-8">

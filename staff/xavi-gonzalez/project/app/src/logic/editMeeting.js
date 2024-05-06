@@ -13,12 +13,12 @@ function editMeeting(meetingId, title, address,location,date,description,image) 
     validate.text(description, 'description')
     validate.url(image, 'image')
 
-    const [, payloadB64] = sessionStorage.token.split('.')
-    const payloadJSON = atob(payloadB64)
+    // const [, payloadB64] = sessionStorage.token.split('.')
+    // const payloadJSON = atob(payloadB64)
 
-    const payload = JSON.parse(payloadJSON)
+    // const payload = JSON.parse(payloadJSON)
 
-    const { sub: userId } = payload
+    // const { sub: userId } = payload
 
     const meeting = { title, address, location, date, description, image }
 
@@ -27,7 +27,7 @@ function editMeeting(meetingId, title, address,location,date,description,image) 
     return fetch(`${import.meta.env.VITE_API_URL}/meetings/edit/${meetingId}`, {
         method: 'PUT',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
+            'Authorization': `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
     },
     body: json

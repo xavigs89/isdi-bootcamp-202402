@@ -21,8 +21,7 @@ function joinMeeting(meetingId) {
     })
 
         .then(res => {
-            if (res.status === 200)
-                return res.json()
+            if (res.status === 200) return
 
             return res.json()
                 .then(body => {

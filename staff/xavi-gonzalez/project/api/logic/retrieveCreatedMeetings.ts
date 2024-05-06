@@ -35,7 +35,7 @@ function retrieveCreatedMeetings(userId: string): Promise<any> {
                         date,
                         description,
                         image,
-                        attendees,
+                        attendees: attendees.map(attendee => attendee.name),
                     }))
                 )
         })

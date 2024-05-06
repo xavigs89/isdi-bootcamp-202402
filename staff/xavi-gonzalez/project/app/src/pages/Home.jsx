@@ -86,7 +86,7 @@ function Home({ onUserLoggedOut }) {
 
 
 
-            <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
+            <main className="mb-50px flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
                 <div>
                 <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
                 </div>
