@@ -67,9 +67,11 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
             <input id="image" defaultValue={meeting.image} name="image" type="url" />
 
             <SubmitButton type="submit" className="text-lg font-semibold" >Save Changes</SubmitButton>
+
+            <CancelButton onClick={handleCancelClick} />
         </form>
 
-        <CancelButton onClick={handleCancelClick} />
+       
 
     </section>
 }

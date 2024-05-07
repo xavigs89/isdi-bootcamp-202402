@@ -18,20 +18,20 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
 
     const onLogout = () => onUserLoggedOut()
     const { showFeedback } = useContext()
-
-    const [createdMeetings, setCreatedMeetings] = useState(false)
-    const [joinedMeetings, setJoinedMeetings] = useState(false)
-
-
-    const handleCreatedMeetings = () => {
-        setCreatedMeetings(true)
-    }
-
-    const handleJoinedMeetings = () => {
-        setJoinedMeetings(true)
-    }
-
     // const [stamp, setStamp] = useState(null)
+
+    const [createdMeetingsVisibility, setCreatedMeetingsVisibility] = useState(false)
+    const [joinedMeetingsVisibility, setJoinedMeetingsVisibility] = useState(false)
+
+    const handleCreatedMeetingsClick = () => {
+        setCreatedMeetingsVisibility(!createdMeetingsVisibility)
+        setJoinedMeetingsVisibility(false)
+    }
+
+    const handleJoinedMeetingsClick = () => {
+        setJoinedMeetingsVisibility(!joinedMeetingsVisibility)
+        setCreatedMeetingsVisibility(false)
+    }
 
 
     const [meetings, setMeetings] = useState([false])
@@ -54,7 +54,43 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
         loadMeetings()
     }, [stamp])
 
-    // const handleCreatedClick = meeting => onCreatedClick(meeting)
+   
+
+    // TODO call api to get posts by username
+
+
+    return <>
+        <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
+            <Header onUserLoggedOut={onLogout} />
+
+            <section>
+
+                <div className="space-between flex items-center grid-cols-4 gap-4 mt-16">
+
+                    <button onClick={() => handleCreatedMeetingsClick()} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
+
+
+                    <button onClick={() => handleJoinedMeetingsClick()} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
+
+                    <button id="about-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
+
+                </div>
+
+                {createdMeetingsVisibility && <CreatedMeetingsList />}
+
+                {joinedMeetingsVisibility && <JoinedMeetingsList />}
+
+            </section>
+        </main>
+    </>
+   
+}
+
+export default Profile
+
+
+
+ // const handleCreatedClick = meeting => onCreatedClick(meeting)
 
     // const handleJoinedClick = meeting => onJoinedClick(meeting)
 
@@ -73,49 +109,7 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
     //     loadMeetings()
     // }, [])
 
-    // TODO call api to get posts by username
 
-
-    return <>
-        <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
-            <Header onUserLoggedOut={onLogout} />
-
-            <section>
-
-
-                <div className="space-between flex items-center grid-cols-4 gap-4 mt-16">
-
-                    <button onClick={() => handleCreatedMeetings()} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
-
-
-                    <button onClick={() => handleJoinedMeetings()} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
-
-                    <button id="about-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
-
-                </div>
-
-                {createdMeetings && <CreatedMeetingsList />}
-
-                {joinedMeetings && <JoinedMeetingsList />}
-
-
-
-
-
-
-
-
-
-            </section>
-
-
-
-
-        </main>
-    </>
-    // return <h1>hello {name}</h1>
+     // return <h1>hello {name}</h1>
 
     {/* <MeetingList meetings={meetings} /> */ }
-}
-
-export default Profile

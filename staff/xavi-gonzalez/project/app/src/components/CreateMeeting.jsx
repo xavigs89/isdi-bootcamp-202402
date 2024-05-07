@@ -69,7 +69,7 @@ function CreateMeeting({onMeetingCreated, onCancelClick}) {
 
             <SubmitButton type="submit" className="font-semibold py-2 px-4 rounded w-full mt-4" >Create Meeting</SubmitButton>
 
-            <CancelButton className="font-semibold py-2 px-4 rounded w-full mt-4"onClick={handleCancelClick} />
+            <CancelButton onClick={handleCancelClick} />
 
         </form>
 

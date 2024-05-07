@@ -8,10 +8,10 @@ import { User } from '../data/index.ts'
 const { SystemError, NotFoundError } = errors
 
 type UserResponse = {
-    about: string
+    about: string | null
 }
 
-function retrieveAbout(userId: string): Promise<UserResponse>{
+function retrieveAbout(userId: string): Promise<UserResponse> {
     validate.text(userId, 'userId', true)
     validate.text(targetUserId, 'targetUserId', true)
 
@@ -20,11 +20,14 @@ function retrieveAbout(userId: string): Promise<UserResponse>{
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return User.findById(targetUserId).select('-_id about').lean()
+            return User.findById(userId).select('-_id about').lean()
         })
         .then(user => {
             if (!user) throw new NotFoundError('target user not found')
 
+            if (!user.about) {
+                return { about: null }
+            }
             return { about: user.about }
         })
 }

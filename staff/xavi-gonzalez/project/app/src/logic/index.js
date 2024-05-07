@@ -16,6 +16,7 @@ import joinMeeting from './joinMeeting'
 import unjoinMeeting from './unjoinMeeting'
 
 import retrieveAbout from './retrieveAbout'
+import editAbout from './editAbout'
 
 
 
@@ -38,6 +39,7 @@ const logic = {
     unjoinMeeting,
 
     retrieveAbout,
+    editAbout,
 }
 
 export default logic
