@@ -11,7 +11,7 @@ type UserResponse = {
     about: string
 }
 
-function retrieveAbout(userId: string, targetUserId: string): Promise<UserResponse>{
+function retrieveAbout(userId: string): Promise<UserResponse>{
     validate.text(userId, 'userId', true)
     validate.text(targetUserId, 'targetUserId', true)
 

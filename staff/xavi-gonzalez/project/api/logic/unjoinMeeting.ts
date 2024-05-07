@@ -1,16 +1,14 @@
-import mongoose from 'mongoose'
-
 import { validate, errors } from "com"
 import { User, Meeting } from "../data/index.ts"
 
 const { NotFoundError, SystemError, DuplicityError } = errors
 
-function unjoinMeeting(meetingId, userId) {
-    validate.text(userId, 'userId', true)
+function unjoinMeeting(meetingId, userId): Promise<any> {
     validate.text(meetingId, 'meetingId', true)
+    validate.text(userId, 'userId', true)
 
     return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message); })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 

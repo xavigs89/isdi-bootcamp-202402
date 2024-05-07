@@ -15,8 +15,8 @@ import editMeeting from './editMeeting'
 import joinMeeting from './joinMeeting'
 import unjoinMeeting from './unjoinMeeting'
 
-// import retrieveProfile from 'retrieveProfile'
-// import editProfile from 'editProfile'
+import retrieveAbout from './retrieveAbout'
+
 
 
 const logic = {
@@ -37,8 +37,7 @@ const logic = {
     joinMeeting,
     unjoinMeeting,
 
-    //retrieveProfile
-    //editProfile
+    retrieveAbout,
 }
 
 export default logic
