@@ -10,7 +10,6 @@ import CreateMeeting from '../components/CreateMeeting'
 
 import Profile from '../components/Profile'
 
-import Meeting from '../components/Meeting'
 import EditMeeting from '../components/EditMeeting'
 
 import Header from '../components/Header'
@@ -96,7 +95,11 @@ function Home({ onUserLoggedOut }) {
                 <Routes>
                     <Route path="/" element={<MeetingList stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} />} />
 
-                    {<Route path="/profile/:name" element={<Profile />} />}
+                    {<Route path="/profile/:name" element={<Profile 
+                    onUserLoggedOut={onLogout}
+                    // onCreatedClick={handleCreatedClick}
+                    // onJoinedClick={handleJoinedClick} 
+                    />} />}
                 </Routes>
 
 

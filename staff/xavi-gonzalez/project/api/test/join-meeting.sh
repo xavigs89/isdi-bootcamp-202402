@@ -1,0 +1,1 @@
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjM3YWNkMGUzYmZmNjFkZGFjNDMzYjMiLCJpYXQiOjE3MTUwNzkzOTksImV4cCI6MTcxNTExNTM5OX0.bm5gnejCnk9FUms4QdfRuft9QeYSdrFKI51U8GnL41s" http://localhost:8080/meetings/join/663a019523306085b91d9e59 -v

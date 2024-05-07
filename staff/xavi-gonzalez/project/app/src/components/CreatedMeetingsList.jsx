@@ -6,30 +6,30 @@ import { useEffect, useState } from 'react'
 
 import Meeting from './Meeting'
 
+import EditMeeting from '../components/EditMeeting'
+
 import { useContext } from '../context'
 
-function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }) {
+function CreatedMeetingsList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }) {
+
     const [meetings, setMeetings] = useState([])
     const { showFeedback } = useContext()
 
    
-    //UPCOMING MEETINGS, NO SE MUESTRAN MEETINGS PASADOS
-    const loadMeetings = () => {
-        logger.debug('MeetingList -> loadMeetings')
+ //ALL MEETINGS, PASADOS Y FUTUROS
+ const loadMeetings = () => {
+    logger.debug('CreatedMeetingList -> loadMeetings')
 
-        try {
-            logic.retrieveMeetings()
-                .then(retrievedMeetings => {
-                    const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
-                    setMeetings(upcomingMeetings)
-                })
-                .catch(error => showFeedback(error, 'error'));
-        } catch (error) {
-            showFeedback(error)
-        }
+    try {
+        logic.retrieveCreatedMeetings()
+            .then(retrievedMeetings => {setMeetings(retrievedMeetings)})
+            
+            .catch(error => showFeedback(error, 'error'))
+    } catch (error) {
+        showFeedback(error)
     }
-
-
+}
+    
     useEffect(() => {
         loadMeetings()
     }, [stamp])
@@ -41,7 +41,7 @@ function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }
 
     const handleJoinClick = meeting => onJoinMeetingClick(meeting)
 
-    logger.debug('MeetingList -> render')
+    logger.debug('CreatedMeetingList -> render')
 
     return <ul className="mb-100px">
         {meetings.map(meeting =>
@@ -54,18 +54,23 @@ function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }
     </ul>
 }
 
-export default MeetingList
+export default CreatedMeetingsList
 
 
- //ALL MEETINGS, PASADOS Y FUTUROS
+
+    //UPCOMING MEETINGS, NO SE MUESTRAN MEETINGS PASADOS
     // const loadMeetings = () => {
     //     logger.debug('MeetingList -> loadMeetings')
 
     //     try {
     //         logic.retrieveMeetings()
-    //             .then(retrievedMeetings => setMeetings(retrievedMeetings))
-    //             .catch(error => showFeedback(error, 'error'))
+    //             .then(retrievedMeetings => {
+    //                 const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
+    //                 setMeetings(upcomingMeetings)
+    //             })
+    //             .catch(error => showFeedback(error, 'error'));
     //     } catch (error) {
     //         showFeedback(error)
     //     }
     // }
+

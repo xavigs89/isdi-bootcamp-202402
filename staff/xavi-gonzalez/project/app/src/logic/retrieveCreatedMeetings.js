@@ -5,7 +5,7 @@ function retrieveCreatedMeetings() {
 
     const userId = sessionStorage.userId
 
-    return fetch(`${import.meta.env.VITE_API_URL}/meetings?userId=${userId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/meetings/created/`, {
         headers: {
             'Authorization': `Bearer ${sessionStorage.token}`
         }

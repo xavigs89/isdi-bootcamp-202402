@@ -8,27 +8,25 @@ import Meeting from './Meeting'
 
 import { useContext } from '../context'
 
-function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }) {
+function JoinedMeetingsList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }) {
+
     const [meetings, setMeetings] = useState([])
     const { showFeedback } = useContext()
 
-   
-    //UPCOMING MEETINGS, NO SE MUESTRAN MEETINGS PASADOS
+
+    //ALL MEETINGS, PASADOS Y FUTUROS
     const loadMeetings = () => {
-        logger.debug('MeetingList -> loadMeetings')
+        logger.debug('JoinedMeetingList -> loadMeetings')
 
         try {
-            logic.retrieveMeetings()
-                .then(retrievedMeetings => {
-                    const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
-                    setMeetings(upcomingMeetings)
-                })
-                .catch(error => showFeedback(error, 'error'));
+            logic.retrieveJoinedMeetings()
+                .then(retrievedMeetings => setMeetings(retrievedMeetings))
+
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
             showFeedback(error)
         }
     }
-
 
     useEffect(() => {
         loadMeetings()
@@ -41,7 +39,7 @@ function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }
 
     const handleJoinClick = meeting => onJoinMeetingClick(meeting)
 
-    logger.debug('MeetingList -> render')
+    logger.debug('JoinedMeetingList -> render')
 
     return <ul className="mb-100px">
         {meetings.map(meeting =>
@@ -54,18 +52,4 @@ function MeetingList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick }
     </ul>
 }
 
-export default MeetingList
-
-
- //ALL MEETINGS, PASADOS Y FUTUROS
-    // const loadMeetings = () => {
-    //     logger.debug('MeetingList -> loadMeetings')
-
-    //     try {
-    //         logic.retrieveMeetings()
-    //             .then(retrievedMeetings => setMeetings(retrievedMeetings))
-    //             .catch(error => showFeedback(error, 'error'))
-    //     } catch (error) {
-    //         showFeedback(error)
-    //     }
-    // }
+export default JoinedMeetingsList

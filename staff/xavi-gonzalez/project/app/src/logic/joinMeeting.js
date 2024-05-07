@@ -14,7 +14,7 @@ function joinMeeting(meetingId) {
     return fetch(`${import.meta.env.VITE_API_URL}/meetings/join/${meetingId}`, {
         method: 'PUT',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
+            'Authorization': `Bearer ${sessionStorage.token}`,
         }
     })
 

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { errors, validate } from 'com'
 
 function unjoinMeeting(meetingId) {
@@ -14,7 +16,7 @@ function unjoinMeeting(meetingId) {
     return fetch(`${import.meta.env.VITE_API_URL}/meetings/unjoin/${meetingId}`, {
         method: 'PUT',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
+            'Authorization': `Bearer ${sessionStorage.token}`,
         }
     })
     .then(res => {

@@ -8,27 +8,41 @@ import Header from './Header'
 
 import { useContext } from '../context'
 
-import MeetingList from '../components/MeetingList'
+import JoinedMeetingsList from '../components/JoinedMeetingsList'
+import CreatedMeetingsList from './CreatedMeetingsList'
 
 import { useState, useEffect } from 'react'
 
-function Profile({ item: meeting, stamp, onUserLoggedOut, onJoinedClick, onCreateClick }) {
+
+function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick }) {
 
     const onLogout = () => onUserLoggedOut()
     const { showFeedback } = useContext()
+
+    const [createdMeetings, setCreatedMeetings] = useState(false)
+    const [joinedMeetings, setJoinedMeetings] = useState(false)
+
+
+    const handleCreatedMeetings = () => {
+        setCreatedMeetings(true)
+    }
+
+    const handleJoinedMeetings = () => {
+        setJoinedMeetings(true)
+    }
 
     // const [stamp, setStamp] = useState(null)
 
 
     const [meetings, setMeetings] = useState([false])
 
-  
+
     // const { name } = useParams()
 
     const loadMeetings = () => {
 
         try {
-            logic.retrieveJoinedMeetings()
+            logic.retrieveMeetings()
                 .then(setMeetings)
                 .catch(error => alert(error))
         } catch (error) {
@@ -40,7 +54,7 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onJoinedClick, onCreat
         loadMeetings()
     }, [stamp])
 
-    // const handleCreatedClick = meeting => onCreateClick(meeting)
+    // const handleCreatedClick = meeting => onCreatedClick(meeting)
 
     // const handleJoinedClick = meeting => onJoinedClick(meeting)
 
@@ -67,22 +81,29 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onJoinedClick, onCreat
             <Header onUserLoggedOut={onLogout} />
 
             <section>
-                {/* <div>
-                <h1>Created Meetings:</h1>
-            </div> */}
 
 
                 <div className="space-between flex items-center grid-cols-4 gap-4 mt-16">
-                    <button id="goback-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Go Back</button>
 
-                    <button onClick={() => handleCreatedClick(meeting)}  id="createdmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
+                    <button onClick={() => handleCreatedMeetings()} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
-                    <button onClick={() => handleJoinedClick(meeting)} id="joinedmeetings-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
-                    <button id="about-button"  className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
+
+                    <button onClick={() => handleJoinedMeetings()} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
+
+                    <button id="about-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
 
                 </div>
 
-                {/* <MeetingList meetings={meetings} /> */}
+                {createdMeetings && <CreatedMeetingsList />}
+
+                {joinedMeetings && <JoinedMeetingsList />}
+
+
+
+
+
+
+
 
 
             </section>
@@ -93,6 +114,8 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onJoinedClick, onCreat
         </main>
     </>
     // return <h1>hello {name}</h1>
+
+    {/* <MeetingList meetings={meetings} /> */ }
 }
 
 export default Profile

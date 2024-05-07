@@ -105,7 +105,7 @@ const handleDeleteClick = meetingId => {
 
 
 logger.debug('Meeting -> render')
-console.log(meeting)
+// console.log(meeting)
 
 
 return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
