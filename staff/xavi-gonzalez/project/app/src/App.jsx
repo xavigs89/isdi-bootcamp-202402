@@ -95,7 +95,7 @@ function App() {
 
 
 
-        {/* <Route path="/createMeeting" element={<CreateMeeting />} /> */}
+
       </Routes>
     </Context.Provider>
 
@@ -110,6 +110,7 @@ function App() {
 export default App
 
 
+        {/* <Route path="/createMeeting" element={<CreateMeeting />} /> */}
 
 
 

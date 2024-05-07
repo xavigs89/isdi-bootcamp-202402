@@ -44,9 +44,10 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
     const handleCancelClick = () => onCancelClick()
 
     logger.debug('EditMeeting -> render')
-
-    return <section className="edit-meeting bg-[#F4C84B] py-8 px-4"
+//#F4C84B
+    return <section className="h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 py-8 px-4 border-rounded xl"
     >
+        <div className='border p-10 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2" >
             <label className="text-lg font-semibold"  >Title</label>
             <input id="title" defaultValue={meeting.title} name="title" type="text" />
@@ -58,7 +59,7 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
             <input id="location" defaultValue={meeting.location} name="location" type="text" />
 
             <label className="text-lg font-semibold" >Date</label>
-            <input id="date" defaultValue={meeting.date ? new Date(meeting.date).toLocaleString().slice(0, 16) : ''} name="date" type="datetime-local" min={Date.now()} />
+            <input id="date" defaultValue={meeting.date ? new Date(meeting.date).toISOString().slice(0, 16) : ''} name="date" type="datetime-local" min={Date.now()} />
 
             <label className="text-lg font-semibold" >Description</label>
             <input id="description" defaultValue={meeting.description} name="description" type="text" />
@@ -71,7 +72,7 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
             <CancelButton onClick={handleCancelClick} />
         </form>
 
-       
+        </div>
 
     </section>
 }

@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react'
 
 
 function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick }) {
+    const { name } = useParams();
 
     const onLogout = () => onUserLoggedOut()
     const { showFeedback } = useContext()
@@ -22,6 +23,7 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
 
     const [createdMeetingsVisibility, setCreatedMeetingsVisibility] = useState(false)
     const [joinedMeetingsVisibility, setJoinedMeetingsVisibility] = useState(false)
+    const [aboutVisibility, setAboutVisibility] = useState(false)
 
     const handleCreatedMeetingsClick = () => {
         setCreatedMeetingsVisibility(!createdMeetingsVisibility)
@@ -79,6 +81,8 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
                 {createdMeetingsVisibility && <CreatedMeetingsList />}
 
                 {joinedMeetingsVisibility && <JoinedMeetingsList />}
+
+                {/* {aboutVisibility && <About />} */}
 
             </section>
         </main>

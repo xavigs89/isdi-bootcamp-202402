@@ -2,7 +2,7 @@
 
 ## Intro
 
-JiveHub is a platform that connects people with common interests and enables them to create, join, and participate in local events.
+JiveHub is a platform that connects people with common interests and enables them to create, join, and participate in local meetings.
 
 ![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnlucHU2ZDJweDZpM2RnN21jMmE4YWgxbGp1OGt0cnJqYW9uc25qdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5L57f5fI3f2716NaJ3/giphy.gif)
 
@@ -10,20 +10,21 @@ JiveHub is a platform that connects people with common interests and enables the
 
 ### Use Cases
 
-- create event
-- edit event
-- remove event
-- join event
+- create meeting
+- edit meeting
+- remove meeting
+- join meeting
+- unjoin meeting
 - view attendee list
-- search for events (by location, date)
-- see user profile (see its events and reviews of those events created.)
-- edit profile (profile picture, about me, contact, see created events, see joined events)
-- rate event (once it's over, from 1 to 5 stars, optional comment)
+- search for meetings (by location, date)
+- see user profile (see its meetings and reviews of those meetings created.)
+- edit profile (profile picture, about me, contact, see created meetings, see joined meetings)
+- rate meeting (once it's over, from 1 to 5 stars, optional comment)
 
 
 v0.1
 - chat with event owner and people that joined that event
-- change password, email
+- change password, email, avatar
 
 
 ### UI Design
