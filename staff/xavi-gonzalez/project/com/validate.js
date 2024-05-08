@@ -56,6 +56,11 @@ const validate = {
             throw new TypeError(explain + ' ' + value + ' is not a number');
         if (typeof value !== 'number' && !Array.isArray(value))
             throw new TypeError(explain + ' ' + value + ' is not a number or array of numbers');
+    },
+    rating(value, explain = 'rating') {
+        if (typeof value !== 'number' || !Number.isInteger(value) || value < 1 || value > 5) {
+            throw new TypeError(explain + ' ' + value + ' is not a valid rating (it should be a number between 1 and 5)');
+        }
     }
 };
 export default validate;

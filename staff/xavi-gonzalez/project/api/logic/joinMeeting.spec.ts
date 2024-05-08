@@ -1,3 +1,4 @@
+//@ts-nocheck
 import dotenv from 'dotenv'
 import logic from './index.ts'
 // import { errors } from 'com'
@@ -10,45 +11,45 @@ import { User, Meeting } from '../data/index.ts'
 describe('joinMeeting', () => {
     before(() => mongoose.connect(process.env.MONGODB_TEST_URL))
 
-    it('succeeds when you join a meeting', () => 
-    
-    Promise.all([
-        User.deleteMany({ }),
-        Meeting.deleteMany({ })
-    ])
+    it('succeeds when you join a meeting', () =>
 
-        .then(() => 
-            Promise.all([
-                User.create({ name: 'Xavi Gonzalez', email: 'xavi@gmail.com', password: '123qwe123', avatar: null, about: null }),
-                User.create({ name: 'Perico de los Palotes', email: 'perico@gmail.com', password: 'Isdicoders1', avatar: null, about: null }),
-                User.create({ name: 'Armando Guerra', email: 'armando@gmail.com', password: 'Isdicoders1', avatar: null, about: null }),
-            ])
-            
-            .then(user => 
+        Promise.all([
+            User.deleteMany({}),
+            Meeting.deleteMany({})
+        ])
+
+            .then(() =>
                 Promise.all([
-                    User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
-
+                    User.create({ name: 'Xavi Gonzalez', email: 'xavi@gmail.com', password: '123qwe123', avatar: null, about: null }),
+                    User.create({ name: 'Perico de los Palotes', email: 'perico@gmail.com', password: 'Isdicoders1', avatar: null, about: null }),
+                    User.create({ name: 'Armando Guerra', email: 'armando@gmail.com', password: 'Isdicoders1', avatar: null, about: null }),
                 ])
-                .then(([user1]) =>
 
-                    Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id, user2.id] })
-                        .then(meeting =>
+                    .then(user =>
+                        Promise.all([
+                            User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
 
-                            logic.joinMeeting(meeting.id, user2.id)
+                        ])
+                            .then(([user1, user2]) =>
 
-                                .then(() => Meeting.findOne({ title: 'My Event' }))
-                                .then(updatedMeeting => {
+                                Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id, user2.id] })
+                                    .then(meeting =>
 
-                                    console.log('updated', updatedMeeting);
+                                        logic.joinMeeting(meeting.id, user2.id)
 
-                                    expect(!!updatedMeeting).to.be.true
-                                })
-                        )
-                )
-        )
-)
-)
-)
+                                            .then(() => Meeting.findOne({ title: 'My Event' }))
+                                            .then(updatedMeeting => {
 
-after(() => mongoose.disconnect())
+                                                console.log('updated', updatedMeeting);
+
+                                                expect(!!updatedMeeting).to.be.true
+                                            })
+                                    )
+                            )
+                    )
+            )
+    )
+
+
+    after(() => mongoose.disconnect())
 })

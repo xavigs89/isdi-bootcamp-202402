@@ -4,6 +4,7 @@ import { User, Meeting } from "../data/index.ts"
 const { NotFoundError, SystemError, DuplicityError } = errors
 
 function unjoinMeeting(meetingId, userId): Promise<any> {
+    debugger
     validate.text(meetingId, 'meetingId', true)
     validate.text(userId, 'userId', true)
 

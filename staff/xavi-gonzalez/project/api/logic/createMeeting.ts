@@ -49,6 +49,4 @@ function createMeeting(userId: string, title: string, address: string, location:
         })
 }
 
-
-
 export default createMeeting

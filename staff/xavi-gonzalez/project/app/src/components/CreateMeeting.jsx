@@ -7,7 +7,7 @@ import CancelButton from './library/CancelButton'
 
 import { useContext } from '../context'
 
-function CreateMeeting({ onMeetingCreated, onCancelClick }) {
+function CreateMeeting({ onMeetingCreated, onCancelClick, }) {
 
     const { showFeedback } = useContext()
 

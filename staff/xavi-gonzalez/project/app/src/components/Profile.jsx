@@ -14,7 +14,7 @@ import CreatedMeetingsList from './CreatedMeetingsList'
 import { useState, useEffect } from 'react'
 
 
-function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick }) {
+function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, onEditMeetingClick }) {
     const { name } = useParams();
 
     const onLogout = () => onUserLoggedOut()

@@ -55,7 +55,7 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
     //BOTON JOIN MEETING
     const handleJoinClick = () => {
         const loggedInUserId = logic.getLoggedInUserId()
-        if (!meeting.attendees.includes(loggedInUserId)) {
+        // if (!meeting.attendees.includes(loggedInUserId)) {
             logic.joinMeeting(meeting.id, loggedInUserId)
                 .then(() => {
                     setJoined(true)
@@ -64,13 +64,13 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
                 .catch(error => {
                     showFeedback(error)
                 })
-        }
+        //}
     }
 
     // BOTON UNJOIN CLICK
     const handleUnjoinClick = () => {
         const loggedInUserId = logic.getLoggedInUserId()
-        if (meeting.attendees.includes(loggedInUserId)) {
+        // if (meeting.attendees.includes(loggedInUserId)) {
             logic.unjoinMeeting(meeting.id, loggedInUserId)
                 .then(() => {
                     setJoined(false)
@@ -79,7 +79,7 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
                 .catch(error => {
                     showFeedback(error)
                 })
-        }
+        //}
     }
 
 

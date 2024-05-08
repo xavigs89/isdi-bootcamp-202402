@@ -15,6 +15,8 @@ import unjoinMeeting from './unjoinMeeting.ts'
 
 import retrieveAbout from './retrieveAbout.ts'
 
+import createReview from './createReview.ts'
+
 
 
 
@@ -39,6 +41,8 @@ const logic = {
     unjoinMeeting,
 
     retrieveAbout,
+
+    createReview,
 
     //modifyProfile
 }

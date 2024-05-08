@@ -97,6 +97,7 @@ function Home({ onUserLoggedOut }) {
 
                     {<Route path="/profile/:name" element={<Profile 
                     onUserLoggedOut={onLogout}
+                    onEditMeetingClick={handleEditMeetingClick}
                     // onCreatedClick={handleCreatedClick}
                     // onJoinedClick={handleJoinedClick} 
                     />} />}

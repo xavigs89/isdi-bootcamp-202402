@@ -22,7 +22,7 @@ describe('createMeeting', () => {
             Meeting.deleteMany()
         ])
             .then(() =>
-                User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123' })
+                User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
             )
             .then(user =>
                 logic.createMeeting(user.id, 'My Event', 'Calle falsa 1,2,3', [41.93584282753891, 1.7719600329709349], '2024-02-15 : 21:30', 'We are gonna have some fun', 'http://images.com'))

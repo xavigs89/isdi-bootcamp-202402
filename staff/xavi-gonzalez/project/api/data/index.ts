@@ -124,7 +124,6 @@ const review = new Schema({
         required: true,
         min: 1,
         max: 5,
-        // Hacer una función en frontend que tome el valor numérico de rate y muestre la cantidad correspondiente de iconos de estrellas. Si rate es 1, mostrarías una sola estrella; si es 2, mostrarías dos estrellas, y así sucesivamente hasta 5 estrellas para rate igual a 5.
     },
     comment: {
         type: String,
