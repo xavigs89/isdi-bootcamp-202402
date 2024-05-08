@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { validate, errors } from 'com'
 
 function createMeeting(title,address,location,date,description,image) {

@@ -1,4 +1,6 @@
+//@ts-nocheck
 import logic from '../logic'
+import { logger } from '../utils'
 
 import RoundButton from './library/RoundButton'
 
@@ -8,8 +10,8 @@ import Header from './Header'
 
 import { useContext } from '../context'
 
-import JoinedMeetingsList from '../components/JoinedMeetingsList'
-import CreatedMeetingsList from './CreatedMeetingsList'
+import MeetingsList from './MeetingsList'
+// import CreatedMeetingsList from './CreatedMeetingsList'
 
 import { useState, useEffect } from 'react'
 
@@ -18,6 +20,10 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
     const { name } = useParams();
 
     const onLogout = () => onUserLoggedOut()
+
+    const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
+    const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
+
     const { showFeedback } = useContext()
     // const [stamp, setStamp] = useState(null)
 
@@ -39,24 +45,62 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
     const [meetings, setMeetings] = useState([false])
 
 
-    // const { name } = useParams()
 
-    const loadMeetings = () => {
+
+    // const loadMeetings = () => {
+
+    //     try {
+    //         logic.retrieveMeetings()
+    //             .then(setMeetings)
+    //             .catch(error => alert(error))
+    //     } catch (error) {
+    //         showFeedback(error)
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     loadMeetings()
+    // }, [stamp])
+
+
+
+    //ALL MEETINGS, PASADOS Y FUTUROS
+    const loadCreatedMeetings = () => {
+        logger.debug('CreatedMeetingList -> loadMeetings')
 
         try {
-            logic.retrieveMeetings()
-                .then(setMeetings)
-                .catch(error => alert(error))
+            logic.retrieveCreatedMeetings()
+                .then(retrievedMeetings => { setCreatedMeetingsList(retrievedMeetings) })
+
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
             showFeedback(error)
         }
     }
 
     useEffect(() => {
-        loadMeetings()
+        loadCreatedMeetings()
     }, [stamp])
 
-   
+
+       //ALL MEETINGS, PASADOS Y FUTUROS
+       const loadJoinedMeetings = () => {
+        logger.debug('JoinedMeetingList -> loadMeetings')
+
+        try {
+            logic.retrieveJoinedMeetings()
+                .then(retrievedMeetings => setJoinedMeetingsList(retrievedMeetings))
+
+                .catch(error => showFeedback(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
+        }
+    }
+
+    useEffect(() => {
+        loadJoinedMeetings()
+    }, [stamp])
+
 
     // TODO call api to get posts by username
 
@@ -78,42 +122,42 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
 
                 </div>
 
-                {createdMeetingsVisibility && <CreatedMeetingsList />}
+                {createdMeetingsVisibility && <MeetingsList meetings= {createdMeetingsList} onEditMeetingClick={onEditMeetingClick}/>}
 
-                {joinedMeetingsVisibility && <JoinedMeetingsList />}
+                {joinedMeetingsVisibility && <MeetingsList meetings={joinedMeetingsList} />}
 
                 {/* {aboutVisibility && <About />} */}
 
             </section>
         </main>
     </>
-   
+
 }
 
 export default Profile
 
 
 
- // const handleCreatedClick = meeting => onCreatedClick(meeting)
+// const handleCreatedClick = meeting => onCreatedClick(meeting)
 
-    // const handleJoinedClick = meeting => onJoinedClick(meeting)
+// const handleJoinedClick = meeting => onJoinedClick(meeting)
 
-    // const loadMeetings = () => {
+// const loadMeetings = () => {
 
-    //     try {
-    //         logic.retrieveCreatedMeetings()
-    //             .then(setMeetings)
-    //             .catch(error => alert(error))
-    //     } catch (error) {
-    //         showFeedback(error)
-    //     }
-    // }
+//     try {
+//         logic.retrieveCreatedMeetings()
+//             .then(setMeetings)
+//             .catch(error => alert(error))
+//     } catch (error) {
+//         showFeedback(error)
+//     }
+// }
 
-    // useEffect(() => {
-    //     loadMeetings()
-    // }, [])
+// useEffect(() => {
+//     loadMeetings()
+// }, [])
 
 
-     // return <h1>hello {name}</h1>
+// return <h1>hello {name}</h1>
 
-    {/* <MeetingList meetings={meetings} /> */ }
+{/* <MeetingList meetings={meetings} /> */ }

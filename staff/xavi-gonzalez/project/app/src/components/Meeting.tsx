@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState, useEffect } from 'react'
 import { logger } from '../utils'
 
@@ -110,7 +111,7 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
     return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
 
         <div className="col-span-1 pr-4 text-black font-semibold">
-            <p className="text-left font-semibold mbp text-xs">{meeting.author.name}</p>
+            <p className="text-left font-semibold mbp text-xs"><Link to={`user/${meeting.author.name}`}>{meeting.author.name}</Link></p>
             <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
             <p><strong>Address: </strong>{meeting.address}</p>
             <p><strong>Date: </strong>{meeting.date}h </p>

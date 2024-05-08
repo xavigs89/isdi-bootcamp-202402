@@ -5,7 +5,7 @@ import logic from '../logic'
 
 import { useState, useEffect } from 'react'
 
-import MeetingList from '../components/MeetingList'
+import MeetingsList from '../components/MeetingsList'
 import CreateMeeting from '../components/CreateMeeting'
 
 import Profile from '../components/Profile'
@@ -28,6 +28,7 @@ function Home({ onUserLoggedOut }) {
     const [view, setView] = useState(null)
     const [stamp, setStamp] = useState(null)
     const [meeting, setMeeting] = useState(null)
+    const [meetingsList, setMeetingsList] = useState(null)
 
     const { showFeedback } = useContext()
 
@@ -76,6 +77,28 @@ function Home({ onUserLoggedOut }) {
     logger.debug('Home -> render')
 
 
+    //UPCOMING MEETINGS, NO SE MUESTRAN MEETINGS PASADOS
+    const loadMeetings = () => {
+        logger.debug('MeetingList -> loadMeetings')
+
+        try {
+            logic.retrieveMeetings()
+                .then(retrievedMeetings => {
+                    const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
+                    setMeetingsList(upcomingMeetings)
+                })
+                .catch(error => showFeedback(error, 'error'));
+        } catch (error) {
+            showFeedback(error)
+        }
+    }
+
+
+    useEffect(() => {
+        loadMeetings()
+    }, [stamp])
+
+
 
     return <>
 
@@ -93,7 +116,10 @@ function Home({ onUserLoggedOut }) {
                 {/* 
                 <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
                 <Routes>
-                    <Route path="/" element={<MeetingList stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} />} />
+                    <Route path="/" element={
+           
+                    <MeetingsList stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} meetings={meetingsList} />} />
+
 
                     {<Route path="/profile/:name" element={<Profile 
                     onUserLoggedOut={onLogout}

@@ -92,6 +92,9 @@ function App() {
 
         <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+          {/* onEditMeetingClick={handleEditMeetingClick} */}
+
+        {/* <Route path="/users/userId" element={} ? <OtherUserProfile */}
 
 
 

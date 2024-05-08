@@ -1,3 +1,4 @@
+//@ts-nocheck
 function cleanUpLoggedInUserId() {
     delete sessionStorage.userId
 }
