@@ -22,6 +22,19 @@ function MeetingsList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick,
 
     logger.debug('MeetingList -> render')
 
+    //ALL MEETINGS, PASADOS Y FUTUROS
+    const loadMeetings = () => {
+        logger.debug('MeetingList -> loadMeetings')
+
+        try {
+            logic.retrieveMeetings()
+                .then(retrievedMeetings => setMeetings(retrievedMeetings))
+                .catch(error => showFeedback(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
+        }
+    }
+
     return <ul className="mb-100px">
         {meetings && meetings.map(meeting =>
             <Meeting key={meeting.id} item={meeting} setStamp={setStamp}
@@ -35,15 +48,4 @@ function MeetingsList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick,
 export default MeetingsList
 
 
- //ALL MEETINGS, PASADOS Y FUTUROS
-    // const loadMeetings = () => {
-    //     logger.debug('MeetingList -> loadMeetings')
-
-    //     try {
-    //         logic.retrieveMeetings()
-    //             .then(retrievedMeetings => setMeetings(retrievedMeetings))
-    //             .catch(error => showFeedback(error, 'error'))
-    //     } catch (error) {
-    //         showFeedback(error)
-    //     }
-    // }
+ 

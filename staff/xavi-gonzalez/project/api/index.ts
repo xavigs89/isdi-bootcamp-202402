@@ -504,8 +504,8 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        //RETRIEVE ABOUT CON EXPRESS
-        api.get('/users/about', (req, res) => {
+        //CREATE REVIEW CON EXPRESS
+        api.post('/reviews', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -513,16 +513,15 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                logic.retrieveAbout(userId as string)
-                    .then(users => res.json(users))
+                const { rate, comment } = req.body
 
+                logic.createReview(userId as string, rate, comment)
+                    .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
                             logger.error(error.message)
 
-                            res.status(500).json({
-                                error: error.constructor.name, message: error.message
-                            })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         } else if (error instanceof NotFoundError) {
                             logger.warn(error.message)
 
@@ -534,7 +533,6 @@ mongoose.connect(MONGODB_URL)
                     logger.warn(error.message)
 
                     res.status(406).json({ error: error.constructor.name, message: error.message })
-
                 } else if (error instanceof TokenExpiredError) {
                     logger.warn(error.message)
 
@@ -544,52 +542,50 @@ mongoose.connect(MONGODB_URL)
 
                     res.status(500).json({ error: SystemError.name, message: error.message })
                 }
-
             }
         })
 
+        //EDIT ABOUT CON EXPRESS
+        api.patch('/users/edit/:userId', jsonBodyParser, (req, res) => {
+            try {
+                debugger
+                const { authorization } = req.headers
 
-        //CREATE REVIEW CON EXPRESS
-        // api.post('/reviews', jsonBodyParser, (req, res) => {
-        //     try {
-        //         const { authorization } = req.headers
+                const token = authorization.slice(7)
 
-        //         const token = authorization.slice(7)
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-        //         const { sub: userId } = jwt.verify(token, JWT_SECRET)
+                const { description } = req.params
 
-        //         const { rate, comment } = req.body
+                // const { description } = req.body
 
-        //         logic.createReview(userId as string, rate, comment)
-        //             .then(() => res.status(201).send())
-        //             .catch(error => {
-        //                 if (error instanceof SystemError) {
-        //                     logger.error(error.message)
+                logic.editAbout(userId as string, description)
+                    .then(() => res.status(200).send())
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError || error instanceof UnauthorizedError) {
+                            logger.warn(error.message)
 
-        //                     res.status(500).json({ error: error.constructor.name, message: error.message })
-        //                 } else if (error instanceof NotFoundError) {
-        //                     logger.warn(error.message)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        }
+                    })
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
 
-        //                     res.status(404).json({ error: error.constructor.name, message: error.message })
-        //                 }
-        //             })
-        //     } catch (error) {
-        //         if (error instanceof TypeError || error instanceof ContentError) {
-        //             logger.warn(error.message)
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
 
-        //             res.status(406).json({ error: error.constructor.name, message: error.message })
-        //         } else if (error instanceof TokenExpiredError) {
-        //             logger.warn(error.message)
-
-        //             res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
-        //         } else {
-        //             logger.warn(error.message)
-
-        //             res.status(500).json({ error: SystemError.name, message: error.message })
-        //         }
-        //     }
-        // })
-
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+        })
 
 
         api.listen(PORT, () => logger.info(`API listening on port ${PORT}`))

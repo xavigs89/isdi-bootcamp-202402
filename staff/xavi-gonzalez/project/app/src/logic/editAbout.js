@@ -11,7 +11,7 @@ const about = { description }
 const json = JSON.stringify(about)
 
 return fetch(`${import.meta.env.VITE_API_URL}/users/about/${userId}`, {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {
         'Authorization': `Bearer ${sessionStorage.token}`,
         'Content-Type': 'application/json'

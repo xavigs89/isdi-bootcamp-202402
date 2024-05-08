@@ -34,7 +34,7 @@ describe('retrieveUser', () => {
         User.deleteMany()
             .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))
             .then(user =>
-                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null })
+                User.create({ name: 'Pepe Phone', email: 'pepe@phone.com', password: '123qwe123', avatar: null, about: null })
                     .then(user2 => logic.retrieveUser(new ObjectId().toString(), user2.id))
                     .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)

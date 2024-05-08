@@ -29,16 +29,41 @@ describe('createReview', () => {
                 logic.createReview(user.id, 4, 'I enjoyed the meeting'))
             .then(() => Review.findOne({ }))
             .then(review => {
+                console.log(review)
                 // expect(review.author.toString()).to.equal(user.id)
-                expect(review.rate).to.be.instanceOf(number)
+                expect(review.rate).to.be.a('number')
                 expect(review.comment).to.equal('I enjoyed the meeting')
             })
     )
 
+    // it('throws an error when creating a review with an invalid rate', () =>
+    //     Promise.all([
+    //         User.deleteMany(),
+    //         Review.deleteMany()
+    //     ])
+    //         .then(() =>
+    //             User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
+    //         )
+    //         .then(user =>
+    //             expect(logic.createReview(user.id, 'invalid_rate', 'I enjoyed the meeting')).to.be.rejectedWith('Invalid rate')
+    //         )
+    // )
+
+    // it('throws an error when creating a review without providing a rate', () =>
+    //     Promise.all([
+    //         User.deleteMany(),
+    //         Review.deleteMany()
+    //     ])
+    //         .then(() =>
+    //             User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
+    //         )
+    //         .then(user =>
+    //             expect(logic.createReview(user.id, null, 'I enjoyed the meeting')).to.be.rejectedWith('Rate is required')
+    //         )
+    // )
 
 
 
     after(() => mongoose.disconnect())
-
 
 })

@@ -1,0 +1,1 @@
+curl -X PATCH -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjM3YWNkMGUzYmZmNjFkZGFjNDMzYjMiLCJpYXQiOjE3MTUxODc3ODgsImV4cCI6MTcxNTIyMzc4OH0.SYn4n6lW_mfmEspbEKBmfQ4j41ktTstdUNe2jE7lOJg" -H "Content-Type: application/json" -d '{"description":"Hola que tal estas"}' "http://localhost:8080/users/edit/6637acd0e3bff61ddac433b3" -v

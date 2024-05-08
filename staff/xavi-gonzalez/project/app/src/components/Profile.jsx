@@ -5,18 +5,13 @@ import { logger } from '../utils'
 import RoundButton from './library/RoundButton'
 
 import { useParams } from 'react-router-dom'
-
 import Header from './Header'
-
 import { useContext } from '../context'
-
 import MeetingsList from './MeetingsList'
-// import CreatedMeetingsList from './CreatedMeetingsList'
-
 import { useState, useEffect } from 'react'
 
 
-function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, onEditMeetingClick }) {
+function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, onEditMeetingClick }) {
     const { name } = useParams();
 
     const onLogout = () => onUserLoggedOut()
@@ -29,7 +24,7 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
 
     const [createdMeetingsVisibility, setCreatedMeetingsVisibility] = useState(false)
     const [joinedMeetingsVisibility, setJoinedMeetingsVisibility] = useState(false)
-    const [aboutVisibility, setAboutVisibility] = useState(false)
+    const [aboutMeVisibility, setAboutVisibility] = useState(false)
 
     const handleCreatedMeetingsClick = () => {
         setCreatedMeetingsVisibility(!createdMeetingsVisibility)
@@ -41,30 +36,19 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
         setCreatedMeetingsVisibility(false)
     }
 
+    const handleAboutMeClick = () => {
+        setAboutVisibility(!aboutMeVisibility)
+        setCreatedMeetingsVisibility(false)
+        setJoinedMeetingsVisibility(false)
+    }
+
 
     const [meetings, setMeetings] = useState([false])
 
 
 
 
-    // const loadMeetings = () => {
-
-    //     try {
-    //         logic.retrieveMeetings()
-    //             .then(setMeetings)
-    //             .catch(error => alert(error))
-    //     } catch (error) {
-    //         showFeedback(error)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     loadMeetings()
-    // }, [stamp])
-
-
-
-    //ALL MEETINGS, PASADOS Y FUTUROS
+    //ALL CREATED MEETINGS, PASADOS Y FUTUROS
     const loadCreatedMeetings = () => {
         logger.debug('CreatedMeetingList -> loadMeetings')
 
@@ -83,8 +67,9 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
     }, [stamp])
 
 
-       //ALL MEETINGS, PASADOS Y FUTUROS
-       const loadJoinedMeetings = () => {
+
+    //ALL JOINED MEETINGS, PASADOS Y FUTUROS
+    const loadJoinedMeetings = () => {
         logger.debug('JoinedMeetingList -> loadMeetings')
 
         try {
@@ -118,15 +103,33 @@ function Profile({ item: meeting, stamp, onUserLoggedOut, onCreatedClick, onJoin
 
                     <button onClick={() => handleJoinedMeetingsClick()} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
 
-                    <button id="about-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
+                    <button onClick={() => handleAboutMeClick()} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
 
                 </div>
 
-                {createdMeetingsVisibility && <MeetingsList meetings= {createdMeetingsList} onEditMeetingClick={onEditMeetingClick}/>}
+                {createdMeetingsVisibility &&
+                    (createdMeetingsList && createdMeetingsList.length > 0 ?
+                        <MeetingsList meetings={createdMeetingsList} onEditMeetingClick={onEditMeetingClick} />
+                        :
+                        <div className="bg-white p-4 rounded">
+                            <p className="m-0">You have no meetings created yet</p>
+                        </div>
+                    )
+                }
 
                 {joinedMeetingsVisibility && <MeetingsList meetings={joinedMeetingsList} />}
 
-                {/* {aboutVisibility && <About />} */}
+                {/* {aboutMeVisibility && (
+                    <div className="bg-white p-4 rounded">
+                        <p>{user.about}</p>
+                    </div>
+                )} */}
+
+                {aboutMeVisibility && (
+                    <div className="bg-white p-4 rounded">
+                        <p>{user && user.about === undefined ? 'undefined ABOUT' : JSON.stringify(user)}</p>
+                    </div>
+                )}
 
             </section>
         </main>
@@ -161,3 +164,20 @@ export default Profile
 // return <h1>hello {name}</h1>
 
 {/* <MeetingList meetings={meetings} /> */ }
+
+
+
+// const loadMeetings = () => {
+
+//     try {
+//         logic.retrieveMeetings()
+//             .then(setMeetings)
+//             .catch(error => alert(error))
+//     } catch (error) {
+//         showFeedback(error)
+//     }
+// }
+
+// useEffect(() => {
+//     loadMeetings()
+// }, [stamp])

@@ -13,14 +13,9 @@ import removeMeeting from './removeMeeting.ts'
 import joinMeeting from './joinMeeting.ts'
 import unjoinMeeting from './unjoinMeeting.ts'
 
-import retrieveAbout from './retrieveAbout.ts'
+import editAbout from './editAbout.ts'
 
 import createReview from './createReview.ts'
-
-
-
-
-//import modifyProfile from './modifyProfile.ts'
 
 
 const logic = {
@@ -40,11 +35,10 @@ const logic = {
     joinMeeting,
     unjoinMeeting,
 
-    retrieveAbout,
+    editAbout,
 
     createReview,
 
-    //modifyProfile
 }
 
 export default logic

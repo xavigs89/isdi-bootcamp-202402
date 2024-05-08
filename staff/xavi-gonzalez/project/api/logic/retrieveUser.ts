@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Schema } from 'mongoose'
 
 const { Types: { ObjectId } } = Schema
@@ -9,8 +10,10 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 type UserResponse = {
-    name: string;
-    email: string
+    name: string,
+    email: string,
+    avatar: null,
+    about:null
 }
 
 function retrieveUser(userId: string, targetUserId: string): Promise<UserResponse> {
@@ -22,12 +25,12 @@ function retrieveUser(userId: string, targetUserId: string): Promise<UserRespons
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return User.findById(targetUserId).select('-_id name email').lean()
+            return User.findById(targetUserId).select('-_id name email avatar about').lean()
         })
         .then(user => {
             if (!user) throw new NotFoundError('target user not found')
 
-            return { name: user.name, email: user.email }
+            return { name: user.name, email: user.email, avatar: user.avatar, about: user.about }
         })
 }
 

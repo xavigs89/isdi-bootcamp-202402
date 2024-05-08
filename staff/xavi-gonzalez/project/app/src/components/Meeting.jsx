@@ -83,6 +83,19 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
         //}
     }
 
+    // useEffect(() => {
+    //     if (user)
+    //         try {
+    //     logic.isUserJoined(meeting)
+    //     .then(result => {
+    //         if (result)
+    //             setJoined(true)
+    //     })
+    // } catch(error) {
+    //     showFeedback(error)
+    // }
+    // }, [meeting])
+
 
 
 
@@ -100,6 +113,8 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
                 }
         })
     }
+
+
 
 
 

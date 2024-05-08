@@ -14,9 +14,11 @@ import removeMeeting from './removeMeeting'
 import editMeeting from './editMeeting'
 import joinMeeting from './joinMeeting'
 import unjoinMeeting from './unjoinMeeting'
+import isUserJoined from './isUserJoined'
 
-import retrieveAbout from './retrieveAbout'
 import editAbout from './editAbout'
+
+import createReview from './createReview'
 
 
 
@@ -37,9 +39,11 @@ const logic = {
     editMeeting,
     joinMeeting,
     unjoinMeeting,
+    isUserJoined,
 
-    retrieveAbout,
+
     editAbout,
+    createReview,
 }
 
 export default logic
