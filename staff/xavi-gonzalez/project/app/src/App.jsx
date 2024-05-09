@@ -42,9 +42,7 @@ function App() {
   const handleFeedback = (error, level = 'warn') => {
     if (error instanceof UnauthorizedError) {
       logic.logoutUser()
-
       level = 'error'
-
       goToLogin()
     }
 
@@ -74,7 +72,7 @@ function App() {
 
   const handleConfirm = (message, callback) => setConfirm({ message, callback })
 
-  // const handleMeetingToEdit = (meetingId) => setMeetingToEdit(meetingId)
+  const handleMeetingToEdit = (meetingId) => setMeetingToEdit(meetingId)
 
   logger.debug('App -> render')
 
@@ -102,7 +100,8 @@ function App() {
       </Routes>
     </Context.Provider>
 
-    {feedback && <Feedback message={feedback.message} level={feedback.level} onAcceptClick={handleFeedbackAcceptClick} />}
+    {feedback && <Feedback message={feedback.message} level={feedback.level} 
+    onAcceptClick={handleFeedbackAcceptClick} />}
 
     {confirm && <Confirm message="Do you want to delete meeting?" onCancelClick={handleConfirmCancelClick} onAcceptClick={handleConfirmAcceptClick} />}
 

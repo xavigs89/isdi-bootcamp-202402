@@ -7,10 +7,14 @@ import { Link } from 'react-router-dom'
 import logic from '../logic'
 
 import { useContext } from '../context'
+import getLoggedInUserId from '../logic/getLoggedInUserId'
 
-function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp }) {
+function Meeting({ item: meeting, user, onJoinClick, onEditClick, onDeleted, setStamp }) {
 
-    //hacer que foto de meeting desaparezca cuando das a show details
+   
+    const { showFeedback, showConfirm } = useContext()
+
+     //hacer que foto de meeting desaparezca cuando das a show details
     const [detailsView, setDetailsView] = useState(false)
     const [showImage, setShowImage] = useState(true)
 
@@ -19,67 +23,37 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
     }
 
     const [view, setView] = useState('close')
-
-    const { showFeedback, showConfirm } = useContext()
-
     const [joined, setJoined] = useState(false)
 
 
-
-    //BOTON JOIN MEETING 
-
-    //     const handleJoinAndUnjoinClick = () => {
-    //         const loggedInUserId = logic.getLoggedInUserId()
-    //         if (meeting.attendees.includes(loggedInUserId)) {
-    //             logic.unjoinMeeting(meeting.id, loggedInUserId)
-    //                 .then(() => {
-    //                     setJoined(false);
-    //                     setStamp(Date.now())
-    //                 })
-    //                 .catch(error => {
-    //                     showFeedback(error)
-    //                 })
-    //         } else {
-    //             logic.joinMeeting(meeting.id, loggedInUserId)
-    //                 .then(() => {
-    //                     setJoined(true)
-    //                     setStamp(Date.now())
-    //                 })
-    //                 .catch(error => {
-    //                     showFeedback(error)
-    //                 })
-    //         }
-    //     }
-    // }
-
-
     //BOTON JOIN MEETING
-    const handleJoinClick = () => {
+    const handleJoinClick = (meeting) => {
         const loggedInUserId = logic.getLoggedInUserId()
         // if (!meeting.attendees.includes(loggedInUserId)) {
-            logic.joinMeeting(meeting.id, loggedInUserId)
-                .then(() => {
-                    setJoined(true)
-                    setStamp(Date.now())
-                })
-                .catch(error => {
-                    showFeedback(error)
-                })
+        logic.joinMeeting(meeting.id)
+
+            .then(() => {
+                setJoined(true)
+                setStamp(Date.now())
+            })
+            .catch(error => {
+                showFeedback(error)
+            })
         //}
     }
 
-    // BOTON UNJOIN CLICK
-    const handleUnjoinClick = () => {
+    //BOTON UNJOIN CLICK
+    const handleUnjoinClick = (meeting) => {
         const loggedInUserId = logic.getLoggedInUserId()
         // if (meeting.attendees.includes(loggedInUserId)) {
-            logic.unjoinMeeting(meeting.id, loggedInUserId)
-                .then(() => {
-                    setJoined(false)
-                    setStamp(Date.now())
-                })
-                .catch(error => {
-                    showFeedback(error)
-                })
+        logic.unjoinMeeting(meeting.id)
+            .then(() => {
+                setJoined(false)
+                setStamp(Date.now())
+            })
+            .catch(error => {
+                showFeedback(error)
+            })
         //}
     }
 
@@ -95,8 +69,6 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
     //     showFeedback(error)
     // }
     // }, [meeting])
-
-
 
 
     const handleEditClick = meeting => onEditClick(meeting)
@@ -116,6 +88,11 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
 
 
 
+    useEffect(() => {
+        const AttendeeJoined = meeting.attendees.some(attendees => attendees.id === getLoggedInUserId().userId)
+        setJoined(AttendeeJoined)
+    }, [meeting])
+
 
 
 
@@ -129,7 +106,7 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
             <p className="text-left font-semibold mbp text-xs"><Link to={`user/${meeting.author.name}`}>{meeting.author.name}</Link></p>
             <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
             <p><strong>Address: </strong>{meeting.address}</p>
-            <p><strong>Date: </strong>{meeting.date}h </p>
+            <p>{meeting.date}h </p>
 
 
             {view === 'close' &&
@@ -140,7 +117,7 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
                     <div>
                         <p><strong>Description: </strong>{meeting.description}</p>
                         <p><strong>Location: </strong>{meeting.location}</p>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.556123909626!2d2.1548569!3d41.371064000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715240977554!5m2!1ses!2ses" width="300" height="400" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.556123909626!2d2.1548569!3d41.371064000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715240977554!5m2!1ses!2ses" width="300" height="400" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div>
                         <p><strong>Attendees: </strong></p>
@@ -157,15 +134,12 @@ function Meeting({ item: meeting, onJoinClick, onEditClick, onDeleted, setStamp 
         <div className="flex justify-end">
             {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
 
-            {logic.getLoggedInUserId() !== meeting.author.id && (
-                // <button onClick={handleJoinClick} className="w-5 h-5  ">Join</button>
-                <button onClick={joined ? handleUnjoinClick : handleJoinClick} className="w-5 h-5">{joined ? "Unjoin" : "Join"}</button>
-
-                // <button onClick={handleJoinAndUnjoinClick} className="w-5 h-5">{joined ? "Unjoin" : "Join"}</button>
+            {joined ? <button onClick={() => handleJoinClick(meeting)} className="w-5 h-5">Join</button> : <button onClick={() => handleUnjoinClick(meeting)} className="w-5 h-5">Unjoin</button>}
 
 
-            )}
-            {logic.getLoggedInUserId() === meeting.author.id && (
+
+
+            {logic.getLoggedInUserId().userId === meeting.author.id && (
                 <div className="flex justify-end">
 
                     <button onClick={() => handleEditClick(meeting)} className="w-5 h-5  "><img src="../../public/icons/VsEditPage.png" alt="edit" /></button>
@@ -232,18 +206,28 @@ export default Meeting
 
 
 
+//BOTON JOIN MEETING
 
-
-
-
-
-
-
-//HEBER
-{/* <>
-                    <button className="mt-2 flex items-center" onClick={() => handleJoinClick(meeting.id)}
-                    ><img src="" alt="join" className='w-6 h-6' /><p className='p-1'><strong>Join</strong></p></button>
-
-                    <button className='mt-2 flex items-center' onClick={() => handleUnJoinClick(match.id)}><img src="/public/unJoin-icon.png" alt="Unjoin icon" className='w-6 h-6' /><p className='p-1'><strong>Unjoin</strong></p></button>
-
-                </> */}
+//     const handleJoinAndUnjoinClick = () => {
+//         const loggedInUserId = logic.getLoggedInUserId()
+//         if (meeting.attendees.includes(loggedInUserId)) {
+//             logic.unjoinMeeting(meeting.id, loggedInUserId)
+//                 .then(() => {
+//                     setJoined(false);
+//                     setStamp(Date.now())
+//                 })
+//                 .catch(error => {
+//                     showFeedback(error)
+//                 })
+//         } else {
+//             logic.joinMeeting(meeting.id, loggedInUserId)
+//                 .then(() => {
+//                     setJoined(true)
+//                     setStamp(Date.now())
+//                 })
+//                 .catch(error => {
+//                     showFeedback(error)
+//                 })
+//         }
+//     }
+// }

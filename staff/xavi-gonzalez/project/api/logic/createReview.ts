@@ -20,8 +20,8 @@ function createReview(userId: string, rate: number, comment: string, meetingId: 
             const review = {
                 author: user._id,
                 rate,
-                comment: comment.trim(),
-                date: new Date,
+                comment: comment ? comment.trim(): undefined,
+                date: new Date(),
                 meetingId
             }
 

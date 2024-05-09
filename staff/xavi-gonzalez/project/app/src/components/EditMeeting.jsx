@@ -16,7 +16,6 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
 
         const form = event.target
 
-        // const author = form.author.value
         const title = form.title.value
         const address = form.address.value
         const locationStr = form.location.value.split(",")

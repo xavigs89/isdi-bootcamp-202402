@@ -108,7 +108,7 @@ type ReviewType = {
     rate: 1 | 2 | 3 | 4 | 5
     comment?: string
     date: Date
-    //meeting: ObjectId
+    meeting: ObjectId
 }
 
 const review = new Schema({
@@ -130,11 +130,11 @@ const review = new Schema({
         type: Date,
         required: true,
     },
-    //meeting: {
-        //type: ObjectId,
-        //ref: 'Meeting',
-        //required: true,
-    //}
+    meeting: {
+        type: ObjectId,
+        ref: 'Meeting',
+        required: true,
+    }
 
 
 })

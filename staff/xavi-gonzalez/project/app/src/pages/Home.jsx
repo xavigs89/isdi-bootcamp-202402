@@ -1,26 +1,21 @@
 //@ts-nocheck
 import { logger } from '../utils'
-
 import logic from '../logic'
-
 import { useState, useEffect } from 'react'
 
 import MeetingsList from '../components/MeetingsList'
 import CreateMeeting from '../components/CreateMeeting'
-
+import EditMeeting from '../components/EditMeeting'
 import Profile from '../components/Profile'
 
-import EditMeeting from '../components/EditMeeting'
-
 import Header from '../components/Header'
-
 import { Link } from 'react-router-dom'
-
 import { Routes, Route } from 'react-router-dom'
-
 import { useContext } from '../context'
 
 function Home({ onUserLoggedOut }) {
+
+    const { showFeedback } = useContext()
 
     const onLogout = () => onUserLoggedOut()
 
@@ -29,8 +24,8 @@ function Home({ onUserLoggedOut }) {
     const [stamp, setStamp] = useState(null)
     const [meeting, setMeeting] = useState(null)
     const [meetingsList, setMeetingsList] = useState(null)
-
-    const { showFeedback } = useContext()
+    
+    const clearView = () => setView(null)
 
     useEffect(() => {
         try {
@@ -43,8 +38,6 @@ function Home({ onUserLoggedOut }) {
         }
     }, [])
 
-    const clearView = () => setView(null)
-
 
     // CREAR MEETING
     const handleMeetingCreated = () => {
@@ -56,7 +49,6 @@ function Home({ onUserLoggedOut }) {
         clearView()
 
     const handleCreateMeetingClick = () => setView('create-meeting')
-
 
 
     // EDITAR MEETING
@@ -93,7 +85,6 @@ function Home({ onUserLoggedOut }) {
         }
     }
 
-
     useEffect(() => {
         loadMeetings()
     }, [stamp])
@@ -110,15 +101,13 @@ function Home({ onUserLoggedOut }) {
                 <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
                 </div>
 
-                {/* 
-                <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}
                 <Routes>
                     <Route path="/" element={
            
                     <MeetingsList stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} meetings={meetingsList} />} />
 
 
-                    {<Route path="/profile/:name" element={<Profile 
+                    {<Route path="/profile" element={<Profile 
                     onUserLoggedOut={onLogout}
                     onEditMeetingClick={handleEditMeetingClick}
                     // onCreatedClick={handleCreatedClick}
@@ -129,7 +118,9 @@ function Home({ onUserLoggedOut }) {
 
                 {view === 'create-meeting' && <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} />}
 
-                {view === 'edit-meeting' && <EditMeeting meeting={meeting} onCancelClick={handleEditMeetingCancelClick} onMeetingEdited={handleMeetingEdited} />}
+                {view === 'edit-meeting' && <EditMeeting meeting={meeting} 
+                onCancelClick={handleEditMeetingCancelClick} 
+                onMeetingEdited={handleMeetingEdited} />}
 
 
 
@@ -166,3 +157,7 @@ export default Home
 //         onUserLoggedOut()
 //     }
 // }
+
+
+{/*                 
+                <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}

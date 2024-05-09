@@ -1,15 +1,30 @@
 //@ts-nocheck
-
 import RoundButton from './library/RoundButton'
 import { logger } from '../utils'
 
 function Feedback({ message, level, onAcceptClick }) {
     logger[level](message)
 
-    return <div className={`fixed inset-0 flex items-center justify-center top-0 w-full border-2 border-black ${level === 'error' ? 'bg-[#FFD6DB]' : level === 'warn' ? 'bg[#FFCD66]' : 'bg[#AFF8B6]'} flex flex-col items-center`} >
-            <h3>{message}</h3>
-            <RoundButton onClick={onAcceptClick}>Accept</RoundButton>
+    return (
+
+        <div
+            className={`h-screen w-screen fixed top-0 left-0 flex justify-center items-center bg-black bg-opacity-40 `}
+        >
+            <div
+                className={`p-4 rounded-lg shadow-lg flex flex-col animate-jump-in animate-once animate-duration-[1200ms] ${level === 'error'
+                        ? 'bg-red-500'
+                        : level === 'warn'
+                            ? 'bg-yellow-500'
+                            : 'bg-green-500'
+                    }`}
+            >
+                <h3>{message}</h3>
+                <RoundButton onClick={onAcceptClick} className="bg-white ">
+                    Accept
+                </RoundButton>
+            </div>
         </div>
+    )
 }
 
 export default Feedback
