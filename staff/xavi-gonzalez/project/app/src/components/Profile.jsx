@@ -12,11 +12,9 @@ import { useState, useEffect } from 'react'
 
 
 function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, onEditMeetingClick }) {
-    // const { name } = useParams();
+    const { name } = useParams();
 
     const onLogout = () => onUserLoggedOut()
-
-   
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
@@ -44,14 +42,8 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
         setJoinedMeetingsVisibility(false)
     }
 
-    //  // EDITAR MEETING
-    //  const handleEditMeetingClick = meeting => {
-    //     setMeeting(meeting)
-    // }
-    const handleEditMeetingClick = meeting => onEditMeetingClick(meeting)
 
-
-    
+    const [meetings, setMeetings] = useState([false])
 
 
 
@@ -62,7 +54,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
         try {
             logic.retrieveCreatedMeetings()
-                .then(setCreatedMeetingsList)
+                .then(retrievedMeetings => { setCreatedMeetingsList(retrievedMeetings) })
 
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
@@ -82,7 +74,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
         try {
             logic.retrieveJoinedMeetings()
-                .then(setJoinedMeetingsList)
+                .then(retrievedMeetings => setJoinedMeetingsList(retrievedMeetings))
 
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
@@ -117,7 +109,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
                 {createdMeetingsVisibility &&
                     (createdMeetingsList && createdMeetingsList.length > 0 ?
-                        <MeetingsList meetings={createdMeetingsList} onEditMeetingClick={handleEditMeetingClick} stamp={stamp} />
+                        <MeetingsList meetings={createdMeetingsList} onEditMeetingClick={onEditMeetingClick} />
                         :
                         <div className="bg-white p-4 rounded">
                             <p className="m-0">You have no meetings created yet</p>

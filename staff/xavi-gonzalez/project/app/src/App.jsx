@@ -25,6 +25,7 @@ function App() {
 
   const [feedback, setFeedback] = useState(null)
   const [confirm, setConfirm] = useState(null)
+  const [meetingToEdit, setMeetingToEdit] = useState(null)
 
   const navigate = useNavigate()
 
@@ -73,10 +74,12 @@ function App() {
 
   const handleConfirm = (message, callback) => setConfirm({ message, callback })
 
+  // const handleMeetingToEdit = (meetingId) => setMeetingToEdit(meetingId)
+
   logger.debug('App -> render')
 
   return <>
-    <Context.Provider value={{ showFeedback: handleFeedback, showConfirm: handleConfirm }}>
+    <Context.Provider value={{ showFeedback: handleFeedback, showConfirm: handleConfirm, meetingToEdit, setMeetingToEdit }}>
       <Routes>
         <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login
           onRegisterClick={handleRegisterClick}
@@ -95,9 +98,6 @@ function App() {
           {/* onEditMeetingClick={handleEditMeetingClick} */}
 
         {/* <Route path="/users/userId" element={} ? <OtherUserProfile */}
-
-
-
 
       </Routes>
     </Context.Provider>

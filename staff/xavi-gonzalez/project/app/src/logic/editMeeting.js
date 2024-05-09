@@ -9,7 +9,7 @@ function editMeeting(meetingId, title, address,location,date,description,image) 
     validate.coords(location, 'coords')
     // validate.number(location[0], 'coord1')
     // validate.number(location[1], 'coord2')
-    validate.date(date, 'date')
+    // validate.date(date, 'date')
     validate.text(description, 'description')
     validate.url(image, 'image')
 
