@@ -10,6 +10,8 @@ import Meeting from './Meeting'
 import { useContext } from '../context'
 
 function MeetingsList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick, meetings }) {
+    const [meetings2, setMeetings2] = ([])
+
     
     const { showFeedback } = useContext()
 
@@ -28,16 +30,21 @@ function MeetingsList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick,
 
         try {
             logic.retrieveMeetings()
-                .then(retrievedMeetings => setMeetings(retrievedMeetings))
+                .then(setMeetings2)
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
             showFeedback(error)
         }
     }
 
+    useEffect(() => {
+        loadMeetings()
+    }, [stamp])
+
+
     return <ul className="mb-100px">
         {meetings && meetings.map(meeting =>
-            <Meeting key={meeting.id} item={meeting} setStamp={setStamp}
+            <Meeting key={meeting.id} item={meeting} 
                 onJoinClick={handleJoinClick}
                 onEditClick={handleEditClick}
                 onDeleted={handleMeetingDeleted}
@@ -45,6 +52,7 @@ function MeetingsList({ stamp, setStamp, onEditMeetingClick, onJoinMeetingClick,
     </ul>
 }
 
+//setStamp={setStamp}
 export default MeetingsList
 
 

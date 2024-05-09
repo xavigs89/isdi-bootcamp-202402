@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { validate, errors } from 'com'
-import { User, Review } from '../data/index.ts'
+import { User, Meeting, Review } from '../data/index.ts'
 
 const { SystemError, NotFoundError } = errors
 
@@ -21,7 +21,8 @@ function createReview(userId: string, rate: number, comment: string): Promise<vo
                 author: user._id,
                 rate,
                 comment: comment.trim(),
-                date: new Date
+                date: new Date,
+                // meeting: meeting._id
             }
 
             return Review.create(review)

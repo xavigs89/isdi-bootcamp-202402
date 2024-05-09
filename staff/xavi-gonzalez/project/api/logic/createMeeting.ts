@@ -39,7 +39,7 @@ function createMeeting(userId: string, title: string, address: string, location:
                 date: formattedDate,
                 description: description.trim(),
                 image,
-                attendees: new ObjectId(userId)
+                attendees: new ObjectId(userId),
             }
            
             return Meeting.create(meeting)

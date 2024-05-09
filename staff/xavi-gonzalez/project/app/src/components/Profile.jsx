@@ -43,7 +43,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
     }
 
 
-    const [meetings, setMeetings] = useState([false])
+    
 
 
 
@@ -54,7 +54,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
         try {
             logic.retrieveCreatedMeetings()
-                .then(retrievedMeetings => { setCreatedMeetingsList(retrievedMeetings) })
+                .then(setCreatedMeetingsList)
 
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
@@ -74,7 +74,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
         try {
             logic.retrieveJoinedMeetings()
-                .then(retrievedMeetings => setJoinedMeetingsList(retrievedMeetings))
+                .then(setJoinedMeetingsList)
 
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
@@ -109,7 +109,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
                 {createdMeetingsVisibility &&
                     (createdMeetingsList && createdMeetingsList.length > 0 ?
-                        <MeetingsList meetings={createdMeetingsList} onEditMeetingClick={onEditMeetingClick} />
+                        <MeetingsList meetings={createdMeetingsList} onEditMeetingClick={onEditMeetingClick} stamp={stamp} />
                         :
                         <div className="bg-white p-4 rounded">
                             <p className="m-0">You have no meetings created yet</p>
