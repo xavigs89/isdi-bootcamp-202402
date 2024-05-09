@@ -555,9 +555,9 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                const { description } = req.params
+                // const { userId } = req.params
 
-                // const { description } = req.body
+                const { description } = req.body
 
                 logic.editAbout(userId as string, description)
                     .then(() => res.status(200).send())

@@ -33,6 +33,7 @@ describe('editAbout', () => {
         return logic.editAbout(userId, updatedDescription)
             .then(() => User.findById(userId))
             .then(updatedAbout => {
+                console.log(updatedAbout)
                 expect(updatedAbout).to.exist
                 expect(updatedAbout.about).to.equal(updatedDescription)
             })
