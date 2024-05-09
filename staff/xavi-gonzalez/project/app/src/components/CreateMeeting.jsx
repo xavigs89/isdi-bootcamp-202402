@@ -38,9 +38,9 @@ function CreateMeeting({ onMeetingCreated, onCancelClick, }) {
 
                     onMeetingCreated()
                 })
-                .catch(error => alert(error, 'error'))
+                .catch(error => showFeedback(error))
         } catch (error) {
-            alert(error)
+            showFeedback(error)
         }
     }
 

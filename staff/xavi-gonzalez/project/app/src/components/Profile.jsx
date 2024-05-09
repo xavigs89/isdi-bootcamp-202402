@@ -12,9 +12,11 @@ import { useState, useEffect } from 'react'
 
 
 function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, onEditMeetingClick }) {
-    const { name } = useParams();
+    // const { name } = useParams();
 
     const onLogout = () => onUserLoggedOut()
+
+   
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
@@ -41,6 +43,12 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
         setCreatedMeetingsVisibility(false)
         setJoinedMeetingsVisibility(false)
     }
+
+    //  // EDITAR MEETING
+    //  const handleEditMeetingClick = meeting => {
+    //     setMeeting(meeting)
+    // }
+    const handleEditMeetingClick = meeting => onEditMeetingClick(meeting)
 
 
     
@@ -109,7 +117,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
                 {createdMeetingsVisibility &&
                     (createdMeetingsList && createdMeetingsList.length > 0 ?
-                        <MeetingsList meetings={createdMeetingsList} onEditMeetingClick={onEditMeetingClick} stamp={stamp} />
+                        <MeetingsList meetings={createdMeetingsList} onEditMeetingClick={handleEditMeetingClick} stamp={stamp} />
                         :
                         <div className="bg-white p-4 rounded">
                             <p className="m-0">You have no meetings created yet</p>

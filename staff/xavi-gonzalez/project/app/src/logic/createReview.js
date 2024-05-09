@@ -1,20 +1,21 @@
 //@ts-nocheck
 import { validate, errors } from 'com'
 
-function createReview(rate, comment) {
+function createReview(rate, comment, meetingId) {
     
     validate.text(userId, 'userId', true)
     validate.rating(rate, 'rating')
     if(comment)
         validate.text(comment, 'comment')
+    validate.text(meetingId, 'meetingId', true)
 
     validate.token(sessionStorage.token)
 
-    const review = { rate, comment }
+    const review = { rate, comment, meetingId }
 
-    const json = JSON.stringify(meeting)
+    const json = JSON.stringify(review)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/meetings`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,

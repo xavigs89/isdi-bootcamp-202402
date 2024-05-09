@@ -4,7 +4,7 @@ import { User, Meeting, Review } from '../data/index.ts'
 
 const { SystemError, NotFoundError } = errors
 
-function createReview(userId: string, rate: number, comment: string): Promise<void> {
+function createReview(userId: string, rate: number, comment: string, meetingId: string): Promise<void> {
 
     validate.text(userId, 'userId', true)
     validate.rating(rate, 'rating')
@@ -22,7 +22,7 @@ function createReview(userId: string, rate: number, comment: string): Promise<vo
                 rate,
                 comment: comment.trim(),
                 date: new Date,
-                // meeting: meeting._id
+                meetingId
             }
 
             return Review.create(review)

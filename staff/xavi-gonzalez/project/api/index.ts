@@ -513,9 +513,9 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                const { rate, comment } = req.body
+                const { rate, comment, meetingId } = req.body
 
-                logic.createReview(userId as string, rate, comment)
+                logic.createReview(userId as string, rate, comment, meetingId)
                     .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
@@ -546,7 +546,7 @@ mongoose.connect(MONGODB_URL)
         })
 
         //EDIT ABOUT CON EXPRESS
-        api.patch('/users/edit/:userId', jsonBodyParser, (req, res) => {
+        api.patch('/users/about/:userId', jsonBodyParser, (req, res) => {
             try {
                 debugger
                 const { authorization } = req.headers
