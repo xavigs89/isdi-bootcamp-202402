@@ -16,15 +16,15 @@ JiveHub is a platform that connects people with common interests and enables the
 - join meeting
 - unjoin meeting
 - view attendee list
-- search for meetings (by location, date)
 - see user profile (see its meetings and reviews of those meetings created.)
-- edit profile (profile picture, about me, contact, see created meetings, see joined meetings)
+- edit profile (about me and contact, see created meetings, see joined meetings)
 - rate meeting (once it's over, from 1 to 5 stars, optional comment)
 
 
 v0.1
 - chat with event owner and people that joined that event
-- change password, email, avatar
+- change password, email, avatar, profile picture
+- search for meetings (by location, date)
 
 
 ### UI Design

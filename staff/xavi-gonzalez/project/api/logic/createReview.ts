@@ -20,7 +20,7 @@ function createReview(userId: string, rate: number, comment: string, meetingId: 
             const review = {
                 author: user._id,
                 rate,
-                comment: comment ? comment.trim(): undefined,
+                comment: comment.trim(),
                 date: new Date(),
                 meetingId
             }
@@ -33,3 +33,5 @@ function createReview(userId: string, rate: number, comment: string, meetingId: 
 }
 
 export default createReview
+
+//comment ? comment.trim(): undefined,

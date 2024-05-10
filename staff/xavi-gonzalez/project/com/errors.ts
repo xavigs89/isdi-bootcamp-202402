@@ -27,7 +27,9 @@ const errors = {
     DuplicityError,
     CredentialsError,
     NotFoundError,
-    UnauthorizedError
+    UnauthorizedError,
+    TypeError,
+    RangeError
 }
 
 export {

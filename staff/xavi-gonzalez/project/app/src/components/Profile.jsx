@@ -1,42 +1,59 @@
-//@ts-nocheck
+// //@ts-nocheck
 import logic from '../logic'
 import { logger } from '../utils'
 
 import RoundButton from './library/RoundButton'
 
-import { useParams } from 'react-router-dom'
 import Header from './Header'
 import { useContext } from '../context'
 import MeetingsList from './MeetingsList'
 import EditMeeting from './EditMeeting'
+import { useNavigate } from 'react-router-dom'
 
 import { useState, useEffect } from 'react'
 
 
-function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, onEditMeetingClick }) {
-    const { showFeedback } = useContext()
+function Profile({ user }) {
 
-    const [meetings, setMeetings] = useState(false)
-    const [view, setView] = useState(null)
+    const { showFeedback, stamp, setStamp } = useContext()
+
+    const navigate = useNavigate()
+
+    const handleLoggedOut = () => {
+        navigate("/login")
+    }
+
+    const [meeting, setMeeting] = useState(false)
+    const [view, setView] = useState('close')
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
 
 
-    const [createdMeetingsVisibility, setCreatedMeetingsVisibility] = useState(false)
-    const [joinedMeetingsVisibility, setJoinedMeetingsVisibility] = useState(false)
-    const [aboutMeVisibility, setAboutVisibility] = useState(false)
+    // const [createdMeetingsVisibility, setCreatedMeetingsVisibility] = useState(false)
+    // const [joinedMeetingsVisibility, setJoinedMeetingsVisibility] = useState(false)
+    // const [aboutMeVisibility, setAboutVisibility] = useState(false)
 
-    const onLogout = () => onUserLoggedOut()
+    const clearView = () => setView('close')
+
+    const toogleViewCreated = () => {
+        setView( view === 'open-created' ? 'close' : 'open-created')
+    }
+
+    const toogleViewJoined = () => {
+        setView( view === 'open-joined' ? 'close' : 'open-joined')
+    }
+
+
 
     //ALL CREATED MEETINGS, PASADOS Y FUTUROS
     const loadCreatedMeetings = () => {
+
         logger.debug('CreatedMeetingList -> loadMeetings')
 
         try {
             logic.retrieveCreatedMeetings()
-                .then(retrievedMeetings => { setCreatedMeetingsList(retrievedMeetings) })
-
+                .then(setCreatedMeetingsList)
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
             showFeedback(error)
@@ -54,8 +71,7 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
         try {
             logic.retrieveJoinedMeetings()
-                .then(retrievedMeetings => setJoinedMeetingsList(retrievedMeetings))
-
+                .then(setJoinedMeetingsList)
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
             showFeedback(error)
@@ -68,18 +84,24 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 
 
 
-    const handleCreatedMeetingsClick = () => {
-        loadCreatedMeetings()
-        setCreatedMeetingsVisibility(!createdMeetingsVisibility)
-        setJoinedMeetingsVisibility(false)
-    }
+    // const handleCreatedMeetingsClick = () => {
+    //     loadCreatedMeetings()
+    //     setCreatedMeetingsVisibility(!createdMeetingsVisibility)
+    //     setJoinedMeetingsVisibility(false)
+    // }
 
 
     const handleJoinedMeetingsClick = () => {
         loadJoinedMeetings()
-        setJoinedMeetingsVisibility(!joinedMeetingsVisibility)
-        setCreatedMeetingsVisibility(false)
+
     }
+
+    const handleUnJoinMeetingClick = () => {
+   
+        loadCreatedMeetings()
+    }
+
+
 
     const handleAboutMeClick = () => {
         setAboutVisibility(!aboutMeVisibility)
@@ -92,61 +114,69 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
     const handleMeetingEdited = () => {
         clearView()
         loadCreatedMeetings()
-        // setStamp(Date.now())
+        setStamp(Date.now())
         setMeeting(null)
     }
 
-    const handleEditMeetingCancelClick = () =>
-        clearView()
+    //CANCELAR FORM DE EDIT MEETING
+    const handleEditMeetingCancelClick = () => setView(null)
 
-    const handleEditFormClick = meeting => {
+    const handleEditClick = meeting => {
+        onEditMeetingClick(meeting)
         setView('edit-meeting')
     }
 
     return <>
         <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
-            <Header onUserLoggedOut={onLogout} />
+            <Header onUserLoggedOut={handleLoggedOut} />
 
             <section>
 
                 <div className="space-between flex items-center grid-cols-4 gap-4 mt-16">
 
-                    <button onClick={() => handleCreatedMeetingsClick()} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
+                    <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
 
-                    <button onClick={() => handleJoinedMeetingsClick()} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
+                    <button onClick={toogleViewJoined} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
 
                     <button onClick={() => handleAboutMeClick()} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
 
                 </div>
-
+{/* 
                 {createdMeetingsVisibility &&
                     (createdMeetingsList && createdMeetingsList.length > 0 ?
                         <MeetingsList meetings={createdMeetingsList}
-                            onEditMeetingClick={handleEditFormClick}
-                            onJoinedClick={handleJoinedMeetingsClick} />
+                            onEditMeetingClick={handleEditClick}
+                            onJoinMeetingClick={handleJoinedMeetingsClick}
+                            onUnjoinMeetingClick={handleUnJoinMeetingClick} />
                         :
                         <div className="bg-white p-4 rounded">
                             <p className="m-0">You have no meetings created yet</p>
                         </div>
                     )
-                }
+                } */}
 
-                {joinedMeetingsVisibility && <MeetingsList
-                    onEditMeetingClick={handleEditFormClick}
-                    meetings={joinedMeetingsList} />}
+                { view === 'open-created' &&  <MeetingsList meetings={createdMeetingsList}
+                            onEditMeetingClick={handleEditClick}
+                            onJoinMeetingClick={handleJoinedMeetingsClick}
+                            onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
+
+                {view === 'open-joined' && <MeetingsList meetings={joinedMeetingsList}
+                    onEditMeetingClick={handleEditClick}
+                    onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                     />}
 
                 {/* {aboutMeVisibility && (
                     <div className="bg-white p-4 rounded">
                         <p>{user.about}</p>
                     </div>
                 )} */}
-
+{/* 
                 {aboutMeVisibility && (
                     <div className="bg-white p-4 rounded">
                         <p>{user && user.about === null ? 'null ABOUT' : JSON.stringify(user)}</p>
                     </div>
-                )}
+                )} */}
 
                 {view === 'edit-meeting' && <EditMeeting meeting={meeting}
                     onCancelClick={handleEditMeetingCancelClick}
@@ -159,6 +189,25 @@ function Profile({ user, stamp, onUserLoggedOut, onCreatedClick, onJoinedClick, 
 }
 
 export default Profile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -185,6 +234,5 @@ export default Profile
 // return <h1>hello {name}</h1>
 
 {/* <MeetingList meetings={meetings} /> */ }
-
 
 

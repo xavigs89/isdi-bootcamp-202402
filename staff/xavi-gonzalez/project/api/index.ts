@@ -43,7 +43,7 @@ mongoose.connect(MONGODB_URL)
         api.use(cors())
 
 
-        // REGISTER USER CON EXPRESS
+        // REGISTER USER 
         api.post('/users', jsonBodyParser, (req, res) => {
             try {
                 const { name, email, password, confirmedPassword } = req.body
@@ -75,7 +75,7 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        //AUTHENTICATE USER CON EXPRESS
+        //AUTHENTICATE USER 
         api.post('/users/auth', jsonBodyParser, (req, res) => {
             try {
                 const { email, password } = req.body
@@ -115,7 +115,7 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        //RETRIEVE USER CON EXPRESS
+        //RETRIEVE USER 
         api.get('/users/:targetUserId', (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -157,7 +157,7 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        // CREATE MEETING CON EXPRESS
+        // CREATE MEETING 
         api.post('/meetings', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -201,7 +201,7 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        //RETRIEVE MEETINGS CON EXPRESS
+        //RETRIEVE MEETINGS 
         api.get('/meetings', (req, res) => {
             try {
 
@@ -248,7 +248,7 @@ mongoose.connect(MONGODB_URL)
 
 
 
-        //REMOVE MEETING CON EXPRESS
+        //REMOVE MEETING 
         api.delete('/meetings/:id', (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -285,7 +285,7 @@ mongoose.connect(MONGODB_URL)
             }
         });
 
-        //EDIT MEETING CON EXPRESS
+        //EDIT MEETING 
         api.put('/meetings/edit/:meetingId', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -326,7 +326,7 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
-        // JOIN MEETING CON EXPRESS
+        // JOIN MEETING 
         api.put('/meetings/join/:meetingId', (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -373,7 +373,7 @@ mongoose.connect(MONGODB_URL)
 
         })
 
-        // UNJOIN MEETING CON EXPRESS
+        // UNJOIN MEETING 
         api.put('/meetings/unjoin/:meetingId', (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -421,7 +421,7 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        //RETRIEVE CREATED MEETINGS CON EXPRESS
+        //RETRIEVE CREATED MEETINGS 
         api.get('/meetings/created', (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -460,7 +460,7 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
-        //RETRIEVE JOINED MEETINGS CON EXPRESS
+        //RETRIEVE JOINED MEETINGS 
         api.get('/meetings/joined', (req, res) => {
 
             try {
@@ -504,7 +504,7 @@ mongoose.connect(MONGODB_URL)
         })
 
 
-        //CREATE REVIEW CON EXPRESS
+        //CREATE REVIEW 
         api.post('/reviews/:meetingId', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
@@ -545,7 +545,7 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
-        //EDIT ABOUT CON EXPRESS
+        //EDIT ABOUT 
         api.patch('/users/about/:userId', jsonBodyParser, (req, res) => {
             try {
                 debugger

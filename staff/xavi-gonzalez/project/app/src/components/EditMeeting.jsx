@@ -32,7 +32,6 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
             logic.editMeeting(meeting.id, title, address, location, date, description, image)
                 .then(() => {
                     form.reset()
-
                     onMeetingEdited()
                 })
                 .catch(error => showFeedback(error), 'error')

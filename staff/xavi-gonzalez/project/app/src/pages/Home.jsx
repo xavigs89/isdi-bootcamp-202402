@@ -9,23 +9,27 @@ import EditMeeting from '../components/EditMeeting'
 import Profile from '../components/Profile'
 
 import Header from '../components/Header'
-import { Link } from 'react-router-dom'
-import { Routes, Route } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { useNavigate, Routes, Route } from 'react-router-dom'
 import { useContext } from '../context'
 
-function Home({ onUserLoggedOut }) {
+function Home() {
 
-    const { showFeedback } = useContext()
+    const navigate = useNavigate()
 
-    const onLogout = () => onUserLoggedOut()
+    const { showFeedback, stamp, setStamp } = useContext()
 
+    const handleLoggedOut = () => {
+        navigate("/login")
+    }
     const [user, setUser] = useState(null)
     const [view, setView] = useState(null)
-    const [stamp, setStamp] = useState(null)
     const [meeting, setMeeting] = useState(null)
-    const [meetingsList, setMeetingsList] = useState(null)
+    const [meetings, setMeetings] = useState(null)
+    
     
     const clearView = () => setView(null)
+
 
     useEffect(() => {
         try {
@@ -37,6 +41,27 @@ function Home({ onUserLoggedOut }) {
 
         }
     }, [])
+
+
+    //ALL MEETINGS, PASADOS Y FUTUROS
+    const loadMeetings = () => {
+        logger.debug('MeetingList -> loadMeetings')
+
+        try {
+            logic.retrieveMeetings()
+            .then(retrievedMeetings => {
+                const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
+                setMeetings(upcomingMeetings)
+            })
+            .catch(error => showFeedback(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
+        }
+    }
+
+    useEffect(() => {
+        loadMeetings()
+    }, [stamp])
 
 
     // CREAR MEETING
@@ -68,33 +93,22 @@ function Home({ onUserLoggedOut }) {
 
     logger.debug('Home -> render')
 
+    const handleJoinMeetingClick = () => {
 
-    //UPCOMING MEETINGS, NO SE MUESTRAN MEETINGS PASADOS
-    const loadMeetings = () => {
-        logger.debug('MeetingList -> loadMeetings')
-
-        try {
-            logic.retrieveMeetings()
-                .then(retrievedMeetings => {
-                    const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
-                    setMeetingsList(upcomingMeetings)
-                })
-                .catch(error => showFeedback(error, 'error'));
-        } catch (error) {
-            showFeedback(error)
-        }
+        clearView()
+        loadMeetings()
     }
 
-    useEffect(() => {
-        loadMeetings()
-    }, [stamp])
-
+    const handleUnJoineMeetingClick = () => {
+        clearView()
+        loadMatches()
+    }
 
 
     return <>
 
         <div>
-            <Header onUserLoggedOut={onLogout} />
+            <Header onUserLoggedOut={handleLoggedOut} />
 
             <main className="mb-50px flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
                 <div>
@@ -104,15 +118,15 @@ function Home({ onUserLoggedOut }) {
                 <Routes>
                     <Route path="/" element={
            
-                    <MeetingsList stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} meetings={meetingsList} />} />
+                    <MeetingsList meetings={meetings} stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} onJoinMeetingClick={handleJoinMeetingClick}
+                    onUnjoinMeetingClick={handleUnJoineMeetingClick}/>} />
 
 
                     {<Route path="/profile" element={<Profile 
-                    onUserLoggedOut={onLogout}
-                    onEditMeetingClick={handleEditMeetingClick}
-                    // onCreatedClick={handleCreatedClick}
-                    // onJoinedClick={handleJoinedClick} 
+                    // onUserLoggedOut={onLogout}
+                    // onEditMeetingClick={handleEditMeetingClick}
                     />} />}
+
                 </Routes>
 
 

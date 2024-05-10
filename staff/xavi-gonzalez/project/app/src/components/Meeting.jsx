@@ -9,13 +9,13 @@ import logic from '../logic'
 import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
 
-function Meeting({ item: meeting, user, onJoinClick, onEditClick, onDeleted, setStamp }) {
+function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDeleted, unjoinClick }) {
 
-   
-    const { showFeedback, showConfirm } = useContext()
 
-     //hacer que foto de meeting desaparezca cuando das a show details
-    const [detailsView, setDetailsView] = useState(false)
+    const { showFeedback, showConfirm, setStamp } = useContext()
+
+    //hacer que foto de meeting desaparezca cuando das a show details
+    // const [detailsView, setDetailsView] = useState(false)
     const [showImage, setShowImage] = useState(true)
 
     const toggleImageVisibility = () => {
@@ -26,49 +26,28 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onDeleted, set
     const [joined, setJoined] = useState(false)
 
 
+
+
     //BOTON JOIN MEETING
-    const handleJoinClick = (meeting) => {
-        const loggedInUserId = logic.getLoggedInUserId()
-        // if (!meeting.attendees.includes(loggedInUserId)) {
-        logic.joinMeeting(meeting.id)
-
-            .then(() => {
-                setJoined(true)
-                setStamp(Date.now())
-            })
+    const handleJoinClick = meeting => {
+        logic.joinMeeting(meeting)
+            .then(() => onJoinClick())
             .catch(error => {
-                showFeedback(error)
+                showFeedback(error);
             })
-        //}
     }
 
-    //BOTON UNJOIN CLICK
-    const handleUnjoinClick = (meeting) => {
-        const loggedInUserId = logic.getLoggedInUserId()
-        // if (meeting.attendees.includes(loggedInUserId)) {
-        logic.unjoinMeeting(meeting.id)
+    //BOTON UNJOIN MEETING
+    const handleUnjoinClick = meeting => {
+        logic.unjoinMeeting(meeting)
             .then(() => {
-                setJoined(false)
-                setStamp(Date.now())
+                setStamp(Date.now)
+                unjoinClick()
             })
             .catch(error => {
-                showFeedback(error)
+                showFeedback(error);
             })
-        //}
     }
-
-    // useEffect(() => {
-    //     if (user)
-    //         try {
-    //     logic.isUserJoined(meeting)
-    //     .then(result => {
-    //         if (result)
-    //             setJoined(true)
-    //     })
-    // } catch(error) {
-    //     showFeedback(error)
-    // }
-    // }, [meeting])
 
 
     const handleEditClick = meeting => onEditClick(meeting)
@@ -78,7 +57,10 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onDeleted, set
             if (confirmed)
                 try {
                     logic.removeMeeting(meetingId)
-                        .then(() => onDeleted())
+                        .then(() => {
+                            setStamp(Date.now())
+                            onMeetingDeleted()
+                        })
                         .catch(error => showFeedback(error, 'error'))
                 } catch (error) {
                     showFeedback(error)
@@ -93,11 +75,9 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onDeleted, set
         setJoined(AttendeeJoined)
     }, [meeting])
 
-
-
-
-
     logger.debug('Meeting -> render')
+
+
 
 
     return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
@@ -134,10 +114,6 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onDeleted, set
         <div className="flex justify-end">
             {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
 
-            {joined ? <button onClick={() => handleJoinClick(meeting)} className="w-5 h-5">Join</button> : <button onClick={() => handleUnjoinClick(meeting)} className="w-5 h-5">Unjoin</button>}
-
-
-
 
             {logic.getLoggedInUserId().userId === meeting.author.id && (
                 <div className="flex justify-end">
@@ -148,6 +124,8 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onDeleted, set
             )}
             <div>
 
+                <button className='mt-2 flex items-center' onClick={() => handleJoinClick(meeting.id)}><p className='p-1'><strong>Join</strong></p></button>
+                <button className='mt-2 flex items-center' onClick={() => handleUnjoinClick(meeting.id)}><p className='p-1'><strong>Unjoin</strong></p></button>
 
 
             </div>
@@ -231,3 +209,16 @@ export default Meeting
 //         }
 //     }
 // }
+
+// useEffect(() => {
+//     if (user)
+//         try {
+//     logic.isUserJoined(meeting)
+//     .then(result => {
+//         if (result)
+//             setJoined(true)
+//     })
+// } catch(error) {
+//     showFeedback(error)
+// }
+// }, [meeting])

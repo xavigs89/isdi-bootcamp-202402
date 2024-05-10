@@ -26,6 +26,8 @@ function App() {
   const [feedback, setFeedback] = useState(null)
   const [confirm, setConfirm] = useState(null)
   const [meetingToEdit, setMeetingToEdit] = useState(null)
+  const [stamp, setStamp] = useState(null)
+
 
   const navigate = useNavigate()
 
@@ -77,7 +79,7 @@ function App() {
   logger.debug('App -> render')
 
   return <>
-    <Context.Provider value={{ showFeedback: handleFeedback, showConfirm: handleConfirm, meetingToEdit, setMeetingToEdit }}>
+    <Context.Provider value={{ stamp, setStamp, showFeedback: handleFeedback, showConfirm: handleConfirm, meetingToEdit, setMeetingToEdit }}>
       <Routes>
         <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login
           onRegisterClick={handleRegisterClick}
@@ -91,8 +93,8 @@ function App() {
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
 
-        <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
-          onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
+        {/* <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
+          onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} /> */}
           {/* onEditMeetingClick={handleEditMeetingClick} */}
 
         {/* <Route path="/users/userId" element={} ? <OtherUserProfile */}
@@ -103,7 +105,7 @@ function App() {
     {feedback && <Feedback message={feedback.message} level={feedback.level} 
     onAcceptClick={handleFeedbackAcceptClick} />}
 
-    {confirm && <Confirm message="Do you want to delete meeting?" onCancelClick={handleConfirmCancelClick} onAcceptClick={handleConfirmAcceptClick} />}
+    {confirm && <Confirm message={confirm.message} onCancelClick={handleConfirmCancelClick} onAcceptClick={handleConfirmAcceptClick} />}
 
   </>
 
