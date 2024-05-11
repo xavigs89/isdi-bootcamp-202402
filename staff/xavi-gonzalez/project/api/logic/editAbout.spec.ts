@@ -9,7 +9,7 @@ import { User } from '../data/index.ts'
 
 dotenv.config()
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, ContentError } = errors
 
 
 describe('editAbout', () => {
@@ -27,17 +27,18 @@ describe('editAbout', () => {
         })
     })
 
-    it('succeeds when you edit a meeting', () => {
+    it('succeeds when you edit about section', () => {
         const updatedDescription = 'Updated Description'
 
         return logic.editAbout(userId, updatedDescription)
             .then(() => User.findById(userId))
             .then(updatedAbout => {
-                console.log(updatedAbout)
+                // console.log(updatedAbout)
                 expect(updatedAbout).to.exist
                 expect(updatedAbout.about).to.equal(updatedDescription)
             })
     })
+
 
     after(() => mongoose.disconnect())
 })

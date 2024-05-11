@@ -22,7 +22,7 @@ function createReview(userId: string, rate: number, comment: string, meetingId: 
                 rate,
                 comment: comment.trim(),
                 date: new Date(),
-                meetingId
+                meeting: meetingId
             }
 
             return Review.create(review)

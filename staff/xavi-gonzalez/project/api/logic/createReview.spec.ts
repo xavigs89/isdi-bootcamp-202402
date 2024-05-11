@@ -26,11 +26,11 @@ describe('createReview', () => {
                 User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
             )
             .then(user =>
-                logic.createReview(user.id, 4, 'I enjoyed the meeting'))
+                logic.createReview(user.id, 4, 'I enjoyed the meeting', "663e381050eb943b328b427a"))
             .then(() => Review.findOne({ }))
             .then(review => {
-                console.log(review)
-                // expect(review.author.toString()).to.equal(user.id)
+                // console.log(review)
+                //expect(review.author.toString()).to.equal(user.id)
                 expect(review.rate).to.be.a('number')
                 expect(review.comment).to.equal('I enjoyed the meeting')
             })

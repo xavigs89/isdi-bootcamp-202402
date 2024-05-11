@@ -101,7 +101,7 @@ function Home() {
 
     const handleUnJoineMeetingClick = () => {
         clearView()
-        loadMatches()
+        loadMeetings()
     }
 
 

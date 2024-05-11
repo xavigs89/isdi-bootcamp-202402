@@ -18,7 +18,7 @@ function unjoinMeeting(meetingId, userId): Promise<any> {
                 .then(meeting => {
                     if (!meeting) throw new NotFoundError('meeting not found')
 
-                    if (!meeting.attendees.includes(user.id)) throw new NotFoundError('user not joined meeting')
+                    if (!meeting.attendees.includes(user.id)) throw new NotFoundError('user is not joined to this meeting')
 
                     return Meeting.updateOne({ _id: meetingId }, { $pull: { attendees: userId } })
                 })

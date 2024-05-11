@@ -7,17 +7,19 @@ import RoundButton from './library/RoundButton'
 import Header from './Header'
 import { useContext } from '../context'
 import MeetingsList from './MeetingsList'
+import About from './About'
 import EditMeeting from './EditMeeting'
 import { useNavigate } from 'react-router-dom'
 
 import { useState, useEffect } from 'react'
 
 
-function Profile({ user }) {
+function Profile({ }) {
 
     const { showFeedback, stamp, setStamp } = useContext()
 
     const navigate = useNavigate()
+    const [user, setUser] = useState(null)
 
     const handleLoggedOut = () => {
         navigate("/login")
@@ -28,20 +30,20 @@ function Profile({ user }) {
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
-
-
-    // const [createdMeetingsVisibility, setCreatedMeetingsVisibility] = useState(false)
-    // const [joinedMeetingsVisibility, setJoinedMeetingsVisibility] = useState(false)
-    // const [aboutMeVisibility, setAboutVisibility] = useState(false)
+    //const [aboutMe, setAboutMe] = useState(false)
 
     const clearView = () => setView('close')
 
     const toogleViewCreated = () => {
-        setView( view === 'open-created' ? 'close' : 'open-created')
+        setView(view === 'open-created' ? 'close' : 'open-created')
     }
 
     const toogleViewJoined = () => {
-        setView( view === 'open-joined' ? 'close' : 'open-joined')
+        setView(view === 'open-joined' ? 'close' : 'open-joined')
+    }
+
+    const toogleViewAboutMe = () => {
+        setView(view === 'open-aboutMe' ? 'close' : 'open-aboutMe')
     }
 
 
@@ -83,30 +85,16 @@ function Profile({ user }) {
     }, [stamp])
 
 
-
-    // const handleCreatedMeetingsClick = () => {
-    //     loadCreatedMeetings()
-    //     setCreatedMeetingsVisibility(!createdMeetingsVisibility)
-    //     setJoinedMeetingsVisibility(false)
-    // }
-
-
     const handleJoinedMeetingsClick = () => {
         loadJoinedMeetings()
-
     }
 
     const handleUnJoinMeetingClick = () => {
-   
         loadCreatedMeetings()
     }
 
-
-
     const handleAboutMeClick = () => {
-        setAboutVisibility(!aboutMeVisibility)
-        setCreatedMeetingsVisibility(false)
-        setJoinedMeetingsVisibility(false)
+        loadCreatedMeetings()
     }
 
 
@@ -136,13 +124,12 @@ function Profile({ user }) {
 
                     <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
-
                     <button onClick={toogleViewJoined} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
 
-                    <button onClick={() => handleAboutMeClick()} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
+                    <button onClick={toogleViewAboutMe} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
 
                 </div>
-{/* 
+                {/* 
                 {createdMeetingsVisibility &&
                     (createdMeetingsList && createdMeetingsList.length > 0 ?
                         <MeetingsList meetings={createdMeetingsList}
@@ -156,22 +143,27 @@ function Profile({ user }) {
                     )
                 } */}
 
-                { view === 'open-created' &&  <MeetingsList meetings={createdMeetingsList}
-                            onEditMeetingClick={handleEditClick}
-                            onJoinMeetingClick={handleJoinedMeetingsClick}
-                            onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
+                {view === 'open-created' && <MeetingsList meetings={createdMeetingsList}
+                    onEditMeetingClick={handleEditClick}
+                    onJoinMeetingClick={handleJoinedMeetingsClick}
+                    onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
 
                 {view === 'open-joined' && <MeetingsList meetings={joinedMeetingsList}
                     onEditMeetingClick={handleEditClick}
                     onUnjoinMeetingClick={handleUnJoinMeetingClick}
-                     />}
+                />}
+
+                {view === 'open-aboutMe' && <About user={aboutMe}
+                    onEditMeetingClick={handleEditClick}
+                    onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                />}
 
                 {/* {aboutMeVisibility && (
                     <div className="bg-white p-4 rounded">
                         <p>{user.about}</p>
                     </div>
                 )} */}
-{/* 
+                {/* 
                 {aboutMeVisibility && (
                     <div className="bg-white p-4 rounded">
                         <p>{user && user.about === null ? 'null ABOUT' : JSON.stringify(user)}</p>

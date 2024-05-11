@@ -23,8 +23,6 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick,onUnjoi
         setStamp(Date.now())
     }
 
-
-
     return <ul className="mb-100px">
         {meetings && meetings.map(meeting =>
             <Meeting key={meeting.id} item={meeting} setStamp={setStamp}

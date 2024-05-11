@@ -63,6 +63,16 @@ describe('retrieveMeetings', () => {
     )
 
 
+    // it('throws an error when user does not exist', () => {
+    //     const nonExistingUserId = 'nonexistinguserid'
+    
+    //     return logic.retrieveMeetings(nonExistingUserId)
+    //         .catch(error => {
+    //             expect(error).to.be.instanceOf(NotFoundError)
+    //             expect(error.message).to.equal('user not found')
+    //         })
+    // })
+
     after(mongoose.disconnect)
 })
 

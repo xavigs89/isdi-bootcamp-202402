@@ -10,7 +10,7 @@ function convertAttendeeToName(attendeesArray: Array <string | null> ) {
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
-console.log(user)
+// console.log(user)
             return user.name
 
             })

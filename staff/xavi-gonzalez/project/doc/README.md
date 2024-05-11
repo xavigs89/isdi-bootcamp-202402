@@ -10,14 +10,14 @@ JiveHub is a platform that connects people with common interests and enables the
 
 ### Use Cases
 
-- create meeting
-- edit meeting
-- remove meeting
-- join meeting
-- unjoin meeting
-- view attendee list
+- create meeting OK
+- edit meeting OK
+- remove meeting OK
+- join meeting OK
+- unjoin meeting OK
+- view attendee list OK
 - see user profile (see its meetings and reviews of those meetings created.)
-- edit profile (about me and contact, see created meetings, see joined meetings)
+- edit profile (about me and contact, see created meetings, see joined meetings) it remains edit about
 - rate meeting (once it's over, from 1 to 5 stars, optional comment)
 
 

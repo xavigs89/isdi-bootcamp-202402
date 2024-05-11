@@ -29,7 +29,7 @@ describe('registerUser', () => {
             })
     )
 
-    it('fails on existing users', () =>
+    it('fails on existing user', () =>
         User.deleteMany()
             .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1' }))
             .then(() =>

@@ -9,6 +9,8 @@ import logic from '../logic'
 import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
 
+import moment from 'moment'
+
 function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDeleted, unjoinClick }) {
 
 
@@ -68,6 +70,8 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
         })
     }
 
+    const handleReviewClick = meeting => onReviewClick(meeting)
+
 
 
     useEffect(() => {
@@ -86,7 +90,7 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
             <p className="text-left font-semibold mbp text-xs"><Link to={`user/${meeting.author.name}`}>{meeting.author.name}</Link></p>
             <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
             <p><strong>Address: </strong>{meeting.address}</p>
-            <p>{meeting.date}h </p>
+            <p>{moment(meeting.date).format('Do MMMM YYYY, h:mm a')}</p>
 
 
             {view === 'close' &&
@@ -102,6 +106,15 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
                     <div>
                         <p><strong>Attendees: </strong></p>
                         <ul className='flex flex-col'>{meeting.attendees.join(', ')}</ul>
+                    </div>
+
+                    <div className="flex space-x-4">
+                        <button className="mt-2 flex items-center" onClick={() => handleJoinClick(meeting.id)}>
+                            <p className="p-1"><strong>Join</strong></p>
+                        </button>
+                        <button className="mt-2 flex items-center" onClick={() => handleUnjoinClick(meeting.id)}>
+                            <p className="p-1"><strong>Unjoin</strong></p>
+                        </button>
                     </div>
 
                     <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
@@ -122,10 +135,15 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
                     <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5"><img src="../../public/icons/BiTrash3.png" alt="delete" /></button>
                 </div>
             )}
+
+            {logic.getLoggedInUserId().userId && logic.isUserJoined() && logic.isMeetingDone() && (
+                <button onClick={handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                    Review
+                </button>
+            )}
+
             <div>
 
-                <button className='mt-2 flex items-center' onClick={() => handleJoinClick(meeting.id)}><p className='p-1'><strong>Join</strong></p></button>
-                <button className='mt-2 flex items-center' onClick={() => handleUnjoinClick(meeting.id)}><p className='p-1'><strong>Unjoin</strong></p></button>
 
 
             </div>

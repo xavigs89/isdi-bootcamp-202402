@@ -55,7 +55,5 @@ describe('editMeeting', () => {
     })
     
 
-    // TODO ERROR CASES
-
     after(() => mongoose.disconnect())
 })

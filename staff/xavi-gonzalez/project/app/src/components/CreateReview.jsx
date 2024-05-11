@@ -9,7 +9,6 @@ import { useContext } from '../context'
 
 function CreateReview({ onReviewCreated, onCancelCick }) {
 
-
     const { showFeedback } = useContext()
 
     const handleSubmit = event => {
@@ -18,7 +17,7 @@ function CreateReview({ onReviewCreated, onCancelCick }) {
         const form = event.target
 
         const rate = form.rate.value
-        const comment = from.comment.value
+        const comment = form.comment.value
 
         try {
             logic.createReview(rate, comment)
@@ -35,7 +34,7 @@ function CreateReview({ onReviewCreated, onCancelCick }) {
 
     const handleCancelClick = () => onCancelCick()
 
-    logger.debug('Create Review -> render')
+    logger.debug('CreateReview -> render')
 
     return <section className="h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 py-8 px-4 border-rounded xl">
         <div className='border p-10 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>

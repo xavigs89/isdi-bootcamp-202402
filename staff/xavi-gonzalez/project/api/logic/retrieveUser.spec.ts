@@ -56,11 +56,6 @@ describe('retrieveUser', () => {
             )
     )
 
-    // TODO test all methods
-
-
-
-
     it('fails on non-string userId', () => 
         User.deleteMany()
             .then(() => User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: 'Isdicoders1', avatar: null, about: null }))

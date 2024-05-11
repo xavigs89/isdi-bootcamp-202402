@@ -4,7 +4,7 @@ function isUserJoined(meeting) {
     try {
         validate.token(sessionStorage.token)
 
-        const [, payloadB64] = sessionStorage.token.split('.')
+    const [, payloadB64] = sessionStorage.token.split('.')
     const payloadJSON = atob(payloadB64)
 
     const payload = JSON.parse(payloadJSON)

@@ -7,6 +7,8 @@ import SubmitButton from './library/SubmitButton'
 
 import { useContext } from '../context'
 
+import moment from 'moment'
+
 function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
 
     const { showFeedback } = useContext()
@@ -58,7 +60,7 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
             <input id="location" defaultValue={meeting.location} name="location" type="text" />
 
             <label className="text-lg font-semibold" >Date</label>
-            <input id="date" defaultValue={meeting.date ? new Date(meeting.date).toISOString().slice(0, 16) : ''} name="date" type="datetime-local" min={Date.now()} />
+            <input id="date" defaultValue={meeting.date ? moment(meeting.date).format('YYYY-MM-DDTHH:mm') : ''} name="date" type="datetime-local" min={Date.now()} />
 
             <label className="text-lg font-semibold" >Description</label>
             <input id="description" defaultValue={meeting.description} name="description" type="text" />

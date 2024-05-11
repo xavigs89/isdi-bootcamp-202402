@@ -21,9 +21,9 @@ function Header({ onUserLoggedOut }) {
         try {
             logic.retrieveUser()
                 .then(setUser)
-                .catch(error => console.log(error))
+                .catch(error => showFeedback(error))
         } catch (error) {
-            console.log(error)
+            showFeedback(error)
         }
     }, [])
 
@@ -33,10 +33,10 @@ function Header({ onUserLoggedOut }) {
         <header className="fixed top-0 w-full h-[62px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-2">
 
             <div className="flex items-center space-x-1">
-                <Link to="/"
-                    className="w-11 h-11 rounded-full mb-2"><img src="../../public/icons/Home.png" alt="home" />
+                <Link to="/">
+
+                     <img className="w-[50px] flex " src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
                     
-                {user && <h1 className="text-center font-bold text-xs absolute">{user.name}</h1>}
 
                 </Link>
 
@@ -44,10 +44,11 @@ function Header({ onUserLoggedOut }) {
 
 
             <div className="absoluteflex items-center">
-                <img className="w-[50px] flex " src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
+             
+                {user && <h1 className="text-center font-bold text-xl">Welcome, {user.name}!</h1>}
             </div>
 
-            <button className="h-11 w-11" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
+            <button className="h-12 w-12" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
 
         </header>
 

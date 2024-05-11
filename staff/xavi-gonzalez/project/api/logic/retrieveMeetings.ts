@@ -32,7 +32,7 @@ function retrieveMeetings(userId: string): Promise<any> {
                         title,
                         address,
                         location,
-                        date: date.toLocaleString('es-ES').slice(0, -3),
+                        date,
                         description,
                         image,
                         attendees: attendees.map(attendee => attendee.name)
@@ -46,5 +46,8 @@ export default retrieveMeetings
 
 
 // [{ id: string, author: { id: string, name: string }, title: string, address: string, location: [Number, Number], date: Date, description: string, image: string, attendees: [string] }] | { id: string; author: { id: string, name: string; }; title: string; address: string; location: [Number, Number]; date: Date; description: string; image: string; attendees: [string]; }[]
+
+//date.toLocaleString('es-ES').slice(0, -3),
+
 
 //date.toLocaleString('es-ES').slice(0, -3),
