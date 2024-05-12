@@ -505,7 +505,7 @@ mongoose.connect(MONGODB_URL)
 
 
         //CREATE REVIEW 
-        api.post('/reviews/:meetingId', jsonBodyParser, (req, res) => {
+        api.post('/reviews', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
 

@@ -29,7 +29,7 @@ describe('createReview', () => {
                 logic.createReview(user.id, 4, 'I enjoyed the meeting', "663e381050eb943b328b427a"))
             .then(() => Review.findOne({ }))
             .then(review => {
-                // console.log(review)
+                console.log(review)
                 //expect(review.author.toString()).to.equal(user.id)
                 expect(review.rate).to.be.a('number')
                 expect(review.comment).to.equal('I enjoyed the meeting')

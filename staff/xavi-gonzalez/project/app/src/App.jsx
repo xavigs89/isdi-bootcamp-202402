@@ -5,8 +5,6 @@ import logic from './logic'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
-import OtherUserProfile from './components/OtherUserProfile'
-import Profile from './components/Profile'
 
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Feedback from './components/Feedback'
@@ -14,13 +12,8 @@ import { useState } from 'react'
 import { Context } from './context'
 import Confirm from './components/Confirm'
 import { errors } from 'com'
-//import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
-//import './App.css'
-
 
 const { UnauthorizedError } = errors
-
 
 function App() {
 
@@ -93,8 +86,6 @@ function App() {
         <Route path="/*" element={logic.isUserLoggedIn() ? <Home
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
-        <Route path="/user/:userId" element={logic.isUserLoggedIn() ? <OtherUserProfile onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
-
       </Routes>
     </Context.Provider>
 
@@ -111,26 +102,3 @@ export default App
 
 
 {/* <Route path="/createMeeting" element={<CreateMeeting />} /> */ }
-
-
-
-{/* <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}

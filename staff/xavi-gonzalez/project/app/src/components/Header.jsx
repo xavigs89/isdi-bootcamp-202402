@@ -4,7 +4,9 @@ import logic from '../logic'
 
 import { Link } from 'react-router-dom'
 
+
 function Header({ onUserLoggedOut }) {
+
     const [user, setUser] = useState(null)
 
     const handleLogoutClick = () => {
@@ -35,25 +37,21 @@ function Header({ onUserLoggedOut }) {
             <div className="flex items-center space-x-1">
                 <Link to="/">
 
-                     <img className="w-[50px] flex " src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
-                    
+                    <img className="w-[50px] flex " src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
 
                 </Link>
 
             </div>
 
-
             <div className="absoluteflex items-center">
-             
+
                 {user && <h1 className="text-center font-bold">Welcome, {user.name}!</h1>}
             </div>
 
             <button className="h-12 w-12" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
 
         </header>
-
     )
-
 }
 
 export default Header

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { validate, errors } from 'com'
 import { User, Meeting, Review } from '../data/index.ts'
+const { Types: { ObjectId } } = mongoose
 
 const { SystemError, NotFoundError } = errors
 
@@ -22,7 +23,7 @@ function createReview(userId: string, rate: number, comment: string, meetingId: 
                 rate,
                 comment: comment.trim(),
                 date: new Date(),
-                meeting: meetingId
+                meeting: new ObjectId(meetingId)
             }
 
             return Review.create(review)

@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 
-function Profile({ user }) {
+function Profile({ item: user, onEditMeetingClick }) {
 
     const { showFeedback, stamp, setStamp } = useContext()
 
@@ -23,6 +23,7 @@ function Profile({ user }) {
 
     const handleLoggedOut = () => {
         navigate("/login")
+
     }
 
     const [meeting, setMeeting] = useState(false)
@@ -30,7 +31,7 @@ function Profile({ user }) {
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
-    // const [aboutMe, setAboutMe] = useState(false)
+    const [about, setAbout] = useState(false)
 
     const clearView = () => setView('close')
 
@@ -48,7 +49,7 @@ function Profile({ user }) {
 
 
 
-    //ALL CREATED MEETINGS, PASADOS Y FUTUROS
+    //MOSTRAR TODOS LOS CREATED MEETINGS, PASADOS Y FUTUROS
     const loadCreatedMeetings = () => {
 
         logger.debug('CreatedMeetingList -> loadMeetings')
@@ -67,7 +68,7 @@ function Profile({ user }) {
     }, [stamp])
 
 
-    //ALL JOINED MEETINGS, PASADOS Y FUTUROS
+    //MOSTRAR TODOS LOS JOINED MEETINGS, PASADOS Y FUTUROS
     const loadJoinedMeetings = () => {
         logger.debug('JoinedMeetingList -> loadMeetings')
 
@@ -93,9 +94,6 @@ function Profile({ user }) {
         loadCreatedMeetings()
     }
 
-    const handleEditAboutClick = () => {
-        loadAboutMe()
-    }
 
 
     //COMPO EDIT MEETING PROPS
@@ -119,6 +117,10 @@ function Profile({ user }) {
 
     const handleAboutEdited = () => {
 
+    }
+
+    const handleEditAboutClick = () => {
+        loadAboutMe()
     }
 
 
@@ -163,9 +165,9 @@ function Profile({ user }) {
                     </div>
                 )}
 
-                {view === 'edit-about' && <EditAbout user={user}
-                    onCancelClick={handleEditAboutCancelClick}
-                    onAboutEdited={handleAboutEdited} />}
+                {view === 'edit-about' && <EditAbout about={about}
+                    onAboutEdited={handleAboutEdited}
+                    onCancelClick={handleEditAboutCancelClick} />}
 
             </section>
         </main >
@@ -174,17 +176,6 @@ function Profile({ user }) {
 }
 
 export default Profile
-
-
-
-
-
-{/* 
-                {aboutMeVisibility && (
-                    <div className="bg-white p-4 rounded">
-                        <p>{user && user.about === null ? 'null ABOUT' : JSON.stringify(user)}</p>
-                    </div>
-                )} */}
 
 
 

@@ -7,8 +7,11 @@ import MeetingsList from '../components/MeetingsList'
 import CreateMeeting from '../components/CreateMeeting'
 import EditMeeting from '../components/EditMeeting'
 import Profile from '../components/Profile'
+import OtherUserProfile from '../components/OtherUserProfile'
 
 import Header from '../components/Header'
+import Footer from '../components/Footer'
+
 import { Link, Navigate } from 'react-router-dom'
 import { useNavigate, Routes, Route } from 'react-router-dom'
 import { useContext } from '../context'
@@ -16,7 +19,6 @@ import { useContext } from '../context'
 function Home() {
 
     const navigate = useNavigate()
-
     const { showFeedback, stamp, setStamp } = useContext()
 
     const handleLoggedOut = () => {
@@ -27,10 +29,9 @@ function Home() {
     const [meeting, setMeeting] = useState(null)
     const [meetings, setMeetings] = useState(null)
 
-
     const clearView = () => setView(null)
 
-
+    //para cargar la información del usuario al cargar el componente
     useEffect(() => {
         try {
             logic.retrieveUser()
@@ -43,7 +44,7 @@ function Home() {
     }, [])
 
 
-    //ALL MEETINGS, PASADOS Y FUTUROS
+    //CARGAR SOLO MEETINGS FUTUROS
     const loadMeetings = () => {
         logger.debug('MeetingList -> loadMeetings')
 
@@ -59,55 +60,74 @@ function Home() {
         }
     }
 
+    //llamar a la función loadMeetings cada vez que el estado stamp cambie
     useEffect(() => {
         loadMeetings()
     }, [stamp])
 
 
-    // CREAR MEETING
+
+    // BOTON PARA CREAR MEETING
+    const handleCreateMeetingClick = () => setView('create-meeting')
+
+    // CREAR MEETING CON EXITO
     const handleMeetingCreated = () => {
         clearView()
         setStamp(Date.now())
     }
-
+    // CANCELAR CREAR MEETING
     const handleCreateMeetingCancelClick = () =>
         clearView()
 
-    const handleCreateMeetingClick = () => setView('create-meeting')
 
 
-    // EDITAR MEETING
+    // BOTON PARA EDIT MEETING
     const handleEditMeetingClick = meeting => {
         setView('edit-meeting')
         setMeeting(meeting)
     }
 
+    // EDITAR MEETING CON EXITO
     const handleMeetingEdited = () => {
         clearView()
         setStamp(Date.now())
         setMeeting(null)
     }
 
+    // CANCELAR EDIT MEETING
     const handleEditMeetingCancelClick = () =>
         clearView()
 
+
     logger.debug('Home -> render')
 
-    //EDITAR ABOUT ME
-    const handleEditAboutClick = () => {
 
+    //BOTON PARA EDIT ABOUT ME
+    const handleEditAboutClick = () => {
+        setView('edit-about')
+        setAbout(about)
     }
+
+    // EDITAR ABOUT CON EXITO
+    const handleAboutEdited = () => {
+        clearView()
+        setStamp(Date.now())
+        setAbout(null)
+    }
+
+    // CANCELAR EDIT ABOUT
+    const handleEditAboutCancelClick = () =>
+        clearView()
 
 
     //JOIN
     const handleJoinMeetingClick = () => {
-
         clearView()
         loadMeetings()
     }
 
     //UNJOIN
-    const handleUnJoineMeetingClick = () => {
+    const handleUnjoinMeetingClick = () => {
         clearView()
         loadMeetings()
     }
@@ -127,56 +147,35 @@ function Home() {
                     <Route path="/" element={<MeetingsList meetings={meetings} stamp={stamp} setStamp={setStamp}
                         onEditMeetingClick={handleEditMeetingClick}
                         onJoinMeetingClick={handleJoinMeetingClick}
-                        onUnjoinMeetingClick={handleUnJoineMeetingClick} />} />
+                        onUnjoinMeetingClick={handleUnjoinMeetingClick} />} />
 
                     <Route path="/profile" element={<Profile user={user}
                         onEditAboutClick={handleEditAboutClick}
-                         />} />
+                        onEditMeetingClick={handleEditMeetingClick}
+                    />} />
+
+                    <Route path="/user/:userId" element={<OtherUserProfile />} />
                 </Routes>
 
-
-                {view === 'create-meeting' && <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} />}
+                {view === 'create-meeting' && <CreateMeeting
+                    onCancelClick={handleCreateMeetingCancelClick}
+                    onMeetingCreated={handleMeetingCreated} />}
 
                 {view === 'edit-meeting' && <EditMeeting meeting={meeting}
                     onCancelClick={handleEditMeetingCancelClick}
                     onMeetingEdited={handleMeetingEdited} />}
 
-
-
-                <footer className="fixed bottom-0 w-full h-[50px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-1">
-
-                    <button className="w-10 h-10 rounded-full ml-2"><img src="../../public/icons/TablerSearch.png" alt="search" /></button>
-
-                    <button onClick={handleCreateMeetingClick} className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/CreateMeeting.png" alt="search" /></button>
-
-                    <Link to="/profile">
-                        <button>{user && user.avatar ? <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4"></img> : <img className="w-11 h-11 rounded-full mr-2" src="../../public/icons/Profile.png" alt="profile pic"></img>}</button>
-                    </Link>
-
-                </footer>
+                {view === 'edit-about' && <EditAbout about={about}
+                    onAboutEdited={handleAboutEdited}
+                    onCancelClick={handleEditAboutCancelClick} />}
 
             </main>
 
-        </div>
+            <Footer user={user} handleCreateMeetingClick={handleCreateMeetingClick} />
 
+        </div>
     </>
 
 }
 
 export default Home
-
-
-// LOGOUT
-// const handleLogoutClick = () => {
-//     try {
-//         logic.logoutUser()
-//     } catch (error) {
-//         logic.cleanUpLoggedInUserId()
-//     } finally {
-//         onUserLoggedOut()
-//     }
-// }
-
-
-{/*                 
-                <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} /> */}

@@ -11,10 +11,13 @@ import getLoggedInUserId from '../logic/getLoggedInUserId'
 
 import moment from 'moment'
 
-function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDeleted, unjoinClick }) {
+function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
 
 
     const { showFeedback, showConfirm, setStamp } = useContext()
+
+    const [view, setView] = useState('close')
+    const [joined, setJoined] = useState(false)
 
     //hacer que foto de meeting desaparezca cuando das a show details
     // const [detailsView, setDetailsView] = useState(false)
@@ -24,31 +27,29 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
         setShowImage(!showImage)
     }
 
-    const [view, setView] = useState('close')
-    const [joined, setJoined] = useState(false)
-
-
-
 
     //BOTON JOIN MEETING
     const handleJoinClick = meeting => {
-        logic.joinMeeting(meeting)
-            .then(() => onJoinClick())
-            .catch(error => {
-                showFeedback(error);
-            })
+        try {
+            logic.joinMeeting(meeting)
+                .then(() => onJoinClick())
+                .catch(error => showFeedback(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
+        }
     }
 
     //BOTON UNJOIN MEETING
     const handleUnjoinClick = meeting => {
-        logic.unjoinMeeting(meeting)
-            .then(() => {
-                setStamp(Date.now)
-                unjoinClick()
-            })
-            .catch(error => {
-                showFeedback(error);
-            })
+        try {
+            logic.unjoinMeeting(meeting)
+                .then(() => {
+                    setStamp(Date.now)
+                    unjoinClick()
+                })
+        } catch (error) {
+            showFeedback(error)
+        }
     }
 
 
@@ -70,13 +71,15 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
         })
     }
 
+
+    //REVIEW
     const handleReviewClick = meeting => onReviewClick(meeting)
 
 
 
     useEffect(() => {
-        const AttendeeJoined = meeting.attendees.some(attendees => attendees.id === getLoggedInUserId().userId)
-        setJoined(AttendeeJoined)
+        const attendeeJoined = meeting.attendees.some(attendees => attendees.id === getLoggedInUserId().userId)
+        setJoined(attendeeJoined)
     }, [meeting])
 
     logger.debug('Meeting -> render')
@@ -136,11 +139,11 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
                 </div>
             )}
 
-            {logic.getLoggedInUserId().userId && logic.isUserJoined() && logic.isMeetingDone() && (
+            {/* {logic.getLoggedInUserId().userId && logic.isUserJoined() && logic.isMeetingDone() && (
                 <button onClick={handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
                     Review
                 </button>
-            )}
+            )} */}
 
             <div>
 
@@ -154,38 +157,6 @@ function Meeting({ item: meeting, user, onJoinClick, onEditClick, onMeetingDelet
 
 }
 export default Meeting
-
-
-
-// const [attendees, setAttendees] = useState([])
-
-// const attendeesNames = meeting.attendees.map((attendee) => attendee.name)
-
-
-
-
-// useEffect(() => {
-//     const retrieveAttendeesNames = () => {
-//         let retrievedAttendees = []
-//         try {
-//             meeting.attendees.forEach(attendee => {
-//                 logic.retrieveUser(attendee)
-//                     .then(user => {
-//                         retrievedAttendees.push(user.name)
-//                     })
-//                     .then(() => setAttendees(retrievedAttendees))
-//                     .then(() => console.log(attendees))
-//                     .catch(error)
-
-//             })
-
-//         } catch (error) {
-
-//         }
-//     }
-//     retrieveAttendeesNames()
-// }, [])
-
 
 
 //BOTON JOIN MEETING

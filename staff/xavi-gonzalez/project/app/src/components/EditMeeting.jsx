@@ -48,7 +48,7 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
 //#F4C84B
     return <section className="h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 py-8 px-4 border-rounded xl"
     >
-        <div className='border p-10 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>
+        <div className='border p-4 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2" >
             <label className="text-lg font-semibold"  >Title</label>
             <input id="title" defaultValue={meeting.title} name="title" type="text" />
@@ -60,7 +60,7 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
             <input id="location" defaultValue={meeting.location} name="location" type="text" />
 
             <label className="text-lg font-semibold" >Date</label>
-            <input id="date" defaultValue={meeting.date ? moment(meeting.date).format('YYYY-MM-DDTHH:mm') : ''} name="date" type="datetime-local" min={Date.now()} />
+            <input id="date" defaultValue={meeting.date ? moment(meeting.date).format('YYYY-MM-DDTHH:mm') : ''} name="date" type="datetime-local" min="2024-03-30T00:00" max="2025-12-31T23:59" />
 
             <label className="text-lg font-semibold" >Description</label>
             <input id="description" defaultValue={meeting.description} name="description" type="text" />

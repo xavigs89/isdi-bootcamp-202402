@@ -1,6 +1,5 @@
 //@ts-nocheck
 import { logger } from '../utils'
-import logic from '../logic'
 import Meeting from './Meeting'
 
 import { useState, useEffect } from 'react'
@@ -31,28 +30,10 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
                 onEditClick={handleEditClick}
                 onMeetingDeleted={handleMeetingDeleted}
                 onClick={() => handleSelectedMeeting(meeting)}
-            // meeting={meeting}
             />)}
     </ul>
 }
 
 export default MeetingsList
-
-
-
-
-//ALL MEETINGS, PASADOS Y FUTUROS
-// const loadMeetings = () => {
-//     logger.debug('MeetingList -> loadMeetings')
-
-//     try {
-//         logic.retrieveMeetings()
-//             .then(retrievedMeetings => setMeetings(retrievedMeetings))
-//             .catch(error => showFeedback(error, 'error'))
-//     } catch (error) {
-//         showFeedback(error)
-//     }
-// }
-
 
 

@@ -7,8 +7,6 @@ import CancelButton from './library/CancelButton'
 
 import { useContext } from '../context'
 
-import moment from 'moment'
-
 function CreateMeeting({ onMeetingCreated, onCancelClick, }) {
 
     const { showFeedback } = useContext()
@@ -49,7 +47,8 @@ function CreateMeeting({ onMeetingCreated, onCancelClick, }) {
     logger.debug('CreateMeeting -> render')
 
     return <section className="h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 py-8 px-4 border-rounded xl">
-        <div className='border p-10 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>
+
+        <div className='border p-4 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>
             <form onSubmit={handleSubmit} className="flex flex-col items-center" >
                 <label className="text-lg font-semibold"  >Title</label>
                 <input id="title" name="title" type="text" />
@@ -61,7 +60,7 @@ function CreateMeeting({ onMeetingCreated, onCancelClick, }) {
                 <input id="location" name="location" type="text" />
 
                 <label className="text-lg font-semibold" >Date</label>
-                <input id="date" name="date" type="datetime-local" min={Date.now()} />
+                <input id="date" name="date" type="datetime-local" min="2024-03-30T00:00" max="2025-12-31T23:59" />
 
                 <label className="text-lg font-semibold" >Description</label>
                 <input id="description" name="description" type="text" />
@@ -77,8 +76,6 @@ function CreateMeeting({ onMeetingCreated, onCancelClick, }) {
         </div>
 
     </section>
-
-
 }
 
 export default CreateMeeting

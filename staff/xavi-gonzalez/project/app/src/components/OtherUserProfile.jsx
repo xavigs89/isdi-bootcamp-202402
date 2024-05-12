@@ -8,13 +8,16 @@ import Header from './Header'
 
 import { useContext } from '../context'
 import { useNavigate } from 'react-router-dom'
+import MeetingsList from './MeetingsList'
 
 function OtherUserProfile() {
 
         // const { showFeedback } = useContext()
         const { userId } = useParams()
+        const navigate = useNavigate()
+
         const [user, setUser] = useState(null)
-        const [createdMeetings, setCreatedMeetings] = useState(false)
+        const [createdMeetings, setCreatedMeetings] = useState([])
         const [about, setAbout] = useState(false)
         const [view, setView] = useState('close')
 
@@ -61,7 +64,8 @@ function OtherUserProfile() {
                     <Header onUserLoggedOut={handleLoggedOut} />
         
                     <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
-                        <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
+                        
+                        <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">{user && `${userId.name} created meetings`}</button>
         
                         <button onClick={toogleViewAbout} id="about-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About</button>
                     </div>
@@ -72,9 +76,9 @@ function OtherUserProfile() {
         
                     {view === 'open-about' && user & (
                         <div className="mt-4 p-4 bg-white rounded-xl text-center text-wrap">
-                            <p className="mt-2"><strong>Full name:</strong> {userId.name}</p>
-                            <p className="mt-2"><strong>Contact:</strong> {userId.email}</p>
-                            <p className="mt-2">{user && user.about !== null ? userId.about : "user has no updated About yet"}</p>
+                            <p className="mt-2"><strong>Full name:</strong> {user.name}</p>
+                            <p className="mt-2"><strong>Contact:</strong> {user.email}</p>
+                            <p className="mt-2">{user && user.about !== null ? user.about : "user has no updated About yet"}</p>
                         </div>
                     )}
                 </main>
