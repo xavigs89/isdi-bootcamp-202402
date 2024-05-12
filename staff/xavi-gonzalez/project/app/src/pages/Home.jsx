@@ -26,8 +26,8 @@ function Home() {
     const [view, setView] = useState(null)
     const [meeting, setMeeting] = useState(null)
     const [meetings, setMeetings] = useState(null)
-    
-    
+
+
     const clearView = () => setView(null)
 
 
@@ -49,11 +49,11 @@ function Home() {
 
         try {
             logic.retrieveMeetings()
-            .then(retrievedMeetings => {
-                const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
-                setMeetings(upcomingMeetings)
-            })
-            .catch(error => showFeedback(error, 'error'))
+                .then(retrievedMeetings => {
+                    const upcomingMeetings = retrievedMeetings.filter(meeting => new Date(meeting.date) > new Date())
+                    setMeetings(upcomingMeetings)
+                })
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
             showFeedback(error)
         }
@@ -93,12 +93,20 @@ function Home() {
 
     logger.debug('Home -> render')
 
+    //EDITAR ABOUT ME
+    const handleEditAboutClick = () => {
+
+    }
+
+
+    //JOIN
     const handleJoinMeetingClick = () => {
 
         clearView()
         loadMeetings()
     }
 
+    //UNJOIN
     const handleUnJoineMeetingClick = () => {
         clearView()
         loadMeetings()
@@ -112,29 +120,26 @@ function Home() {
 
             <main className="mb-50px flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
                 <div>
-                <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
+                    <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
                 </div>
 
                 <Routes>
-                    <Route path="/" element={
-           
-                    <MeetingsList meetings={meetings} stamp={stamp} setStamp={setStamp} onEditMeetingClick={handleEditMeetingClick} onJoinMeetingClick={handleJoinMeetingClick}
-                    onUnjoinMeetingClick={handleUnJoineMeetingClick}/>} />
+                    <Route path="/" element={<MeetingsList meetings={meetings} stamp={stamp} setStamp={setStamp}
+                        onEditMeetingClick={handleEditMeetingClick}
+                        onJoinMeetingClick={handleJoinMeetingClick}
+                        onUnjoinMeetingClick={handleUnJoineMeetingClick} />} />
 
-
-                    {<Route path="/profile" element={<Profile 
-                    // onUserLoggedOut={onLogout}
-                    // onEditMeetingClick={handleEditMeetingClick}
-                    />} />}
-
+                    <Route path="/profile" element={<Profile user={user}
+                        onEditAboutClick={handleEditAboutClick}
+                         />} />
                 </Routes>
 
 
                 {view === 'create-meeting' && <CreateMeeting onCancelClick={handleCreateMeetingCancelClick} onMeetingCreated={handleMeetingCreated} />}
 
-                {view === 'edit-meeting' && <EditMeeting meeting={meeting} 
-                onCancelClick={handleEditMeetingCancelClick} 
-                onMeetingEdited={handleMeetingEdited} />}
+                {view === 'edit-meeting' && <EditMeeting meeting={meeting}
+                    onCancelClick={handleEditMeetingCancelClick}
+                    onMeetingEdited={handleMeetingEdited} />}
 
 
 

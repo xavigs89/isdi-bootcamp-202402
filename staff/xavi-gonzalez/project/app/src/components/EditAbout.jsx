@@ -21,11 +21,11 @@ function EditAbout({ about, onAboutEdited, onCancelClick }) {
         logger.debug('EditAbout -> handleSubmit')
 
         try {
-            logic.editMeeting(meeting.id, title, address, location, date, description, image)
+            logic.editAbout(description)
                 .then(() => {
                     form.reset()
 
-                    onMeetingEdited()
+                    onAboutEdited()
                 })
                 .catch(error => showFeedback(error), 'error')
         } catch (error) {
@@ -41,14 +41,14 @@ function EditAbout({ about, onAboutEdited, onCancelClick }) {
 
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2" >
             <label className="text-lg font-semibold" >About Me</label>
-            <input id="title" defaultValue={about.description} name="title" type="text" />
+            <input id="description" defaultValue={about} name="description" type="text" />
 
             <SubmitButton type="submit" className="text-lg font-semibold" >Save Changes</SubmitButton>
 
             <CancelButton onClick={handleCancelClick} />
         </form>
 
-
-
     </section>
 }
+
+export default EditAbout

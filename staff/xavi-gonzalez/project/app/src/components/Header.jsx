@@ -45,7 +45,7 @@ function Header({ onUserLoggedOut }) {
 
             <div className="absoluteflex items-center">
              
-                {user && <h1 className="text-center font-bold text-xl">Welcome, {user.name}!</h1>}
+                {user && <h1 className="text-center font-bold">Welcome, {user.name}!</h1>}
             </div>
 
             <button className="h-12 w-12" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>

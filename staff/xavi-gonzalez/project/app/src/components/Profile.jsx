@@ -7,19 +7,19 @@ import RoundButton from './library/RoundButton'
 import Header from './Header'
 import { useContext } from '../context'
 import MeetingsList from './MeetingsList'
-import About from './About'
 import EditMeeting from './EditMeeting'
+import EditAbout from './EditAbout'
 import { useNavigate } from 'react-router-dom'
 
 import { useState, useEffect } from 'react'
 
 
-function Profile({ }) {
+function Profile({ user }) {
 
     const { showFeedback, stamp, setStamp } = useContext()
 
     const navigate = useNavigate()
-    const [user, setUser] = useState(null)
+    // const [user, setUser] = useState(null)
 
     const handleLoggedOut = () => {
         navigate("/login")
@@ -30,7 +30,7 @@ function Profile({ }) {
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
-    //const [aboutMe, setAboutMe] = useState(false)
+    // const [aboutMe, setAboutMe] = useState(false)
 
     const clearView = () => setView('close')
 
@@ -93,8 +93,8 @@ function Profile({ }) {
         loadCreatedMeetings()
     }
 
-    const handleAboutMeClick = () => {
-        loadCreatedMeetings()
+    const handleEditAboutClick = () => {
+        loadAboutMe()
     }
 
 
@@ -114,73 +114,77 @@ function Profile({ }) {
         setView('edit-meeting')
     }
 
+    //ABOUT ME
+    const handleEditAboutCancelClick = () => setView(null)
+
+    const handleAboutEdited = () => {
+
+    }
+
+
     return <>
         <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
             <Header onUserLoggedOut={handleLoggedOut} />
 
-            <section>
+            <section >
 
-                <div className="space-between flex items-center grid-cols-4 gap-4 mt-16">
-
+                <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
                     <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
                     <button onClick={toogleViewJoined} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
 
                     <button onClick={toogleViewAboutMe} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
-
                 </div>
-                {/* 
-                {createdMeetingsVisibility &&
-                    (createdMeetingsList && createdMeetingsList.length > 0 ?
-                        <MeetingsList meetings={createdMeetingsList}
-                            onEditMeetingClick={handleEditClick}
-                            onJoinMeetingClick={handleJoinedMeetingsClick}
-                            onUnjoinMeetingClick={handleUnJoinMeetingClick} />
-                        :
-                        <div className="bg-white p-4 rounded">
-                            <p className="m-0">You have no meetings created yet</p>
-                        </div>
-                    )
-                } */}
 
                 {view === 'open-created' && <MeetingsList meetings={createdMeetingsList}
                     onEditMeetingClick={handleEditClick}
                     onJoinMeetingClick={handleJoinedMeetingsClick}
                     onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
 
+                {view === 'edit-meeting' && <EditMeeting meeting={meeting}
+                    onCancelClick={handleEditMeetingCancelClick}
+                    onMeetingEdited={handleMeetingEdited} />}
+
                 {view === 'open-joined' && <MeetingsList meetings={joinedMeetingsList}
                     onEditMeetingClick={handleEditClick}
                     onUnjoinMeetingClick={handleUnJoinMeetingClick}
                 />}
 
-                {view === 'open-aboutMe' && <About user={aboutMe}
-                    onEditMeetingClick={handleEditClick}
-                    onUnjoinMeetingClick={handleUnJoinMeetingClick}
-                />}
-
-                {/* {aboutMeVisibility && (
-                    <div className="bg-white p-4 rounded">
-                        <p>{user.about}</p>
+                {view === 'open-aboutMe' && (
+                    <div className="mt-4 p-4 bg-white rounded-xl text-center text-wrap">
+                        <p className="mt-2"><strong>Full name:</strong> {user.name}</p>
+                        <p className="mt-2"><strong>Contact:</strong> {user.email}</p>
+                        <p className="mt-2">{user && user.about !== null ? user.about : "You do not have any about me yet"}</p>
+                        {logic.getLoggedInUserId().userId === user.id && (
+                            <div className="flex justify-end mt-4">
+                                <button onClick={handleEditAboutClick} className="w-5 h-5"><img src="../../public/icons/VsEditPage.png" alt="edit about me" /></button>
+                            </div>
+                        )}
                     </div>
-                )} */}
-                {/* 
-                {aboutMeVisibility && (
-                    <div className="bg-white p-4 rounded">
-                        <p>{user && user.about === null ? 'null ABOUT' : JSON.stringify(user)}</p>
-                    </div>
-                )} */}
+                )}
 
-                {view === 'edit-meeting' && <EditMeeting meeting={meeting}
-                    onCancelClick={handleEditMeetingCancelClick}
-                    onMeetingEdited={handleMeetingEdited} />}
+                {view === 'edit-about' && <EditAbout user={user}
+                    onCancelClick={handleEditAboutCancelClick}
+                    onAboutEdited={handleAboutEdited} />}
 
             </section>
-        </main>
+        </main >
     </>
 
 }
 
 export default Profile
+
+
+
+
+
+{/* 
+                {aboutMeVisibility && (
+                    <div className="bg-white p-4 rounded">
+                        <p>{user && user.about === null ? 'null ABOUT' : JSON.stringify(user)}</p>
+                    </div>
+                )} */}
 
 
 

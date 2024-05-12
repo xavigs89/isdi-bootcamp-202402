@@ -5,8 +5,9 @@ import logic from './logic'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import OtherUserProfile from './components/OtherUserProfile'
 import Profile from './components/Profile'
-import CreateMeeting from './components/CreateMeeting'
+
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Feedback from './components/Feedback'
 import { useState } from 'react'
@@ -60,11 +61,7 @@ function App() {
   }
 
 
-  const handleConfirmCancelClick = () => {
-    confirm.callback(false)
-
-    setConfirm(null)
-  }
+  const handleConfirm = (message, callback) => setConfirm({ message, callback })
 
   const handleConfirmAcceptClick = () => {
     confirm.callback(true)
@@ -72,9 +69,13 @@ function App() {
     setConfirm(null)
   }
 
-  const handleConfirm = (message, callback) => setConfirm({ message, callback })
+  const handleConfirmCancelClick = () => {
+    confirm.callback(false)
 
-  const handleMeetingToEdit = (meetingId) => setMeetingToEdit(meetingId)
+    setConfirm(null)
+  }
+
+  // const handleMeetingToEdit = (meetingId) => setMeetingToEdit(meetingId)
 
   logger.debug('App -> render')
 
@@ -92,18 +93,13 @@ function App() {
         <Route path="/*" element={logic.isUserLoggedIn() ? <Home
           onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
-
-        {/* <Route path="/profile" element={logic.isUserLoggedIn() ? <Profile
-          onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} /> */}
-          {/* onEditMeetingClick={handleEditMeetingClick} */}
-
-        {/* <Route path="/users/userId" element={} ? <OtherUserProfile */}
+        <Route path="/user/:userId" element={logic.isUserLoggedIn() ? <OtherUserProfile onUserLoggedOut={handleUserLoggedOut} /> : <Navigate to="/login" />} />
 
       </Routes>
     </Context.Provider>
 
-    {feedback && <Feedback message={feedback.message} level={feedback.level} 
-    onAcceptClick={handleFeedbackAcceptClick} />}
+    {feedback && <Feedback message={feedback.message} level={feedback.level}
+      onAcceptClick={handleFeedbackAcceptClick} />}
 
     {confirm && <Confirm message={confirm.message} onCancelClick={handleConfirmCancelClick} onAcceptClick={handleConfirmAcceptClick} />}
 
@@ -114,7 +110,7 @@ function App() {
 export default App
 
 
-        {/* <Route path="/createMeeting" element={<CreateMeeting />} /> */}
+{/* <Route path="/createMeeting" element={<CreateMeeting />} /> */ }
 
 
 

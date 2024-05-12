@@ -161,9 +161,6 @@ export default Meeting
 
 // const attendeesNames = meeting.attendees.map((attendee) => attendee.name)
 
-// setAttendees(attendeesNames)
-
-// console.log(attendees)
 
 
 
@@ -188,17 +185,6 @@ export default Meeting
 //     }
 //     retrieveAttendeesNames()
 // }, [])
-
-
-
-
-// {new Date(meeting.date).toLocaleString('es-ES', {
-//     year: 'numeric',
-//     month: 'numeric',
-//     day: 'numeric',
-//     hour: 'numeric',
-//     minute: 'numeric'
-// })}h
 
 
 

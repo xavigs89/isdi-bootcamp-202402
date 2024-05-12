@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 
 import { useContext } from '../context'
 
-function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick,onUnjoinMeetingClick }) {
+function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjoinMeetingClick }) {
 
     logger.debug('MeetingList -> render')
 
