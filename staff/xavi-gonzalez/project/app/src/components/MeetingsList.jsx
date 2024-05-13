@@ -22,16 +22,22 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
         setStamp(Date.now())
     }
 
-    return <ul className="mb-100px">
-        {meetings && meetings.map(meeting =>
-            <Meeting key={meeting.id} item={meeting} setStamp={setStamp}
-                onJoinClick={handleJoinClick}
-                unjoinClick={handleUnjoinClick}
-                onEditClick={handleEditClick}
-                onMeetingDeleted={handleMeetingDeleted}
-                onClick={() => handleSelectedMeeting(meeting)}
-            />)}
-    </ul>
+    return <div>
+        {/* <div>
+            <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
+        </div> */}
+
+        <ul className="mb-100px">
+            {meetings && meetings.map(meeting =>
+                <Meeting key={meeting.id} item={meeting} setStamp={setStamp}
+                    onJoinClick={handleJoinClick}
+                    unjoinClick={handleUnjoinClick}
+                    onEditClick={handleEditClick}
+                    onMeetingDeleted={handleMeetingDeleted}
+                    onClick={() => handleSelectedMeeting(meeting)}
+                />)}
+        </ul>
+    </div>
 }
 
 export default MeetingsList

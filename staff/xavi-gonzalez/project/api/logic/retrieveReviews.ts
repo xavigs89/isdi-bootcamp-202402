@@ -8,15 +8,15 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 
-function retrieveReviews(reviewId: string): Promise<any> {
-    validate.text(reviewId, 'reviewId', true)
+function retrieveReviews(userId: string): Promise<any> {
+    validate.text(userId, 'userId', true)
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Review.find({ review: reviewId }).lean()
+            return Review.find().lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(reviews =>
                     reviews.map(({ _id, rate, comment, date, meeting }) => ({

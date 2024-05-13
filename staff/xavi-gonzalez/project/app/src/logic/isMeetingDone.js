@@ -1,15 +1,12 @@
 import { validate, errors } from "com"
 
-function isMeetingDone(meetingDate) {
+function isMeetingDone(meeting) {
     // Obtener la fecha actual
-    const currentDate = new Date();
+    const currentDate = new Date()
     
-    // Convertir la fecha del meeting a objeto Date
-    const meetingDateTime = new Date(meetingDate);
+    const meetingDate = new Date(meeting.date)
     
-    // Comparar la fecha actual con la fecha del meeting
-    // Si la fecha actual es posterior a la fecha del meeting, devuelve true, de lo contrario, devuelve false
-    return currentDate > meetingDateTime;
+    return meetingDate < currentDate
   }
   
   // Ejemplo de uso:

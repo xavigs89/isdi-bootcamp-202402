@@ -19,6 +19,7 @@ import isUserJoined from './isUserJoined'
 import editAbout from './editAbout'
 
 import createReview from './createReview'
+import retrieveReviews from './retrieveReviews'
 
 
 
@@ -44,6 +45,7 @@ const logic = {
 
     editAbout,
     createReview,
+    retrieveReviews
 }
 
 export default logic

@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 
-function Profile({ item: user, onEditMeetingClick }) {
+function Profile({ user, onEditMeetingClick }) {
 
     const { showFeedback, stamp, setStamp } = useContext()
 
@@ -32,6 +32,7 @@ function Profile({ item: user, onEditMeetingClick }) {
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
     const [about, setAbout] = useState(false)
+    
 
     const clearView = () => setView('close')
 
@@ -123,6 +124,15 @@ function Profile({ item: user, onEditMeetingClick }) {
         loadAboutMe()
     }
 
+    //REVIEW
+    // const handleReviewClick = () => setView ('create-review')
+
+    // const handleCreateReviewCancelClick = () => clearView()
+
+    // const handleReviewCreated = () => {
+    //     clearView()
+    //     setStamp(Date.now())
+    // }
 
     return <>
         <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
@@ -168,6 +178,10 @@ function Profile({ item: user, onEditMeetingClick }) {
                 {view === 'edit-about' && <EditAbout about={about}
                     onAboutEdited={handleAboutEdited}
                     onCancelClick={handleEditAboutCancelClick} />}
+
+                {/* {view === 'create-review' && <CreateReview
+                    onCancelClick={handleCreateReviewCancelClick}
+                    onReviewCreated={handleReviewCreated} />} */}
 
             </section>
         </main >

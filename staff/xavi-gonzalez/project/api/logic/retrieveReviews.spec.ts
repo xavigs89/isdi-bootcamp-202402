@@ -1,3 +1,4 @@
+
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import { User, Meeting, Review } from '../data/index.ts'
@@ -42,16 +43,20 @@ describe('retrieveReviews', () => {
 
                             .then(reviews => {
 
-                                expect(reviews).to.have.lengthOf(2)
-                                // expect(review1.rate).to.equal('2')
-                                // expect(review1.comment).to.equal('I did not enjoyed the meeting')
+                                expect(reviews).to.have.lengthOf(3)
+                                expect(reviews[0].rate).to.equal(2);
+                                expect(reviews[0].comment).to.equal('I did not enjoyed the meeting');
+
+                                expect(reviews[1].rate).to.equal(4);
+                                expect(reviews[1].comment).to.equal('I really enjoyed the meeting');
+
+                                expect(reviews[2].rate).to.equal(5);
+                                expect(reviews[2].comment).to.equal('All perfect');
 
                             })
 
                     })
-
             )
-
     )
     after(() => mongoose.disconnect())
 })

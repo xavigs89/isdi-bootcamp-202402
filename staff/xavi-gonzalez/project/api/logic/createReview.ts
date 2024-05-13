@@ -12,25 +12,30 @@ function createReview(userId: string, rate: number, comment: string, meetingId: 
     if(comment)
         validate.text(comment, 'comment')
 
-    return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if(!user)
-                throw new NotFoundError('user not found')
+    return Promise.all([
+        User.findById(userId),
+        Meeting.findById(meetingId)
+    ])
+    .then(([user, meeting]) => {
+        if(!user)
+            throw new NotFoundError('user not found')
 
-            const review = {
-                author: user._id,
-                rate,
-                comment: comment.trim(),
-                date: new Date(),
-                meeting: new ObjectId(meetingId)
-            }
+        if(!meeting)
+            throw new NotFoundError('meeting not found')
 
-            return Review.create(review)
-                .catch((error) => { throw new Error (error.message) })
+        const review = {
+            author: user._id,
+            rate,
+            comment: comment.trim(),
+            date: new Date(),
+            meeting: meeting._id
+        }
 
-                .then(review => { })
-        })
+        return Review.create(review)
+            .then(review => {})
+            .catch(error => { throw new SystemError(error.message) })
+    })
+    .catch(error => { throw new SystemError(error.message) })
 }
 
 export default createReview

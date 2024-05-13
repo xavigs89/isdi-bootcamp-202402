@@ -10,13 +10,13 @@ import { useContext } from '../context'
 import { useNavigate } from 'react-router-dom'
 import MeetingsList from './MeetingsList'
 
-function OtherUserProfile() {
+function OtherUserProfile({ user  }) {
 
-        // const { showFeedback } = useContext()
-        const { userId } = useParams()
+        // const { showFeedback, stamp, setStamp } = useContext()
+        
         const navigate = useNavigate()
 
-        const [user, setUser] = useState(null)
+        const [otherUser, setOtherUser] = useState (null)
         const [createdMeetings, setCreatedMeetings] = useState([])
         const [about, setAbout] = useState(false)
         const [view, setView] = useState('close')

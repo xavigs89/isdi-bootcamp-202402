@@ -25,12 +25,12 @@ function retrieveUser(userId: string, targetUserId: string): Promise<UserRespons
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return User.findById(targetUserId).select('-_id name email avatar about').lean()
+            return User.findById(targetUserId).select('id name email avatar about').lean()
         })
         .then(user => {
             if (!user) throw new NotFoundError('target user not found')
 
-            return { name: user.name, email: user.email, avatar: user.avatar, about: user.about }
+            return { id: user._id, name: user.name, email: user.email, avatar: user.avatar, about: user.about }
         })
 }
 

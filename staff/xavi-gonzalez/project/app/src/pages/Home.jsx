@@ -43,6 +43,9 @@ function Home() {
         }
     }, [])
 
+// console.log(userId)
+console.log(user)
+
 
     //CARGAR SOLO MEETINGS FUTUROS
     const loadMeetings = () => {
@@ -79,6 +82,8 @@ function Home() {
     const handleCreateMeetingCancelClick = () =>
         clearView()
 
+
+  
 
 
     // BOTON PARA EDIT MEETING
@@ -152,9 +157,10 @@ function Home() {
                     <Route path="/profile" element={<Profile user={user}
                         onEditAboutClick={handleEditAboutClick}
                         onEditMeetingClick={handleEditMeetingClick}
+                        // onReviewClick={handleReviewClick}
                     />} />
 
-                    <Route path="/user/:userId" element={<OtherUserProfile />} />
+                    <Route path="/user" element={<OtherUserProfile user={ user } />} />
                 </Routes>
 
                 {view === 'create-meeting' && <CreateMeeting
@@ -171,7 +177,8 @@ function Home() {
 
             </main>
 
-            <Footer user={user} handleCreateMeetingClick={handleCreateMeetingClick} />
+            <Footer user={user}
+                handleCreateMeetingClick={handleCreateMeetingClick} />
 
         </div>
     </>

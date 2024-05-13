@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { validate, errors } from 'com'
 
-function createReview(rate, comment, meetingId) {
+function createReview(userId, rate, comment, meetingId) {
     
     validate.text(userId, 'userId', true)
     validate.rating(rate, 'rating')
@@ -11,7 +11,7 @@ function createReview(rate, comment, meetingId) {
 
     validate.token(sessionStorage.token)
 
-    const review = { rate, comment, meetingId }
+    const review = { userId, rate, comment, meetingId }
 
     const json = JSON.stringify(review)
 
