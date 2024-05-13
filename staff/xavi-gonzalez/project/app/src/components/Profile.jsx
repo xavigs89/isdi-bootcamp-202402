@@ -121,7 +121,7 @@ function Profile({ user, onEditMeetingClick }) {
     }
 
     const handleEditAboutClick = () => {
-        loadAboutMe()
+        setView('edit-about')
     }
 
     //REVIEW
