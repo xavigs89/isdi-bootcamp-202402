@@ -26,9 +26,9 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
     const toggleImageVisibility = () => {
         setShowImage(!showImage)
     }
-    const currentDate = moment();
-    const meetingDate = moment(meeting.date);
-    const isPastMeeting = meetingDate.isBefore(currentDate);
+    const currentDate = moment()
+    const meetingDate = moment(meeting.date)
+    const isPastMeeting = meetingDate.isBefore(currentDate)
 
 
     //BOTON JOIN MEETING
@@ -98,9 +98,7 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
             <p><strong>Address: </strong>{meeting.address}</p>
             <p>{moment(meeting.date).format('Do MMMM YYYY, h:mm a')}</p>
             {isPastMeeting && (
-                <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-                    Review
-                </button>
+                <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">Review</button>
             )}
 
             {view === 'close' &&
@@ -137,10 +135,8 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
         <div className="flex justify-end">
             {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
 
-
             {logic.getLoggedInUserId().userId === meeting.author.id && (
                 <div className="flex justify-end">
-
                     <button onClick={() => handleEditClick(meeting)} className="w-5 h-5  "><img src="../../public/icons/VsEditPage.png" alt="edit" /></button>
                     <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5"><img src="../../public/icons/BiTrash3.png" alt="delete" /></button>
                 </div>

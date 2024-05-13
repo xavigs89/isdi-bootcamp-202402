@@ -32,7 +32,7 @@ function retrieveCreatedMeetings(userId: string): Promise<any> {
                         title,
                         address,
                         location,
-                        date: date.toLocaleString('es-ES').slice(0, -3),
+                        date,
                         description,
                         image,
                         attendees: attendees.map(attendee => attendee.name),

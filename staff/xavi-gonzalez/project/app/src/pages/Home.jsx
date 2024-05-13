@@ -43,9 +43,7 @@ function Home() {
         }
     }, [])
 
-// console.log(userId)
 console.log(user)
-
 
     //CARGAR SOLO MEETINGS FUTUROS
     const loadMeetings = () => {
@@ -69,7 +67,6 @@ console.log(user)
     }, [stamp])
 
 
-
     // BOTON PARA CREAR MEETING
     const handleCreateMeetingClick = () => setView('create-meeting')
 
@@ -82,10 +79,7 @@ console.log(user)
     const handleCreateMeetingCancelClick = () =>
         clearView()
 
-
-  
-
-
+    
     // BOTON PARA EDIT MEETING
     const handleEditMeetingClick = meeting => {
         setView('edit-meeting')

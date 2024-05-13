@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 import { useContext } from '../context'
 
-function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjoinMeetingClick }) {
+function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjoinMeetingClick, onReviewClick }) {
 
     logger.debug('MeetingList -> render')
 
@@ -22,6 +22,8 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
         setStamp(Date.now())
     }
 
+    const handleReviewClick = meeting => onReviewClick(meeting)
+
     return <div>
         {/* <div>
             <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
@@ -34,6 +36,7 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
                     unjoinClick={handleUnjoinClick}
                     onEditClick={handleEditClick}
                     onMeetingDeleted={handleMeetingDeleted}
+                    onReviewClick={handleReviewClick}
                     onClick={() => handleSelectedMeeting(meeting)}
                 />)}
         </ul>

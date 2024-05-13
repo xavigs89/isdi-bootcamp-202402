@@ -6,6 +6,7 @@ import RoundButton from './library/RoundButton'
 
 import Header from './Header'
 import { useContext } from '../context'
+import Meeting from './Meeting'
 import MeetingsList from './MeetingsList'
 import EditMeeting from './EditMeeting'
 import EditAbout from './EditAbout'
@@ -99,14 +100,12 @@ function Profile({ user, onEditMeetingClick }) {
 
     //COMPO EDIT MEETING PROPS
     const handleMeetingEdited = () => {
-        clearView()
-        loadCreatedMeetings()
-        setStamp(Date.now())
-        setMeeting(null)
+        setView('open-created')
+        
     }
 
     //CANCELAR FORM DE EDIT MEETING
-    const handleEditMeetingCancelClick = () => setView(null)
+    const handleEditMeetingCancelClick = () => setView('open-created')
 
     const handleEditClick = meeting => {
         onEditMeetingClick(meeting)
