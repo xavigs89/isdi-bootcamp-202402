@@ -34,7 +34,8 @@ function Profile({ user, onEditMeetingClick }) {
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
     const [about, setAbout] = useState(false)
-    
+    // const [reviews,setReviews] = useState(false)
+
 
     const clearView = () => setView('close')
 
@@ -87,6 +88,21 @@ function Profile({ user, onEditMeetingClick }) {
     }, [stamp])
 
 
+
+    // const loadReviews = () => {
+    //     try {
+    //         logic.retrieveReviews(meeting.id)
+    //             .then(setReviews)
+    //             .catch(error => showFeedback(error, 'error'))
+    //     } catch (error) {
+    //         showFeedback(error)
+    //     }
+    // }
+    // useEffect(() => {
+    //     loadReviews()
+    // }, [meeting.id])
+
+    
     const handleJoinedMeetingsClick = () => {
         loadJoinedMeetings()
     }
@@ -123,7 +139,7 @@ function Profile({ user, onEditMeetingClick }) {
         setView('create-review')
         setMeeting(meeting)
     }
-    
+
     // CANCELAR CREATE REVIEW
     const handleCreateReviewCancelClick = () => {
         clearView()
@@ -135,14 +151,13 @@ function Profile({ user, onEditMeetingClick }) {
         clearView()
         setMeeting(null)
         setStamp(Date.now())
-     }
+    }
 
     return <>
         <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
             <Header onUserLoggedOut={handleLoggedOut} />
 
             <section >
-
                 <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
                     <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
@@ -151,18 +166,22 @@ function Profile({ user, onEditMeetingClick }) {
                     <button onClick={toogleViewAboutMe} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
                 </div>
 
-                {view === 'open-created' && <MeetingsList meetings={createdMeetingsList}
+                {view === 'open-created' && <MeetingsList 
+                    meetings={createdMeetingsList}
                     onEditMeetingClick={handleEditClick}
                     onJoinMeetingClick={handleJoinedMeetingsClick}
                     onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
 
-                {view === 'edit-meeting' && <EditMeeting meeting={meeting}
+                {view === 'edit-meeting' && <EditMeeting 
+                    meeting={meeting}
                     onCancelClick={handleEditMeetingCancelClick}
                     onMeetingEdited={handleMeetingEdited} />}
 
-                {view === 'open-joined' && <MeetingsList meetings={joinedMeetingsList}
+                {view === 'open-joined' && <MeetingsList 
+                    meetings={joinedMeetingsList}
                     onEditMeetingClick={handleEditClick}
                     onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                    onJoinMeetingClick={handleJoinedMeetingsClick}
                     onReviewClick={handleReviewClick}
                 />}
 
@@ -179,13 +198,14 @@ function Profile({ user, onEditMeetingClick }) {
                     </div>
                 )}
 
-                {view === 'edit-about' && <EditAbout about={about}
+                {view === 'edit-about' && <EditAbout 
+                    about={about}
                     onAboutEdited={handleAboutEdited}
                     onCancelClick={handleEditAboutCancelClick} />}
 
-                 {view === 'create-review' && <CreateReview 
-                 user={user} 
-                 meeting={meeting}
+                {view === 'create-review' && <CreateReview
+                    user={user}
+                    meeting={meeting}
                     onCancelClick={handleCreateReviewCancelClick}
                     onReviewCreated={handleReviewCreated}
                     onReviewClick={handleReviewClick} />}

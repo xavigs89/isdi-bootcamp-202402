@@ -141,35 +141,43 @@ function Home() {
                 </div>
 
                 <Routes>
-                    <Route path="/" element={<MeetingsList meetings={meetings} stamp={stamp} setStamp={setStamp}
+                    <Route path="/" element={<MeetingsList
+                        meetings={meetings}
+                        stamp={stamp}
+                        setStamp={setStamp}
                         onEditMeetingClick={handleEditMeetingClick}
                         onJoinMeetingClick={handleJoinMeetingClick}
                         onUnjoinMeetingClick={handleUnjoinMeetingClick} />} />
 
-                    <Route path="/profile" element={<Profile user={user}
+                    <Route path="/profile" element={<Profile
+                        user={user}
                         onEditAboutClick={handleEditAboutClick}
                         onEditMeetingClick={handleEditMeetingClick}
                     />} />
 
-                    <Route path="/user" element={<OtherUserProfile user={user} />} />
+                    <Route path="/user" element={<OtherUserProfile
+                        user={user} />} />
                 </Routes>
 
                 {view === 'create-meeting' && <CreateMeeting
                     onCancelClick={handleCreateMeetingCancelClick}
                     onMeetingCreated={handleMeetingCreated} />}
 
-                {view === 'edit-meeting' && <EditMeeting meeting={meeting}
+                {view === 'edit-meeting' && <EditMeeting
+                    meeting={meeting}
                     onCancelClick={handleEditMeetingCancelClick}
                     onMeetingEdited={handleMeetingEdited} />}
 
-                {view === 'edit-about' && <EditAbout about={about}
+                {view === 'edit-about' && <EditAbout
+                    about={about}
                     onCancelClick={handleEditAboutCancelClick}
                     onAboutEdited={handleAboutEdited}
                 />}
 
             </main>
 
-            <Footer user={user}
+            <Footer
+                user={user}
                 handleCreateMeetingClick={handleCreateMeetingClick} />
 
         </div>

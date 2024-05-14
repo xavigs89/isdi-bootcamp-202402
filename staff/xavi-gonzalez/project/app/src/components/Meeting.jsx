@@ -13,7 +13,6 @@ import moment from 'moment'
 
 function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
 
-
     const { showFeedback, showConfirm, setStamp } = useContext()
 
     const [view, setView] = useState('close')
@@ -26,8 +25,10 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
     const toggleImageVisibility = () => {
         setShowImage(!showImage)
     }
+
     const currentDate = moment()
     const meetingDate = moment(meeting.date)
+
     const isPastMeeting = meetingDate.isBefore(currentDate)
 
 
@@ -89,30 +90,21 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
 
 
     
-    // const loadReviews = () => {
-    //     try {
-    //         logic.retrieveReviews(meeting.id)
-    //         .then(setReviews)
-    //         .catch(error => showFeedback(error, 'error'))
-    //         } catch (error) {
-    //             showFeedback(error)
-    //         }
-    //     }
-
-    //     useEffect(() => {
-    //     loadReviews()
-    // }, [meeting.id])
 
 
     return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
 
         <div className="col-span-1 pr-4 text-black font-semibold">
-            <p className="text-left font-semibold mbp text-xs"><Link to={`user/${meeting.author.name}`}>{meeting.author.name}</Link></p>
+            <p className="text-left font-semibold mbp text-xs">
+                <Link to={`user/${meeting.author.name}`}>{meeting.author.name}</Link></p>
+
             <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
+
             <p><strong>Address: </strong>{meeting.address}</p>
+
             <p>{moment(meeting.date).format('Do MMMM YYYY, h:mm a')}</p>
             {isPastMeeting && (
-                <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">Review</button>
+                <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Review</button>
             )}
 
             {view === 'close' &&
@@ -122,9 +114,11 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
                 <div className='flex flex-col overflow-auto max-h-[200px]'>
                     <div>
                         <p><strong>Description: </strong>{meeting.description}</p>
+
                         <p><strong>Location: </strong>{meeting.location}</p>
                         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.556123909626!2d2.1548569!3d41.371064000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715240977554!5m2!1ses!2ses" width="300" height="400" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
+
                     <div>
                         <p><strong>Attendees: </strong></p>
                         <ul className='flex flex-col'>{meeting.attendees.join(', ')}</ul>
@@ -142,9 +136,7 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
                     <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
                 </div>
             }
-
         </div>
-
 
         <div className="flex justify-end">
             {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
@@ -155,7 +147,6 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
                     <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5"><img src="../../public/icons/BiTrash3.png" alt="delete" /></button>
                 </div>
             )}
-
         </div>
 
     </article>
