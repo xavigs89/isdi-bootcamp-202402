@@ -169,7 +169,7 @@ function Home() {
                     onMeetingEdited={handleMeetingEdited} />}
 
                 {view === 'edit-about' && <EditAbout
-                    about={about}
+                    user={user}
                     onCancelClick={handleEditAboutCancelClick}
                     onAboutEdited={handleAboutEdited}
                 />}

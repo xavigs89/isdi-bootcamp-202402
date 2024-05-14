@@ -6,7 +6,7 @@ function editAbout(userId, description) {
     validate.text(description, 'description')
 
 
-const about = { description }
+const about = { userId, description }
 
 const json = JSON.stringify(about)
 

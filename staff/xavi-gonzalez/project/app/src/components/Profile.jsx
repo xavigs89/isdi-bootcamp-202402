@@ -178,7 +178,7 @@ function Profile({ user, onEditMeetingClick }) {
             )}
 
             {view === 'edit-about' && <EditAbout
-                about={about}
+                user={user}
                 onAboutEdited={handleAboutEdited}
                 onCancelClick={handleEditAboutCancelClick} />}
 

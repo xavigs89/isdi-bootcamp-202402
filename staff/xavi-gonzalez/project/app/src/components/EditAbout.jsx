@@ -8,7 +8,7 @@ import SubmitButton from './library/SubmitButton'
 import { useContext } from '../context'
 import { useState } from 'react'
 
-function EditAbout({ about, onAboutEdited, onCancelClick }) {
+function EditAbout({ user, about, onAboutEdited, onCancelClick }) {
 
     const { showFeedback } = useContext()
     const [description, setDescription] = useState(about)
@@ -23,7 +23,7 @@ function EditAbout({ about, onAboutEdited, onCancelClick }) {
         logger.debug('EditAbout -> handleSubmit')
 
         try {
-            logic.editAbout(description)
+            logic.editAbout(user.id, description)
                 .then(() => {
                     form.reset()
 
