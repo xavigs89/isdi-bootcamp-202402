@@ -153,18 +153,23 @@ function Profile({ user, onEditMeetingClick }) {
         setStamp(Date.now())
     }
 
-    return <>
-        <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
-            <Header onUserLoggedOut={handleLoggedOut} />
+    return <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
+            {/* <Header onUserLoggedOut={handleLoggedOut} /> */}
+            {/* <div>
+                    <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
+                </div> */}
 
-            <section >
-                <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
+<div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
                     <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
                     <button onClick={toogleViewJoined} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
 
                     <button onClick={toogleViewAboutMe} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
                 </div>
+            
+            <section >
+                <div></div>
+                
 
                 {view === 'open-created' && <MeetingsList 
                     meetings={createdMeetingsList}
@@ -212,7 +217,6 @@ function Profile({ user, onEditMeetingClick }) {
 
             </section>
         </main >
-    </>
 
 }
 

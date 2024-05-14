@@ -135,9 +135,9 @@ function Home() {
         <div>
             <Header onUserLoggedOut={handleLoggedOut} />
 
-            <main className="mb-50px flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
+            <main className="mb-100px flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
                 <div>
-                    <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
+                    <h1 className='text-[#249D8C] text-center font-bold mt-20'></h1>
                 </div>
 
                 <Routes>

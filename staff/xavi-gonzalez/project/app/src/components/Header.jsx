@@ -32,7 +32,7 @@ function Header({ onUserLoggedOut }) {
 
     return (
 
-        <header className="fixed top-0 w-full h-[62px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-2">
+        <header className="fixed top-100 w-full h-[62px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-2">
 
             <div className="flex items-center space-x-1">
                 <Link to="/">
