@@ -1,12 +1,10 @@
 //@ts-nocheck
 import { logger } from '../utils'
+import { useContext } from '../context'
 
 import logic from '../logic'
 import CancelButton from './library/CancelButton'
 import SubmitButton from './library/SubmitButton'
-
-import { useContext } from '../context'
-
 import moment from 'moment'
 
 function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {

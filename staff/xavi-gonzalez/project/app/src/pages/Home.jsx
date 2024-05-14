@@ -1,7 +1,14 @@
 //@ts-nocheck
 import { logger } from '../utils'
 import logic from '../logic'
+
 import { useState, useEffect } from 'react'
+import { useNavigate, Routes, Route } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { useContext } from '../context'
+
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 import MeetingsList from '../components/MeetingsList'
 import CreateMeeting from '../components/CreateMeeting'
@@ -9,12 +16,6 @@ import EditMeeting from '../components/EditMeeting'
 import Profile from '../components/Profile'
 import OtherUserProfile from '../components/OtherUserProfile'
 
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-
-import { Link, Navigate } from 'react-router-dom'
-import { useNavigate, Routes, Route } from 'react-router-dom'
-import { useContext } from '../context'
 
 function Home() {
 
@@ -99,24 +100,6 @@ function Home() {
     logger.debug('Home -> render')
 
 
-    //BOTON PARA EDIT ABOUT ME
-    const handleEditAboutClick = () => {
-        setView('edit-about')
-        setAbout(about)
-    }
-
-    // EDITAR ABOUT CON EXITO
-    const handleAboutEdited = () => {
-        clearView()
-        setStamp(Date.now())
-        setAbout(null)
-    }
-
-    // CANCELAR EDIT ABOUT
-    const handleEditAboutCancelClick = () =>
-        clearView()
-
-
     //JOIN
     const handleJoinMeetingClick = () => {
         clearView()
@@ -129,16 +112,11 @@ function Home() {
         loadMeetings()
     }
 
-
-    return <>
-
-        <div>
+    return <div>
             <Header onUserLoggedOut={handleLoggedOut} />
 
             <main className="mb-100px flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
-                <div>
                     <h1 className='text-[#249D8C] text-center font-bold mt-20'></h1>
-                </div>
 
                 <Routes>
                     <Route path="/" element={<MeetingsList
@@ -151,7 +129,6 @@ function Home() {
 
                     <Route path="/profile" element={<Profile
                         user={user}
-                        onEditAboutClick={handleEditAboutClick}
                         onEditMeetingClick={handleEditMeetingClick}
                     />} />
 
@@ -167,13 +144,6 @@ function Home() {
                     meeting={meeting}
                     onCancelClick={handleEditMeetingCancelClick}
                     onMeetingEdited={handleMeetingEdited} />}
-
-                {view === 'edit-about' && <EditAbout
-                    user={user}
-                    onCancelClick={handleEditAboutCancelClick}
-                    onAboutEdited={handleAboutEdited}
-                />}
-
             </main>
 
             <Footer
@@ -181,8 +151,6 @@ function Home() {
                 handleCreateMeetingClick={handleCreateMeetingClick} />
 
         </div>
-    </>
-
 }
 
 export default Home

@@ -1,10 +1,10 @@
 //@ts-nocheck
 import { logger } from '../utils'
-import Meeting from './Meeting'
 
 import { useState, useEffect } from 'react'
-
 import { useContext } from '../context'
+
+import Meeting from './Meeting'
 
 function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjoinMeetingClick, onReviewClick }) {
 
@@ -29,8 +29,10 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
             {meetings && meetings.map(meeting =>
                 <Meeting
                     key={meeting.id}
-                    item={meeting}
+                    meeting={meeting}
+                    stamp={stamp}
                     setStamp={setStamp}
+                    showFeedback={showFeedback}
                     onJoinClick={handleJoinClick}
                     unjoinClick={handleUnjoinClick}
                     onEditClick={handleEditClick}

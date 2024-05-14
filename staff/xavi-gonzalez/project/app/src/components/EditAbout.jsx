@@ -8,10 +8,10 @@ import SubmitButton from './library/SubmitButton'
 import { useContext } from '../context'
 import { useState } from 'react'
 
-function EditAbout({ user, about, onAboutEdited, onCancelClick }) {
+function EditAbout({ user, onAboutEdited, onCancelClick }) {
 
     const { showFeedback } = useContext()
-    const [description, setDescription] = useState(about)
+    // const [description, setDescription] = useState(about)
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -43,7 +43,7 @@ function EditAbout({ user, about, onAboutEdited, onCancelClick }) {
 
         <form onSubmit={handleSubmit} className='border p-4 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100' >
             <label className="text-lg font-semibold" >About Me</label>
-            <input id="description" placeholder=' Change your about data' name="description" type="text" />
+            <input id="description" defaultValue={user.about.description} name="description" type="text" />
 
             <SubmitButton type="submit" className="text-lg font-semibold">Save Changes</SubmitButton>
 

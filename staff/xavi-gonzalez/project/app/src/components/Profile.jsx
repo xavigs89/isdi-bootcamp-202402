@@ -5,14 +5,13 @@ import { logger } from '../utils'
 import RoundButton from './library/RoundButton'
 
 import { useContext } from '../context'
+import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 import MeetingsList from './MeetingsList'
 import EditMeeting from './EditMeeting'
 import EditAbout from './EditAbout'
 import CreateReview from './CreateReview'
-import { useNavigate } from 'react-router-dom'
-
-import { useState, useEffect } from 'react'
 
 
 function Profile({ user, onEditMeetingClick }) {
@@ -28,18 +27,18 @@ function Profile({ user, onEditMeetingClick }) {
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
-    const [about, setAbout] = useState(false)
+    // const [about, setAbout] = useState(false)
 
 
 
     const clearView = () => setView('close')
 
     const toogleViewCreated = () => {
-        setView(view === 'open-created' ? 'close' : 'open-created')
+        setView(view === 'open-createdMeetings' ? 'close' : 'open-createdMeetings')
     }
 
     const toogleViewJoined = () => {
-        setView(view === 'open-joined' ? 'close' : 'open-joined')
+        setView(view === 'open-joinedMeetings' ? 'close' : 'open-joinedMeetings')
     }
 
     const toogleViewAboutMe = () => {
@@ -92,26 +91,34 @@ function Profile({ user, onEditMeetingClick }) {
     }
 
 
-    //COMPO EDIT MEETING PROPS
-    const handleMeetingEdited = () => setView('open-created')
+    //COMPO EDIT MEETING
+    const handleMeetingEdited = () => setView('open-createdMeetings')
 
     //CANCELAR FORM DE EDIT MEETING
-    const handleEditMeetingCancelClick = () => setView('open-created')
+    const handleEditMeetingCancelClick = () => setView('open-createdMeetings')
 
     const handleEditClick = meeting => {
         onEditMeetingClick(meeting)
         setView('edit-meeting')
     }
 
-    //ABOUT ME
-    const handleEditAboutCancelClick = () => setView(null)
-
-    const handleAboutEdited = () => {
-
+    //ABOUT ME CANCEL
+    const handleEditAboutCancelClick = () => {
+        clearView()
+        setView(null)
     }
 
+    //EDIT ABOUT CON EXITO
+    const handleAboutEdited = () => {
+        setView('open-aboutMe')
+        clearView()
+        setStamp(Date.now())
+        // setAbout(null)
+    }
+
+    //BOTON PARA EDIT ABOUT ME
     const handleEditAboutClick = () => {
-        setView('edit-about')
+        setView('edit-aboutMe')
     }
 
     //BOTON PARA CREAR REVIEW
@@ -136,6 +143,7 @@ function Profile({ user, onEditMeetingClick }) {
     return <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
 
         <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
+
             <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
             <button onClick={toogleViewJoined} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
@@ -145,7 +153,7 @@ function Profile({ user, onEditMeetingClick }) {
 
         <section >
 
-            {view === 'open-created' && <MeetingsList
+            {view === 'open-createdMeetings' && <MeetingsList
                 meetings={createdMeetingsList}
                 onEditMeetingClick={handleEditClick}
                 onJoinMeetingClick={handleJoinedMeetingsClick}
@@ -156,7 +164,7 @@ function Profile({ user, onEditMeetingClick }) {
                 onCancelClick={handleEditMeetingCancelClick}
                 onMeetingEdited={handleMeetingEdited} />}
 
-            {view === 'open-joined' && <MeetingsList
+            {view === 'open-joinedMeetings' && <MeetingsList
                 meetings={joinedMeetingsList}
                 onEditMeetingClick={handleEditClick}
                 onUnjoinMeetingClick={handleUnJoinMeetingClick}
@@ -177,7 +185,7 @@ function Profile({ user, onEditMeetingClick }) {
                 </div>
             )}
 
-            {view === 'edit-about' && <EditAbout
+            {view === 'edit-aboutMe' && <EditAbout
                 user={user}
                 onAboutEdited={handleAboutEdited}
                 onCancelClick={handleEditAboutCancelClick} />}

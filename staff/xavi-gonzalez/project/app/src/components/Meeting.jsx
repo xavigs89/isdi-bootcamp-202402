@@ -11,7 +11,7 @@ import getLoggedInUserId from '../logic/getLoggedInUserId'
 
 import moment from 'moment'
 
-function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
+function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
 
     const { showFeedback, showConfirm, setStamp } = useContext()
 
@@ -89,6 +89,7 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
 
     //BOTON REVIEW
     const handleReviewClick = meeting => onReviewClick(meeting)
+    
 
     const loadReviews = () => {
         try {
