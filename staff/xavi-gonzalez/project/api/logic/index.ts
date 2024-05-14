@@ -17,6 +17,7 @@ import editAbout from './editAbout.ts'
 
 import createReview from './createReview.ts'
 import retrieveReviews from './retrieveReviews.ts'
+import retrieveReviewsById from './retrieveReviewsById.ts'
 
 
 const logic = {
@@ -39,7 +40,8 @@ const logic = {
     editAbout,
 
     createReview,
-    retrieveReviews
+    retrieveReviews,
+    retrieveReviewsById
 
 }
 

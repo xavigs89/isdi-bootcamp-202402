@@ -13,6 +13,7 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
     const { showFeedback, setStamp, stamp } = useContext()
 
     const handleJoinClick = meeting => onJoinMeetingClick(meeting)
+    
     const handleUnjoinClick = meeting => onUnjoinMeetingClick(meeting)
 
     const handleEditClick = meeting => onEditMeetingClick(meeting)
@@ -24,10 +25,6 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
     const handleReviewClick = meeting => onReviewClick(meeting)
 
     return <div>
-        {/* <div>
-            <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
-        </div> */}
-
         <ul className="mb-100px">
             {meetings && meetings.map(meeting =>
                 <Meeting key={meeting.id} item={meeting} setStamp={setStamp}

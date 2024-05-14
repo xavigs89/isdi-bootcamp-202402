@@ -17,6 +17,17 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
 
     const [view, setView] = useState('close')
     const [joined, setJoined] = useState(false)
+    const [reviews, setReviews] = useState([])
+
+    const [showReviews, setShowReviews] = useState(false); // New state to toggle showing reviews
+
+    // const handleReviewClick = () => {
+    //     if (!showReviews) {
+    //         // If reviews are not shown, load them
+    //         loadReviews()
+    //     }
+    //     setShowReviews(!showReviews) // Toggle showing reviews
+    // };
 
     //hacer que foto de meeting desaparezca cuando das a show details
     // const [detailsView, setDetailsView] = useState(false)
@@ -76,10 +87,23 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
     }
 
 
-    //REVIEW
+    //BOTON REVIEW
     const handleReviewClick = meeting => onReviewClick(meeting)
 
-
+    const loadReviews = () => {
+        try {
+            logic.retrieveReviews(meeting.id)
+                .then((reviews) => {
+                    setReviews(reviews)
+                })
+                .catch(error => showFeedback(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
+        }
+    }
+    useEffect(() => {
+        loadReviews()
+    }, [meeting])
 
     useEffect(() => {
         const attendeeJoined = meeting.attendees.some(attendees => attendees.id === getLoggedInUserId().userId)
@@ -87,9 +111,6 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
     }, [meeting])
 
     logger.debug('Meeting -> render')
-
-
-    
 
 
     return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
@@ -103,9 +124,7 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
             <p><strong>Address: </strong>{meeting.address}</p>
 
             <p>{moment(meeting.date).format('Do MMMM YYYY, h:mm a')}</p>
-            {isPastMeeting && (
-                <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Review</button>
-            )}
+
 
             {view === 'close' &&
                 <button onClick={() => { setView('open'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowDownCircle.png" alt="" /></button>}
@@ -124,6 +143,7 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
                         <ul className='flex flex-col'>{meeting.attendees.join(', ')}</ul>
                     </div>
 
+
                     <div className="flex space-x-4">
                         <button className="mt-2 flex items-center" onClick={() => handleJoinClick(meeting.id)}>
                             <p className="p-1"><strong>Join</strong></p>
@@ -132,6 +152,10 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
                             <p className="p-1"><strong>Unjoin</strong></p>
                         </button>
                     </div>
+
+                    {isPastMeeting && (
+                        <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Review</button>
+                    )}
 
                     <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
                 </div>

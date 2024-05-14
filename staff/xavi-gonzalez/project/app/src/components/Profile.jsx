@@ -4,7 +4,6 @@ import { logger } from '../utils'
 
 import RoundButton from './library/RoundButton'
 
-import Header from './Header'
 import { useContext } from '../context'
 
 import MeetingsList from './MeetingsList'
@@ -20,21 +19,17 @@ function Profile({ user, onEditMeetingClick }) {
 
     const { showFeedback, stamp, setStamp } = useContext()
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     // const [user, setUser] = useState(null)
 
-    const handleLoggedOut = () => {
-        navigate("/login")
-
-    }
-
     const [meeting, setMeeting] = useState(false)
+
     const [view, setView] = useState('close')
 
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
     const [about, setAbout] = useState(false)
-    // const [reviews,setReviews] = useState(false)
+
 
 
     const clearView = () => setView('close')
@@ -88,21 +83,6 @@ function Profile({ user, onEditMeetingClick }) {
     }, [stamp])
 
 
-
-    // const loadReviews = () => {
-    //     try {
-    //         logic.retrieveReviews(meeting.id)
-    //             .then(setReviews)
-    //             .catch(error => showFeedback(error, 'error'))
-    //     } catch (error) {
-    //         showFeedback(error)
-    //     }
-    // }
-    // useEffect(() => {
-    //     loadReviews()
-    // }, [meeting.id])
-
-    
     const handleJoinedMeetingsClick = () => {
         loadJoinedMeetings()
     }
@@ -154,117 +134,65 @@ function Profile({ user, onEditMeetingClick }) {
     }
 
     return <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
-            {/* <Header onUserLoggedOut={handleLoggedOut} /> */}
-            {/* <div>
-                    <h1 className='text-black text-center font-bold mt-20'>Upcoming Meetings</h1>
-                </div> */}
 
-<div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
-                    <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
+        <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
+            <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 
-                    <button onClick={toogleViewJoined} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
+            <button onClick={toogleViewJoined} id="joinedmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Joined Meetings</button>
 
-                    <button onClick={toogleViewAboutMe} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
+            <button onClick={toogleViewAboutMe} id="aboutme-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">About Me</button>
+        </div>
+
+        <section >
+
+            {view === 'open-created' && <MeetingsList
+                meetings={createdMeetingsList}
+                onEditMeetingClick={handleEditClick}
+                onJoinMeetingClick={handleJoinedMeetingsClick}
+                onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
+
+            {view === 'edit-meeting' && <EditMeeting
+                meeting={meeting}
+                onCancelClick={handleEditMeetingCancelClick}
+                onMeetingEdited={handleMeetingEdited} />}
+
+            {view === 'open-joined' && <MeetingsList
+                meetings={joinedMeetingsList}
+                onEditMeetingClick={handleEditClick}
+                onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                onJoinMeetingClick={handleJoinedMeetingsClick}
+                onReviewClick={handleReviewClick}
+            />}
+
+            {view === 'open-aboutMe' && (
+                <div className="mt-4 p-4 bg-white rounded-xl text-center text-wrap">
+                    <p className="mt-2"><strong>Full name:</strong> {user.name}</p>
+                    <p className="mt-2"><strong>Contact:</strong> {user.email}</p>
+                    <p className="mt-2">{user && user.about !== null ? user.about : "You do not have any about me yet"}</p>
+                    {logic.getLoggedInUserId().userId === user.id && (
+                        <div className="flex justify-end mt-4">
+                            <button onClick={handleEditAboutClick} className="w-5 h-5"><img src="../../public/icons/VsEditPage.png" alt="edit about me" /></button>
+                        </div>
+                    )}
                 </div>
-            
-            <section >
-                <div></div>
-                
+            )}
 
-                {view === 'open-created' && <MeetingsList 
-                    meetings={createdMeetingsList}
-                    onEditMeetingClick={handleEditClick}
-                    onJoinMeetingClick={handleJoinedMeetingsClick}
-                    onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
+            {view === 'edit-about' && <EditAbout
+                about={about}
+                onAboutEdited={handleAboutEdited}
+                onCancelClick={handleEditAboutCancelClick} />}
 
-                {view === 'edit-meeting' && <EditMeeting 
-                    meeting={meeting}
-                    onCancelClick={handleEditMeetingCancelClick}
-                    onMeetingEdited={handleMeetingEdited} />}
+            {view === 'create-review' && <CreateReview
+                user={user}
+                meeting={meeting}
+                onCancelClick={handleCreateReviewCancelClick}
+                onReviewCreated={handleReviewCreated}
+                onReviewClick={handleReviewClick} />}
 
-                {view === 'open-joined' && <MeetingsList 
-                    meetings={joinedMeetingsList}
-                    onEditMeetingClick={handleEditClick}
-                    onUnjoinMeetingClick={handleUnJoinMeetingClick}
-                    onJoinMeetingClick={handleJoinedMeetingsClick}
-                    onReviewClick={handleReviewClick}
-                />}
-
-                {view === 'open-aboutMe' && (
-                    <div className="mt-4 p-4 bg-white rounded-xl text-center text-wrap">
-                        <p className="mt-2"><strong>Full name:</strong> {user.name}</p>
-                        <p className="mt-2"><strong>Contact:</strong> {user.email}</p>
-                        <p className="mt-2">{user && user.about !== null ? user.about : "You do not have any about me yet"}</p>
-                        {logic.getLoggedInUserId().userId === user.id && (
-                            <div className="flex justify-end mt-4">
-                                <button onClick={handleEditAboutClick} className="w-5 h-5"><img src="../../public/icons/VsEditPage.png" alt="edit about me" /></button>
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {view === 'edit-about' && <EditAbout 
-                    about={about}
-                    onAboutEdited={handleAboutEdited}
-                    onCancelClick={handleEditAboutCancelClick} />}
-
-                {view === 'create-review' && <CreateReview
-                    user={user}
-                    meeting={meeting}
-                    onCancelClick={handleCreateReviewCancelClick}
-                    onReviewCreated={handleReviewCreated}
-                    onReviewClick={handleReviewClick} />}
-
-            </section>
-        </main >
-
+        </section>
+    </main >
 }
 
 export default Profile
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const handleCreatedClick = meeting => onCreatedClick(meeting)
-
-// const handleJoinedClick = meeting => onJoinedClick(meeting)
-
-// const loadMeetings = () => {
-
-//     try {
-//         logic.retrieveCreatedMeetings()
-//             .then(setMeetings)
-//             .catch(error => alert(error))
-//     } catch (error) {
-//         showFeedback(error)
-//     }
-// }
-
-// useEffect(() => {
-//     loadMeetings()
-// }, [])
-
-
-// return <h1>hello {name}</h1>
-
-{/* <MeetingList meetings={meetings} /> */ }
 
 

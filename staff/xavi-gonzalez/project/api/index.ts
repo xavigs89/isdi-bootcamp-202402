@@ -590,6 +590,40 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
+        // RETRIEVE REVIEWS BY MEETING ID
+        api.get('/reviews/:meetingId', (req, res) => {
+            try {
+                const { authorization } = req.headers;
+                const token = authorization.slice(7);
+                const { sub: userId } = jwt.verify(token, JWT_SECRET);
+                const { meetingId } = req.params;
+
+                // Here, you should call logic.retrieveReviewsByMeetingId with the meetingId and userId
+                logic.retrieveReviewsById(meetingId)
+                    .then(reviews => res.json(reviews))
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message);
+                            res.status(500).json({ error: error.constructor.name, message: error.message });
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message);
+                            res.status(404).json({ error: error.constructor.name, message: error.message });
+                        }
+                    })
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message);
+                    res.status(406).json({ error: error.constructor.name, message: error.message });
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' });
+                } else {
+                    logger.warn(error.message)
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+        })
+
         //EDIT ABOUT 
         api.patch('/users/about/:userId', jsonBodyParser, (req, res) => {
             try {
