@@ -5,25 +5,34 @@ import logic from '../logic'
 import SubmitButton from './library/SubmitButton'
 import CancelButton from './library/CancelButton'
 
+import StarRating from './StarRating'
+
 import { useContext } from '../context'
+import { useState } from 'react'
 
-function CreateReview({ onReviewCreated, onCancelCick }) {
+function CreateReview({ onReviewCreated, onCancelClick, user, meeting }) {
 
+    const [rate, setRate] = useState(0)
     const { showFeedback } = useContext()
+
+    
 
     const handleSubmit = event => {
         event.preventDefault()
 
         const form = event.target
-
-        const rate = form.rate.value
+ 
+        // const rate = form.rate.value
         const comment = form.comment.value
 
+        console.log(rate)
+        console.log(comment)
+
         try {
-            logic.createReview(rate, comment)
+            logic.createReview(user.id, rate, comment, meeting.id)
                 .then(() => {
                     form.reset()
-
+                    setRate(0)
                     onReviewCreated()
                 })
                 .catch(error => showFeedback(error))
@@ -32,7 +41,7 @@ function CreateReview({ onReviewCreated, onCancelCick }) {
         }
     }
 
-    const handleCancelClick = () => onCancelCick()
+    const handleCancelClick = () => onCancelClick()
 
     logger.debug('CreateReview -> render')
 
@@ -41,10 +50,11 @@ function CreateReview({ onReviewCreated, onCancelCick }) {
         <div className='border p-10 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>
             <form onSubmit={handleSubmit} className="flex flex-col items-center" >
                 <label className="text-lg font-semibold" >Rate</label>
-                <input id="title" name="rate" type="text" />
+                {/* <input id="comment" name="comment" type="text"/> */}
+                <StarRating value={rate} setRate={setRate} />
 
                 <label className="text-lg font-semibold" >Comment</label>
-                <input id="comment" name="comment" type="text" />
+                <input id="comment" name="comment" type="text" placeholder="optional"  />
 
                 <SubmitButton type="submit" className="font-semibold py-2 px-4 rounded w-full mt-4" >Create Review</SubmitButton>
 
@@ -54,6 +64,6 @@ function CreateReview({ onReviewCreated, onCancelCick }) {
         </div>
 
     </section>
-} 
+}
 
 export default CreateReview

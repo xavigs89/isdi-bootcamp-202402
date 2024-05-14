@@ -49,32 +49,38 @@ describe('createReview', () => {
             })
     )
 
-    // it('throws an error when creating a review with an invalid rate', () =>
-    //     Promise.all([
-    //         User.deleteMany(),
-    //         Review.deleteMany()
-    //     ])
-    //         .then(() =>
-    //             User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
-    //         )
-    //         .then(user =>
-    //             expect(logic.createReview(user.id, 'invalid_rate', 'I enjoyed the meeting')).to.be.rejectedWith('Invalid rate')
-    //         )
-    // )
-
-    // it('throws an error when creating a review without providing a rate', () =>
-    //     Promise.all([
-    //         User.deleteMany(),
-    //         Review.deleteMany()
-    //     ])
-    //         .then(() =>
-    //             User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
-    //         )
-    //         .then(user =>
-    //             expect(logic.createReview(user.id, null, 'I enjoyed the meeting')).to.be.rejectedWith('Rate is required')
-    //         )
-    // )
-
+    it('throws an error when trying to create a review with an invalid rate', () =>
+        Promise.all([
+            User.deleteMany(),
+            Review.deleteMany()
+        ])
+            .then(() =>
+                User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
+            )
+            .then(user =>
+                Meeting.create({
+                    author: user.id,
+                    title: 'My Event',
+                    address: 'Calle falsa 1,2,3',
+                    location: [41.93584282753891, 1.7719600329709349],
+                    date: new Date('2024-02-15T21:30:00'),
+                    description: 'We are gonna have some fun',
+                    image: 'http://images.com'
+                })
+                    .then(meeting =>
+                        logic.createReview(user.id, 8, 'This should fail', meeting.id)
+                            .then(() => Review.findOne({}))
+                            .then(review => {
+                                console.log(review)
+                                expect(review).to.exist
+                                expect(review.rate).to.equal(8)
+                                expect(review.comment).to.equal('I enjoyed the meeting')
+                                expect(review.author).to.exist
+                                expect(review.meeting).to.exist
+                            })
+                    )
+            )
+    )
 
 
     after(() => mongoose.disconnect())

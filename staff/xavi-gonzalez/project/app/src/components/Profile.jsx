@@ -6,10 +6,11 @@ import RoundButton from './library/RoundButton'
 
 import Header from './Header'
 import { useContext } from '../context'
-import Meeting from './Meeting'
+
 import MeetingsList from './MeetingsList'
 import EditMeeting from './EditMeeting'
 import EditAbout from './EditAbout'
+import CreateReview from './CreateReview'
 import { useNavigate } from 'react-router-dom'
 
 import { useState, useEffect } from 'react'
@@ -48,8 +49,6 @@ function Profile({ user, onEditMeetingClick }) {
     const toogleViewAboutMe = () => {
         setView(view === 'open-aboutMe' ? 'close' : 'open-aboutMe')
     }
-
-
 
     //MOSTRAR TODOS LOS CREATED MEETINGS, PASADOS Y FUTUROS
     const loadCreatedMeetings = () => {
@@ -97,12 +96,8 @@ function Profile({ user, onEditMeetingClick }) {
     }
 
 
-
     //COMPO EDIT MEETING PROPS
-    const handleMeetingEdited = () => {
-        setView('open-created')
-        
-    }
+    const handleMeetingEdited = () => setView('open-created')
 
     //CANCELAR FORM DE EDIT MEETING
     const handleEditMeetingCancelClick = () => setView('open-created')
@@ -123,15 +118,24 @@ function Profile({ user, onEditMeetingClick }) {
         setView('edit-about')
     }
 
-    //REVIEW
-    // const handleReviewClick = () => setView ('create-review')
+    //BOTON PARA CREAR REVIEW
+    const handleReviewClick = (meeting) => {
+        setView('create-review')
+        setMeeting(meeting)
+    }
+    
+    // CANCELAR CREATE REVIEW
+    const handleCreateReviewCancelClick = () => {
+        clearView()
+        setMeeting(null)
+    }
 
-    // const handleCreateReviewCancelClick = () => clearView()
-
-    // const handleReviewCreated = () => {
-    //     clearView()
-    //     setStamp(Date.now())
-    // }
+    // CREAR REVIEW CON EXITO
+    const handleReviewCreated = () => {
+        clearView()
+        setMeeting(null)
+        setStamp(Date.now())
+     }
 
     return <>
         <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
@@ -159,6 +163,7 @@ function Profile({ user, onEditMeetingClick }) {
                 {view === 'open-joined' && <MeetingsList meetings={joinedMeetingsList}
                     onEditMeetingClick={handleEditClick}
                     onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                    onReviewClick={handleReviewClick}
                 />}
 
                 {view === 'open-aboutMe' && (
@@ -178,9 +183,12 @@ function Profile({ user, onEditMeetingClick }) {
                     onAboutEdited={handleAboutEdited}
                     onCancelClick={handleEditAboutCancelClick} />}
 
-                {/* {view === 'create-review' && <CreateReview
+                 {view === 'create-review' && <CreateReview 
+                 user={user} 
+                 meeting={meeting}
                     onCancelClick={handleCreateReviewCancelClick}
-                    onReviewCreated={handleReviewCreated} />} */}
+                    onReviewCreated={handleReviewCreated}
+                    onReviewClick={handleReviewClick} />}
 
             </section>
         </main >

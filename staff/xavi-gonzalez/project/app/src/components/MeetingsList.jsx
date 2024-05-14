@@ -13,7 +13,6 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
     const { showFeedback, setStamp, stamp } = useContext()
 
     const handleJoinClick = meeting => onJoinMeetingClick(meeting)
-
     const handleUnjoinClick = meeting => onUnjoinMeetingClick(meeting)
 
     const handleEditClick = meeting => onEditMeetingClick(meeting)

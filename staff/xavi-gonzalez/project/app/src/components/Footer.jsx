@@ -7,7 +7,7 @@ function Footer({ user, handleCreateMeetingClick }) {
 
             <button className="w-10 h-10 rounded-full ml-2"><img src="../../public/icons/TablerSearch.png" alt="search" /></button>
 
-            <button onClick={handleCreateMeetingClick} className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/CreateMeeting.png" alt="search" /></button>
+            <button onClick={handleCreateMeetingClick} className="w-10 h-10 rounded-full mr-4"><img src="../../public/icons/CreateMeeting.png" alt="create-meeting" /></button>
 
             <Link to="/profile">
                 <button>

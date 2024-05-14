@@ -39,13 +39,13 @@ function EditAbout({ about, onAboutEdited, onCancelClick }) {
 
     logger.debug('EditAbout -> render')
 
-    return <section className="edit-about ">
+    return <section className="edit-about">
 
         <form onSubmit={handleSubmit} className='border p-4 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100' >
             <label className="text-lg font-semibold" >About Me</label>
             <input id="description" placeholder=' Change your about data' name="description" type="text" />
 
-            <SubmitButton type="submit" className="text-lg font-semibold" >Save Changes</SubmitButton>
+            <SubmitButton type="submit" className="text-lg font-semibold">Save Changes</SubmitButton>
 
             <CancelButton onClick={handleCancelClick} />
         </form>

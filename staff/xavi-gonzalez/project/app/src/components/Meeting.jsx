@@ -88,6 +88,20 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
     logger.debug('Meeting -> render')
 
 
+    
+    // const loadReviews = () => {
+    //     try {
+    //         logic.retrieveReviews(meeting.id)
+    //         .then(setReviews)
+    //         .catch(error => showFeedback(error, 'error'))
+    //         } catch (error) {
+    //             showFeedback(error)
+    //         }
+    //     }
+
+    //     useEffect(() => {
+    //     loadReviews()
+    // }, [meeting.id])
 
 
     return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
@@ -141,18 +155,6 @@ function Meeting({ item: meeting, onJoinClick, unjoinClick, onEditClick, onMeeti
                     <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5"><img src="../../public/icons/BiTrash3.png" alt="delete" /></button>
                 </div>
             )}
-
-            {/* {logic.getLoggedInUserId().userId && logic.isUserJoined() && logic.isMeetingDone() && (
-                <button onClick={handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-                    Review
-                </button>
-            )} */}
-
-            <div>
-
-
-
-            </div>
 
         </div>
 
