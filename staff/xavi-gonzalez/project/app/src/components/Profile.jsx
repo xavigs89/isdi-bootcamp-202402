@@ -141,11 +141,11 @@ function Profile({ user, onEditMeetingClick }) {
         setStamp(Date.now())
     }
 
-    useEffect(() => {
-        logic.retrieveReviews()
-            .then(setReviews)
-            .catch(error => showFeedback(error, 'error'))
-    }, [stamp])
+    // useEffect(() => {
+    //     logic.retrieveReviews()
+    //         .then(setReviews)
+    //         .catch(error => showFeedback(error, 'error'))
+    // }, [stamp])
 
     return <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
 
@@ -164,7 +164,10 @@ function Profile({ user, onEditMeetingClick }) {
                 meetings={createdMeetingsList}
                 onEditMeetingClick={handleEditClick}
                 onJoinMeetingClick={handleJoinedMeetingsClick}
-                onUnjoinMeetingClick={handleUnJoinMeetingClick} />}
+                onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                stamp={stamp} 
+                />}
+                
 
             {view === 'edit-meeting' && <EditMeeting
                 meeting={meeting}
@@ -177,6 +180,7 @@ function Profile({ user, onEditMeetingClick }) {
                 onUnjoinMeetingClick={handleUnJoinMeetingClick}
                 onJoinMeetingClick={handleJoinedMeetingsClick}
                 onReviewClick={handleReviewClick}
+                stamp={stamp}
             />}
 
             {view === 'open-aboutMe' && (

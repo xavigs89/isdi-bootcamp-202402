@@ -1,7 +1,6 @@
 import { validate, errors } from 'com'
 
-function retrieveReview(userId, meetingId) {
-    validate.text(userId, 'userId', true)
+function retrieveReview(meetingId) {
     validate.text(meetingId, 'meetingId', true)
     validate.token(sessionStorage.token)
 

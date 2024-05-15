@@ -20,7 +20,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const [joined, setJoined] = useState(false)
     const [reviews, setReviews] = useState([])
     // const [review, setReview] = useState([])
-    
+
 
     // const handleReviewClick = () => {
     //     if (!showReviews) {
@@ -92,9 +92,9 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const handleReviewClick = meeting => onReviewClick(meeting)
 
 
-    const loadReviews = () => {
+    const loadReviews = (meeting) => {
         try {
-            logic.retrieveReviews(meeting.id)
+            logic.retrieveReview(meeting.id)
                 .then((reviews) => {
                     setReviews(reviews)
                 })
@@ -103,9 +103,10 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
             showFeedback(error)
         }
     }
-    useEffect(() => {
-        loadReviews()
-    }, [meeting])
+    // useEffect(() => {
+    //     loadReviews()
+    // }, [meeting])
+
 
     useEffect(() => {
         const attendeeJoined = meeting.attendees.some(attendees => attendees.id === getLoggedInUserId().userId)
@@ -158,8 +159,10 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                     {isPastMeeting && (
                         <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Review</button>
                     )}
+                    <button onClick={() => loadReviews(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Show reviews</button>
 
-                    {reviews && reviews.map(review => <Review
+                    {reviews && 
+                    reviews.map(review => <Review
                         key={review.id}
                         review={review} />)}
 
