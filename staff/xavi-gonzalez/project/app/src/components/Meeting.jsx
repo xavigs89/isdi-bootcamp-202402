@@ -10,7 +10,7 @@ import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
 
 import moment from 'moment'
-import Review from './Review'
+import ReviewsList from './ReviewsList'
 
 function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
 
@@ -19,16 +19,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const [view, setView] = useState('close')
     const [joined, setJoined] = useState(false)
     const [reviews, setReviews] = useState([])
-    // const [review, setReview] = useState([])
-
-
-    // const handleReviewClick = () => {
-    //     if (!showReviews) {
-    //         // If reviews are not shown, load them
-    //         loadReviews()
-    //     }
-    //     setShowReviews(!showReviews) // Toggle showing reviews
-    // };
 
     //hacer que foto de meeting desaparezca cuando das a show details
     // const [detailsView, setDetailsView] = useState(false)
@@ -41,7 +31,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const currentDate = moment()
     const meetingDate = moment(meeting.date)
 
-    const isPastMeeting = meetingDate.isBefore(currentDate)
+    const isMeetingDone = meetingDate.isBefore(currentDate)
 
 
     //BOTON JOIN MEETING
@@ -94,7 +84,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
 
     const loadReviews = (meeting) => {
         try {
-            logic.retrieveReview(meeting.id)
+            logic.retrieveReviewsByMeetingId(meeting.id)
                 .then((reviews) => {
                     setReviews(reviews)
                 })
@@ -103,9 +93,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
             showFeedback(error)
         }
     }
-    // useEffect(() => {
-    //     loadReviews()
-    // }, [meeting])
 
 
     useEffect(() => {
@@ -137,7 +124,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                     <div>
                         <p><strong>Description: </strong>{meeting.description}</p>
 
-                        <p><strong>Location: </strong>{meeting.location}</p>
+                        <p><strong>Location: </strong></p>
                         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.556123909626!2d2.1548569!3d41.371064000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715240977554!5m2!1ses!2ses" width="300" height="400" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
@@ -156,15 +143,19 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                         </button>
                     </div>
 
-                    {isPastMeeting && (
-                        <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Review</button>
+                    {isMeetingDone && (
+                        <div className="flex space-x-4">
+                            <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                                Leave a Review
+                            </button>
+                            <button onClick={() => loadReviews(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                                Show Reviews
+                            </button>
+                        </div>
                     )}
-                    <button onClick={() => loadReviews(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Show reviews</button>
 
-                    {reviews && 
-                    reviews.map(review => <Review
-                        key={review.id}
-                        review={review} />)}
+                    {reviews.length > 0 && <ReviewsList reviews={reviews}
+                    />}
 
                     <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
                 </div>
@@ -213,16 +204,3 @@ export default Meeting
 //         }
 //     }
 // }
-
-// useEffect(() => {
-//     if (user)
-//         try {
-//     logic.isUserJoined(meeting)
-//     .then(result => {
-//         if (result)
-//             setJoined(true)
-//     })
-// } catch(error) {
-//     showFeedback(error)
-// }
-// }, [meeting])

@@ -26,11 +26,6 @@ function createMeeting(userId: string, title: string, address: string, location:
                 throw new NotFoundError('user not found')
             const formattedDate = new Date(date)
 
-            //const [hour, minutes] = time.split(":");
-            // const formattedTime = new Date(time);
-            // formattedTime.setHours(parseInt(hour, 10));
-            // formattedTime.setMinutes(parseInt(minutes, 10));
-
             const meeting = {
                 author: user._id,
                 title: title.trim(),

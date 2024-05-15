@@ -160,28 +160,43 @@ function Profile({ user, onEditMeetingClick }) {
 
         <section >
 
-            {view === 'open-createdMeetings' && <MeetingsList
-                meetings={createdMeetingsList}
-                onEditMeetingClick={handleEditClick}
-                onJoinMeetingClick={handleJoinedMeetingsClick}
-                onUnjoinMeetingClick={handleUnJoinMeetingClick}
-                stamp={stamp} 
-                />}
-                
+            {view === 'open-createdMeetings' && (
+                <>
+                    {createdMeetingsList.length === 0 ? (
+                        <p>You do not have any created meetings.</p>
+                    ) : (
+                        <MeetingsList
+                            meetings={createdMeetingsList}
+                            onEditMeetingClick={handleEditClick}
+                            onJoinMeetingClick={handleJoinedMeetingsClick}
+                            onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                            stamp={stamp}
+                        />
+                    )}
+                </>
+            )}
+
 
             {view === 'edit-meeting' && <EditMeeting
                 meeting={meeting}
                 onCancelClick={handleEditMeetingCancelClick}
                 onMeetingEdited={handleMeetingEdited} />}
 
-            {view === 'open-joinedMeetings' && <MeetingsList
-                meetings={joinedMeetingsList}
-                onEditMeetingClick={handleEditClick}
-                onUnjoinMeetingClick={handleUnJoinMeetingClick}
-                onJoinMeetingClick={handleJoinedMeetingsClick}
-                onReviewClick={handleReviewClick}
-                stamp={stamp}
-            />}
+            {view === 'open-joinedMeetings' && (
+                <>
+                    {joinedMeetingsList.length === 0 ? (
+                        <p>You did not join to any meeting yet.</p>) : (
+                        <MeetingsList
+                            meetings={joinedMeetingsList}
+                            onEditMeetingClick={handleEditClick}
+                            onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                            onJoinMeetingClick={handleJoinedMeetingsClick}
+                            onReviewClick={handleReviewClick}
+                            stamp={stamp}
+                        />
+                    )}
+                </>
+            )}
 
             {view === 'open-aboutMe' && (
                 <div className="mt-4 p-4 bg-white rounded-xl text-center text-wrap">

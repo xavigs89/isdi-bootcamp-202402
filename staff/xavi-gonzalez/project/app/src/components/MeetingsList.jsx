@@ -1,7 +1,5 @@
 //@ts-nocheck
 import { logger } from '../utils'
-
-import { useState, useEffect } from 'react'
 import { useContext } from '../context'
 
 import Meeting from './Meeting'

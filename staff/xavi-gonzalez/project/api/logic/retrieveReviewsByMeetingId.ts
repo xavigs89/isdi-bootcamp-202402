@@ -5,7 +5,7 @@ import { validate, errors } from 'com';
 
 const { NotFoundError, SystemError } = errors;
 
-function retrieveReview(userId: string, meetingId: string): Promise<any> {
+function retrieveReviewsByMeetingId(userId: string, meetingId: string): Promise<any> {
 
     validate.text(userId, 'userId', true);
     validate.text(meetingId, 'meetingId', true);
@@ -34,4 +34,4 @@ function retrieveReview(userId: string, meetingId: string): Promise<any> {
         })
 }
 
-export default retrieveReview
+export default retrieveReviewsByMeetingId

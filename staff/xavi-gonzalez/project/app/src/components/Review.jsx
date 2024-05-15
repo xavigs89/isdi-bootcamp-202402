@@ -4,6 +4,7 @@ import { logger } from '../utils'
 
 import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
+import StarRating from './StarRating'
 
 import moment from 'moment'
 
@@ -19,7 +20,7 @@ function Review({ review }) {
         <div className="col-span-1 pr-4 text-black font-semibold">
 
             <p className="text-left font-semibold mbp text-xs">
-                {review.author.name}</p>
+                {review.author}</p>
 
             <p className="text-2xl text-left font-semibold mb-2">{review.rate}</p>
 

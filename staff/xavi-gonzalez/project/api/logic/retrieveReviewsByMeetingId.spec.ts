@@ -16,7 +16,7 @@ use(chaiAsPromised)
 const { Types: { ObjectId } } = mongoose
 const { NotFoundError, SystemError } = errors
 
-describe('retrieveReviews', () => {
+describe('retrieveReviewsByMeetingId', () => {
     before(() => mongoose.connect(process.env.MONGODB_TEST_URL))
 
     it('retrieves all reviews from existing user', () =>

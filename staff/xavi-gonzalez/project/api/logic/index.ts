@@ -17,7 +17,7 @@ import editAbout from './editAbout.ts'
 
 import createReview from './createReview.ts'
 import retrieveReviews from './retrieveReviews.ts'
-import retrieveReview from './retrieveReview.ts'
+import retrieveReviewsByMeetingId from './retrieveReviewsByMeetingId.ts'
 
 
 const logic = {
@@ -41,7 +41,7 @@ const logic = {
 
     createReview,
     retrieveReviews,
-    retrieveReview
+    retrieveReviewsByMeetingId
 
 
 }
