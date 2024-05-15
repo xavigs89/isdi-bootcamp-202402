@@ -10,7 +10,7 @@ import StarRating from './StarRating'
 import { useContext } from '../context'
 import { useState } from 'react'
 
-function CreateReview({ onReviewCreated, onCancelClick, user, meeting }) {
+function CreateReview({ user, meeting, onReviewCreated, onCancelClick }) {
 
     const [rate, setRate] = useState(0)
     const { showFeedback } = useContext()

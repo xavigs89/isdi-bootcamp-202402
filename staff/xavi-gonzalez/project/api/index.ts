@@ -590,7 +590,7 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
-        // RETRIEVE REVIEWS BY MEETING ID
+        // RETRIEVE REVIEW
         api.get('/reviews/:meetingId', (req, res) => {
             try {
                 const { authorization } = req.headers;
@@ -598,9 +598,8 @@ mongoose.connect(MONGODB_URL)
                 const { sub: userId } = jwt.verify(token, JWT_SECRET);
                 const { meetingId } = req.params;
 
-                // Here, you should call logic.retrieveReviewsByMeetingId with the meetingId and userId
-                logic.retrieveReviewsById(meetingId)
-                    .then(reviews => res.json(reviews))
+                logic.retrieveReview(userId as string, meetingId)
+                    .then(review => res.json(review))
                     .catch(error => {
                         if (error instanceof SystemError) {
                             logger.error(error.message);

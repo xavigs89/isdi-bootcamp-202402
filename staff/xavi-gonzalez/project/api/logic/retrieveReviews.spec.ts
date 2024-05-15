@@ -39,9 +39,10 @@ describe('retrieveReviews', () => {
 
                     .then(([review1, review2, review3]) => {
 
-                        logic.retrieveReviews(user1.id)
+                        return logic.retrieveReviews(user1.id)
 
                             .then(reviews => {
+                                console.log(reviews)
 
                                 expect(reviews).to.have.lengthOf(3)
                                 expect(reviews[0].rate).to.equal(2);

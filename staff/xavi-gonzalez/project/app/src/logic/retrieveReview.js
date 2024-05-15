@@ -1,6 +1,7 @@
 import { validate, errors } from 'com'
 
-function retrieveReviewsById(meetingId) {
+function retrieveReview(userId, meetingId) {
+    validate.text(userId, 'userId', true)
     validate.text(meetingId, 'meetingId', true)
     validate.token(sessionStorage.token)
 
@@ -24,4 +25,4 @@ function retrieveReviewsById(meetingId) {
     })
 }
 
-export default retrieveReviewsById
+export default retrieveReview

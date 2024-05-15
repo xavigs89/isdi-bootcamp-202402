@@ -28,6 +28,7 @@ function Profile({ user, onEditMeetingClick }) {
     const [createdMeetingsList, setCreatedMeetingsList] = useState(false)
     const [joinedMeetingsList, setJoinedMeetingsList] = useState(false)
     // const [about, setAbout] = useState(false)
+    const [reviews, setReviews] = useState([])
 
 
 
@@ -139,6 +140,12 @@ function Profile({ user, onEditMeetingClick }) {
         setMeeting(null)
         setStamp(Date.now())
     }
+
+    useEffect(() => {
+        logic.retrieveReviews()
+            .then(setReviews)
+            .catch(error => showFeedback(error, 'error'))
+    }, [stamp])
 
     return <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
 

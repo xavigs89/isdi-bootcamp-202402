@@ -20,6 +20,7 @@ import editAbout from './editAbout'
 
 import createReview from './createReview'
 import retrieveReviews from './retrieveReviews'
+import retrieveReview from './retrieveReview'
 
 
 
@@ -45,7 +46,8 @@ const logic = {
 
     editAbout,
     createReview,
-    retrieveReviews
+    retrieveReviews,
+    retrieveReview
 }
 
 export default logic

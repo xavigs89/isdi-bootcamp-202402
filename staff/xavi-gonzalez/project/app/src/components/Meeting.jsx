@@ -10,6 +10,7 @@ import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
 
 import moment from 'moment'
+import Review from './Review'
 
 function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
 
@@ -18,8 +19,8 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const [view, setView] = useState('close')
     const [joined, setJoined] = useState(false)
     const [reviews, setReviews] = useState([])
-
-    const [showReviews, setShowReviews] = useState(false); // New state to toggle showing reviews
+    // const [review, setReview] = useState([])
+    
 
     // const handleReviewClick = () => {
     //     if (!showReviews) {
@@ -89,7 +90,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
 
     //BOTON REVIEW
     const handleReviewClick = meeting => onReviewClick(meeting)
-    
+
 
     const loadReviews = () => {
         try {
@@ -157,6 +158,10 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                     {isPastMeeting && (
                         <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded" >Review</button>
                     )}
+
+                    {reviews && reviews.map(review => <Review
+                        key={review.id}
+                        review={review} />)}
 
                     <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
                 </div>

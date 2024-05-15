@@ -6,7 +6,7 @@ import { useContext } from '../context'
 
 import Meeting from './Meeting'
 
-function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjoinMeetingClick, onReviewClick }) {
+function MeetingsList({ meetings, review, onEditMeetingClick, onJoinMeetingClick, onUnjoinMeetingClick, onReviewClick }) {
 
     logger.debug('MeetingList -> render')
 
@@ -30,6 +30,7 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
                 <Meeting
                     key={meeting.id}
                     meeting={meeting}
+                    review={review}
                     stamp={stamp}
                     setStamp={setStamp}
                     showFeedback={showFeedback}
@@ -40,6 +41,7 @@ function MeetingsList({ meetings, onEditMeetingClick, onJoinMeetingClick, onUnjo
                     onReviewClick={handleReviewClick}
                     onClick={() => handleSelectedMeeting(meeting)}
                 />)}
+
         </ul>
     </div>
 }

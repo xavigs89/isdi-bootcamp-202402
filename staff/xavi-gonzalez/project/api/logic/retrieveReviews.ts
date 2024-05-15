@@ -19,8 +19,9 @@ function retrieveReviews(userId: string): Promise<any> {
             return Review.find().lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(reviews =>
-                    reviews.map(({ _id, rate, comment, date, meeting }) => ({
+                    reviews.map(({ _id, author, rate, comment, date, meeting }) => ({
                         id: _id.toString(),
+                        author,
                         rate,
                         comment: comment.trim(),
                         date,
