@@ -29,8 +29,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const meetingDate = moment(meeting.date)
     const isMeetingDone = meetingDate.isBefore(currentDate)
 
-
-    //BOTON JOIN MEETING
     const handleJoinClick = meeting => {
         try {
             logic.joinMeeting(meeting)
@@ -41,7 +39,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
         }
     }
 
-    //BOTON UNJOIN MEETING
     const handleUnjoinClick = meeting => {
         try {
             logic.unjoinMeeting(meeting)
@@ -72,7 +69,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
         })
     }
 
-    //BOTON REVIEW
     const handleReviewClick = meeting => onReviewClick(meeting)
 
 

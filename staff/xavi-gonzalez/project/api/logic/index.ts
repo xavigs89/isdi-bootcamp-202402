@@ -40,8 +40,6 @@ const logic = {
 
     createReview,
     retrieveReviewsByMeetingId
-
-
 }
 
 export default logic

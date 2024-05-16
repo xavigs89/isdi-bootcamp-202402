@@ -28,8 +28,6 @@ describe('createMeeting', () => {
                 logic.createMeeting(user.id, 'My Event', 'Calle falsa 1,2,3', [41.93584282753891, 1.7719600329709349], '2024-02-15 : 21:30', 'We are gonna have some fun', 'http://images.com'))
             .then(() => Meeting.findOne({ }))
             .then(meeting => {
-                // console.log(meeting)
-                // expect(meeting.author.toString()).to.equal(user.id)
                 expect(meeting.title).to.equal('My Event')
                 expect(meeting.address).to.equal('Calle falsa 1,2,3')
                 expect(meeting.location).to.deep.equal([41.93584282753891, 1.7719600329709349])

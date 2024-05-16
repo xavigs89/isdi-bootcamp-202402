@@ -4,7 +4,6 @@ import logic from '../logic'
 
 import { useState, useEffect } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
-import { Link, Navigate } from 'react-router-dom'
 import { useContext } from '../context'
 
 import Header from '../components/Header'
@@ -14,8 +13,6 @@ import MeetingsList from '../components/MeetingsList'
 import CreateMeeting from '../components/CreateMeeting'
 import EditMeeting from '../components/EditMeeting'
 import Profile from '../components/Profile'
-import OtherUserProfile from '../components/OtherUserProfile'
-
 
 function Home() {
 
@@ -60,7 +57,6 @@ function Home() {
         }
     }
 
-    //llamar a la función loadMeetings cada vez que el estado stamp cambie
     useEffect(() => {
         loadMeetings()
     }, [stamp])
@@ -99,14 +95,11 @@ function Home() {
 
     logger.debug('Home -> render')
 
-
-    //JOIN
     const handleJoinMeetingClick = () => {
         clearView()
         loadMeetings()
     }
 
-    //UNJOIN
     const handleUnjoinMeetingClick = () => {
         clearView()
         loadMeetings()
@@ -128,16 +121,11 @@ function Home() {
 
                     <Route path="/profile" element={<Profile
                         user={user}
+                        setStamp={setStamp}
                         onEditMeetingClick={handleEditMeetingClick}
                         onEditMeetingCancelClick={handleEditMeetingCancelClick}
                         onMeetingEdited={handleMeetingEdited}
-
-                        
-
                     />} />
-
-                    <Route path="/user" element={<OtherUserProfile
-                        user={user} />} />
                 </Routes>
 
                 {view === 'create-meeting' && <CreateMeeting

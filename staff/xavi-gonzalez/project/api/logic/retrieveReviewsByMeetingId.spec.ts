@@ -44,7 +44,6 @@ describe('retrieveReviewsByMeetingId', () => {
                             .then(([review1, review2, review3]) =>
                                 logic.retrieveReviewsByMeetingId(user1.id, meeting1.id)
                                     .then(review => {
-                                        console.log(review)
                                         expect(review1).to.exist
                                         expect(review1.rate).to.equal(2)
                                         expect(review2.rate).to.equal(4)
@@ -84,7 +83,6 @@ describe('retrieveReviewsByMeetingId', () => {
                             .then(([review1, review2, review3]) =>
                                 logic.retrieveReviewsByMeetingId(user1.id, meeting1.id)
                                     .then(review => {
-                                        console.log(review)
                                         expect(review1).to.exist
                                         expect(review1.rate).to.equal(2)
                                         expect(review2.rate).to.equal(4)

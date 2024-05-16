@@ -1,7 +1,5 @@
 //@ts-nocheck
-import dotenv from 'dotenv'
 import logic from './index.ts'
-// import { errors } from 'com'
 import mongoose from 'mongoose'
 import { expect, use } from 'chai'
 
@@ -34,8 +32,6 @@ describe('joinMeeting', () => {
 
                                     .then(() => Meeting.findOne({ title: 'My Event' }))
                                     .then(updatedMeeting => {
-
-                                        // console.log('updated', updatedMeeting)
 
                                         expect(!!updatedMeeting).to.be.true
                                     })

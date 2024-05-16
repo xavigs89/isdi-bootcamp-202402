@@ -21,11 +21,7 @@ function CreateReview({ user, meeting, onReviewCreated, onCancelClick }) {
 
         const form = event.target
  
-        // const rate = form.rate.value
         const comment = form.comment.value
-
-        console.log(rate)
-        console.log(comment)
 
         try {
             logic.createReview(user.id, rate, comment, meeting.id)

@@ -13,11 +13,8 @@ function CreateMeeting({ onMeetingCreated, onCancelClick }) {
     const handleSubmit = event => {
         event.preventDefault()
 
-        // const userId = logic.retrieveUser(userId)
-
         const form = event.target
 
-        // const author = form.author.value
         const title = form.title.value
         const address = form.address.value
         const locationStr = form.location.value.split(",")

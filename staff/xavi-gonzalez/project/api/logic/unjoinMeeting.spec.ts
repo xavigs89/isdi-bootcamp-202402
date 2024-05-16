@@ -30,8 +30,6 @@ describe('unjoinMeeting', () => {
                             .then(() => Meeting.findOne({ title: 'My Event' }))
                             .then(updatedMeeting => {
 
-                                console.log('updated', updatedMeeting)
-
                                 expect(!!updatedMeeting).to.be.true
 
                             })

@@ -33,7 +33,6 @@ function Profile({ user, onEditMeetingClick }) {
         setView(view === 'open-aboutMe' ? 'close' : 'open-aboutMe')
     }
 
-    //MOSTRAR TODOS LOS CREATED MEETINGS, PASADOS Y FUTUROS
     const loadCreatedMeetings = () => {
 
         logger.debug('CreatedMeetingList -> loadMeetings')
@@ -52,7 +51,6 @@ function Profile({ user, onEditMeetingClick }) {
     }, [stamp])
 
 
-    //MOSTRAR TODOS LOS JOINED MEETINGS, PASADOS Y FUTUROS
     const loadJoinedMeetings = () => {
         logger.debug('JoinedMeetingList -> loadMeetings')
 
@@ -79,10 +77,8 @@ function Profile({ user, onEditMeetingClick }) {
     }
 
 
-    //COMPO EDIT MEETING
     const handleMeetingEdited = () => setView('open-createdMeetings')
 
-    //CANCELAR FORM DE EDIT MEETING
     const handleEditMeetingCancelClick = () => setView('open-createdMeetings')
 
     const handleEditClick = meeting => {
@@ -90,38 +86,16 @@ function Profile({ user, onEditMeetingClick }) {
         setView('edit-meeting')
     }
 
-    //ABOUT ME CANCEL
-    const handleEditAboutCancelClick = () => {
-        clearView()
-        setView(null)
-    }
-
-    //EDIT ABOUT CON EXITO
-    const handleAboutEdited = () => {
-        setView('open-aboutMe')
-        clearView()
-        setStamp(Date.now())
-        // setAbout(null)
-    }
-
-    //BOTON PARA EDIT ABOUT ME
-    const handleEditAboutClick = () => {
-        setView('edit-aboutMe')
-    }
-
-    //BOTON PARA CREAR REVIEW
     const handleReviewClick = (meeting) => {
         setView('create-review')
         setMeeting(meeting)
     }
 
-    // CANCELAR CREATE REVIEW
     const handleCreateReviewCancelClick = () => {
         clearView()
         setMeeting(null)
     }
 
-    // CREAR REVIEW CON EXITO
     const handleReviewCreated = () => {
         clearView()
         setMeeting(null)
@@ -160,12 +134,6 @@ function Profile({ user, onEditMeetingClick }) {
                     )}
                 </>
             )}
-
-            {/* 
-            {view === 'edit-meeting' && <EditMeeting
-                meeting={meeting}
-                onCancelClick={handleEditMeetingCancelClick}
-                onMeetingEdited={handleMeetingEdited} />} */}
 
             {view === 'open-joinedMeetings' && (
                 <>

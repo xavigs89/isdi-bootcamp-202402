@@ -16,10 +16,7 @@ import joinMeeting from './joinMeeting'
 import unjoinMeeting from './unjoinMeeting'
 import isUserJoined from './isUserJoined'
 
-import editAbout from './editAbout'
-
 import createReview from './createReview'
-import retrieveReviews from './retrieveReviews'
 import retrieveReviewsByMeetingId from './retrieveReviewsByMeetingId'
 
 
@@ -43,10 +40,7 @@ const logic = {
     unjoinMeeting,
     isUserJoined,
 
-
-    editAbout,
     createReview,
-    retrieveReviews,
     retrieveReviewsByMeetingId
 }
 
