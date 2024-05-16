@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { useState, useEffect } from 'react'
 import { logger } from '../utils'
 
@@ -20,8 +19,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const [joined, setJoined] = useState(false)
     const [reviews, setReviews] = useState([])
 
-    //hacer que foto de meeting desaparezca cuando das a show details
-    // const [detailsView, setDetailsView] = useState(false)
     const [showImage, setShowImage] = useState(true)
 
     const toggleImageVisibility = () => {
@@ -30,7 +27,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
 
     const currentDate = moment()
     const meetingDate = moment(meeting.date)
-
     const isMeetingDone = meetingDate.isBefore(currentDate)
 
 
@@ -58,7 +54,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
         }
     }
 
-
     const handleEditClick = meeting => onEditClick(meeting)
 
     const handleDeleteClick = meetingId => {
@@ -77,7 +72,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
         })
     }
 
-
     //BOTON REVIEW
     const handleReviewClick = meeting => onReviewClick(meeting)
 
@@ -94,7 +88,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
         }
     }
 
-
     useEffect(() => {
         const attendeeJoined = meeting.attendees.some(attendees => attendees.id === getLoggedInUserId().userId)
         setJoined(attendeeJoined)
@@ -103,52 +96,52 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     logger.debug('Meeting -> render')
 
 
-    return <article className="text-wrap max-w-sm mx-4 overflow-auto flex p-1 border rounded-xl shadow-md bg-white mt-4">
+    return <article className="max-w-sm mx-4 overflow-hidden flex p-1 border rounded-xl shadow-md bg-white mt-4">
 
-        <div className="col-span-1 pr-4 text-black font-semibold">
-            <p className="text-left font-semibold mbp text-xs">
-                <Link to={`user/${meeting.author.name}`}>{meeting.author.name}</Link></p>
+        <div className="flex flex-col justify-between h-full">
+            <div className="p-2">
+                <Link to={`user/${meeting.author.name}`} className="text-s font-semibold mb-1 block">{meeting.author.name}</Link></div>
 
-            <h2 className="text-2xl text-left font-semibold mb-2">{meeting.title}</h2>
+            <h2 className="text-2xl font-semibold mb-2 pl-2">{meeting.title}</h2>
 
-            <p><strong>Address: </strong>{meeting.address}</p>
+            <p className="pl-2"><strong>Address: </strong>{meeting.address}</p>
 
-            <p>{moment(meeting.date).format('Do MMMM YYYY, h:mm a')}</p>
+            <p className="pl-2">{moment(meeting.date).format('Do MMMM YYYY, h:mm a')}</p>
 
 
             {view === 'close' &&
-                <button onClick={() => { setView('open'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowDownCircle.png" alt="" /></button>}
+                <button onClick={() => { setView('open'); toggleImageVisibility(); }} className="flex justify-center pl-2 mt-6 w-8 h-8"><img src="../../public/icons/MdiArrowDownCircle.png" alt="" /></button>}
 
             {view === 'open' &&
-                <div className='flex flex-col overflow-auto max-h-[200px]'>
+                <div className='p-2'>
                     <div>
                         <p><strong>Description: </strong>{meeting.description}</p>
 
-                        <p><strong>Location: </strong></p>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.556123909626!2d2.1548569!3d41.371064000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715240977554!5m2!1ses!2ses" width="300" height="400" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <p className="pb-1 pt-2"><strong>Location: </strong></p>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.556123909626!2d2.1548569!3d41.371064000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715240977554!5m2!1ses!2ses" width="355" height="200" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
                     <div>
-                        <p><strong>Attendees: </strong></p>
-                        <ul className='flex flex-col'>{meeting.attendees.join(', ')}</ul>
+                        <p className="pt-2"><strong>Attendees: </strong></p>
+                        <ul>{meeting.attendees.join(', ')}</ul>
                     </div>
 
 
-                    <div className="flex space-x-4">
-                        <button className="mt-2 flex items-center" onClick={() => handleJoinClick(meeting.id)}>
-                            <p className="p-1"><strong>Join</strong></p>
+                    <div className="flex jutify-center mb-4 ">
+                        <button className="mt-2 font-bold mr-4" onClick={() => handleJoinClick(meeting.id)}>
+                            Join
                         </button>
-                        <button className="mt-2 flex items-center" onClick={() => handleUnjoinClick(meeting.id)}>
-                            <p className="p-1"><strong>Unjoin</strong></p>
+                        <button className="mt-2 font-bold" onClick={() => handleUnjoinClick(meeting.id)}>
+                            Unjoin
                         </button>
                     </div>
 
                     {isMeetingDone && (
-                        <div className="flex space-x-4">
-                            <button onClick={() => handleReviewClick(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                        <div className="flex justify-center ">
+                            <button onClick={() => handleReviewClick(meeting)} className="bg-[#249D8C] text-white font-bold py-2 px-4 rounded mr-4">
                                 Leave a Review
                             </button>
-                            <button onClick={() => loadReviews(meeting)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                            <button onClick={() => loadReviews(meeting)} className="bg-[#249D8C] text-white font-bold py-2 px-4 rounded">
                                 Show Reviews
                             </button>
                         </div>
@@ -157,50 +150,24 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                     {reviews.length > 0 && <ReviewsList reviews={reviews}
                     />}
 
-                    <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="flex w-5 h-5"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
+                    <div className="flex justify-center">
+                        <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="p-2 w-10 h-10"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
+                    </div>
                 </div>
             }
         </div>
 
-        <div className="flex justify-end">
-            {showImage && <img className="w-[140px] self-center rounded-xl" src={meeting.image} alt="meeting image" />}
+        <div >
+            {showImage && <img className="w-[206px] h-[160px] flex object-cover justify-end px-2 pt-4" src={meeting.image} alt="meeting image" />}
 
             {logic.getLoggedInUserId().userId === meeting.author.id && (
-                <div className="flex justify-end">
+                <div className="flex justify-end flex-row items-end mt-6 pr-2">
                     <button onClick={() => handleEditClick(meeting)} className="w-5 h-5  "><img src="../../public/icons/VsEditPage.png" alt="edit" /></button>
-                    <button onClick={() => handleDeleteClick(meeting.id)} className="w-5 h-5"><img src="../../public/icons/BiTrash3.png" alt="delete" /></button>
+                    <button onClick={() => handleDeleteClick(meeting.id)} className="ml-2 w-5 h-5"><img src="../../public/icons/BiTrash3.png" alt="delete" /></button>
                 </div>
             )}
         </div>
 
     </article>
-
 }
 export default Meeting
-
-
-//BOTON JOIN MEETING
-
-//     const handleJoinAndUnjoinClick = () => {
-//         const loggedInUserId = logic.getLoggedInUserId()
-//         if (meeting.attendees.includes(loggedInUserId)) {
-//             logic.unjoinMeeting(meeting.id, loggedInUserId)
-//                 .then(() => {
-//                     setJoined(false);
-//                     setStamp(Date.now())
-//                 })
-//                 .catch(error => {
-//                     showFeedback(error)
-//                 })
-//         } else {
-//             logic.joinMeeting(meeting.id, loggedInUserId)
-//                 .then(() => {
-//                     setJoined(true)
-//                     setStamp(Date.now())
-//                 })
-//                 .catch(error => {
-//                     showFeedback(error)
-//                 })
-//         }
-//     }
-// }

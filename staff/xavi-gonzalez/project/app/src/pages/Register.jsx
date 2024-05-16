@@ -73,8 +73,8 @@ function Register({ onUserRegistered, onLoginClick }) {
                     </div>
 
                     <div className="flex items-center">
-                        <input type="checkbox" id="ageConfirmation" className="mr-2" />
-                        <label htmlFor="ageConfirmation" className="text-black font-semibold">I confirm that I am at least 18 years old</label>
+                        <input type="checkbox" id="terms" required className="mr-2" />
+                        <label htmlFor="ageConfirmation" className="text-black font-semibold">Confirm that I am 18 years old</label>
                     </div>
 
             <button className="bg-[#249D8C] hover:bg-[#6B99C3] text-white font-bold py-2 px-4 rounded mt-8" type="submit">Register</button>

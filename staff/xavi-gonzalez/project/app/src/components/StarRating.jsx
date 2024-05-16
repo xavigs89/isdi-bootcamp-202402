@@ -11,7 +11,7 @@ function StarRating({ value, setRate }) {
             {stars.map(star => (
                 <span
                     key={star}
-                    className={`text-3xl ${star <= value ? "text-yellow-500" : "text-gray-400"} cursor-pointer`}
+                    className={`text-3xl ${star <= value ? "text-yellow-500" : "text-gray-400"}`}
                     onClick={() => handleClick(star)}
                 >
                     ★

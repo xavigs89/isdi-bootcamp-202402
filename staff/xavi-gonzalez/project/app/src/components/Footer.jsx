@@ -11,14 +11,9 @@ function Footer({ user, handleCreateMeetingClick }) {
 
             <Link to="/profile">
                 <button>
-                    {user && user.avatar ? (
-                        <img src={user.avatar} alt="profile pic" className="w-20 h-20 rounded-full mr-4" />
-                    ) : (
-                        <img className="w-11 h-11 rounded-full mr-2" src="../../public/icons/Profile.png" alt="profile pic" />
-                    )}
+                    <img className="w-11 h-11 rounded-full mr-2" src="../../public/icons/Profile.png" alt="profile pic" />
                 </button>
             </Link>
-
         </footer>
     )
 }

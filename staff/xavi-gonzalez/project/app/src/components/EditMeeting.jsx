@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { logger } from '../utils'
 import { useContext } from '../context'
 
@@ -44,9 +43,9 @@ function EditMeeting({meeting, onMeetingEdited, onCancelClick}) {
 
     logger.debug('EditMeeting -> render')
 //#F4C84B
-    return <section className="h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 py-8 px-4 border-rounded xl"
+    return <section className="h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 py-8 px-4 border-rounded xl "
     >
-        <div className='border p-4 rounded-xl bg-[#F4C84B] transition-opacity duration-500 opacity-100'>
+        <div className='border-2 p-4 rounded-xl bg-[#249D8C] transition-opacity duration-500 opacity-100'>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2" >
             <label className="text-lg font-semibold"  >Title</label>
             <input id="title" defaultValue={meeting.title} name="title" type="text" />

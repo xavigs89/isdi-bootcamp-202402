@@ -16,7 +16,7 @@ JiveHub is a platform that connects people with common interests and enables the
 - join meeting
 - unjoin meeting
 - view attendee list
-- user profile (about me and contact, see created meetings, see joined meetings)
+- user profile (contact, see created meetings, see joined meetings)
 - rate meeting (once it's over, from 1 to 5 stars, optional comment)
 
 

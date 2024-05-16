@@ -1,4 +1,3 @@
-//@ts-nocheck
 import RoundButton from './library/RoundButton'
 import CancelButton from './library/CancelButton'
 

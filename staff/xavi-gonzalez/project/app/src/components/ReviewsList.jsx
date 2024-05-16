@@ -12,7 +12,7 @@ function ReviewsList({ reviews }) {
                 ))}
             </ul>
         </div>
-    );
+    )
 }
 
 export default ReviewsList

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { logger } from '../utils'
 import { useContext } from '../context'
 
