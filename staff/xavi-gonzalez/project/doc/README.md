@@ -77,4 +77,4 @@ Review
 - rate (number, required, enum: 1|2|3|4|5)
 - comment (string, optional)
 - date (Date, required)
-- meeting (meetingId)
+- meeting (Meeting.id)

@@ -39,5 +39,3 @@ function createReview(userId: string, rate: number, comment: string, meetingId: 
 }
 
 export default createReview
-
-//comment ? comment.trim(): undefined,

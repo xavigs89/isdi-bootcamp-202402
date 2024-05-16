@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { ObjectId } from 'mongoose';
-import { User, Meeting, Review } from '../data/index.ts';
+import { User, Review } from '../data/index.ts';
 import { validate, errors } from 'com';
 
 const { NotFoundError, SystemError } = errors;

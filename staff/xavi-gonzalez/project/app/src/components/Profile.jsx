@@ -119,7 +119,7 @@ function Profile({ user, onEditMeetingClick }) {
                 <>
                     {createdMeetingsList.length === 0 ? (
                         <div className="mt-[250px] p-4 bg-white rounded-xl text-center text-wrap font-bold">
-                            <p>You do not have any created meetings.</p>
+                            <p>You don't have any created meetings.</p>
                         </div>
                     ) : (
                         <MeetingsList

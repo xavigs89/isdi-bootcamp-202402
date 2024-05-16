@@ -13,6 +13,8 @@ import ReviewsList from './ReviewsList'
 
 function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
 
+    const [userReviewed, setUserReviewed] = useState(false)
+
     const { showFeedback, showConfirm, setStamp } = useContext()
 
     const [view, setView] = useState('close')
@@ -73,17 +75,15 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
 
 
     const loadReviews = (meeting) => {
-        try {
-            logic.retrieveReviewsByMeetingId(meeting.id)
-                .then((reviews) => {
-                    setReviews(reviews)
-                })
-                .catch(error => showFeedback(error, 'error'))
-        } catch (error) {
-            showFeedback(error)
-        }
+        logic.retrieveReviewsByMeetingId(meeting.id)
+            .then((reviews) => {
+                setReviews(reviews)
+            })
+            .catch(error => {
+                // Show feedback for any error
+                showFeedback(error, 'error');
+            })
     }
-
     useEffect(() => {
         const attendeeJoined = meeting.attendees.some(attendees => attendees.id === getLoggedInUserId().userId)
         setJoined(attendeeJoined)

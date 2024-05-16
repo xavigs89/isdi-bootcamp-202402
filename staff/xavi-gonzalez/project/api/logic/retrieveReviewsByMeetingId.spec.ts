@@ -98,8 +98,3 @@ describe('retrieveReviewsByMeetingId', () => {
 
     after(() => mongoose.disconnect())
 })
-
-// .then(users =>
-//     const xavi = users.find(user => user.name === 'Xavi Gonzalez')
-//     const perico = users.find(user => user.name === 'Perico de los Palotes')
-// )
