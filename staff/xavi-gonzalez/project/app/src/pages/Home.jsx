@@ -130,6 +130,11 @@ function Home() {
                     <Route path="/profile" element={<Profile
                         user={user}
                         onEditMeetingClick={handleEditMeetingClick}
+                        onEditMeetingCancelClick={handleEditMeetingCancelClick}
+                        onMeetingEdited={handleMeetingEdited}
+
+                        
+
                     />} />
 
                     <Route path="/user" element={<OtherUserProfile

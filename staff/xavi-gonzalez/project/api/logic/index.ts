@@ -16,7 +16,6 @@ import unjoinMeeting from './unjoinMeeting.ts'
 import editAbout from './editAbout.ts'
 
 import createReview from './createReview.ts'
-import retrieveReviews from './retrieveReviews.ts'
 import retrieveReviewsByMeetingId from './retrieveReviewsByMeetingId.ts'
 
 
@@ -40,7 +39,6 @@ const logic = {
     editAbout,
 
     createReview,
-    retrieveReviews,
     retrieveReviewsByMeetingId
 
 

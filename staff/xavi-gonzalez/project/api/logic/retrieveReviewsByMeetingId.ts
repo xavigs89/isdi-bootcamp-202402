@@ -16,12 +16,15 @@ function retrieveReviewsByMeetingId(userId: string, meetingId: string): Promise<
             if (!user) throw new NotFoundError('user not found')
         })
         .then(() => {
-            return Review.find({meeting: meetingId}).lean()
+            return Review.find({meeting: meetingId}).populate<{ author: { _id: ObjectId, name: string } }>('author', '_id name').lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(reviews =>
                     reviews.map(({ _id, author, rate, comment, date, meeting }) => ({
                         id: _id.toString(),
-                        author,
+                        author: {
+                            id: author._id.toString(),
+                            name: author.name
+                        },
                         rate,
                         comment: comment.trim(),
                         date,

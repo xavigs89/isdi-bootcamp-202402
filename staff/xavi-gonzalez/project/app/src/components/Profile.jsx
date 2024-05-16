@@ -170,17 +170,19 @@ function Profile({ user, onEditMeetingClick }) {
                             onEditMeetingClick={handleEditClick}
                             onJoinMeetingClick={handleJoinedMeetingsClick}
                             onUnjoinMeetingClick={handleUnJoinMeetingClick}
+                            onCancelClick={handleEditMeetingCancelClick}
+                            onMeetingEdited={handleMeetingEdited}
                             stamp={stamp}
                         />
                     )}
                 </>
             )}
 
-
+            {/* 
             {view === 'edit-meeting' && <EditMeeting
                 meeting={meeting}
                 onCancelClick={handleEditMeetingCancelClick}
-                onMeetingEdited={handleMeetingEdited} />}
+                onMeetingEdited={handleMeetingEdited} />} */}
 
             {view === 'open-joinedMeetings' && (
                 <>
@@ -192,6 +194,8 @@ function Profile({ user, onEditMeetingClick }) {
                             onUnjoinMeetingClick={handleUnJoinMeetingClick}
                             onJoinMeetingClick={handleJoinedMeetingsClick}
                             onReviewClick={handleReviewClick}
+                            onCancelClick={handleEditMeetingCancelClick}
+                            onMeetingEdited={handleMeetingEdited}
                             stamp={stamp}
                         />
                     )}
