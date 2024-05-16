@@ -31,7 +31,7 @@ function Header({ onUserLoggedOut }) {
 
     return (
 
-        <header className="fixed top-100 w-full h-[62px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-2">
+        <header className="fixed top-100 w-full h-[70px] flex justify-between space-x-4 items-center bg-[#F4C84B] px-4">
 
             <div className="flex items-center space-x-1">
                 <Link to="/">
@@ -44,10 +44,10 @@ function Header({ onUserLoggedOut }) {
 
             <div className="absoluteflex items-center">
 
-                {user && <h1 className="text-center font-bold">Welcome, {user.name}!</h1>}
+                {user && <h1 className="text-center text-lg font-bold">Welcome, {user.name}!</h1>}
             </div>
 
-            <button className="h-12 w-12" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
+            <button className="h-8 w-8" onClick={handleLogoutClick} > <img src="../../public/icons/HumbleiconsLogout.png" alt="menu" /></button>
 
         </header>
     )

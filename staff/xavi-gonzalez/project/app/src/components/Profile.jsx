@@ -149,7 +149,7 @@ function Profile({ user, onEditMeetingClick }) {
 
     return <main className="flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
 
-        <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4">
+        <div className="rounded-xl space-between flex items-center grid-cols-4 gap-4 px-4 pt-6">
 
             <button onClick={toogleViewCreated} id="createdmeetings-button" className="bg-[#DCD6E4] text-black font-bold py-2 px-4 rounded">Created Meetings</button>
 

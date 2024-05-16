@@ -115,8 +115,7 @@ function Home() {
     return <div>
             <Header onUserLoggedOut={handleLoggedOut} />
 
-            <main className="mb-100px flex flex-col items-center min-h-screen px-[1vw] bg-[#249D8C]">
-                    <h1 className='text-[#249D8C] text-center font-bold mt-20'></h1>
+            <main className="pt-[70px] pb-[80px] max-w-screen-lg bg-[#249D8C]">
 
                 <Routes>
                     <Route path="/" element={<MeetingsList

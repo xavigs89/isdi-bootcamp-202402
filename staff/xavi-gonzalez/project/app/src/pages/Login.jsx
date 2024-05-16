@@ -40,14 +40,15 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
 
     logger.debug('Login -> render')
 
-    return <main className="flex flex-col justify-center items-center h-screen bg-[#F4C84B]">
+    return <main className="flex justify-center items-center h-screen bg-[#F4C84B]">
 
         <div>
             <div className="flex justify-center items-center">
-                <img className="w-[190px] mt-2" src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
+                <img className="w-[150px] absolute top-[120px]" src="../../public/icons/Logo JiveHub.png" alt="LOGO" />
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col items-center mt-8">
+            <form onSubmit={handleSubmit} 
+            className="flex flex-col items-center mt-10">
                 <div className="flex flex-col mb-4">
                     <label htmlFor="email" className="text-black font-semibold mb-1">Email</label>
                     <input id="email" className="rounded-lg px-2 py-2" />
@@ -62,7 +63,7 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
             </form>
 
         </div>
-        <div className="fixed bottom-14 items-center">
+        <div className="fixed bottom-[140px] items-center">
             <p className="font-bold text-black">Don't have an account?<a href="" onClick={handleRegisterClick} className="text-[#249D8C] mt-2"> Register</a></p>
         </div>
 

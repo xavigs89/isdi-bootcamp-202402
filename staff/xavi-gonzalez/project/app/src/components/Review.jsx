@@ -22,7 +22,7 @@ function Review({ review }) {
             <p className="text-left font-semibold mbp text-xs">
                 {review.author.name}</p>
 
-            <p className="text-2xl text-left font-semibold mb-2">{review.rate}</p>
+                <StarRating value={review.rate} />
 
             <p><strong>Comment: </strong>{review.comment}</p>
 

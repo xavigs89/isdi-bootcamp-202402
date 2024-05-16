@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function Footer({ user, handleCreateMeetingClick }) {
 
     return (
-        <footer className="fixed bottom-0 w-full h-[50px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-1">
+        <footer className="fixed bottom-0 w-full h-[60px] flex justify-between space-x-4 items-center bg-[#F4C84B] p-1">
 
             <button className="w-10 h-10 rounded-full ml-2"><img src="../../public/icons/TablerSearch.png" alt="search" /></button>
 
