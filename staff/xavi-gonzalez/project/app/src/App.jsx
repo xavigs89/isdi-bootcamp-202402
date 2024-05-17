@@ -68,8 +68,6 @@ function App() {
     setConfirm(null)
   }
 
-  // const handleMeetingToEdit = (meetingId) => setMeetingToEdit(meetingId)
-
   logger.debug('App -> render')
 
   return <>
@@ -99,6 +97,3 @@ function App() {
 }
 
 export default App
-
-
-{/* <Route path="/createMeeting" element={<CreateMeeting />} /> */ }

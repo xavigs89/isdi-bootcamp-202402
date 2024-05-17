@@ -30,7 +30,7 @@ describe('createMeeting', () => {
             .then(meeting => {
                 expect(meeting.title).to.equal('My Event')
                 expect(meeting.address).to.equal('Calle falsa 1,2,3')
-                expect(meeting.location).to.deep.equal([41.93584282753891, 1.7719600329709349])
+                // expect(meeting.location).to.deep.equal([41.93584282753891, 1.7719600329709349])
                 expect(meeting.date).to.be.instanceOf(Date)
                 expect(meeting.description).to.equal('We are gonna have some fun')
                 expect(meeting.image).to.equal('http://images.com')

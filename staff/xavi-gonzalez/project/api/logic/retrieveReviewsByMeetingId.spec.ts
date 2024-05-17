@@ -31,9 +31,24 @@ describe('retrieveReviewsByMeetingId', () => {
             ]))
             .then(([user1, user2]) =>
                 Promise.all([
-                    Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com' }),
-                    Meeting.create({ author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com' }),
-                    Meeting.create({ author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com' })
+                    Meeting.create({
+                        author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                            type: 'Point',
+                            coordinates: [41.27443363157467, 1.9994984529610935]
+                        }, date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com'
+                    }),
+                    Meeting.create({
+                        author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                            type: 'Point',
+                            coordinates: [41.27443363157467, 1.9994984529610935]
+                        }, date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com'
+                    }),
+                    Meeting.create({
+                        author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                            type: 'Point',
+                            coordinates: [41.27443363157467, 1.9994984529610935]
+                        }, date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com'
+                    })
                 ])
                     .then(([meeting1, meeting2, meeting3]) =>
                         Promise.all([
@@ -70,9 +85,24 @@ describe('retrieveReviewsByMeetingId', () => {
             ]))
             .then(([user1, user2]) =>
                 Promise.all([
-                    Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com' }),
-                    Meeting.create({ author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com' }),
-                    Meeting.create({ author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com' })
+                    Meeting.create({
+                        author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                            type: 'Point',
+                            coordinates: [41.27443363157467, 1.9994984529610935]
+                        }, date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com'
+                    }),
+                    Meeting.create({
+                        author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                            type: 'Point',
+                            coordinates: [41.27443363157467, 1.9994984529610935]
+                        }, date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com'
+                    }),
+                    Meeting.create({
+                        author: user2.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                            type: 'Point',
+                            coordinates: [41.27443363157467, 1.9994984529610935]
+                        }, date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com'
+                    })
                 ])
                     .then(([meeting1, meeting2, meeting3]) =>
                         Promise.all([

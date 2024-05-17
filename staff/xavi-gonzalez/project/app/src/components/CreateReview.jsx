@@ -42,20 +42,18 @@ function CreateReview({ user, meeting, onReviewCreated, onCancelClick }) {
 
     return <section className="h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 py-8 px-4 border-rounded xl">
 
-        <div className='border p-4 rounded-xl bg-[#249D8C] transition-opacity duration-500 opacity-100'>
+        <div className='w-[90%] flex flex-col border p-4 rounded-xl bg-[#249D8C] transition-opacity duration-500 opacity-100'>
             <form onSubmit={handleSubmit} className="flex flex-col items-center" >
-                <label className="text-lg font-semibold text-white" >Rate</label>
-                {/* <input id="comment" name="comment" type="text"/> */}
+                <label className="text-center font-semibold text-black" >Rate</label>
                 <StarRating value={rate} setRate={setRate} />
 
-                <label className="text-lg font-semibold text-white" >Comment</label>
-                <input id="comment" name="comment" type="text" placeholder="(Optional)"  />
+                <label className="text-center font-semibold text-black" >Comment</label>
+                <input className="w-full h-[30px] rounded-md text-center" id="comment" name="comment" type="text" placeholder="(Optional)"  />
 
                 <SubmitButton type="submit" className="font-semibold py-2 px-4 rounded w-full mt-4" >Create Review</SubmitButton>
 
-                <CancelButton onClick={handleCancelClick} />
-
             </form>
+            <CancelButton onClick={handleCancelClick} />
         </div>
 
     </section>

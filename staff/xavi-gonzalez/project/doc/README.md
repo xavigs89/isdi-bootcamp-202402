@@ -16,8 +16,9 @@ JiveHub is a platform that connects people with common interests and enables the
 - join meeting
 - unjoin meeting
 - view attendee list
-- user profile (contact, see created meetings, see joined meetings)
+- user profile (contact info, see created meetings, see joined meetings)
 - rate meeting (once it's over, from 1 to 5 stars, optional comment)
+- show meeting reviews
 
 
 v0.1
@@ -29,7 +30,7 @@ v0.1
 
 ### UI Design
 
-[Figma](https://www.figma.com/file/XTR8uUQ17vydGpiclzZRFf/Clase?type=design&node-id=83-106&mode=design&t=VdjzqsMXVZJ0SaqV-0)
+[Figma](https://www.figma.com/file/XTR8uUQ17vydGpiclzZRFf/FinalProject?type=design&node-id=83-106&mode=design&t=VdjzqsMXVZJ0SaqV-0)
 
 ## Technical Description
 

@@ -26,7 +26,10 @@ describe('removeMeeting', () => {
                     .then(() =>
                         User.create({ name: 'Paquito Chocolatero', email: 'paquito@gmail.com', password: '123qwe123', avatar: null, about: null })
                             .then(user =>
-                                Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user.id] })
+                                Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                                    type: 'Point',
+                                    coordinates: [41.27443363157467, 1.9994984529610935]
+                                }, date: '2024-02-15', description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user.id] })
                                     .then(meeting => {
                                         return logic.removeMeeting(user.id, meeting.id);
                                     })

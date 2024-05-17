@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { validate, errors } from 'com'
-import { User, Meeting } from '../data/index.ts'
+import { User, Meeting, PointType } from '../data/index.ts'
 
 import { ObjectId } from 'mongoose'
 
@@ -26,11 +26,16 @@ function createMeeting(userId: string, title: string, address: string, location:
                 throw new NotFoundError('user not found')
             const formattedDate = new Date(date)
 
+            const formattedPoint: PointType = {
+                type: 'Point',
+                coordinates: location
+            }
+
             const meeting = {
                 author: user._id,
                 title: title.trim(),
                 address: address.trim(),
-                location,
+                location: formattedPoint,
                 date: formattedDate,
                 description: description.trim(),
                 image,

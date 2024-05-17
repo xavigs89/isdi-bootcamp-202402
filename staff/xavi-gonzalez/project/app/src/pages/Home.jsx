@@ -29,7 +29,6 @@ function Home() {
 
     const clearView = () => setView(null)
 
-    //para cargar la información del usuario al cargar el componente
     useEffect(() => {
         try {
             logic.retrieveUser()
@@ -41,7 +40,6 @@ function Home() {
         }
     }, [])
 
-    //CARGAR SOLO MEETINGS FUTUROS
     const loadMeetings = () => {
         logger.debug('MeetingsList -> loadMeetings')
 
@@ -62,33 +60,31 @@ function Home() {
     }, [stamp])
 
 
-    // BOTON PARA CREAR MEETING
     const handleCreateMeetingClick = () => setView('create-meeting')
 
-    // CREAR MEETING CON EXITO
     const handleMeetingCreated = () => {
         clearView()
         setStamp(Date.now())
     }
-    // CANCELAR CREAR MEETING
+
     const handleCreateMeetingCancelClick = () =>
         clearView()
 
 
-    // BOTON PARA EDIT MEETING
+
     const handleEditMeetingClick = meeting => {
         setView('edit-meeting')
         setMeeting(meeting)
     }
 
-    // EDITAR MEETING CON EXITO
+
     const handleMeetingEdited = () => {
         clearView()
         setStamp(Date.now())
         setMeeting(null)
     }
 
-    // CANCELAR EDIT MEETING
+
     const handleEditMeetingCancelClick = () =>
         clearView()
 
@@ -108,7 +104,7 @@ function Home() {
     return <div>
             <Header onUserLoggedOut={handleLoggedOut} />
 
-            <main className="pt-[70px] pb-[80px] max-w-screen-lg bg-[#249D8C]">
+            <main className="py-[70px] flex flex-col min-h-screen max-h-full bg-[#249D8C]">
 
                 <Routes>
                     <Route path="/" element={<MeetingsList

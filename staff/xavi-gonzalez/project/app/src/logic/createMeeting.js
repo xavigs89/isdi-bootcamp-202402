@@ -6,15 +6,13 @@ function createMeeting(title,address,location,date,description,image) {
     validate.text(title, 'title')
     validate.text(address, 'address')
     validate.coords(location, 'coords')
-    // validate.number(location[0], 'coord1')
-    // validate.number(location[1], 'coord2')
     validate.date(date, 'date')
     validate.text(description, 'description')
     validate.url(image, 'image')
 
     validate.token(sessionStorage.token)
 
-    const meeting = { title,address,location,date,description,image }
+    const meeting = { title, address, location, date, description, image }
 
     const json = JSON.stringify(meeting)
 

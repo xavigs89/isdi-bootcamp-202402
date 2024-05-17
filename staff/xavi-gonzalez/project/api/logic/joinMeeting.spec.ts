@@ -25,7 +25,10 @@ describe('joinMeeting', () => {
 
                     .then(([user1, user2]) =>
 
-                        Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id] })
+                        Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                            type: 'Point',
+                            coordinates: [41.27443363157467, 1.9994984529610935]
+                        }, date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id] })
                             .then(meeting =>
 
                                 logic.joinMeeting(meeting.id, user2.id)
@@ -52,7 +55,10 @@ describe('joinMeeting', () => {
                 ])
             )
             .then(([user1, user2]) =>
-                Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id, user2.id] })
+                Meeting.create({ author: user1.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                    type: 'Point',
+                    coordinates: [41.27443363157467, 1.9994984529610935]
+                }, date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com', attendees: [user1.id, user2.id] })
                     .then(meeting =>
                         logic.joinMeeting(meeting.id, user2.id)
                             .catch(error => {

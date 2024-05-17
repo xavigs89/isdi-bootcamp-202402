@@ -22,7 +22,7 @@ function retrieveJoinedMeetings(userId: string): Promise<any> {
 
                 .catch(error => { throw new SystemError(error.message) })
                 .then(meetings =>
-                    meetings.map<{ id: string, author: { id: string, name: string }, title: string, address: string, location: [Number, Number], date: Date, description: string, image: string, attendees: [{ id: ObjectId, name: string }] }>(({ _id, author, title, address, location, date, description, image, attendees }) => ({
+                    meetings.map<{ id: string, author: { id: string, name: string }, title: string, address: string, location: [number, number], date: Date, description: string, image: string, attendees: [{ id: ObjectId, name: string }] }>(({ _id, author, title, address, location, date, description, image, attendees }) => ({
                         id: _id.toString(),
                         author: {
                             id: author._id.toString(),
@@ -30,7 +30,11 @@ function retrieveJoinedMeetings(userId: string): Promise<any> {
                         },
                         title,
                         address,
-                        location,
+                        location: {
+                            type: location.type,
+                            latitude: location.coordinates[0],
+                            longitude: location.coordinates[1]
+                        },
                         date,
                         description,
                         image,

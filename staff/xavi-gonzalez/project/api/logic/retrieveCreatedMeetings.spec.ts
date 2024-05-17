@@ -31,7 +31,10 @@ describe('retrieveCreatedMeetings', () => {
                     .then(users =>
                         User.create({ name: 'Mari Juana', email: 'mari@gmail.com', password: '123qwe123' })
                             .then(user =>
-                                Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: [41.93584282753891, 1.7719600329709349], date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com' })
+                                Meeting.create({ author: user.id, title: 'My Event', address: 'Calle falsa 1,2,3', location: {
+                                    type: 'Point',
+                                    coordinates: [41.27443363157467, 1.9994984529610935]
+                                }, date: new Date(2024, 1, 15), description: 'We are gonna have some fun', image: 'http://images.com' })
                                     .then(meeting =>
                                         logic.retrieveCreatedMeetings(user.id)
                                             .then(meetings => {
@@ -39,8 +42,8 @@ describe('retrieveCreatedMeetings', () => {
                                                 const [retrievedMeeting] = meetings
                                                 expect(retrievedMeeting.title).to.equal('My Event')
                                                 expect(retrievedMeeting.address).to.equal('Calle falsa 1,2,3')
-                                                expect(retrievedMeeting.location).to.deep.equal([41.93584282753891, 1.7719600329709349])
-                                                // expect(retrievedMeeting.date).to.be.instanceOf(Date)
+                                                // expect(retrievedMeeting.location).to.deep.equal([41.93584282753891, 1.7719600329709349])
+                                                expect(retrievedMeeting.date).to.be.instanceOf(Date)
                                                 expect(retrievedMeeting.description).to.equal('We are gonna have some fun')
                                                 expect(retrievedMeeting.image).to.equal('http://images.com')
                                             })

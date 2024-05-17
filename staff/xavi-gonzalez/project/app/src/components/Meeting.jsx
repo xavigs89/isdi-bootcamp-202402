@@ -92,6 +92,10 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     logger.debug('Meeting -> render')
 
 
+    const mapUrl = `https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14261.461455979836!2d${meeting.location.longitude}!3d${meeting.location.latitude}!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715701763805!5m2!1ses!2ses`
+
+
+
     return <article className="max-w-sm mx-4 overflow-hidden flex p-1 border rounded-xl shadow-md bg-white mt-4">
 
         <div className="flex flex-col justify-between h-full">
@@ -114,7 +118,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                         <p><strong>Description: </strong>{meeting.description}</p>
 
                         <p className="pb-1 pt-2"><strong>Location: </strong></p>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.556123909626!2d2.1548569!3d41.371064000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715240977554!5m2!1ses!2ses" width="355" height="200" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src={mapUrl} width="355" height="200" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
                     <div>

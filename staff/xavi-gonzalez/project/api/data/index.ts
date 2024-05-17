@@ -39,7 +39,7 @@ type PointType = {
     coordinates: [number, number]
 }
 
-const point = new Schema({
+const point = new Schema<PointType>({
     type: {
         type: String,
         enum: [`Point`],
@@ -57,7 +57,7 @@ type MeetingType = {
     author: ObjectId
     title: string
     address: string
-    location: [Number, Number]
+    location: PointType
     date: Date
     description: string
     image: string
@@ -81,7 +81,7 @@ const meeting = new Schema({
         required: true
     },
     location: {
-        type: [Number, Number],
+        type: point,
         required: true
     },
     date: {

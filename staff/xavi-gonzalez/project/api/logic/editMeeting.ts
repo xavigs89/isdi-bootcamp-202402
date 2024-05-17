@@ -1,5 +1,5 @@
 import { validate, errors } from 'com'
-import { User, Meeting } from '../data/index.ts'
+import { User, Meeting, PointType } from '../data/index.ts'
 import mongoose from 'mongoose'
 
 const { SystemError, NotFoundError } = errors
@@ -20,12 +20,16 @@ function editMeeting(meetingId: string, userId: string, title: string, address: 
         .then(user =>{
             if (!user) throw new NotFoundError('user not found')
 
+
             return Meeting.updateOne({ _id: meetingId, author: userId }, {
 
                 $set: {
                     title,
                     address,
-                    location,
+                    location: {
+                        type: 'Point',
+                        coordinates: location
+                    },
                     date: new Date(date),
                     description,
                     image
