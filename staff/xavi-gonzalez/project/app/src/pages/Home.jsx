@@ -13,6 +13,7 @@ import MeetingsList from '../components/MeetingsList'
 import CreateMeeting from '../components/CreateMeeting'
 import EditMeeting from '../components/EditMeeting'
 import Profile from '../components/Profile'
+import SearchMap from '../components/SearchMap'
 
 function Home() {
 
@@ -102,43 +103,45 @@ function Home() {
     }
 
     return <div>
-            <Header onUserLoggedOut={handleLoggedOut} />
+        <Header onUserLoggedOut={handleLoggedOut} />
 
-            <main className="py-[70px] flex flex-col min-h-screen max-h-full bg-[#249D8C]">
+        <main className="py-[70px] flex flex-col min-h-screen max-h-full bg-[#249D8C]">
 
-                <Routes>
-                    <Route path="/" element={<MeetingsList
-                        meetings={meetings}
-                        stamp={stamp}
-                        setStamp={setStamp}
-                        onEditMeetingClick={handleEditMeetingClick}
-                        onJoinMeetingClick={handleJoinMeetingClick}
-                        onUnjoinMeetingClick={handleUnjoinMeetingClick} />} />
+            <Routes>
+                <Route path="/" element={<MeetingsList
+                    meetings={meetings}
+                    stamp={stamp}
+                    setStamp={setStamp}
+                    onEditMeetingClick={handleEditMeetingClick}
+                    onJoinMeetingClick={handleJoinMeetingClick}
+                    onUnjoinMeetingClick={handleUnjoinMeetingClick} />} />
 
-                    <Route path="/profile" element={<Profile
-                        user={user}
-                        setStamp={setStamp}
-                        onEditMeetingClick={handleEditMeetingClick}
-                        onEditMeetingCancelClick={handleEditMeetingCancelClick}
-                        onMeetingEdited={handleMeetingEdited}
-                    />} />
-                </Routes>
+                <Route path="/profile" element={<Profile
+                    user={user}
+                    setStamp={setStamp}
+                    onEditMeetingClick={handleEditMeetingClick}
+                    onEditMeetingCancelClick={handleEditMeetingCancelClick}
+                    onMeetingEdited={handleMeetingEdited}
+                />} />
 
-                {view === 'create-meeting' && <CreateMeeting
-                    onCancelClick={handleCreateMeetingCancelClick}
-                    onMeetingCreated={handleMeetingCreated} />}
+                <Route path="/maps" element={<SearchMap />} />
+            </Routes>
 
-                {view === 'edit-meeting' && <EditMeeting
-                    meeting={meeting}
-                    onCancelClick={handleEditMeetingCancelClick}
-                    onMeetingEdited={handleMeetingEdited} />}
-            </main>
+            {view === 'create-meeting' && <CreateMeeting
+                onCancelClick={handleCreateMeetingCancelClick}
+                onMeetingCreated={handleMeetingCreated} />}
 
-            <Footer
-                user={user}
-                handleCreateMeetingClick={handleCreateMeetingClick} />
+            {view === 'edit-meeting' && <EditMeeting
+                meeting={meeting}
+                onCancelClick={handleEditMeetingCancelClick}
+                onMeetingEdited={handleMeetingEdited} />}
+        </main>
 
-        </div>
+        <Footer
+            user={user}
+            handleCreateMeetingClick={handleCreateMeetingClick} />
+
+    </div>
 }
 
 export default Home
