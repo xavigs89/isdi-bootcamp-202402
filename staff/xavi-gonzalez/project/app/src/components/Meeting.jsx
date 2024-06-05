@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom'
 
 import logic from '../logic'
 
+// import L from 'leaflet'
+// import 'leaflet/dist/leaflet.css'
+
 import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
 
@@ -30,6 +33,10 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const currentDate = moment()
     const meetingDate = moment(meeting.date)
     const isMeetingDone = meetingDate.isBefore(currentDate)
+
+    const latitude = meeting.location.latitude
+    const longitude = meeting.location.longitude
+
 
     const handleJoinClick = meeting => {
         try {
@@ -94,9 +101,23 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
 
     const mapUrl = `https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14261.461455979836!2d${meeting.location.longitude}!3d${meeting.location.latitude}!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715701763805!5m2!1ses!2ses`
 
+    // useEffect(() => {
+    //     const map = L.map(`map-${meeting.id}`, {
+    //         attributionControl: false,
+    //         zoomControl: false,
+    //     }).setView([latitude, longitude], 13)
+
+    //     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
 
 
-    return <article className="max-w-sm mx-4 overflow-hidden flex p-1 border rounded-xl shadow-md bg-white mt-4">
+    //     L.marker([latitude, longitude])
+    //         .addTo(map)
+    //         .bindPopup(`<b style="font-size: 12px">${meeting.title}</b>`)
+    //         .openPopup();
+    // }, [latitude, longitude, meeting.id, meeting.title, meeting.address])
+
+
+    return <article className="max-w-sm mx-auto overflow-hidden flex p-1 border rounded-xl shadow-md bg-white mt-4">
 
         <div className="flex flex-col justify-between h-full">
             <div className="p-2">

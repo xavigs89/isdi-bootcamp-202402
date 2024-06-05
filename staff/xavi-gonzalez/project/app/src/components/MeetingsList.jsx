@@ -3,6 +3,9 @@ import { useContext } from '../context'
 
 import Meeting from './Meeting'
 
+// import L from 'leaflet'
+// import 'leaflet/dist/leaflet.css'
+
 function MeetingsList({ meetings, review, onEditMeetingClick, onJoinMeetingClick, onUnjoinMeetingClick, onReviewClick }) {
 
     logger.debug('MeetingList -> render')

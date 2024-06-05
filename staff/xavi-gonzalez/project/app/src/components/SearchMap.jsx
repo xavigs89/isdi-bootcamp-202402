@@ -1,7 +1,7 @@
 import { logger } from '../utils'
 import logic from '../logic'
-import Header from '../components/Header'
-import Footer from './Footer'
+// import Header from '../components/Header'
+// import Footer from './Footer'
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 
@@ -13,7 +13,7 @@ import { useContext } from '../context'
 function SearchMap() {
 
     const { showFeedback, showConfirm } = useContext()
-    const [matches, setMatches] = useState([])
+    const [meetings, setMeetings] = useState([])
     const [map, setMap] = useState(null)
 
 
@@ -41,13 +41,13 @@ function SearchMap() {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map)
 
-        map.locate({ setView: true, maxZoom: 16 })
+        map.locate({ setView: true, maxZoom: 14 })
 
         map.on('locationfound', (e) => {
             const radius = e.accuracy / 2
 
             const marker = L.marker(e.latlng).addTo(map)
-                .bindPopup(`you are here`)
+                .bindPopup(`You are here!`)
 
             L.circle(e.latlng, { radius }).addTo(map)
 
