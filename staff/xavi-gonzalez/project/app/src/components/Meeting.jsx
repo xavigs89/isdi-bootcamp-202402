@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 
 import logic from '../logic'
 
-// import L from 'leaflet'
-// import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
@@ -139,6 +139,8 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                         <p><strong>Description: </strong>{meeting.description}</p>
 
                         <p className="pb-1 pt-2"><strong>Location: </strong></p>
+                        {/* <div id={`map-${meeting.id}`} style={{ height: '150px', width: '150px', border: '1px solid', zIndex: '0' }}></div> */}
+
                         <iframe src={mapUrl} width="355" height="200" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 

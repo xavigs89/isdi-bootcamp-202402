@@ -5,8 +5,8 @@ import logic from '../logic'
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 
-// import L from 'leaflet'
-// import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 import { useContext } from '../context'
 
