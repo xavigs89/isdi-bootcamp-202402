@@ -23,11 +23,13 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     const [joined, setJoined] = useState(false)
     const [reviews, setReviews] = useState([])
 
-    const [showImage, setShowImage] = useState(true)
+    const [showInfo, setShowInfo] = useState(true)
 
-    const toggleImageVisibility = () => {
-        setShowImage(!showImage)
+    const toggleInfoVisibility = () => {
+        setShowInfo(!showInfo)
     }
+
+
 
     const currentDate = moment()
     const meetingDate = moment(meeting.date)
@@ -111,7 +113,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
 
 
             {view === 'close' &&
-                <button onClick={() => { setView('open'); toggleImageVisibility(); }} className="flex justify-center pl-2 mt-6 w-8 h-8"><img src="../../public/icons/MdiArrowDownCircle.png" alt="" /></button>}
+                <button onClick={() => { setView('open'); toggleInfoVisibility(); }} className="flex justify-center pl-2 mt-6 w-8 h-8"><img src="../../public/icons/MdiArrowDownCircle.png" alt="" /></button>}
 
             {view === 'open' &&
                 <div className='p-2'>
@@ -162,16 +164,16 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                     />}
 
                     <div className="flex justify-center">
-                        <button onClick={() => { setView('close'); toggleImageVisibility(); }} className="p-2 w-10 h-10"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
+                        <button onClick={() => { setView('close'); toggleInfoVisibility(); }} className="p-2 w-10 h-10"><img src="../../public/icons/MdiArrowUpCircle.png" alt="" /> </button>
                     </div>
                 </div>
             }
         </div>
 
-        <div >
-            {showImage && <img className="w-[206px] h-[160px] flex object-cover justify-end px-2 pt-4" src={meeting.image} alt="meeting image" />}
+        <div>
+            {showInfo && <img className="w-[206px] h-[160px] flex object-cover justify-end px-2 pt-4" src={meeting.image} alt="meeting image" />}
 
-            {logic.getLoggedInUserId().userId === meeting.author.id && (
+            {showInfo && logic.getLoggedInUserId().userId === meeting.author.id && (
                 <div className="flex justify-end flex-row items-end mt-6 pr-2">
                     <button onClick={() => handleEditClick(meeting)} className="w-5 h-5  "><img src="../../public/icons/VsEditPage.png" alt="edit" /></button>
                     <button onClick={() => handleDeleteClick(meeting.id)} className="ml-2 w-5 h-5"><img src="../../public/icons/BiTrash3.png" alt="delete" /></button>
