@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react'
+import { useContext } from '../context'
+import { Link } from 'react-router-dom'
 import { logger } from '../utils'
 
-import { Link } from 'react-router-dom'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+// import L from 'leaflet'
+
+import moment from 'moment'
 
 import logic from '../logic'
 
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
-
-import { useContext } from '../context'
 import getLoggedInUserId from '../logic/getLoggedInUserId'
-
-import moment from 'moment'
 import ReviewsList from './ReviewsList'
 
 function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDeleted, onReviewClick }) {
 
-    const [userReviewed, setUserReviewed] = useState(false)
-
+    // const [userReviewed, setUserReviewed] = useState(false)
     const { showFeedback, showConfirm, setStamp } = useContext()
 
     const [view, setView] = useState('close')
@@ -87,8 +86,7 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                 setReviews(reviews)
             })
             .catch(error => {
-                // Show feedback for any error
-                showFeedback(error, 'error');
+                showFeedback(error, 'error')
             })
     }
     useEffect(() => {
@@ -97,24 +95,6 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
     }, [meeting])
 
     logger.debug('Meeting -> render')
-
-
-    const mapUrl = `https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14261.461455979836!2d${meeting.location.longitude}!3d${meeting.location.latitude}!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715701763805!5m2!1ses!2ses`
-
-    // useEffect(() => {
-    //     const map = L.map(`map-${meeting.id}`, {
-    //         attributionControl: false,
-    //         zoomControl: false,
-    //     }).setView([latitude, longitude], 13)
-
-    //     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
-
-
-    //     L.marker([latitude, longitude])
-    //         .addTo(map)
-    //         .bindPopup(`<b style="font-size: 12px">${meeting.title}</b>`)
-    //         .openPopup();
-    // }, [latitude, longitude, meeting.id, meeting.title, meeting.address])
 
 
     return <article className="max-w-sm mx-auto overflow-hidden flex p-1 border rounded-xl shadow-md bg-white mt-4">
@@ -139,16 +119,23 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                         <p><strong>Description: </strong>{meeting.description}</p>
 
                         <p className="pb-1 pt-2"><strong>Location: </strong></p>
-                        {/* <div id={`map-${meeting.id}`} style={{ height: '150px', width: '150px', border: '1px solid', zIndex: '0' }}></div> */}
 
-                        <iframe src={mapUrl} width="355" height="200" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <div className="rounded-xl overflow-hidden">
+                            <MapContainer center={[latitude, longitude]} zoom={16} style={{ height: "200px", width: "100%" }}>
+                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                                <Marker position={[latitude, longitude]}>
+                                    <Popup>
+                                        <p><strong>{meeting.title}</strong></p>
+                                    </Popup>
+                                </Marker>
+                            </MapContainer>
+                        </div>
                     </div>
 
                     <div>
                         <p className="pt-2"><strong>Attendees: </strong></p>
                         <ul>{meeting.attendees.join(', ')}</ul>
                     </div>
-
 
                     <div className="flex jutify-center mb-4 ">
                         <button className="mt-2 font-bold mr-4" onClick={() => handleJoinClick(meeting.id)}>
@@ -170,7 +157,8 @@ function Meeting({ meeting, onJoinClick, unjoinClick, onEditClick, onMeetingDele
                         </div>
                     )}
 
-                    {reviews.length > 0 && <ReviewsList reviews={reviews}
+                    {reviews.length > 0 && <ReviewsList
+                        reviews={reviews}
                     />}
 
                     <div className="flex justify-center">

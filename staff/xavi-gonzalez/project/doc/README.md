@@ -24,7 +24,7 @@ JiveHub is a platform that connects people with common interests and enables the
 v0.1
 - chat with event owner and people that joined that event
 - change password, email, avatar, profile picture
-- search for meetings (by location, date)
+- search for meetings (by location) OK
 - see user profile (see user's meeting and reviews.)
 
 

@@ -1,22 +1,19 @@
-import { logger } from '../utils'
-import logic from '../logic'
-// import Header from '../components/Header'
-// import Footer from './Footer'
 import React, { useEffect, useState } from 'react'
+import { useContext } from '../context'
+import { logger } from '../utils'
+
+import logic from '../logic'
+
 import moment from 'moment'
 
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-import { useContext } from '../context'
-
 function SearchMap() {
 
-    const { showFeedback, showConfirm } = useContext()
+    const { showFeedback } = useContext()
     const [meetings, setMeetings] = useState([])
     const [map, setMap] = useState(null)
-
-
 
     const loadMeetings = () => {
         logger.debug('MeetingsList -> loadMeetings')
@@ -60,6 +57,7 @@ function SearchMap() {
         setMap(map)
 
     }, [])
+    
 
     useEffect(() => {
         if (meetings.length === 0 || !map) return
